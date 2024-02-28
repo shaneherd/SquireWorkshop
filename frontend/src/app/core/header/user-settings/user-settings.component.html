@@ -1,0 +1,36 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="user-settings">
+  <h2>{{ 'UserSettings.UserSettings' | translate }}</h2>
+  <div class="form-group user-setting">
+    <label class="user-settings-label user-setting-content">{{ 'UserSettings.AllowAdminAccess' | translate }}</label>
+    <mat-checkbox class="user-setting-content" [(ngModel)]="userSettings.allowAdminAccess" [checked]="userSettings.allowAdminAccess"></mat-checkbox>
+
+    <mat-icon matTooltip="{{ 'Tooltips.AdminAccess' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+
+  <div class="form-group user-setting">
+    <label class="user-settings-label user-setting-content">{{ 'UserSettings.Subscribe' | translate }}</label>
+    <mat-checkbox class="user-setting-content" [(ngModel)]="userSettings.subscribed" [checked]="userSettings.subscribed"></mat-checkbox>
+  </div>
+
+  <div>
+    <button [disabled]="loading" class="squire-button btn btn-primary" (click)="updateSettings()">{{ 'Save' | translate }}</button>
+    <a [routerLink]="['/']" class="btn btn-link">{{ 'Cancel' | translate }}</a>
+  </div>
+
+  <br>
+  <h2>{{ 'Auth.AccountManagement.DangerZone'| translate }}</h2>
+
+  <div>
+    <button [disabled]="loading" class="squire-button btn danger-button" (click)="restoreDefaults()">{{ 'Auth.AccountManagement.RestoreDefaults' | translate }}</button>
+  </div>
+  <br>
+
+  <div>
+    <button [disabled]="loading" class="squire-button btn danger-button" (click)="deleteUser()">{{ 'Auth.AccountManagement.DeleteAccount' | translate }}</button>
+  </div>
+
+</div>

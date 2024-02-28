@@ -1,0 +1,10 @@
+<div class="menu-item center-content"
+     [ngClass]="{
+        'selected': menuItem.selected,
+        'disabled': menuItem.disabled
+     }">
+  <i *ngIf="menuItem.icon.length > 0" [class]="menuItem.icon"></i>
+  <span>
+    {{menuItem.name}}
+  </span>
+</div>

@@ -1,0 +1,28 @@
+<label *ngIf="showLabel">{{ 'Labels.Damages' | translate }}</label>
+
+<div *ngIf="damageConfigurations.length === 0" class="no-items-label">
+  {{ 'NoDamages' | translate }}
+</div>
+<div *ngFor="let config of damageConfigurations; let i = index;" class="damages">
+  <app-damage-configuration-display [config]="config"
+                                    [editing]="editing"
+                                    [disabled]="disabled || configuringDamage != null"
+                                    [first]="i === 0"
+                                    (delete)="deleteDamage($event)"
+                                    (configure)="configureDamage($event)">
+  </app-damage-configuration-display>
+</div>
+
+<div class="add-damages-container">
+  <button *ngIf="editing" type="button" (click)="addDamage()"
+          class="squire-button btn btn-danger add-damage"
+          [ngClass]="{'disabled': disabled || configuringDamage != null}">
+    {{ 'Navigation.Manage.Damages.Add' | translate }}
+  </button>
+</div>
+
+<app-damage-configuration *ngIf="configuringDamage != null && editing"
+                          [damageConfiguration]="configuringDamage"
+                          (close)="damageConfigurationClose()"
+                          (continue)="damageConfigurationContinue($event)">
+</app-damage-configuration>

@@ -1,0 +1,8 @@
+<button mat-menu-item
+        class="no-focus button-action"
+        [ngClass]="{'selected': action.selected}"
+        (click)="buttonClick()"
+        [disabled]="action.disabled || disabled">
+  <i *ngIf="action.icon != null && action.icon !== ''" [class]="action.icon + ' button-action-icon'"></i>
+  {{action.label}}
+</button>

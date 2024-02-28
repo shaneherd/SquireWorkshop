@@ -1,0 +1,7 @@
+<div class="form-group">
+  <app-setting [checked]="settings.skills.displayPassive"
+               label="{{ 'CharacterSettings.Skills.DisplayPassive' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Skills.DisplayPassive' | translate }}"
+               (change)="displayPassive($event)">
+  </app-setting>
+</div>

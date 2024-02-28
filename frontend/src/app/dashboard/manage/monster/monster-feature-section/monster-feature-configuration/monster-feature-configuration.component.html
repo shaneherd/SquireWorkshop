@@ -1,0 +1,116 @@
+<app-details [headerName]="headerName"
+             [fixed]="true"
+             [loading]="loading"
+             (close)="closeClick()"
+             (primary)="primaryClick()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             [primaryDisabled]="!feature.author"
+             (secondary)="secondaryClick()"
+             (tertiary)="tertiaryClick()"
+             primaryLabel="{{ editing ? ('Save' | translate) : ('Edit' | translate) }}"
+             tertiaryLabel="{{ editing ? (deletable ? ('Delete' | translate) : '') : ( 'Duplicate' | translate)}}"
+             secondaryLabel="{{ editing ? ('Cancel' | translate) : ('Close' | translate) }}">
+  <div class="details feature-configuration">
+    <div class="content-data-full-height page-content">
+      <div *ngIf="step === 0">
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input [(ngModel)]="feature.name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || (feature?.id !== '0' && feature.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing" class="info-description">{{feature.description}}</span>
+          <textarea [(ngModel)]="feature.description" *ngIf="editing" class="form-control info-description" maxlength="4000"> </textarea>
+        </div>
+      </div>
+
+      <div *ngIf="step === 1" class="on-dark">
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.LimitedUse' | translate }}</label>
+          <mat-checkbox
+            class="on-dark"
+            (change)="limitedUseChange($event)"
+            [disabled]="!editing"
+            [checked]="limitedUse">
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="!editing && (!limitedUse || feature.limitedUse == null)" class="no-items-label">
+          {{ 'None' | translate }}
+        </div>
+
+        <div *ngIf="limitedUse" class="form-group limited-use-container">
+          <mat-button-toggle-group
+            [ngModel]="selectedLimitedUseCategory"
+            [ngModelOptions]="{standalone: true}"
+            [disabled]="!editing"
+            (change)="changeLimitedUse($event.value)">
+            <mat-button-toggle *ngFor="let category of limitedUseCategories"
+                               [value]="category">
+              {{ 'LimitedUseType.' + category | translate }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div *ngIf="limitedUse">
+          <div class="form-group" *ngIf="feature.limitedUse != null">
+            <label>{{ 'Labels.MaxUses' | translate }}</label>
+            <app-single-limited-use-row [limitedUse]="feature.limitedUse"
+                                        [abilities]="abilities"
+                                        [deletable]="false"
+                                        [showLevel]="false"
+                                        [editing]="editing"
+                                        [disabled]="configuring || configuringLimitedUse != null || isRecharge"
+                                        (configure)="configureLimitedUse($event)">
+            </app-single-limited-use-row>
+          </div>
+
+          <ng-container *ngIf="isRecharge">
+            <div class="form-group recharge-range">
+              <label>{{ 'Labels.Min' | translate }}</label>
+              <span *ngIf="!editing">{{feature.rechargeMin}}</span>
+              <input type="number" class="form-control"
+                     *ngIf="editing"
+                     min="1" max="100"
+                     appInputNumber minValue="1" maxValue="100"
+                     [ngModel]="feature.rechargeMin"
+                     (valueChange)="rechargeMinChange($event)"/>
+            </div>
+
+            <div class="form-group recharge-range">
+              <label>{{ 'Labels.Max' | translate }}</label>
+              <span *ngIf="!editing">{{feature.rechargeMax}}</span>
+              <input type="number" class="form-control"
+                     *ngIf="editing"
+                     [min]="feature.rechargeMin" max="100"
+                     appInputNumber [minValue]="feature.rechargeMin" maxValue="100"
+                     [ngModel]="feature.rechargeMax"
+                     (valueChange)="rechargeMaxChange($event)"/>
+            </div>
+          </ng-container>
+
+          <app-limited-use-configuration *ngIf="configuringLimitedUse != null"
+                                         [limitedUse]="configuringLimitedUse"
+                                         [editing]="editing"
+                                         [showLevel]="false"
+                                         [disabled]="configuring"
+                                         (close)="limitedUseConfigurationClose()"
+                                         (continue)="limitedUseConfigurationContinue($event)">
+          </app-limited-use-configuration>
+        </div>
+      </div>
+    </div>
+
+    <div class="pager">
+      <app-pager [pageCount]="2"
+                 [index]="step"
+                 (pageChange)="setStep($event)">
+      </app-pager>
+    </div>
+  </div>
+</app-details>
+
+

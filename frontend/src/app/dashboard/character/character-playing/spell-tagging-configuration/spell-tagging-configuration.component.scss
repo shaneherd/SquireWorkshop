@@ -1,0 +1,21 @@
+input {
+  margin: 0 10px;
+}
+
+.tag-header {
+  padding: 0 24px 0 12px;
+}
+
+.mat-expansion-indicator::after {
+  color: #ffffff !important;
+}
+
+.spell {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+
+  .spell-card {
+    flex-grow: 1;
+  }
+}

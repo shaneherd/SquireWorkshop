@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+
+@mixin menu-item-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $disabled: #555555;
+
+  .menu-item {
+    background-color: #303030;
+
+    &:hover {
+      background-color: mat-color($primary);
+    }
+
+    &.selected {
+      background-color: mat-color($primary);
+    }
+
+    &.disabled {
+      background-color: $disabled;
+
+      &:hover {
+        background-color: $disabled;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.menu-item {
+  cursor: pointer;
+  color: #ffffff;
+  height: 35px;
+  border-bottom: 1px solid #444444;
+  padding: 0 5px;
+
+  span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}

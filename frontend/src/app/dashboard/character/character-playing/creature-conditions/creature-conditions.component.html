@@ -1,0 +1,30 @@
+<div class="form-group">
+  <mat-card *ngFor="let condition of creature.conditions"
+            class="clickable"
+            (click)="conditionClick(condition)">
+    <div class="verticle-bar" [ngClass]="{
+      'active': isActive(condition)
+    }"></div>
+    <span>{{condition.name}}</span>
+    <div class="tags-container" >
+      <span class="tag" *ngIf="isImmune(condition)">{{ 'Immune' | translate }}</span>
+    </div>
+  </mat-card>
+</div>
+
+<app-condition-details-slide-in *ngIf="currentCondition != null"
+                                [condition]="currentCondition"
+                                [creature]="creature"
+                                (save)="conditionDetailsClose()"
+                                (close)="conditionDetailsClose()">
+</app-condition-details-slide-in>
+
+<app-filtering-sorting [clickDisabled]="false"
+                       [columnIndex]="columnIndex"
+                       [filterType]="filterType"
+                       [filters]="filters"
+                       (filter)="applyFilters($event)"
+                       [sortType]="sortType"
+                       [sorts]="sorts"
+                       (sort)="applySort($event)">
+</app-filtering-sorting>

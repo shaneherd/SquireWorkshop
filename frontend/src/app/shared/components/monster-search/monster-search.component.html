@@ -1,0 +1,23 @@
+<div class="search-filter-container">
+  <div class="search-row">
+    <mat-form-field class="search-container">
+      <mat-select [(ngModel)]="selectedMonster"
+                  [disabled]="disabled"
+                  (selectionChange)="selectionChange($event.value)">
+        <mat-option>
+          <ngx-mat-select-search placeholderLabel="{{ 'Search' | translate }}"
+                                 noEntriesFoundLabel="{{ 'None' | translate }}"
+                                 [formControl]="monsterFilterFormControl">
+          </ngx-mat-select-search>
+        </mat-option>
+
+        <mat-option *ngFor="let monster of filteredMonsters" [value]="monster">
+          {{monster.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="filter-icon" *ngIf="!disabled">
+      <i class="fas fa-filter" (click)="filter()"></i>
+    </div>
+  </div>
+</div>

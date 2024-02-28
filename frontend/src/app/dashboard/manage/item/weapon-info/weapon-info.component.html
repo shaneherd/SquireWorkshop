@@ -1,0 +1,155 @@
+<!--simple/martial-->
+<label>{{ 'Labels.Type' | translate }}</label>
+<span *ngIf="!editing">{{selectedWeaponType?.name}} {{ 'WeaponRangeType.' + weapon.rangeType | translate }}</span>
+<div *ngIf="editing">
+  <div class="form-group">
+    <mat-button-toggle-group [ngModel]="selectedWeaponType"
+                             (change)="weaponTypeChange($event.value)">
+      <mat-button-toggle *ngFor="let weaponType of weaponTypes"
+                         [value]="weaponType">
+        {{weaponType.name}}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!--melee/ranged-->
+  <div class="form-group">
+    <mat-button-toggle-group [ngModel]="weapon.rangeType"
+                             (change)="rangeTypeChange($event.value)">
+      <mat-button-toggle *ngFor="let rangeType of rangeTypes"
+                         [value]="rangeType">
+        {{ 'WeaponRangeType.' + rangeType | translate }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+
+<!--range-->
+<div *ngIf="isRanged()" class="form-group range">
+  <label>{{ 'Labels.Range' | translate }}</label>
+  <span *ngIf="!editing">{{weapon.normalRange}} {{ 'ft' | translate }} / {{weapon.longRange}} {{ 'ft' | translate }}</span>
+  <div *ngIf="editing">
+    <input type="number" class="form-control"
+           min="0" max="999"
+           appInputNumber minValue="0" maxValue="999"
+           [ngModel]="weapon.normalRange"
+           (valueChange)="normalRangeChange($event)"/>
+    <span>{{ 'ft' | translate }}</span>
+    <span>/</span>
+    <input type="number" class="form-control"
+           min="0" max="999"
+           appInputNumber minValue="0" maxValue="999"
+           [ngModel]="weapon.longRange"
+           (valueChange)="longRangeChange($event)"/>
+    <span>{{ 'ft' | translate }}</span>
+  </div>
+</div>
+
+<!--attack mod-->
+<div class="form-group attack-mod">
+  <label>{{ 'Labels.Attack' | translate }}</label>
+  <span *ngIf="!editing && weapon.attackMod > 0">1d20 +{{weapon.attackMod}}</span>
+  <span *ngIf="!editing && weapon.attackMod === 0">1d20</span>
+  <div *ngIf="editing">
+    <span>1d20 + </span>
+    <input type="number" class="form-control"
+           min="0" max="99"
+           appInputNumber minValue="0" maxValue="99"
+           [ngModel]="weapon.attackMod"
+           (valueChange)="attackModChange($event)"/>
+  </div>
+</div>
+
+<!--damages-->
+<div class="form-group">
+  <app-damage-configuration-section [damageConfigurations]="damageCollection.damageConfigurations"
+                                    [editing]="editing">
+  </app-damage-configuration-section>
+</div>
+
+<!--properties-->
+<div class="form-group" *ngIf="!editing">
+  <label>{{ 'Labels.Properties' | translate }}</label>
+  <div class="weapon-property" *ngFor="let property of weapon.properties">
+    <span>{{property.name}}</span>
+
+    <span *ngIf="property.sid === ammoId" class="ammo-selection">
+      <span>{{weapon.ammoType?.name}}</span>
+    </span>
+
+    <div *ngIf="property.sid === versatileId">
+      <app-damage-configuration-section [damageConfigurations]="damageCollection.extraDamageConfigurations"
+                                        [showLabel]="false"
+                                        [editing]="false">
+      </app-damage-configuration-section>
+    </div>
+
+    <div *ngIf="property.sid === thrownId" class="thrown-range">
+      <span>{{weapon.normalRange}} {{ 'ft' | translate }} / {{weapon.longRange}} {{ 'ft' | translate }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group" *ngIf="editing">
+  <label>{{ 'Labels.Properties' | translate }}</label>
+  <div *ngFor="let config of propertyCollection.configurations">
+    <mat-checkbox
+      (change)="propertyConfigChange(config, $event)"
+      [checked]="config.checked">
+    </mat-checkbox>
+    <span>{{config.property.name}}</span>
+
+    <span *ngIf="config.property.sid === ammoId && config.checked" class="ammo-selection">
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedAmmoType"
+                    [ngModelOptions]="{standalone: true}"
+                    (selectionChange)="ammoTypeChange($event.value)">
+          <mat-option *ngFor="let ammoType of ammoTypes" [value]="ammoType">
+            {{ammoType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </span>
+
+    <div *ngIf="config.property.sid === versatileId && config.checked">
+      <app-damage-configuration-section [damageConfigurations]="damageCollection.extraDamageConfigurations"
+                                        [showLabel]="false"
+                                        [editing]="true">
+      </app-damage-configuration-section>
+    </div>
+
+    <div *ngIf="config.property.sid === thrownId && config.checked" class="thrown-range">
+      <div>
+        <input type="number" class="form-control"
+               min="0" max="99"
+               appInputNumber minValue="0" maxValue="99"
+               [ngModel]="weapon.normalRange"
+               (valueChange)="normalRangeChange($event)"/>
+        <span>{{ 'ft' | translate }}</span>
+        <span>/</span>
+        <input type="number" class="form-control"
+               min="0" max="99"
+               appInputNumber minValue="0" maxValue="99"
+               [ngModel]="weapon.longRange"
+               (valueChange)="longRangeChange($event)"/>
+        <span>{{ 'ft' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Cost-->
+<app-cost-configuration [item]="weapon"
+                        [editing]="editing">
+</app-cost-configuration>
+
+<!--Weight-->
+<app-weight-configuration [item]="weapon"
+                          [editing]="editing">
+</app-weight-configuration>
+
+<!--Description-->
+<app-description-configuration [item]="weapon"
+                               [editing]="editing"
+                               [maxLength]="1000">
+</app-description-configuration>

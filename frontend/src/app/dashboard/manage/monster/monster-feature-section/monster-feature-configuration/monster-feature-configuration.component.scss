@@ -1,0 +1,35 @@
+.feature-configuration {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.page-content {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.pager {
+  flex-shrink: 0;
+}
+
+.limited-use-container {
+  margin-left: 20px;
+}
+
+.add-limited-use-container {
+  width: 100%;
+  margin-bottom: 10px;
+
+  .add-limited-use {
+    margin: 0 auto;
+    display:block;
+  }
+}
+
+.recharge-range {
+  input {
+    width: 70px;
+    display: inline;
+  }
+}

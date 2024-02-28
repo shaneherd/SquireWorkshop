@@ -1,0 +1,114 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!casterType.author"
+               [itemName]="itemName"
+               [id]="casterType.id"
+               [inUseService]="attributeService"
+               [showShare]="casterType.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'AttributeType.CASTER_TYPE' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="casterTypeForm"
+        (submit)="save()">
+    <div class="form-group" *ngIf="editing">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <input formControlName="name" class="form-control" maxlength="45"/>
+    </div>
+
+    <div *ngIf="editing">
+      <h3>{{ 'Headers.MultiClass' | translate }}</h3>
+      <div class="multi-class-caster">
+        <div class="form-group no-margin-bottom">
+          <label>{{ 'Labels.CountsAsMultiClassSpellcaster' | translate }}</label>
+          <mat-checkbox class="user-setting-content" formControlName="countsTowardsMultiClass"></mat-checkbox>
+        </div>
+
+        <div *ngIf="casterTypeForm.controls.countsTowardsMultiClass.value">
+          <div class="form-group no-margin-bottom multi-class-weight">
+            <label>{{ 'Labels.MultiClassWeight' | translate }}</label>
+            <span *ngIf="!editing && casterType?.id !== '0'">{{casterType.multiClassWeight}}</span>
+            <input formControlName="multiClassWeight" type="number" *ngIf="editing" class="form-control"
+                   min="1" max="99"
+                   appInputNumber minValue="1" maxValue="99"/>
+          </div>
+
+          <div class="form-group no-margin-bottom">
+            <label>{{ 'Labels.RoundUp' | translate }}</label>
+            <span *ngIf="!editing && casterType?.id !== '0'">{{casterType.roundUp}}</span>
+            <mat-checkbox *ngIf="editing" class="user-setting-content" formControlName="roundUp"></mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (casterType?.id !== '0' && casterType.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && casterType?.id !== '0'" class="info-description">{{casterType.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+
+    <div *ngIf="!editing">
+      <div class="slots-header">
+        <label class="slot-label">{{ 'Headers.Level' | translate }}</label>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 1}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 2}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 3}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 4}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 5}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 6}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 7}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 8}" class="slot-value"></span>
+        <span [translate]="'Headers.Slot'" [translateParams]="{value: 9}" class="slot-value"></span>
+      </div>
+      <div *ngFor="let spellSlots of casterType.spellSlots; let i = index" class="spell-slots-display">
+        <label [translate]="'Labels.Level'"
+               [translateParams]="{level: i + 1}" class="slot-label"></label>
+        <span class="slot-value">{{spellSlots.slot1}}</span>
+        <span class="slot-value">{{spellSlots.slot2}}</span>
+        <span class="slot-value">{{spellSlots.slot3}}</span>
+        <span class="slot-value">{{spellSlots.slot4}}</span>
+        <span class="slot-value">{{spellSlots.slot5}}</span>
+        <span class="slot-value">{{spellSlots.slot6}}</span>
+        <span class="slot-value">{{spellSlots.slot7}}</span>
+        <span class="slot-value">{{spellSlots.slot8}}</span>
+        <span class="slot-value">{{spellSlots.slot9}}</span>
+      </div>
+    </div>
+
+    <div formArrayName="spellSlots"
+         *ngIf="editing"
+         class="caster-type-spell-slots">
+      <h3>{{ 'Headers.SpellSlots' | translate }}</h3>
+      <div [formGroupName]="i"
+           *ngFor="let spellSlots of casterTypeForm.controls.spellSlots.controls; let i = index">
+        <label [translate]="'Labels.Level'"
+               [translateParams]="{level: i + 1}"></label>
+        <div formArrayName="level"
+             class="caster-type-level-row">
+          <div [formGroupName]="j"
+               class="caster-type-level"
+               *ngFor="let slot of spellSlots.controls.level.controls; let j = index">
+            <input [formControlName]="'value'" type="number"
+                   min="0" max="99"
+                   appInputNumber minValue="0" maxValue="99" class="form-control">
+            <label>{{j + 1}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

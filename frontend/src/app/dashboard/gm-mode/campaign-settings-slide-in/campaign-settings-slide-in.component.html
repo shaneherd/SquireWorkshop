@@ -1,0 +1,137 @@
+<app-details headerName="{{ 'Campaign.Settings.Header' | translate }}"
+             [configurable]="false"
+             [loading]="loading"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div class="details">
+    <mat-accordion>
+      <mat-expansion-panel class="on-dark" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Health' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <div class="form-group">
+            <mat-button-toggle-group [ngModel]="settings.health.healthCalculationType"
+                                     (change)="calculationTypeChange($event.value)">
+              <mat-button-toggle *ngFor="let calculationTypeChoice of calculationTypes"
+                                 [value]="calculationTypeChoice">
+                {{ 'HealthCalculationType.' + calculationTypeChoice | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <app-setting [checked]="settings.health.grouped"
+                       label="{{ 'Campaign.Settings.Health.Grouped.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.Health.Grouped.Tooltip' | translate }}"
+                       (change)="groupedHp($event)">
+          </app-setting>
+
+          <app-setting [checked]="settings.health.killMonsters"
+                       label="{{ 'Campaign.Settings.Health.KillMonsters.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.Health.KillMonsters.Tooltip' | translate }}"
+                       (change)="killMonsters($event)">
+          </app-setting>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="on-dark">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Initiative' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <app-setting [checked]="settings.initiative.grouped"
+                       label="{{ 'Campaign.Settings.Initiative.Grouped.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.Initiative.Grouped.Tooltip' | translate }}"
+                       (change)="groupedInitiative($event)">
+          </app-setting>
+
+          <app-setting [checked]="settings.initiative.natural20First"
+                       label="{{ 'Campaign.Settings.Initiative.Natural20GoesFirst.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.Initiative.Natural20GoesFirst.Tooltip' | translate }}"
+                       (change)="natural20First($event)">
+          </app-setting>
+
+          <app-setting [checked]="settings.initiative.hideKilled"
+                       label="{{ 'Campaign.Settings.Initiative.HideKilled.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.Initiative.HideKilled.Tooltip' | translate }}"
+                       (change)="hideKilled($event)">
+          </app-setting>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="on-dark">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Experience' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <div class="form-group">
+            <mat-button-toggle-group [ngModel]="settings.experience.experienceType"
+                                     (change)="expTypeChange($event.value)">
+              <mat-button-toggle *ngFor="let experienceType of expTypes"
+                                 [value]="experienceType">
+                {{ 'ExperienceType.' + experienceType | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <app-setting *ngIf="isExp"
+                       [checked]="settings.experience.useAdjusted"
+                       label="{{ 'Campaign.Settings.Experience.UseAdjusted.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.Experience.UseAdjusted.Tooltip' | translate }}"
+                       (change)="useAdjusted($event)">
+          </app-setting>
+
+          <app-setting *ngIf="isExp"
+                       [checked]="settings.experience.splitEvenly"
+                       label="{{ 'Campaign.Settings.Experience.SplitEvenly.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.Experience.SplitEvenly.Tooltip' | translate }}"
+                       (change)="splitEvenly($event)">
+          </app-setting>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="on-dark">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.SurpriseRound' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <div class="form-group">
+            <mat-button-toggle-group [ngModel]="settings.surpriseRound.groupCheckType"
+                                     (change)="groupCheckTypeChange($event.value)">
+              <mat-button-toggle *ngFor="let groupCheckType of groupTypes"
+                                 [value]="groupCheckType">
+                {{ 'GroupCheckType.' + groupCheckType | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-icon matTooltip="{{ 'Campaign.Settings.SurpriseRound.GroupCheckType.Tooltip' | translate }}" class="help-icon">
+              help
+            </mat-icon>
+          </div>
+
+          <app-setting *ngIf="isGroupCheck"
+                       [checked]="settings.surpriseRound.criticalDoubles"
+                       label="{{ 'Campaign.Settings.SurpriseRound.CriticalDoubles.Label' | translate }}"
+                       tooltip="{{ 'Campaign.Settings.SurpriseRound.CriticalDoubles.Tooltip' | translate }}"
+                       (change)="criticalDoubles($event)">
+          </app-setting>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</app-details>

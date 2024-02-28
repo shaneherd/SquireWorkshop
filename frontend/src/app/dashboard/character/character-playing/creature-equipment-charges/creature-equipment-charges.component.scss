@@ -1,0 +1,23 @@
+.no-limited-uses-container {
+  text-align: center;
+  font-style: italic;
+}
+
+.item {
+  color: #ffffff;
+}
+
+.sub-item {
+  margin-right: 5px;
+}
+
+.charges-remaining {
+  width: 100%;
+  padding-right: 5px;
+
+  mat-slider {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

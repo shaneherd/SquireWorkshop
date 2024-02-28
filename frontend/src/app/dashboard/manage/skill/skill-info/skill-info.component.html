@@ -1,0 +1,53 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!skill.author"
+               [itemName]="itemName"
+               [id]="skill.id"
+               [inUseService]="attributeService"
+               [showShare]="skill.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'AttributeType.SKILL' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="skillForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && skill?.id !== '0'">{{skill.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group">
+      <label for="ability">{{ 'Labels.Ability' | translate }}</label>
+      <span *ngIf="!editing && skill?.id !== '0'">{{skill.ability == null || skill.ability.id === '0' ? noAbility : skill.ability.name}}</span>
+      <div *ngIf="editing">
+        <mat-form-field id="ability" class="">
+          <mat-select [formControl]="skillForm.controls['ability']">
+            <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+              {{ability.id === '0' ? noAbility : ability.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (skill?.id !== '0' && skill.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && skill?.id !== '0'" class="info-description">{{skill.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

@@ -1,0 +1,36 @@
+<app-details [headerName]="magicalItemSpellConfiguration.spell.name"
+             [configurable]="false"
+             (close)="closeDetails()"
+             (primary)="castClick()"
+             [primaryLabel]="castLabel"
+             [primaryDisabled]="useDisabled"
+             [primaryConfirmationMessage]="confirmCast"
+             [primaryCloseOnClick]="false"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             (tertiary)="tertiaryClick()"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryLabel]="tertiaryLabel">
+  <div class="item-details-container">
+    <div class="item-details-section">
+      <app-spell-details *ngIf="viewingSpell != null"
+                         [spellListObject]="magicalItemSpellConfiguration.spell"
+                         [magicalItemSpellConfiguration]="magicalItemSpellConfiguration"
+                         [creatureItem]="creatureItem"
+                         [spell]="viewingSpell"
+                         [detailed]="true"
+                         [creature]="playerCharacter"
+                         [collection]="collection"
+                         [showSlots]="false"
+                         [showCharges]="magicalItem.hasCharges"
+                         (slotChange)="slotChange($event)"
+                         (damageChange)="damageChange($event)"
+                         (modifierChange)="modifierChange($event)"
+                         (chargeChange)="chargeChange($event)">
+      </app-spell-details>
+    </div>
+    <span *ngIf="notInClassList" class="display-section not-in-class-list">{{ 'MagicalItem.Spell.Scroll.NotInClassList' | translate }}</span>
+    <span *ngIf="notAttuned" class="display-section not-in-class-list">{{ 'MagicalItem.Spell.NotAttuned' | translate }}</span>
+    <span *ngIf="notEnoughCharges" class="display-section not-in-class-list">{{ 'MagicalItem.Spell.NotEnoughCharges' | translate }}</span>
+  </div>
+</app-details>

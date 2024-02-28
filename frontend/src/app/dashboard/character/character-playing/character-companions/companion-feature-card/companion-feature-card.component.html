@@ -1,0 +1,17 @@
+<mat-card  [ngClass]="{'clickable': !clickDisabled}"
+           (click)="featureClick()">
+  <div class="verticle-bar" [ngClass]="{
+            'clickable': !clickDisabled,
+            'feature-active': companionFeature.active && highlightActive,
+            'feature-not-active': !companionFeature.active && canActivate && highlightNonActive
+          }"></div>
+
+  <span>{{feature.name}}</span>
+
+  <div class="tags-container">
+    <span *ngIf="companionFeature.calculatedMax > 0" class="tag" [ngClass]="{'no-uses-remaining': companionFeature.usesRemaining === 0}">
+      {{companionFeature.usesRemaining}}/{{companionFeature.calculatedMax}}
+    </span>
+  </div>
+</mat-card>
+

@@ -1,0 +1,9 @@
+<span *ngIf="(alwaysShowQuantity && quantity >= 0) || quantity > 1"
+      class="quantity tag borderless">
+  x{{quantity}}
+</span>
+
+<span *ngIf="alwaysShowQuantity && quantity < 0"
+      class="quantity tag borderless">
+  {{quantity}}
+</span>

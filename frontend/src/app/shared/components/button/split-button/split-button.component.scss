@@ -1,0 +1,41 @@
+@import '../../../../sass/variables';
+
+.group-container {
+  display: flex;
+  flex-direction: row;
+
+  .default-button {
+    flex-grow: 1;
+
+    &.has-menu {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  .menu-toggle {
+    flex-shrink: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+
+    &.btn-primary {
+      border-left-color: $primary_button_font;
+    }
+
+    &.btn-secondary {
+      border-left-color: $secondary_button_font;
+    }
+
+    &.btn-danger {
+      border-left-color: $danger_button_font;
+    }
+
+    &.btn-4 {
+      border-left-color: $button_font_4;
+    }
+
+    &.btn-5 {
+      border-left-color: $button_font_5;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<app-details [listObject]="item.damageType"
+             (close)="closeDetails()"
+             [configurable]="true"
+             (configure)="configure()"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Modifier' | translate }}</label>
+    <span class="tag" [matTooltip]="tooltip">{{ 'DamageModifier.' + damageModifierType | translate }}</span>
+  </div>
+
+  <span class="info-description">{{item.damageType.description}}</span>
+</app-details>
+
+<app-damage-modifier-configuration-details *ngIf="configuring"
+                                           [creature]="creature"
+                                           [item]="item"
+                                           (close)="closeConfiguration()">
+</app-damage-modifier-configuration-details>

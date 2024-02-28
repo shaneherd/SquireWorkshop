@@ -1,0 +1,21 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="col-md-6 col-xs-12 forgot-username">
+  <h2>{{ 'Auth.ForgotUsername' | translate }}</h2>
+  <form [formGroup]="forgotUsernameForm" (submit)="submit()">
+    <div class="form-group">
+      <label for="email">{{ 'Auth.Email' | translate }}</label>
+      <input id="email" formControlName="email" type="email" class="form-control">
+    </div>
+
+    <form [formGroup]="forgotUsernameForm">
+      <re-captcha formControlName="recaptcha"></re-captcha>
+    </form>
+    <br>
+
+    <div class="form-group">
+      <button [disabled]="forgotUsernameForm.invalid || loading" class="squire-button btn btn-primary">{{ 'Submit' | translate }}</button>
+      <a [routerLink]="['/auth/login']" class="btn btn-link">{{ 'Cancel' | translate }}</a>
+    </div>
+  </form>
+</div>

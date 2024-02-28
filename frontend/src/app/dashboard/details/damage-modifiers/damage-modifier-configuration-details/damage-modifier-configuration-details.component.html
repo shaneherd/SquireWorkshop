@@ -1,0 +1,26 @@
+<app-details [listObject]="item.damageType"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Modifier' | translate }}</label>
+    <div class="modifier-selection">
+      <mat-button-toggle-group class="vertical"
+                               [ngModel]="damageModifierType"
+                               [disabled]="disabled"
+                               [vertical]="true"
+                               (change)="changeDamageModifierType($event.value)">
+        <mat-button-toggle *ngFor="let modifier of damageModifierTypes"
+                           [matTooltip]="getTooltip(modifier)"
+                           [value]="modifier">
+          {{ 'DamageModifier.' + modifier | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <span class="info-description">{{item.damageType.description}}</span>
+</app-details>

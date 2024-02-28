@@ -1,0 +1,113 @@
+@import '~@angular/material/theming';
+@import '../../../sass/variables';
+
+@mixin manage-theme($theme) {
+  $primary: map-get($theme, primary);
+}
+
+.action-buttons {
+  padding: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  .action-button {
+    display: table-cell;
+    padding: 5px;
+
+    .share-button {
+      width: 100%;
+    }
+  }
+}
+
+.header-content {
+  flex-shrink: 0;
+}
+
+.action-buttons-container {
+  flex-shrink: 0;
+  margin: auto;
+  width: 100%;
+  padding: 0;
+}
+
+.manage-container-desktop {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.manage-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .manage-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-grow: 1;
+    margin: auto;
+  }
+}
+
+.menu-item-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  .menu-item-box {
+    flex-shrink: 0;
+  }
+
+  .menu-item-card {
+    flex-grow: 1;
+  }
+}
+
+.list-menu {
+  overflow-x: hidden;
+}
+
+.search {
+  padding: 5px 0 5px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #000000;
+  display: flex;
+  align-items: center;
+
+  .select-all {
+    flex-shrink: 0;
+  }
+
+  .search-container {
+    flex-grow: 1;
+  }
+
+  .filter-icon {
+    flex-shrink: 0;
+    width: 18px;
+    margin-left: 10px;
+
+    i {
+      color: #000000;
+
+      &.filter-disabled {
+        color: rgba(0, 0, 0, 0.26);
+
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

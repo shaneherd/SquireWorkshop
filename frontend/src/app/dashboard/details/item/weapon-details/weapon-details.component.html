@@ -1,0 +1,45 @@
+<app-item-type-display [item]="weapon">
+</app-item-type-display>
+
+<app-quantity-display *ngIf="creatureItem != null"
+                      [quantity]="creatureItem.quantity">
+</app-quantity-display>
+
+<app-cost-display [item]="weapon">
+</app-cost-display>
+
+<app-weight-display [creatureItem]="creatureItem"
+                    [item]="weapon">
+</app-weight-display>
+
+<div>
+  <label>{{ 'Labels.Type' | translate }}</label>
+  <span>{{weapon.weaponType?.name}} {{ 'WeaponRangeType.' + weapon.rangeType | translate }}</span>
+  <div *ngIf="ranged" class="range-container">
+    <span>(</span>
+    <span translate="FeetValue"
+          [translateParams]="{feet: weapon.normalRange}"></span>
+    <span class="slash">/</span>
+    <span translate="FeetValue"
+          [translateParams]="{feet: weapon.longRange}"></span>
+    <span>)</span>
+  </div>
+</div>
+
+
+<app-weapon-properties-display [collection]="collection"
+                               [creatureItem]="creatureItem"
+                               [weapon]="weapon"
+                               class="display-section">
+</app-weapon-properties-display>
+
+<app-attack-damage-display [creature]="creature"
+                           [collection]="collection"
+                           [item]="weapon"
+                           [creatureItem]="creatureItem"
+                           class="display-section">
+</app-attack-damage-display>
+
+<app-description-display [item]="weapon"
+                         class="display-section">
+</app-description-display>

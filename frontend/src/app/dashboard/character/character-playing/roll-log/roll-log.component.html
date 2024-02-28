@@ -1,0 +1,38 @@
+<app-details headerName="{{ 'Navigation.Characters.RollLog' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Clear' | translate }}"
+             primaryConfirmationMessage="{{ 'RollLog.ConfirmClear.Message' | translate }}"
+             [primaryDisabled]="rolls.length === 0"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="full-height-component">
+    <div *ngIf="rolls.length === 0" class="no-rolls-container">
+      <span class="no-rolls">{{ 'NoRolls' | translate }}</span>
+    </div>
+    <mat-card *ngFor="let roll of rolls"
+              class="clickable"
+              (click)="rollClick(roll)">
+      <span class="roll-reason">{{roll.reason}}</span>
+      <div *ngIf="roll.rollType.toString() !== 'HEAL'">
+        <span>{{getLabel(roll)}}</span>
+        <span>{{roll.totalResult}}</span>
+        <div class="tags-container">
+          <app-advantage-display [advantage]="roll.advantage" [disadvantage]="roll.disadvantage"></app-advantage-display>
+          <app-critical-display [critical]="roll.critical"></app-critical-display>
+        </div>
+      </div>
+      <div *ngIf="roll.childrenRolls.length > 0">
+        <span>{{getDamageLabel(roll)}}</span>
+        <span>{{roll.childrenRolls[0].totalResult}}</span>
+      </div>
+      <div *ngIf="roll.halfOnMiss">
+        <span *ngIf="roll.rollType.toString() === 'ATTACK'"> {{ 'HalfOnMiss' | translate }}</span>
+        <span *ngIf="roll.rollType.toString() === 'SAVE'"> {{ 'HalfOnSave' | translate }}</span>
+      </div>
+    </mat-card>
+  </div>
+</app-details>
+

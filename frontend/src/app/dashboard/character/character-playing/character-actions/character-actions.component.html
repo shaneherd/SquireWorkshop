@@ -1,0 +1,65 @@
+<div class="form-group">
+  <div *ngFor="let action of playerCharacter.favoriteActions" class="action-row">
+    <div class="action-card">
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="favoriteCardClick(action)">
+        <span>{{action.item.name}}</span>
+        <span *ngIf="action.subItem != null" class="sub-item">
+            ({{action.subItem.name}})
+          </span>
+
+        <div class="tags-container">
+          <span class="tag">{{ 'Action.' + action.action | translate }}</span>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="playerCharacter.favoriteActions.length === 0">
+    <span class="no-favorite-actions">{{ 'NoFavoriteActions' | translate }}</span>
+  </div>
+</div>
+
+<app-actions-slide-in *ngIf="viewingStandard"
+                      actionType="STANDARD"
+                      [playerCharacter]="playerCharacter"
+                      [collection]="collection"
+                      (save)="standardContinue()"
+                      (close)="standardClose()">
+</app-actions-slide-in>
+
+<app-actions-slide-in *ngIf="viewingBonus"
+                      actionType="BONUS"
+                      [playerCharacter]="playerCharacter"
+                      [collection]="collection"
+                      (save)="bonusContinue()"
+                      (close)="bonusClose()">
+</app-actions-slide-in>
+
+<app-actions-slide-in *ngIf="viewingReactions"
+                      actionType="REACTION"
+                      [playerCharacter]="playerCharacter"
+                      [collection]="collection"
+                      (save)="reactionsContinue()"
+                      (close)="reactionsClose()">
+</app-actions-slide-in>
+
+<app-favorite-actions-slide-in *ngIf="viewingFavorites"
+                               [playerCharacter]="playerCharacter"
+                               (save)="favoritesContinue()"
+                               (cancel)="favoritesClose()">
+</app-favorite-actions-slide-in>
+
+<app-action-slide-in *ngIf="viewingAction != null"
+                     [playerCharacter]="playerCharacter"
+                     [collection]="collection"
+                     [creatureAction]="viewingAction"
+                     (continue)="continueAction()"
+                     (cancel)="cancelAction()">
+</app-action-slide-in>
+
+<app-quick-action-settings-slide-in *ngIf="viewingSettings"
+                                    [playerCharacter]="playerCharacter"
+                                    (close)="closeSettings()"
+                                    (continue)="saveSettings()">
+</app-quick-action-settings-slide-in>

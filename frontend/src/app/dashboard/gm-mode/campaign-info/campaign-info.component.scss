@@ -1,0 +1,20 @@
+.campaign-encounter,
+.campaign-character {
+  margin: 0 20px 5px 20px;
+}
+
+.campaign-encounters-header-row,
+.campaign-characters-header-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.campaign-encounters-header-row {
+  margin-top: 10px;
+}
+
+.campaign-characters-header {
+  display: inline;
+  margin: 0 10px 0 0;
+}

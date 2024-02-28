@@ -1,0 +1,191 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!background.author"
+               [duplicateDisabled]="isSubBackground && background.sid !== 0"
+               [itemName]="itemName"
+               [id]="background.id"
+               [inUseService]="characteristicService"
+               [showShare]="background.author && !isSubBackground"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'CharacteristicType.BACKGROUND' | translate }}"
+               [nested]="isSubBackground && !editing"
+               (save)="save()"
+               (close)="close()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="backgroundForm"
+        (submit)="save()">
+    <mat-accordion class="example-headers-align">
+
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.BasicInfo' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input formControlName="name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || (background?.id !== '0' && background.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing && background?.id !== '0'" class="info-description">{{background.description}}</span>
+          <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Traits' | translate }}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <mat-icon matTooltip="{{ 'Tooltips.Traits' | translate }}">
+              help
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-background-trait-list [editing]="editing"
+                                   label="{{ 'Headers.Variations' | translate }}"
+                                   [traits]="traitCollection.variations"
+                                   [backgroundTraitType]="VARIATION"
+                                   [parentTraits]="traitCollection.parentVariations">
+        </app-background-trait-list>
+
+        <app-background-trait-list [editing]="editing"
+                                   label="{{ 'Headers.Personalities' | translate }}"
+                                   [traits]="traitCollection.personalities"
+                                   [backgroundTraitType]="PERSONALITY"
+                                   [parentTraits]="traitCollection.parentPersonalities">
+        </app-background-trait-list>
+
+        <app-background-trait-list [editing]="editing"
+                                   label="{{ 'Headers.Ideals' | translate }}"
+                                   [traits]="traitCollection.ideals"
+                                   [backgroundTraitType]="IDEAL"
+                                   [parentTraits]="traitCollection.parentIdeals">
+        </app-background-trait-list>
+
+        <app-background-trait-list [editing]="editing"
+                                   label="{{ 'Headers.Bonds' | translate }}"
+                                   [traits]="traitCollection.bonds"
+                                   [backgroundTraitType]="BOND"
+                                   [parentTraits]="traitCollection.parentBonds">
+        </app-background-trait-list>
+
+        <app-background-trait-list [editing]="editing"
+                                   label="{{ 'Headers.Flaws' | translate }}"
+                                   [traits]="traitCollection.flaws"
+                                   [backgroundTraitType]="FLAW"
+                                   [parentTraits]="traitCollection.parentFlaws">
+        </app-background-trait-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="starting-equipment">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.StartingEquipment' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <h5>{{ 'Labels.StartingGold' | translate }}</h5>
+        <div class="form-group">
+          <span *ngIf="!editing">{{background.startingGold}} GP</span>
+          <div *ngIf="editing">
+            <input type="number"
+                   class="form-control dice-collection"
+                   max="9999" min="0"
+                   appInputNumber minValue="0" maxValue="99"
+                   [(ngModel)]="background.startingGold"
+                   [ngModelOptions]="{standalone: true}"/>
+            <span>GP</span>
+          </div>
+        </div>
+
+        <h5>{{ 'Labels.StartingEquipment' | translate }}</h5>
+        <app-starting-equipment-configuration-section [editing]="editing"
+                                                      [loading]="loading"
+                                                      [collection]="characteristicConfigurationCollection.startingEquipmentCollection">
+        </app-starting-equipment-configuration-section>
+      </mat-expansion-panel>
+
+      <app-proficiency-panels [editing]="editing"
+                              [loading]="loading"
+                              [proficiencyCollection]="characteristicConfigurationCollection.proficiencyCollection">
+      </app-proficiency-panels>
+
+      <app-spell-configuration [editing]="editing"
+                               [characteristic]="background"
+                               [loading]="loading"
+                               [spellConfigurationCollection]="characteristicConfigurationCollection.spellConfigurationCollection"
+                               (configListUpdated)="handleConfigListUpdated()">
+      </app-spell-configuration>
+
+      <app-damage-modifier-configurations [editing]="editing"
+                                          [loading]="loading"
+                                          [damageModifiers]="background.damageModifiers"
+                                          [inheritedDamageModifiers]="background.parent?.damageModifiers"
+                                          [damageModifierCollection]="characteristicConfigurationCollection.damageModifierCollection">
+      </app-damage-modifier-configurations>
+
+      <app-senses-configuration [editing]="editing"
+                                [loading]="loading"
+                                [senseConfigurationCollection]="characteristicConfigurationCollection.senseConfigurationCollection">
+      </app-senses-configuration>
+
+      <app-condition-immunity-configurations [editing]="editing"
+                                             [loading]="loading"
+                                             [conditionImmunities]="background.conditionImmunities"
+                                             [inheritedConditionImmunities]="background.parent?.conditionImmunities"
+                                             [conditionImmunityConfigurationCollection]="characteristicConfigurationCollection.conditionImmunityConfigurationCollection">
+      </app-condition-immunity-configurations>
+
+      <mat-expansion-panel *ngIf="!isSubBackground">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.SubBackgrounds' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <mat-card *ngFor="let subBackground of background.subBackgrounds"
+                    class="clickable"
+                    [ngClass]="{'disabled': editing}"
+                    (click)="subBackgroundClick(subBackground)">
+            <span>{{subBackground.name}}</span>
+          </mat-card>
+
+          <mat-card class="add-item-card clickable"
+                    *ngIf="!editing && !isPublic && !isShared"
+                    (click)="addSubBackground()">
+            <i class="fas fa-plus add-item-card-icon"></i>
+            <span>{{ 'AddSubBackground' | translate }}</span>
+          </mat-card>
+        </div>
+      </mat-expansion-panel>
+
+      <app-characteristic-features-section *ngIf="!editing && !loading"
+                                           [isPublic]="isPublic"
+                                           [isShared]="isShared"
+                                           [characteristic]="background">
+      </app-characteristic-features-section>
+
+    </mat-accordion>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

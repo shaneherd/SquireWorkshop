@@ -1,0 +1,24 @@
+.result {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.roll-result {
+  margin-left: 20px;
+}
+
+.dialog-header {
+  width: 100%;
+  height: 50px;
+  position: relative;
+}
+
+.details-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,29 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="col-md-6 col-xl-3 col-12 login">
+  <h1>{{ 'Auth.Login.Login' | translate }}</h1>
+  <form [formGroup]="loginForm" (submit)="login()">
+    <div class="form-group">
+      <label for="username">{{ 'Auth.Username' | translate }}</label>
+      <input id="username" autofocus maxlength="20" formControlName="username" name="username" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="password">{{ 'Auth.Password.Password' | translate }}</label>
+      <show-hide-password size="lg" icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+        <input id="password" maxlength="20" formControlName="password" name="password" type="password" class="form-control">
+      </show-hide-password>
+
+    </div>
+
+    <!--<form [formGroup]="loginForm">-->
+      <!--<re-captcha formControlName="recaptcha"></re-captcha>-->
+    <!--</form>-->
+
+    <!--<br>-->
+  <div class="form-group">
+    <button [disabled]="loginForm.invalid || loading" class="squire-button btn btn-primary">{{ 'Auth.Login.Login' | translate }}</button>
+    <a [routerLink]="['/auth/forgotUsername']" class="squire-button btn btn-link">{{ 'Auth.ForgotUsername' | translate }}</a>
+    <a [routerLink]="['/auth/forgotPassword']" class="squire-button btn btn-link">{{ 'Auth.ForgotPassword' | translate }}</a>
+  </div>
+  </form>
+</div>

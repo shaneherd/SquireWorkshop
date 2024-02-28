@@ -1,0 +1,7 @@
+@import '../../../../sass/variables';
+
+.verticle-bar {
+  &.auto-fail {
+    background-color: $skill_with_disadvantage_background;
+  }
+}

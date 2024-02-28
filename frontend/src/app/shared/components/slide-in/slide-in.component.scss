@@ -1,0 +1,83 @@
+@import '../../../sass/variables';
+
+.side-nav-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  z-index: 3;
+  background: transparent;
+
+  &.fixed {
+    position: fixed;
+    top: 54px;
+  }
+
+  &.mobile {
+    bottom: 20px;
+
+    .slide-in-container {
+      width: 100%;
+
+      .slide-in-content.large {
+        max-width: initial;
+      }
+    }
+  }
+}
+
+.slide-in-container {
+  background-color: $list_background;
+  border-left: 1px solid #444444;
+  color: #ffffff;
+  min-width: $slide_in_min_width;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  &.hidden {
+    display: none;
+  }
+
+  &.slide-left {
+    left: auto;
+    right: 0;
+  }
+
+  &.slide-right {
+    left: 0;
+    right: auto;
+  }
+
+  &.layered {
+    z-index: 5001;
+    overflow: visible;
+  }
+
+  .slide-in-container {
+    top: 0;
+    bottom: 0;
+    z-index: 5000;
+  }
+
+  .slide-in-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &.large {
+      max-width: $slide_in_large_min_width;
+    }
+
+    &.extra-large {
+      max-width: $slide_in_extra_large_min_width;
+    }
+  }
+}
+
+.middle-nav {
+  margin: 0 $slide_in_min_width 0 0 !important;
+}

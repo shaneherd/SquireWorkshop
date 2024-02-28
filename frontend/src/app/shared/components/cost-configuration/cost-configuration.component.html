@@ -1,0 +1,21 @@
+<div class="form-group">
+  <label>{{ 'Labels.Cost' | translate }}</label>
+  <span *ngIf="!editing" translate="CostValue"
+        [translateParams]="{cost: item.cost, unit: item.costUnit.abbreviation}"></span>
+  <div *ngIf="editing">
+    <input type="number"
+           class="form-control"
+           max="99999" min="0"
+           appInputNumber minValue="0" maxValue="99999"
+           [ngModel]="item.cost"
+           (valueChange)="costChange($event)"/>
+    <mat-form-field>
+      <mat-select [(ngModel)]="item.costUnit"
+                  (selectionChange)="costUnitChange($event.value)">
+        <mat-option *ngFor="let costUnit of costUnits" [value]="costUnit">
+          {{costUnit.abbreviation}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

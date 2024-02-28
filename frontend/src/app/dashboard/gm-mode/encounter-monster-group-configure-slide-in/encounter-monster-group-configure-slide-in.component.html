@@ -1,0 +1,119 @@
+<app-details [headerName]="group.group.monster.name"
+             [configurable]="false"
+             [loading]="loading"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             (secondary)="closeDetails()"
+             (tertiary)="roll()"
+             [tertiaryCloseOnClick]="false"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             tertiaryLabel="{{ 'Roll' | translate }}">
+  <div class="details on-dark">
+    <div class="form-group">
+      <label>{{ 'Labels.Quantity' | translate }}</label>
+      <input type="number"
+             class="form-control"
+             max="99" [min]="originalQuantity"
+             appInputNumber [minValue]="originalQuantity" [maxValue]="99" [allowDecimal]="false"
+             [ngModel]="quantity"
+             (valueChange)="quantityChange($event)"/>
+      <button mat-mini-fab
+              class="squire-button small btn-primary delete-icon"
+              *ngIf="!group.disabled"
+              (click)="removeGroup()">
+        x
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Labels.HP' | translate }}</label>
+      <span>{{hpCalculation}}</span>
+    </div>
+
+    <div class="form-group">
+      <mat-button-toggle-group [ngModel]="healthCalculationType"
+                               (change)="calculationTypeChange($event.value)">
+        <mat-button-toggle *ngFor="let calculationTypeChoice of calculationTypes"
+                           [disabled]="group.disabled"
+                           [value]="calculationTypeChoice">
+          {{ 'HealthCalculationType.' + calculationTypeChoice | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="form-group" *ngIf="!hpDisabled">
+      <mat-checkbox
+        (change)="groupedHpChange($event)"
+        [disabled]="group.disabled"
+        [checked]="groupedHp">
+      </mat-checkbox>
+      <span>{{ 'Encounter.Group.GroupedHp' | translate }}</span>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Labels.Initiative' | translate }}</label>
+      <span>{{group.initiativeModifierDisplay}}</span>
+    </div>
+
+    <div class="form-group">
+      <mat-checkbox
+        (change)="groupedInitiativeChange($event)"
+        [disabled]="group.disabled"
+        [checked]="groupedInitiative">
+      </mat-checkbox>
+      <span>{{ 'Encounter.Group.GroupedInitiative' | translate }}</span>
+    </div>
+
+    <div class="setup-row-header" *ngIf="monsters.length > 0">
+      <div class="monster-number"></div>
+      <div class="input-column">{{ 'Headers.HP' | translate }}</div>
+      <div class="input-column">{{ 'Headers.Init' | translate }}</div>
+      <div class="input-column">{{ 'Headers.Round' | translate }}</div>
+    </div>
+    <div class="setup-row" *ngFor="let config of monsters; let i = index;">
+      <div class="monster-number">
+        <span>{{config.encounterMonster.monsterNumber}}</span>
+      </div>
+      <div class="input-column">
+        <input type="number"
+               class="form-control"
+               *ngIf="config.encounterMonster.monsterNumber > originalQuantity && !hpDisabled && (i === 0 || !groupedHp)"
+               [max]="maxHp" min="0"
+               appInputNumber [minValue]="0" [maxValue]="maxHp" [allowDecimal]="false"
+               [ngModel]="config.encounterMonster.hp"
+               (valueChange)="hpChange($event, config)"/>
+        <span *ngIf="config.encounterMonster.monsterNumber <= originalQuantity || hpDisabled || (i > 0 && groupedHp)">{{config.encounterMonster.hp}}</span>
+      </div>
+      <div class="input-column">
+        <input type="number"
+               class="form-control"
+               max="99" min="-99"
+               [disabled]="group.disabled"
+               *ngIf="(i === 0 || !groupedInitiative) && config.encounterMonster.monsterNumber > originalQuantity"
+               appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+               [ngModel]="config.encounterMonster.initiative"
+               (valueChange)="initiativeChange($event, config)"/>
+        <span *ngIf="config.encounterMonster.monsterNumber <= originalQuantity || (i > 0 && groupedInitiative)">{{config.encounterMonster.initiative}}</span>
+      </div>
+      <div class="input-column">
+        <input type="number"
+               class="form-control"
+               max="99" [min]="config.minRound"
+               *ngIf="config.encounterMonster.monsterNumber > originalQuantity"
+               appInputNumber [minValue]="config.minRound" [maxValue]="99" [allowDecimal]="false"
+               [ngModel]="config.encounterMonster.roundAdded"
+               (valueChange)="roundChange($event, config)"/>
+        <span *ngIf="config.encounterMonster.monsterNumber <= originalQuantity">{{config.encounterMonster.roundAdded}}</span>
+      </div>
+    </div>
+
+    <ng-container *ngIf="monster != null">
+      <div class="monster-container">
+        <app-monster-details [monster]="monster">
+        </app-monster-details>
+      </div>
+    </ng-container>
+  </div>
+</app-details>

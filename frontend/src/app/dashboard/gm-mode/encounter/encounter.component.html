@@ -1,0 +1,236 @@
+<div class="encounter-container-desktop">
+  <div class="encounter-content">
+    <div class="header-content">
+      <app-encounter-header *ngIf="!isDesktop"
+                            [name]="headerName"
+                            [desktop]="isDesktop"
+                            (initiative)="toggleInitiative()"
+                            (attack)="attack()"
+                            (notifications)="notifications()"
+                            (roll)="roll()">
+      </app-encounter-header>
+      <div class="menu-divider"></div>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading no-header"></mat-progress-bar>
+    </div>
+
+    <div class="slide-in-content-data-full-height content-container">
+      <div *ngIf="isDesktop" class="encounter-columns-containers">
+        <div class="initiative-column" *ngIf="initiativeExpanded">
+          <div class="initiative-container">
+            <app-encounter-initiative [encounter]="encounter"
+                                      [round]="round"
+                                      [hideKilled]="hideKilled"
+                                      (hideKilledChange)="hideKilledChange($event)"
+                                      [turn]="displayTurn"
+                                      [isDesktop]="true"
+                                      [combatRows]="combatRows"
+                                      (cardClick)="cardClick($event)"
+                                      (hpClick)="hpClick($event)"
+                                      (kill)="killClick($event)"
+                                      (flee)="fleeClick($event)"
+                                      (speedType)="speedTypeClick($event)"
+                                      (collapse)="toggleInitiative()"
+                                      (addCreatures)="addGroupCreatures($event)"
+                                      (splitGroup)="splitGroup($event)"
+                                      (refresh)="refreshCreature($event)">
+            </app-encounter-initiative>
+          </div>
+
+          <div class="details-configuration-action-buttons-container">
+            <div class="details-configuration-action-buttons">
+              <div class="action-button">
+                <app-button color="PRIMARY"
+                            [disabled]="!previousEnabled || noCreaturesVisible"
+                            label="{{ 'Previous' | translate }}"
+                            (onPrimaryClick)="previousClick()">
+                </app-button>
+              </div>
+
+              <div class="action-button">
+                <app-button color="SECONDARY"
+                            [disabled]="noCreaturesVisible"
+                            label="{{ 'Next' | translate }}"
+                            (onPrimaryClick)="nextClick()">
+                </app-button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="initiative-column collapsed" *ngIf="!initiativeExpanded">
+          <div class="initiative-action-button expand-icon">
+            <button mat-icon-button
+                    type="button"
+                    matTooltip="{{ 'Encounter.ExpandInitiative' | translate }}"
+                    class="no-focus navigation-button medium squire-button square btn-info on-dark borderless clickable"
+                    (click)="toggleInitiative()">
+              <i class="fa-solid fa-angles-right"></i>
+            </button>
+          </div>
+          <div class="round-turn-container" [matTooltip]="turnTooltip">
+            <div>
+              <label class="round-turn-label">R</label>
+              <span>{{round}}</span>
+            </div>
+            <div>
+              <label class="round-turn-label">T</label>
+              <span>{{displayTurn}}</span>
+            </div>
+          </div>
+          <div class="initiative-creature-name-container clickable" (click)="toggleInitiative()">
+            <ng-container *ngIf="selectedRow != null">
+              <div class="initiative-creature-name">
+                <div class="name-value">
+                  {{selectedRow.combatCreatureDisplayName}}
+                </div>
+
+                <div class="creature-statuses">
+                  <span class="borderless" matTooltip="{{ 'Surprised' | translate }}"  *ngIf="selectedRow.selectedCreature?.surprised">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                  </span>
+                  <span class="borderless" matTooltip="{{ 'OngoingDamage' | translate }}"  *ngIf="selectedRow.selectedCreature?.ongoingDamage">
+                    <i class="fa-solid fa-arrow-rotate-right"></i>
+                  </span>
+                  <span class="borderless" matTooltip="{{ 'Conditions' | translate }}"  *ngIf="selectedRow.selectedCreature?.conditions">
+                    <i class="fa-solid fa-flask"></i>
+                  </span>
+                  <span class="borderless" matTooltip="{{ 'Concentrating' | translate }}"  *ngIf="selectedRow.selectedCreature?.concentrating">
+                    <i class="far fa-lightbulb"></i>
+                  </span>
+                  <span class="borderless" matTooltip="{{ 'Dying' | translate }}"  *ngIf="selectedRow.selectedCreature?.dying">
+                    <i class="fa-solid fa-droplet"></i>
+                  </span>
+                  <span class="borderless" matTooltip="{{ 'Dead' | translate }}"  *ngIf="selectedRow.selectedCreature?.dead">
+                    <i class="fa-solid fa-skull"></i>
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="initiative-action-button">
+            <button mat-icon-button
+                    type="button"
+                    class="no-focus navigation-button medium squire-button square btn-primary on-dark borderless clickable"
+                    [disabled]="!previousEnabled || noCreaturesVisible"
+                    matTooltip="{{ 'Previous' | translate }}"
+                    (click)="previousClick()">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+          <div class="initiative-action-button">
+            <button mat-icon-button
+                    type="button"
+                    [disabled]="noCreaturesVisible"
+                    matTooltip="{{ 'Next' | translate }}"
+                    class="no-focus navigation-button medium squire-button square btn-danger on-dark borderless clickable"
+                    (click)="nextClick()">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <app-encounter-column *ngFor="let item of [].constructor(this.calculatedColumns); let i = index"
+                              [columnIndex]="i"
+                              [loading]="loading"
+                              [combatCreature]="selectedRow?.selectedCreature"
+                              [campaignSettings]="campaign?.settings"
+                              (flee)="fleeClick(selectedRow)"
+                              (delay)="delayTurn(selectedRow)"
+                              class="encounter-playing-column">
+        </app-encounter-column>
+      </div>
+
+      <ng-container *ngIf="!isDesktop">
+        <div class="mobile-container">
+          <app-encounter-column [columnIndex]="0"
+                                [loading]="loading"
+                                [combatCreature]="selectedRow?.selectedCreature"
+                                [campaignSettings]="campaign?.settings"
+                                (flee)="fleeClick(selectedRow)"
+                                (delay)="delayTurn(selectedRow)"
+                                class="encounter-playing-column">
+          </app-encounter-column>
+        </div>
+
+        <div class="details-configuration-action-buttons-container">
+          <div class="details-configuration-action-buttons">
+            <div class="action-button">
+              <app-button color="PRIMARY"
+                          [disabled]="!previousEnabled || noCreaturesVisible"
+                          label="{{ 'Previous' | translate }}"
+                          (onPrimaryClick)="previousClick()">
+              </app-button>
+            </div>
+
+            <div class="action-button">
+              <app-button color="TERTIARY"
+                          label="{{ 'Headers.Init' | translate }}"
+                          (onPrimaryClick)="toggleInitiative()">
+              </app-button>
+            </div>
+
+            <div class="action-button">
+              <app-button color="SECONDARY"
+                          [disabled]="noCreaturesVisible"
+                          label="{{ 'Next' | translate }}"
+                          (onPrimaryClick)="nextClick()">
+              </app-button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+<app-encounter-configure-slide-in *ngIf="addingCreatures"
+                                  [encounter]="encounter"
+                                  [campaign]="campaign"
+                                  [active]="true"
+                                  (cancel)="cancelAddCreatures()"
+                                  (start)="saveAddCreatures()">
+</app-encounter-configure-slide-in>
+
+<app-encounter-initiative-slide-in *ngIf="viewingInitiative"
+                                   [encounter]="encounter"
+                                   [round]="round"
+                                   [turn]="displayTurn"
+                                   [previousEnabled]="previousEnabled"
+                                   [noCreaturesVisible]="noCreaturesVisible"
+                                   [combatRows]="combatRows"
+                                   [hideKilled]="hideKilled"
+                                   (hideKilledChange)="hideKilledChange($event)"
+                                   (close)="closeInitiative()"
+                                   (previous)="previousClick()"
+                                   (next)="nextClick()"
+                                   (cardClick)="cardClick($event)"
+                                   (hpClick)="hpClick($event)"
+                                   (kill)="killClick($event)"
+                                   (flee)="fleeClick($event)"
+                                   (speedType)="speedTypeClick($event)"
+                                   (addCreatures)="addGroupCreatures($event)"
+                                   (splitGroup)="splitGroup($event)"
+                                   (refresh)="refreshCreature($event)">
+</app-encounter-initiative-slide-in>
+
+<app-encounter-health-details-slide-in *ngIf="viewingHealthCreature != null"
+                                       [combatCreature]="viewingHealthCreature"
+                                       [killMonsters]="campaign.settings.health.killMonsters"
+                                       (save)="saveHealth($event)"
+                                       (close)="closeHealth()">
+</app-encounter-health-details-slide-in>
+
+<app-reorder-initiative-slide-in *ngIf="reorderingInitiative"
+                                 [encounter]="encounter"
+                                 [campaign]="campaign"
+                                 (cancel)="cancelReorder()"
+                                 (save)="saveInitiativeOrder()">
+</app-reorder-initiative-slide-in>
+
+<app-combat-creature-speed-type-slide-in *ngIf="viewingSpeedCreature != null"
+                                         [combatCreature]="viewingSpeedCreature"
+                                         [encounter]="encounter"
+                                         (cancel)="cancelSpeed()"
+                                         (save)="saveSpeed()">
+</app-combat-creature-speed-type-slide-in>

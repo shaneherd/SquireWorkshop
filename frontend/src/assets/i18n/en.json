@@ -1,0 +1,3311 @@
+{
+  "Squire": {
+    "prod": "Squire - Early Access",
+    "stage": "Squire - Stage",
+    "dev": "Squire - Local"
+  },
+  "WelcomeToSquire": "Welcome to Squire",
+  "Processing": "Processing",
+  "Save": "Save",
+  "Fail": "Fail",
+  "Modifier": "Modifier",
+  "Submit": "Submit",
+  "Confirm": "Confirm",
+  "Cancel": "Cancel",
+  "CancelRemaining": "Cancel Remaining",
+  "Dismiss": "Dismiss",
+  "Activate": "Activate",
+  "Edit": "Edit",
+  "Delete": "Delete",
+  "Duplicate": "Duplicate",
+  "AreYouSure": "Are You Sure?",
+  "Name": "Name",
+  "NewItem": "New Item",
+  "AddGroup": "Add Group",
+  "None": "None",
+  "Other": "Other",
+  "Search": "Search",
+  "Secondary": "Secondary",
+  "Hover": "Hover",
+  "Warning": "Warning",
+  "UnsavedChanges": "Unsaved Changes",
+  "UnsavedChangesWarning": "WARNING: You have unsaved changes. Press Cancel to go back and save these changes, or OK to lose these changes.",
+  "Cantrip": "Cantrip",
+  "Prepared": "Prepared",
+  "AlwaysPrepared": "Always Prepared",
+  "DoesntCountTowardsPrepared": "Doesn't Count Towards Prepared",
+  "Prepare": "Prepare",
+  "Unprepare": "Unprepare",
+  "Adjustment": "Adjustment",
+  "ProficiencyModifier": "Proficiency Modifier",
+  "Proficient": "Proficient",
+  "Prof": "Prof",
+  "HalfProf": "Half Prof",
+  "DoubleProf": "Double Prof",
+  "DoubleProficient": "Double Proficient",
+  "Double": "Double",
+  "HalfProficient": "Half Proficient",
+  "HalfProficientRoundUp": "Half Proficient - Round Up",
+  "ProfBonus": "Prof Bonus",
+  "HalfProfBonus": "Half Prof Bonus",
+  "HalfLevel": "Half Level",
+  "Half": "Half",
+  "RoundUp": "Round Up",
+  "Advantage": "Advantage",
+  "Disadvantage": "Disadvantage",
+  "Adv": "Adv",
+  "Disadv": "Disadv",
+  "Critical": "Critical",
+  "Crit": "Crit",
+  "Details": "Details",
+  "Expendable": "Expendable",
+  "Equippable": "Equippable",
+  "IsContainer": "Is Container",
+  "IgnoreWeight": "Ignore Weight of Contents",
+  "CostValue": "{{cost}} {{unit}}",
+  "ExpValue": "Exp: {{value}}",
+  "exp": "exp",
+  "WeightValue": "{{value}} lbs",
+  "TotalWeightValue": "(Total: {{value}} lbs)",
+  "Lbs": "lbs",
+  "Feet": "ft",
+  "FeetValue": "{{feet}} ft",
+  "RangeValues": "{{normal}} / {{long}}",
+  "StealthDisadvantage": "Stealth Disadvantage",
+  "Apply": "Apply",
+  "Clear": "Clear",
+  "Reset": "Reset",
+  "Recharge": "Recharge",
+  "RechargeItem": "Recharge {{item}}",
+  "Archive": "Archive",
+  "All": "All",
+  "Yes": "Yes",
+  "No": "No",
+  "Feat": "Feat",
+  "NoDamages": "No Damages",
+  "NoHealing": "No Healing",
+  "NoModifiers": "No Modifiers",
+  "NoItems": "No Items",
+  "NoProficiencies": "No Proficiencies",
+  "NoImmunities": "No Immunities",
+  "NoSenses": "No Senses",
+  "NoConditions": "No Conditions",
+  "NoTraits": {
+    "VARIATION": "No Variations",
+    "PERSONALITY": "No Personalities",
+    "IDEAL": "No Ideals",
+    "BOND": "No Bonds",
+    "FLAW": "No Flaws"
+  },
+  "RechargeOnShortRest": "Recharge on Short Rest",
+  "RechargeOnLongRest": "Recharge on Long Rest",
+  "GroupChoseAmount": "Group {{groupNumber}} - choose {{chooseAmount}} of the following",
+  "Not": "Not",
+  "Radius": "Radius",
+  "Width": "Width",
+  "Height": "Height",
+  "Length": "Length",
+  "IncreasesAtHigherLevels": "Increases at higher levels",
+  "SpellcastingAbilityModifier": "Spellcasting Ability Modifier",
+  "Active": "Active",
+  "Finished": "Finished",
+  "Concentrating": "Concentrating",
+  "Surprised": "Surprised",
+  "OngoingDamage": "OngoingDamage",
+  "Conditions": "Conditions",
+  "Dying": "Dying",
+  "Dead": "Dead",
+  "Kill": "Kill",
+  "Flee": "Flee",
+  "Remove": "Remove",
+  "AdjustHP": "Adjust HP",
+  "Refresh": "Refresh",
+  "ConnectingConditions": "Connecting Conditions",
+  "Immune": "Immune",
+  "Note": "Note",
+  "AddNote": "Add Note",
+  "EditNote": "Edit Note",
+  "CategoryName": "Category Name",
+  "AbilitySave": "{{ability}} Save",
+  "AddAbility": "Add Ability",
+  "AddSubclass": "Add Subclass",
+  "AddSubRace": "Add Sub-Race",
+  "AddSubBackground": "Add Sub-Background",
+  "AddAction": "Add Action",
+  "AddFeature": "Add Feature",
+  "AddFeatures": "Add Features",
+  "AddItem": "Add Item",
+  "AddItems": "Add Items",
+  "Add": "Add",
+  "Close": "Close",
+  "Use": "Use",
+  "Cast": "Cast",
+  "Continue": "Continue",
+  "Start": "Start",
+  "Restart": "Restart",
+  "Finish": "Finish",
+  "Ok": "Ok",
+  "Roll": "Roll",
+  "Total": "Total",
+  "RollStealth": "Roll Stealth",
+  "RollInitiative": "Roll Initiative",
+  "RollResult": "Roll Result: {{result}}",
+  "Filters": "Filters",
+  "Sorting": "Sorting",
+  "Ascending": "Ascending",
+  "Descending": "Descending",
+  "HalfOnMiss": "Half on miss",
+  "HalfOnSave": "Half on save",
+  "HideUnprepared": "Hide unprepared",
+  "ConfirmConcentratingCast": "You are already concentrating on '{{spell}}'. If you cast this spell, you will lose concentration on it. Are you sure you want to continue casting this spell?",
+  "ResetLimitedUseConfirmation": "Are you sure you want to reset all of your features? This action can not be undone.",
+  "ResetSpellLimitedUseConfirmation": "Are you sure you want to reset all of your spells? This action can not be undone.",
+  "ResetLegendaryPointsConfirmation": "Are you sure you want to reset all of your legendary points? This action can not be undone.",
+  "DeathSave": "Death Save",
+  "Stabilize": "Stabilize",
+  "Stabilized": "Stabilized",
+  "Died": "Died",
+  "Auto": "Auto",
+  "AutoFail": "Auto Fail",
+  "Manual": "Manual",
+  "SaveAndContinueMessage": "You have unsaved changes. Do you want to save and continue?",
+  "CriticalHit": "Critical Hit",
+  "CriticalHitPrompt": "Was this a critical hit?",
+  "ConcentrationCheck": "Concentration Check: {{spellName}}",
+  "ResurrectionPenalties": "-4 to all attack rolls, saving throws, and ability checks\n(this is reduced by 1 after each long rest)",
+  "ReturnWith1HP": "Return with only 1 HP",
+  "Resurrect": "Resurrect",
+  "FeatureTarget": "Feature Target",
+  "AreYouTheFeatureTarget": "Are you the target of this feature?",
+  "SpellTarget": "Spell Target",
+  "AreYouTheSpellTarget": "Are you the target this spell?",
+  "PotionTarget": "Potion Target",
+  "AreYouThePotionTarget": "Are you the target this potion?",
+  "ExhaustionLevel": "Exhaustion - {{level}}",
+  "ExhaustionCondition": "{{condition}} (Exhaustion - {{level}})",
+  "WearingNonProficientArmor": "Wearing Non-Proficient Armor",
+  "Halved": "Halved",
+  "Immobilized": "Immobilized",
+  "Armor": "Armor",
+  "Rest": "Rest",
+  "AssignLevel": "Assign Level",
+  "UnAssignLevel": "Un-assign Level",
+  "DecreaseLevel": "Decrease Level",
+  "IncreaseLevel": "Increase Level",
+  "DecreaseExp": "Decrease Exp",
+  "IncreaseExp": "Increase Exp",
+  "Previous": "Previous",
+  "Next": "Next",
+  "Show": "Show",
+  "Hide": "Hide",
+  "SelectAll": "Select All",
+  "DeselectAll": "De-select All",
+  "PageOfPages": "Page {{page}} of {{total}}",
+  "NoFeaturesAvailable": "No features available",
+  "NoSpellsAvailable": "No spells available",
+  "NoItemsAvailable": "No items available",
+  "NoItemsWithCharges": "No items available with charges",
+  "NoItemsWithAttunement": "No items available requiring attunement",
+  "Empty": "Empty",
+  "NestedItems": {
+    "Count": "({{count}} items)",
+    "Count1": "(1 item)",
+    "Empty": "(empty)",
+    "Full": "(full)",
+    "Weight": "({{weight}} lbs)",
+    "WeightIgnored": "({{weight}} lbs - ignored)"
+  },
+  "Convert": "Convert",
+  "Match": "Match",
+  "ClickHereToChooseItem": "Click here to choose item",
+  "NoRolls": "No rolls logged",
+  "PercentValue": "{{percent}}%",
+  "Bloody": "Bloody",
+  "Max": "Max",
+  "Carried": "Carried",
+  "OneHanded": "One Handed",
+  "TwoHanded": "Two Handed",
+  "AboutUs": "About Us",
+  "Contact": "Contact",
+  "ContactSupport": "Contact Support",
+  "Import": "Import",
+  "NewImport": "New Import",
+  "NoDescription": "No Description",
+  "DescendentCount": "{{count}} descendants -",
+  "Unaligned": "Unaligned",
+  "RequiresAttunement": "Requires Attunement",
+  "Attuned": "Attuned",
+  "Cursed": "Cursed",
+  "IsVehicle": "Is Vehicle",
+  "HasCharges": "Has Charges",
+  "Rechargeable": "Rechargeable",
+  "ChanceOfDestruction": "Chance of Destruction",
+  "AllowAdditionalSpells": "Allow spells to be added by character",
+  "AdditionalSpellsRemoveOnCasting": "Remove additional spells on casting",
+  "AllowCastingAtHigherLevel": "Allow Casting at a Higher Level",
+  "RemoveOnCasting": "Remove on casting",
+  "OverrideSpellAttackCalculation": "Override item settings",
+  "RemoveColumn": "Remove Column",
+  "RemoveRow": "Remove Row",
+  "ClickToEdit": "Click to Edit",
+  "Spellcaster": "Spellcaster",
+  "InnateSpellcaster": "Innate Spellcaster",
+  "PerDay": "/Day",
+  "PerDayQuantity": "{{quantity}}/Day",
+  "Export": "Export",
+  "IncludeSpells": "Include Spells",
+  "IncludeSpellDetails": "Include Spell Details",
+  "IncludeFeatureDetails": "Include Feature Details",
+  "CenterImage": "Center Image",
+  "LegendaryPoints": "Legendary Points",
+
+  "Auth": {
+    "Login": {
+      "Login": "Login",
+      "LastLogin": "Last Login was {{date}}"
+    },
+
+    "Admin": {
+      "Login": "Admin Login",
+      "Username": "Admin Username",
+      "Password": "Admin Password"
+    },
+
+    "Username": "Username",
+    "UsernameRequirements": {
+      "Length": "Must be at least 5 characters",
+      "MaxLength": "Must be at most 20 characters",
+      "Special": "Can't contain any special characters"
+    },
+    "Email": "Email",
+    "EnterValidEmail": "Enter a valid email address",
+
+    "Error": {
+      "InvalidUser": "Invalid User",
+      "InvalidToken": "Invalid Token",
+      "TokenExpired": "Token Expired",
+      "FailedToFindUser": "Failed to find User",
+      "InvalidEmail": "Invalid Email",
+      "NotAllowedToUpdateUser": "Not Allowed to Update the Specified User"
+    },
+
+    "Password": {
+      "Password": "Password",
+      "New": "New Password",
+      "Change": "Change Password",
+      "ChangeSuccess": "Successfully Changed Password",
+      "Confirm": "Confirm Password",
+      "Original": "Original Password",
+
+      "Requirements": {
+        "Length": "Must be at least 8 characters",
+        "MaxLength": "Must be at most 20 characters",
+        "Number": "Must contain at least 1 number",
+        "Capital": "Must contain at least 1 letter in capital case",
+        "Lower": "Must contain at least 1 letter in lower case",
+        "Special": "Must contain at least 1 special character",
+        "Match": "Passwords do not match"
+      },
+
+      "Reset": {
+        "Reset": "Reset Password",
+        "Success": "Password Successfully Reset",
+        "Error": "Failed to reset password"
+      },
+
+      "Error": {
+        "PasswordRequired": "A password is required",
+        "Invalid": "Invalid Username or Password",
+        "InvalidPassword": "Invalid Password",
+        "Locked": "Account Locked",
+        "EmailNotVerified": "Email not Verified",
+        "NotAdmin": "User is not an Admin",
+        "AdminAccessRevoked": "Used Revoked Access"
+      }
+    },
+
+    "Register": {
+      "SignUp": "Sign Up",
+      "Register": "Register",
+      "FirstName": "First Name",
+      "LastName": "Last Name",
+      "Success": "Registration Success",
+      "Error": "Failed to register user",
+      "SuccessMessage": "Your account has been created. You can now login.",
+      "RegisterMessage": "By clicking Register, you agree to our <a _ngcontent-c3=\"\" class=\"btn-link\" target=\"_blank\" ng-reflect-target=\"_blank\" ng-reflect-router-link=\"/termsOfService\" href=\"/termsOfService\">Terms of Service</a> and <a _ngcontent-c3=\"\" class=\"btn-link\" target=\"_blank\" ng-reflect-target=\"_blank\" ng-reflect-router-link=\"/privacyPolicy\" href=\"/privacyPolicy\">Privacy Policy</a>.",
+      "RegisterError": "Failed to create user. Please contact support.",
+      "UsernameInUse": "Username is already taken. Please choose another.",
+      "Token": "Token",
+      "InvalidToken": "Invalid token or this token has already been used.",
+
+      "Questions": {
+        "FirstRPG": "Who was your first RPG character?",
+        "FavoriteRace": "What is your favorite Race?",
+        "FavoriteClass": "What is your favorite Class?",
+        "FavoriteCampaign": "What is your favorite Campaign?",
+        "Nickname": "What was your childhood nickname?",
+        "FavoriteMovie": "What is your favorite movie?",
+        "SpouseMeet": "In what city or town did you meet your spouse/partner?",
+        "ThirdGradeTeacher": "What was the last name of your third grade teacher?",
+        "FavoriteFood": "What was your favorite food as a child?",
+        "ParentMeet": "In what city or town did your mother and father meet?"
+      }
+    },
+
+    "ChangeEmail": "Change Email",
+    "ChangeEmailSuccess": "We have sent you a link in your email. Please click the link to verify your email.",
+
+    "AccountManagement": {
+      "DangerZone": "Danger Zone",
+      "RestoreDefaults": "Restore Defaults",
+      "RestoreDefaultsConfirmationMessage": "Are you sure you want to restore the defaults? This will remove all custom content that you have entered and will reset your data back to its original form. This will include all characters, classes, races, etc. This action can not be undone.",
+      "RestoreDefaultsSuccess": "Defaults Restored",
+      "RestoreDefaultsError": "Failed to restore defaults",
+      "DeleteAccount": "Delete Account",
+      "DeleteAccountConfirmationMessage": "Are you sure you want to delete your account? This action can not be undone.",
+      "DeleteSuccess": "Account Deleted",
+      "DeleteError": "Failed to delete account"
+    },
+
+    "UnlockAccount": {
+      "UnlockAccount": "Unlock Account",
+      "ErrorMessage": "Failed to unlock your account. Please contact support.",
+      "SuccessMessage": "Account Unlocked. You can now login."
+    },
+
+    "VerifyingEmail": {
+      "Message": "Verifying your email. One moment please.",
+      "ErrorMessage": "Failed to verify email. Please contact support.",
+      "SuccessMessage": "Email successfully verified. You can now login."
+    },
+
+    "ForgotPassword": "Forgot Password",
+    "SubmitForgotPassword": {
+      "Error": "Failed to submit forgot password request"
+    },
+
+    "ForgotUsername": "Forgot Username",
+    "SubmitForgotUsername": {
+      "Error": "Failed to submit forgot username request"
+    },
+
+    "EmailWithDetails": "An email has been sent with your details"
+  },
+
+  "Logout": {
+    "Logout": "Logout",
+    "LoggingOut": "Logging Out",
+    "LoggingOutMessage": "Logging out. One moment please."
+  },
+
+  "UserSettings": {
+    "UserSettings": "User Settings",
+    "Success": "Settings Updated",
+    "Error": "Failed to Update",
+    "AllowAdminAccess": "Allow Admin Access",
+    "Subscribe": "Subscribe to Emails"
+  },
+
+  "CharacterSettings": {
+    "HideUnpreparedSpells": "Hide Unprepared Spells",
+    "HideUnpreparedSpellsQuickAttacks": "Hide Unprepared Quick Attacks",
+    "UseHalf": "Use Half",
+    "RoundUp": "Round Up",
+    "Health": {
+      "ShowHitDice": "Show Hit Dice",
+      "HighlightValues": "Highlight Values",
+      "FlashLCD": "Flash LCD",
+      "AutoRollConcentrationChecks": "Auto-Roll Concentration",
+      "PostponeConcentrationChecks": "Postpone Concentration",
+      "RemoveProneOnRevive": "Remove Prone on Revive",
+      "DropItemsWhenDying": "Drop Items when Dying"
+    },
+    "Spellcasting": {
+      "DisplayClassSpellcasting": "Display Class Spellcasting",
+      "DisplayRaceSpellcasting": "Display Race Spellcasting",
+      "DisplayBackgroundSpellcasting": "Display Background Spellcasting",
+      "DisplayOtherSpellcasting": "Display Other Spellcasting",
+      "CombineSpellLists": "Combine Spell Lists",
+      "DisplayTags": "Display Tags",
+      "DisplayClass": "Display Class Tag",
+      "HighlightActive": "Highlight Active"
+    },
+    "Features": {
+      "DisplayTags": "Display Tags",
+      "HighlightActive": "Highlight Active",
+      "HighlightNonActive": "Highlight Non-Active"
+    },
+    "Skills": {
+      "DisplayPassive": "Display Passive"
+    },
+    "CharacterValidation": {
+      "AllowFeatSelection": "Allow Feat Selection",
+      "AsiFeatOneOnly": "ASI/Feat - Choose 1",
+      "AutoIgnoreUnselectedFeatures": "Ignore Unselected Features",
+      "AutoIgnoreUnselectedSpells": "Ignore Unselected Spells",
+      "AutoIgnoreUnselectedAsi": "Ignore this ASI"
+    },
+    "Misc": {
+      "MaxColumns": "Max Columns",
+      "ShowHealthProgressBar": "Show Health Progress Bar",
+      "ShowLevelProgressBar": "Show Level Progress Bar",
+      "ShowCarryingProgressBar": "Show Carrying Progress Bar"
+    },
+    "QuickActions": {
+      "HideUnpreparedSpells": "Hide Unprepared Spells"
+    },
+    "Equipment": {
+      "HideEmptySlots": "Hide Empty Slots",
+      "AutoConvertCurrency": "Auto-Convert Currency",
+      "UseEncumbrance": "Use Encumbrance",
+      "CalculateCurrencyWeight": "Calculate Currency Weight",
+      "AttackWithUnequipped": "Attack with Unequipped",
+      "EnforceAttunedLimit": "Enforce Attuned Limit",
+      "MaxAttunedItems": "Max Attuned Items"
+    }
+  },
+
+  "PrivacyPolicy": "Privacy Policy",
+  "TermsOfService": "Terms of Service",
+
+  "Congratulations": "Congratulations!",
+  "Success": "Success",
+
+  "Error": {
+    "Error": "Error",
+    "ERROR": "ERROR",
+    "Unknown": "Unknown Error",
+    "ErrorMessage": "An unknown error has occurred. Please contact support and supply the necessary details to reproduce the issue.",
+    "PageNotFound": "Page Not Found",
+    "GoHome": "Go Home",
+    "NameRequired": "Name Required",
+    "Duplicate": "Failed to duplicate item",
+    "Delete": "Failed to delete item",
+    "Save": "Failed to save item",
+    "Load": "Failed to load item",
+    "LoadingCharacter": "Failed to load character",
+    "AllFieldsRequired": "All fields are required",
+    "LevelsNotAssigned": "Not all levels have been assigned",
+    "HealthValuesNotAssigned": "Not all health values have been assigned",
+    "EditCharacter": {
+      "TotalLevel": "Character level doesn't match the sum of the class levels"
+    },
+    "UnableToDeleteTraits": "Unable to delete traits. One or more are currently in use.",
+    "UnableToDeleteSubclasses": "Unable to delete subclasses. One or more are currently in use.",
+    "NoDamageValue": "No damage value.",
+    "MagicalItemValidation": {
+      "ApplicableArmors": "At least one armor or armor filter must be selected.",
+      "ApplicableSpells": "At least one spell or spell filter must be selected.",
+      "ApplicableWeapons": "At least one weapon or weapon filter must be selected.",
+      "ApplicableAmmos": "At least one ammo or ammo filter must be selected.",
+      "AttunementClasses": "At least one class must be selected for attunements.",
+      "AttunementAlignments": "At least one alignment must be selected for attunements."
+    }
+  },
+
+  "Session": {
+    "Expiring": "Session Expiring",
+    "ExpiringMessage": "Your session will expire in {{seconds}} seconds.",
+    "Extend": "Extend Session"
+  },
+
+  "Redirecting": "Redirecting to login in {{redirectCount}} seconds.",
+  "MultiplyByLevel": "{{value}} x Level",
+  "TimesLevel": "x Level",
+
+  "Labels": {
+    "Name": "Name:",
+    "Description": "Description:",
+    "Message": "Message:",
+    "Ability": "Ability:",
+    "AbilityCheck": "Ability Check:",
+    "Don": "Don:",
+    "DonTimeUnit": "Don Time Unit:",
+    "Doff": "Doff:",
+    "DoffTimeUnit": "Doff Time Unit:",
+    "LevelGained": "Level Gained:",
+    "LevelLabel": "Level:",
+    "Level": "Level {{level}}:",
+    "RoundUp": "Round Up:",
+    "MultiClassWeight": "Divide Class Level By:",
+    "CountsAsMultiClassSpellcaster": "Counts Towards Multi-Class Spellcaster:",
+    "AmountToChoose": "Amount to Choose:",
+    "AmountToIncreaseByOne": "Number of Abilities to Increase By 1:",
+    "AdditionalSavingThrows": "Additional Saving Throws:",
+    "AdditionalLanguages": "Additional Languages:",
+    "PermanentProfs": "Permanent Proficiencies:",
+    "ChooseFromTheFollowing": "Choose from the following:",
+    "SavingThrows": "Saving Throws:",
+    "AbilityScoreModifiers": "Ability Score Modifiers:",
+    "Parent": "Parent:",
+    "Size": "Size:",
+    "HitDicePerLevel": "Hit Dice per Level:",
+    "HpAtFirstLevel": "HP at First Level:",
+    "HpGainPerLevel": "HP Gain per Level:",
+    "CasterType": "Caster Type:",
+    "NumberToPrepare": "Number to Prepare:",
+    "Misc": "Misc:",
+    "Category": "Category:",
+    "Range": "Range:",
+    "Reach": "Reach:",
+    "AreaOfEffect": "Area of Effect:",
+    "LimitedUse": "Limited Use:",
+    "MaxUses": "Max Uses:",
+    "Max": "Max:",
+    "Min": "Min:",
+    "UsesRemaining": "Uses Remaining:",
+    "Remaining": "Remaining:",
+    "Prerequisite": "Prerequisite:",
+    "HigherLevels": "Higher Levels:",
+    "School": "School:",
+    "CastingTime": "Casting Time:",
+    "Ritual": "Ritual:",
+    "Components": "Components:",
+    "Duration": "Duration:",
+    "Type": "Type:",
+    "SaveType": "Save Type:",
+    "DamageType": "Damage Type:",
+    "Damage": "Damage:",
+    "Damages": "Damages:",
+    "VersatileDamages": "Versatile Damages:",
+    "Attack": "Attack:",
+    "Roll1": "Roll 1:",
+    "Roll2": "Roll 2:",
+    "Result": "Result:",
+    "Healing": "Healing:",
+    "ExtraDamages": "Extra Damages:",
+    "ExtraHealing": "Extra Healing:",
+    "ExtraModifiers": "Extra Modifiers:",
+    "DamageAmount": "Damage Amount:",
+    "HealingAmount": "Healing Amount:",
+    "CharacterAdvancement": "Character Advancement:",
+    "AttackType": "Attack Type:",
+    "DC": "DC:",
+    "Radius": "Radius:",
+    "Height": "Height:",
+    "Width": "Width:",
+    "Length": "Length:",
+    "Passive": "Passive:",
+    "Value": "Value:",
+    "Modifier": "Modifier:",
+    "Modifiers": "Modifiers:",
+    "Slot": "Slot:",
+    "Cost": "Cost:",
+    "Weight": "Weight:",
+    "Properties": "Properties:",
+    "AC": "AC:",
+    "MaxAbilityModifier": "Max Ability Modifier:",
+    "SavingThrowMod": "Saving Throw Modifier:",
+    "MinStrengthRequired": "Min Strength Required:",
+    "Speed": "Speed:",
+    "CarryingCapacity": "Carrying Capacity:",
+    "AttackModifier": "Attack Modifier:",
+    "Items": "Items:",
+    "StartingGold": "Starting Gold:",
+    "Calculation": "Calculation:",
+    "StartingEquipment": "Starting Equipment:",
+    "Group": "Group:",
+    "Choose": "Choose:",
+    "Item": "Item:",
+    "Filter": "Filter:",
+    "Quantity": "Quantity:",
+    "MinExp": "Minimum Experience:",
+    "ProfBonus": "Prof Bonus:",
+    "ProficiencyBonus": "Proficiency Bonus:",
+    "Alignment": "Alignment:",
+    "Symbol": "Symbol:",
+    "DiceSize": "Dice Size:",
+    "Race": "Race:",
+    "Classes": "Classes:",
+    "Class": "Class:",
+    "Subclass": "Subclass:",
+    "SecondaryClass": "Secondary Class:",
+    "Background": "Background:",
+    "HpModifier": "HP Modifier:",
+    "MaxHp": "Max HP:",
+    "HitDice": "Hit Dice:",
+    "Variations": "Variations:",
+    "Personalities": "Personalities:",
+    "Ideals": "Ideals:",
+    "Bonds": "Bonds:",
+    "Flaws": "Flaws:",
+    "Bio": "Bio:",
+    "Gender": "Gender:",
+    "Deity": "Deity:",
+    "Age": "Age:",
+    "EyeColor": "Eye Color:",
+    "HairColor": "Hair Color:",
+    "SkinColor": "Skin Color:",
+    "Prof": "Prof:",
+    "Total": "Total:",
+    "Base": "Base:",
+    "ChosenAbility": "Chosen Ability:",
+    "Save": "Save:",
+    "Score": "Score:",
+    "Display": "Display:",
+    "SpellAttack": "Spell Attack:",
+    "InnateSpellAttack": "Innate Spell Attack:",
+    "SpellSave": "Spell Save:",
+    "InnateSpellSave": "Innate Spell Save:",
+    "SpellSaveDC": "Spell Save DC:",
+    "Known": "Known:",
+    "Cantrips": "Cantrips:",
+    "Prepared": "Prepared:",
+    "SpellsKnown": "Spells Known:",
+    "Tags": "Tags:",
+    "ChooseSlot": "Choose Slot:",
+    "ChooseLevel": "Choose Level:",
+    "SlotsRemaining": "Slots Remaining:",
+    "HP": "HP:",
+    "Initiative": "Initiative:",
+    "Carrying": "Carrying:",
+    "CharacterLevel": "Level:",
+    "Dex": "Dex:",
+    "Equipment": "Equipment:",
+    "Strength": "Strength:",
+    "Multiplier": "Multiplier:",
+    "Current": "Current:",
+    "New": "New:",
+    "Calculated": "Calculated:",
+    "Temp": "Temp:",
+    "RollNumber": "Roll {{value}}:",
+    "Success": "Success:",
+    "Failure": "Failure:",
+    "ResurrectionPenalty": "Resurrection Penalty:",
+    "ConstitutionSave": "Constitution Save:",
+    "Spell": "Spell:",
+    "ConModifier": "Con Modifier:",
+    "HeavilyEncumbered": "Heavily Encumbered:",
+    "Encumbered": "Encumbered:",
+    "Armor": "Armor:",
+    "Currency": "Currency:",
+    "Inspiration": "Inspiration:",
+    "Skill": "Skill:",
+    "Advantage": "Advantage:",
+    "Disadvantage": "Disadvantage:",
+    "Adjustment": "Adjustment:",
+    "Exp": "Exp:",
+    "LevelsAssigned": "Levels Assigned:",
+    "LevelsRemoved": "Levels Removed:",
+    "ExpAdjustment": "Exp Adjustment:",
+    "PointsSpent": "Points Spent:",
+    "ItemType": "Item Type:",
+    "WeaponType": "Weapon Type:",
+    "Container": "Container:",
+    "ItemToEquip": "Item to Equip:",
+    "CurrentlyEquipped": "Currently Equipped:",
+    "MoveEquippedTo": "Move Equipped To:",
+    "Purchase": "Purchase:",
+    "From": "From:",
+    "To": "To:",
+    "Convert": "Convert:",
+    "Action": "Action:",
+    "ASI": "ASI:",
+    "Ammo": "Ammo:",
+    "Source": "Source:",
+    "Finesse": "Finesse:",
+    "Versatile": "Versatile:",
+    "AbilityBonuses": "Ability Bonuses:",
+    "EntriesToImport": "Entries to Import:",
+    "CompletedEntries": "Completed Entries:",
+    "Error": "Error:",
+    "Spells": "Spells:",
+    "Features": "Features:",
+    "RechargeRate": "Recharge Rate:",
+    "RechargeMin": "Recharge Min:",
+    "RechargeMax": "Recharge Max:",
+    "Rarity": "Rarity:",
+    "AcMod": "AC Mod:",
+    "ApplicableWeapons": "Applicable Weapons:",
+    "ApplicableAmmos": "Applicable Ammos:",
+    "ApplicableArmors": "Applicable Armor:",
+    "ApplicableSpells": "Applicable Spells:",
+    "StoredLevel": "Stored Level:",
+    "MaxLevel": "Max Level:",
+    "Charges": "Charges:",
+    "ChargeCost": "Charge Cost:",
+    "ChargesRemaining": "Charges Remaining:",
+    "Curse": "Curse:",
+    "ChargesPerLevelAboveStoredLevel": "Cost Per Level Above {{level}}:",
+    "Count": "Count:",
+    "AdditionalDamages": "Additional Damages:",
+    "AttackMod": "Attack Mod:",
+    "EffectType": "Effect Type:",
+    "SaveAttack": "Save/Attack:",
+    "AttuneableBy": "Attuneable By:",
+    "By": "By:",
+    "CasterLevel": "Caster Level:",
+    "SubBackground": "Sub-background:",
+    "SubRace": "Sub-race:",
+    "Plan": "Plan:",
+    "NextPayment": "Next Payment:",
+    "Card": "Card:",
+    "PaymentMethod": "Payment Method:",
+    "ChallengeRating": "Challenge Rating:",
+    "Variation": "Variation:",
+    "LegendaryPoints": "Legendary Points:",
+    "AbilityScores": "Ability Scores:",
+    "Recharge": "Recharge:",
+    "Legendary": "Legendary:",
+    "LegendaryCost": "Legendary Cost:",
+    "LegendaryPointsRemaining": "Legendary Points Remaining:",
+    "SpellcasterLevel": "Spellcaster Level:",
+    "InnateSpellcasterLevel": "Innate Spellcaster Level:",
+    "SlotValue": "Slot {{value}}:",
+    "Monster": "Monster:",
+    "CharactersScore": "Character's Score:",
+    "Characters": "Characters:",
+    "Monsters": "Monsters:",
+    "RoundToAdd": "Round to Add:",
+    "RoundAdded": "Round Added:",
+    "StartedAt": "Started At:",
+    "LastPlayedAt": "Last Played At:",
+    "FinishedAt": "Finished At:",
+    "Turn": "Turn:",
+    "Round": "Round:",
+    "Stealth": "Stealth:",
+    "StealthModifier": "Stealth Modifier:",
+    "PassivePerception": "Passive Perception:",
+    "CR": "CR:",
+    "SaveDC": "Save DC:",
+    "ActionType": "Action Type:"
+  },
+
+  "Headers": {
+    "Scores": "Scores",
+    "AbilityChecks": "Ability Checks",
+    "AbilitySaves": "Ability Saves",
+    "MultiClass": "Multi-Class",
+    "SpellSlots": "Spell Slots",
+    "Info": "Info",
+    "BasicInfo": "Basic Info",
+    "Traits": "Traits",
+    "Variations": "Variations",
+    "Personalities": "Personalities",
+    "Ideals": "Ideals",
+    "Bonds": "Bonds",
+    "Flaws": "Flaws",
+    "Ability": "Ability",
+    "Abilities": "Abilities",
+    "SavingThrows": "Saving Throws",
+    "ArmorProfs": "Armor Profs",
+    "WeaponProfs": "Weapon Profs",
+    "SkillProfs": "Skill Profs",
+    "LanguageProfs": "Language Profs",
+    "ToolProfs": "Tool Profs",
+    "Spellcasting": "Spellcasting",
+    "InnateSpellcasting": "Innate Spellcasting",
+    "DamageModifiers": "Damage Modifiers",
+    "Speeds": "Speeds",
+    "Health": "Health",
+    "Preparation": "Preparation",
+    "ClassSpells": "Class Spells",
+    "AbilityScoreIncreases": "Ability Score Increases",
+    "Damages": "Damages",
+    "Modifiers": "Modifiers",
+    "Verbal": "Verbal",
+    "Somatic": "Somatic",
+    "Material": "Material",
+    "Instantaneous": "Instantaneous",
+    "Concentration": "Concentration",
+    "EditConcentration": "Edit Concentration",
+    "TemporaryHP": "Temporary HP",
+    "Attack": "Attack",
+    "Save": "Save",
+    "SaveDC": "Save DC",
+    "SpellAttack": "Spell Attack",
+    "SpellSave": "Spell Save",
+    "HasExtraDamage": "Extra damage when casting at a higher level",
+    "HasExtraHealing": "Extra healing when casting at a higher level",
+    "HasExtraModifiers": "Extra modifiers when casting at a higher level",
+    "HasAdvancementDamage": "Increase damage as character advances",
+    "HasAdvancementHealing": "Increase healing as character advances",
+    "HasAdvancementModifiers": "Increase modifiers as character advances",
+    "ExtraDamagePer": "Extra damage per",
+    "ExtraHealingPer": "Extra healing per",
+    "ExtraModifiersPer": "Extra modifiers per",
+    "LevelsAboveBase": "levels above {{level}}",
+    "FeetValue": "{{feet}} ft",
+    "Feet": "ft",
+    "StartingEquipment": "Starting Equipment",
+    "HalfOnSave": "Half on Save",
+    "HalfOnMiss": "Half on Miss",
+    "ConditionImmunities": "Condition Immunities",
+    "Senses": "Senses",
+    "ConnectingConditions": "Connecting Conditions",
+    "ConfigureItem": "Configure Item",
+    "ConfigureLimitedUse": "Configure Limited Use",
+    "LimitedUse": "Limited Use",
+    "Characteristics": "Characteristics",
+    "Background": "Background",
+    "RollResults": "Roll Results",
+    "Equipment": "Equipment",
+    "Speed": "Speed",
+    "Passive": "Passive",
+    "Ritual": "Ritual",
+    "Tagging": "Tagging",
+    "Configuration": "Configuration",
+    "Class": "Class",
+    "Subclass": "Subclass",
+    "Subclasses": "Subclasses",
+    "SubRaces": "Sub-Races",
+    "SubBackgrounds": "Sub-Backgrounds",
+    "ArmorClass": "Armor Class",
+    "Carrying": "Carrying",
+    "Initiative": "Initiative",
+    "InitiativeRoll": "Initiative Roll",
+    "Level": "Level",
+    "ProficiencyBonus": "Proficiency Bonus",
+    "WeightCarried": "Weight Carried",
+    "CarryingCapacity": "Carrying Capacity",
+    "PushLiftDrag": "Push, Lift, Drag",
+    "MaxHp": "Max HP",
+    "Final": "Final",
+    "HitDice": "Hit Dice",
+    "Current": "Current",
+    "Advanced": "Advanced",
+    "DeathSaves": "Death Saves",
+    "History": "History",
+    "Settings": "Settings",
+    "Resurrect": "Resurrect",
+    "RestInPeace": "Rest in Peace",
+    "Encumbered": "Encumbered",
+    "HeavilyEncumbered": "Heavily Encumbered",
+    "EncumberedAbbr": "Enc.",
+    "HeavilyEncumberedAbbr": "H. Enc.",
+    "AddSpells": "Add Spells",
+    "AddFeatures": "Add Features",
+    "AddType": "Add Type",
+    "AddWeapon": "Add Weapon",
+    "AddArmor": "Add Armor",
+    "Details": "Details",
+    "ShortRest": "Short Rest",
+    "LongRest": "Long Rest",
+    "Skills": "Skills",
+    "Features": "Features",
+    "HealthRolls": "Health Rolls",
+    "ExpManagement": "Exp Management",
+    "LevelManagement": "Level Management",
+    "LevelAssignment": "Level Assignment",
+    "Exp": "Exp",
+    "Adjustment": "Adjustment",
+    "CharacterValidation": "Character Validation",
+    "UpdateCharacter": "Update Character",
+    "FeatSelection": "Feat Selection",
+    "Wealth": "Wealth",
+    "WealthConfiguration": "Wealth Configuration",
+    "Items": "Items",
+    "Summary": "Summary",
+    "Misc": "Misc",
+    "ConfirmDelete": "Confirm Delete",
+    "CancelChanges": "Cancel Changes",
+    "QuickActions": "Actions",
+    "Slot": "Slot {{value}}",
+    "PossibleDuplicate": "Possible Duplicate",
+    "Charges": "Charges",
+    "Spells": "Spells",
+    "InnateSpells": "Innate Spells",
+    "ApplicableType": "Applicable Type",
+    "Attunement": "Attunement",
+    "Curse": "Curse",
+    "AddFilter": "Add Filter",
+    "SpellLevel": "Spell Level",
+    "SelectItem": "Select Item",
+    "SelectSpell": "Select Spell",
+    "AddTable": "Add Table",
+    "EditTable": "Edit Table",
+    "RemoveTable": "Remove Table",
+    "EditCell": "Edit Cell",
+    "EditHeader": "Edit Header",
+    "AddColumn": "Add Column",
+    "AddRow": "Add Row",
+    "Sharing": "Sharing",
+    "Actions": "Actions",
+    "Spell": "Spell",
+    "AbilityScores": "Ability Scores",
+    "AddCompanion": "Add Companion",
+    "EditCompanion": "Edit Companion",
+    "CompanionType": {
+      "BEAST": "Beasts",
+      "WILD_SHAPE": "Wild Shapes",
+      "SUMMON": "Summons"
+    },
+    "Languages": "Languages",
+    "Characters": "Characters",
+    "Cantrips": "Cantrips",
+    "AC": "AC",
+    "HpMax": "HP/Max",
+    "Temp": "Temp",
+    "Prof": "Prof",
+    "Inspiration": "Inspiration",
+    "Race": "Race",
+    "Alignment": "Alignment",
+    "Name": "Name",
+    "SavingThrow": "Saving Throw",
+    "Encounters": "Encounters",
+    "Monsters": "Monsters",
+    "AddMonsters": "Add Monsters",
+    "ConfirmInitiative": "Confirm Initiative",
+    "SurpriseRound": "Surprise Round",
+    "Quantity": "Quantity",
+    "HP": "HP",
+    "Init": "Init",
+    "Setup": "Setup",
+    "ConfirmSetup": "Confirm Setup",
+    "Experience": "Experience",
+    "Stealth": "Stealth",
+    "Surprised": "Surprised",
+    "Round": "Round",
+    "DelayTurn": "Delay Turn",
+    "Flee": "Flee",
+    "LegendaryActions": "Legendary Actions",
+    "LairActions": "Lair Actions"
+  },
+
+  "Tooltips": {
+    "Add": "Add",
+    "Delete": "Delete",
+    "AdminAccess": "If this is turned on, then the Squire Admin will be able to login to your account in order to diagnose any issues you are having. Only turn this on if you are comfortable with allowing the admin to do this.",
+    "SecondaryProfs": "If a character is multiclassing and this class is not the first class for the character, these are the proficiencies that the character will gain.",
+    "Traits": "These are the traits that the character can choose from. If a can't be edited, it is because it is inherited.",
+    "SavingThrows": "These are the ability modifiers and saving throws that the character will be proficient in when this item is chosen. If a proficiency is checked and disabled, it is because it is inherited.",
+    "ArmorProfs": "These are the armors that the character will be proficient in when this item is chosen. If a proficiency is checked and disabled, it is because it is inherited.",
+    "WeaponProfs": "These are the weapons that the character will be proficient in when this item is chosen. If a proficiency is checked and disabled, it is because it is inherited.",
+    "SkillProfs": "These are the skills that the character will be proficient in when this item is chosen. If a proficiency is checked and disabled, it is because it is inherited. The second list of proficiencies determines which skills the character can choose proficiencies from.",
+    "LanguageProfs": "These are the languages that the character will be proficient in when this item is chosen. If a proficiency is checked and disabled, it is because it is inherited.",
+    "ToolProfs": "These are the tools that the character will be proficient in when this item is chosen. If a proficiency is checked and disabled, it is because it is inherited. The second list of proficiencies determines which tool categories the character can choose proficiencies from.",
+    "Spellcasting": "These are the spells that the character will be able to cast when this item is chosen. If a spell is checked and disabled, it is because it is inherited.",
+    "SpellcastingAbility": "This is the ability that will be used to determine the spell attack modifier and the spell save DC for the spells listed below.",
+    "LevelGained": "This is the level that the spell will automatically be added to the character.",
+    "DamageModifiers": "These are the damage modifiers that will be applied to the character when this item is chosen.",
+    "DamageModifier": {
+      "NORMAL": "Normal Damage",
+      "VULNERABLE": "Double Damage",
+      "RESISTANT": "Half Damage",
+      "IMMUNE": "No Damage"
+    },
+    "CasterType": "This is the caster type that will be used for the class. This will determine the number of spell slots that the character will have.",
+    "AbilityScoreIncreases": "These are the levels that the character will be able to use two points to spend on ability scores.",
+    "Damages": "These are the damages that will be applied when this is used.",
+    "Modifiers": "These are the modifiers that will be applied when this feature is used.",
+    "Configure": "Configure",
+    "Modifier": {
+      "Adjustment": "If on, this will adjust the type by the specified value. If off, this will set the type to the specified value regardless of the previous value or any other modifier.",
+      "RoundUp": "If your proficiency is an odd number, this will round the proficiency value up when divided by two."
+    },
+    "Damage": {
+      "Adjustment": "If on, this will adjust the type by the specified value. If off, this will set the type to the specified value regardless of the previous value or any other damages configured."
+    },
+    "MaxAbilityModifier": "This will set the maximum value for the ability modifier that can be applied to the AC. Leave this as zero if there is no maximum.",
+    "MinStrength": "This is the minimum Strength score that is required in order to wield this piece of armor. Leave this as zero if there is no minimum.",
+    "ConditionImmunities": "These are the conditions that your character will be immune to.",
+    "Senses": "These are the senses that your character has and the range that they can use them. Leave as zero if the sense doesn't apply.",
+    "ConnectingConditions": "These are the conditions that will automatically be applied when the current condition is applied.",
+    "LimitedUse": "This will determine how many times you can use this item. You can specify how many uses there are and when those uses are replenished.",
+    "HpModifier": "This value will be added to each level",
+    "CharacterSettings": {
+      "SpeedToDisplay": "This will determine which speed is displayed on the character screen.",
+      "HideUnpreparedSpells": "If on, this will hide any spells that you don't have prepared. If your class doesn't require preparing spells, this setting won't do anything.",
+      "HideUnpreparedSpellsQuickAttacks": "If on, this will hide any quick attacks that have an attached spell that isn't prepared. If your class doesn't require preparing spells, this setting won't do anything.",
+      "UseHalf": "If on, this will use half of your walking speed instead of the speed that you get from your race and any modifiers that you get from items or features.",
+      "Health": {
+        "ShowHitDice": "If on, you will be able to view and use hit dice from the health management screen.",
+        "HighlightValues": "If on, your current health values will be highlighted when modifiers are applied.",
+        "FlashLCD": "If on, the screen will flash when your health has been adjusted to help confirm that the value actually changed.",
+        "AutoRollConcentrationChecks": "If on, concentration checks will be applied automatically. You will be notified if your concentration check fails.",
+        "PostponeConcentrationChecks": "If on, your concentration checks will only be made AFTER you save from the health management screen.",
+        "RemoveProneOnRevive": "If on, when you regain consciousness, you will automatically remove the prone condition.",
+        "DropItemsWhenDying": "If on, when you lose consciousness, you will automatically drop any items that you are holding in your hands."
+      },
+      "Spellcasting": {
+        "DisplayClassSpellcasting": "If on, this will show the spells and spellcasting attributes for your classes.",
+        "DisplayRaceSpellcasting": "If on, this will show the spells and spellcasting attributes for your race.",
+        "DisplayBackgroundSpellcasting": "If on, this will show the spells and spellcasting attributes for your background.",
+        "DisplayOtherSpellcasting": "If on, this will allow you to assign spells to a generic category.",
+        "CombineSpellLists": "If on, this will combine the spells for all classes, race, and background. If off, the spells will be listed separately and you will also be able to see the spell modifiers for each category.",
+        "DisplayTags": "If on, this will display the tags on the character spell list.",
+        "DisplayClass": "If on, this will display the class that the spell is assigned to on the character spell list.",
+        "HighlightActive": "If on, this will highlight the spell card green whenever the spell is active."
+      },
+      "Features": {
+        "DisplayTags": "If on, this will display the tags on the character feature list.",
+        "HighlightActive": "If on, this will highlight the feature card green whenever the feature is active.",
+        "HighlightNonActive": "If on, this will highlight the feature card gray whenever the feature is not active and can be."
+      },
+      "Skills": {
+        "DisplayPassive": "If on, this will display the passive score on each of the skills."
+      },
+      "CharacterValidation": {
+        "AllowFeatSelection": "If on, whenever the character is prompted to gain an Ability Score Increase (ASI), they will also be able to choose a feat.",
+        "AsiFeatOneOnly": "If on, whenever the character is prompted to gain an Ability Score Increase (ASI), they will be restricted to choosing either an ASI or a Feat.",
+        "AutoIgnoreUnselectedFeatures": "If on, the checkbox to ignore unselected features will be checked by default. You will still be able to uncheck the box if desired.",
+        "AutoIgnoreUnselectedSpells": "If on, the checkbox to ignore unselected spells will be checked by default. You will still be able to uncheck the box if desired.",
+        "AutoIgnoreUnselectedAsi": "If on, the checkbox to ignore unselected Ability Score Increases will be checked by default. You will still be able to uncheck the box if desired."
+      },
+      "Misc": {
+        "ShowHealthProgressBar": "If on, this will show the progress bar at the bottom of the health card.",
+        "ShowLevelProgressBar": "If on, this will show the progress bar at the bottom of the level card.",
+        "ShowCarryingProgressBar": "If on, this will show the progress bar at the bottom of the carrying card."
+      },
+      "QuickActions": {
+        "HideUnpreparedSpells": "If on, this will hide any spells from the actions and favorites if the associated spell is unprepared"
+      },
+      "Equipment": {
+        "HideEmptySlots": "If on, this will hide any slot that doesn't have an item equipped to it.",
+        "AutoConvertCurrency": "If on, this will convert your currency to be the highest value. For example, if you have 10 copper pieces, this will be converted to 1 silver piece. Also when purchasing, it will automatically convert coins down. For example if something costs 1 copper piece and you only have 1 silver piece, it will automatically convert 1 silver piece into 10 copper and then use the 1 copper.",
+        "UseEncumbrance": "If on, this will take your total weight carried and determine if you are encumbered.",
+        "CalculateCurrencyWeight": "If on, this will add the weight of the coins your carry to your total weight carried.",
+        "AttackWithUnequipped": "If on, this will allow you to attack with items that aren't currently equipped. The item must still be equippable to the hand slot.",
+        "EnforceAttunedLimit": "If on, this will not allow you to attune to more magical items than the amount specified."
+      }
+    },
+    "SpellSelectionCharacteristic": "This is the characteristic that the selected spells will be assigned to. The spellcasting ability will be determine based on the configuration of this characteristic.",
+    "SpellSlotOverflow": "This value is less than the remaining value. If you continue, your remaining spell slots will be adjusted to the new max value.",
+    "ItemModifyingDexModifier": "An item is limiting the max dex",
+    "Encumbered": "Encumbered: Reduces speed by 10 feet",
+    "HeavilyEncumbered": "Heavily Encumbered: Reduces speed by 20 feet\nDisadvantage on ability checks, attack rolls, and saving throws that use Strength, Dexterity, or Constitution",
+    "AdvantageRollResult": "Advantage: Took the larger of Roll 1 and Roll 2",
+    "DisdvantageRollResult": "Disadvantage: Took the smaller of Roll 1 and Roll 2",
+    "HalfWalkingValue": "Half Walking ({{walkingSpeed}})",
+    "GoToPage": "Go To Page",
+    "UnconfirmedDuplicate": "Unconfirmed Duplicate: Please view the details and confirm which duplicate you want to use.",
+    "ChanceOfDestruction": "When you use the last charge of this item, you roll a d20. On a 1, the item is destroyed."
+  },
+
+  "LevelManagement": {
+    "ResetHealth": "Reset current health, hit dice, and available spell slots to the max values"
+  },
+
+  "SpellsRequirePreparation": "Spells Require Preparation",
+  "AddClassLevel": "Add Class Level",
+  "AddHalfClassLevel": "Add Half Class Level",
+  "ClassLevel": "Class Level",
+  "HalfClassLevel": "Half Class Level",
+
+  "SpellSlotsLevel": {
+    "1": "1st",
+    "2": "2nd",
+    "3": "3rd",
+    "4": "4th",
+    "5": "5th",
+    "6": "6th",
+    "7": "7th",
+    "8": "8th",
+    "9": "9th"
+  },
+
+  "SpellSlots": {
+    "ClearConfirmation": "Are you sure you want to clear all max modifiers? This action can not be undone.",
+    "ResetConfirmation": "Are you sure you want to reset all of your spell slots? This action can not be undone.",
+    "Remaining": "Slots remaining: {{count}}",
+    "DontUse": "Don't use a slot"
+  },
+
+  "Charges": {
+    "RechargeConfirmation": "Are you sure you want to recharge all of your items? This will use the recharge rate specified for each item.",
+    "RechargeSingleConfirmation": "Are you sure you want to recharge this item? This will use the recharge rate specified for this item."
+  },
+
+  "Attunement": {
+    "ResetConfirmation": "Are you sure you want to reset all of your attunements? This will un-attune you from all of your items."
+  },
+
+  "HealthConfiguration": {
+    "ResetConfirmation": "Are you sure you want to reset your health and hit dice back to the max values? This action can not be undone."
+  },
+
+  "TimeUnit": {
+    "StandardOption": "Standard Action(s)",
+    "MoveOption": "Move Action(s)",
+    "FreeOption": "Free Action(s)",
+    "HourOption": "Hour(s)",
+    "MinuteOption": "Minute(s)",
+    "SecondOption": "Second(s)",
+    "STANDARD": "{{count}} Standard Action(s)",
+    "MOVE": "{{count}} Move Action(s)",
+    "FREE": "{{count}} Free Action(s)",
+    "HOUR": "{{count}} Hour(s)",
+    "MINUTE": "{{count}} Minute(s)",
+    "SECOND": "{{count}} Second(s)"
+  },
+
+  "ActionType": {
+    "STANDARD": "Standard Actions",
+    "BONUS": "Bonus Actions",
+    "REACTION": "Reactions"
+  },
+  "FavoriteActions": "Favorite Actions",
+  "NoFavoriteActions": "No favorite actions",
+  "NoLimitedUses": "No limited uses",
+
+  "CreatureActionType": {
+    "WEAPON": "Weapons",
+    "SPELL": "Spells",
+    "FEATURE": "Features"
+  },
+
+  "Action": {
+    "STANDARD": "Standard",
+    "BONUS": "Bonus",
+    "REACTION": "Reaction",
+    "FREE": "Free",
+    "MOVE": "Move",
+    "NONE": "None",
+    "LEGENDARY": "Legendary",
+    "LAIR": "Lair"
+  },
+
+  "CastingTimeUnit": {
+    "ACTION": "Action(s)",
+    "BONUS_ACTION": "Bonus Actions(s)",
+    "REACTION": "Reaction(s)",
+    "SECOND": "Second(s)",
+    "MINUTE": "Minute(s)",
+    "HOUR": "Hour(s)",
+    "Count": {
+      "ACTION": "{{count}} Action(s)",
+      "BONUS_ACTION": "{{count}} Bonus Actions(s)",
+      "REACTION": "{{count}} Reaction(s)",
+      "SECOND": "{{count}} Second(s)",
+      "MINUTE": "{{count}} Minute(s)",
+      "HOUR": "{{count}} Hour(s)"
+    }
+  },
+
+  "Level": "Level {{level}}",
+  "Lvl": "Lvl {{level}}",
+  "ChargesCost": "Charges: {{cost}}",
+
+  "DamageModifier": {
+    "NORMAL": "Normal",
+    "VULNERABLE": "Vulnerable",
+    "RESISTANT": "Resistant",
+    "IMMUNE": "Immune"
+  },
+
+  "StartingEquipmentChoice": {
+    "EQUIPMENT": "Equipment",
+    "CURRENCY": "Currency"
+  },
+
+  "StartingGoldCalculation": "{{numDice}}d{{diceSize}} x {{modifier}} GP",
+  "StartingGoldRollRequest": "Starting Gold: {{characteristic}}",
+
+  "HealthModificationType": {
+    "DAMAGE": "Damage",
+    "HEAL": "Heal",
+    "TEMP": "Temp",
+    "STABILIZE": "Stabilize",
+    "UNSTABILIZED": "Unstabilized",
+    "DEATH_SAVE_SUCCESS": "Death Save Success",
+    "DEATH_SAVE_FAIL": "Death Save Fail",
+    "HIT_DICE": "Hit Dice: {{value}} (d{{diceSize}})",
+    "CONCENTRATION_CHECK": "Concentration Check"
+  },
+
+  "ConcentrationChecks": {
+    "Success": "Concentration ({{spellName}}): {{value}} - Success",
+    "SuccessCritical": "Concentration ({{spellName}}): {{value}} - Success (Critical)",
+    "Fail": "Concentration ({{spellName}}): {{value}} - Fail",
+    "FailCritical": "Concentration ({{spellName}}): {{value}} - Fail (Critical)"
+  },
+
+  "DeathSaves": {
+    "Success": "Save: {{value}} - Success",
+    "SuccessUndo": "Save: Success (Undo)",
+    "SuccessCritical": "Save: {{value}} - Success (Critical)",
+    "Fail": "Save: {{value}} - Fail",
+    "FailUndo": "Save: Fail (Undo)",
+    "FailCritical": "Save: {{value}} - Fail (Critical)"
+  },
+
+  "SpeedType": {
+    "WALK": "Walk",
+    "CRAWL": "Crawl",
+    "CLIMB": "Climb",
+    "SWIM": "Swim",
+    "FLY": "Fly",
+    "BURROW": "Burrow"
+  },
+
+  "Size": {
+    "TINY": "Tiny",
+    "SMALL": "Small",
+    "MEDIUM": "Medium",
+    "LARGE": "Large",
+    "HUGE": "Huge",
+    "GARGUANTUAN": "Garguantuan"
+  },
+
+  "CharacteristicType": {
+    "CLASS": "Class",
+    "RACE": "Race",
+    "BACKGROUND": "Background",
+    "FEAT": "Feat",
+    "null": "Feat",
+    "Plural": {
+      "CLASS": "Classes",
+      "RACE": "Races",
+      "BACKGROUND": "Backgrounds",
+      "FEAT": "Feats"
+    }
+  },
+
+  "LimitedUse": {
+    "Quantity": "Quantity",
+    "Dice": "Dice"
+  },
+
+  "AttributeType": {
+    "NONE": "None",
+    "ABILITY": "Ability",
+    "ARMOR_TYPE": "Armor Type",
+    "CASTER_TYPE": "Caster Type",
+    "CONDITION": "Condition",
+    "DAMAGE_TYPE": "Damage Type",
+    "LANGUAGE": "Language",
+    "LEVEL": "Level",
+    "SKILL": "Skill",
+    "TOOL_CATEGORY": "Tool Category",
+    "WEAPON_PROPERTY": "Weapon Property",
+    "WEAPON_TYPE": "Weapon Type",
+    "AREA_OF_EFFECT": "Area of Effect",
+    "SPELL_SCHOOL": "Spell School",
+    "ALIGNMENT": "Alignment",
+    "DEITY": "Deity",
+    "DEITY_CATEGORY": "Deity Category",
+    "MISC": "Misc",
+    "Plural": {
+      "ABILITY": "Abilities",
+      "ARMOR_TYPE": "Armor Types",
+      "CASTER_TYPE": "Caster Types",
+      "CONDITION": "Conditions",
+      "DAMAGE_TYPE": "Damage Types",
+      "LANGUAGE": "Languages",
+      "LEVEL": "Levels",
+      "SKILL": "Skills",
+      "TOOL_CATEGORY": "Tool Categories",
+      "WEAPON_PROPERTY": "Weapon Properties",
+      "WEAPON_TYPE": "Weapon Types",
+      "AREA_OF_EFFECT": "Area of Effects",
+      "SPELL_SCHOOL": "Spell Schools",
+      "ALIGNMENT": "Alignments",
+      "DEITY": "Deities",
+      "DEITY_CATEGORY": "Deity Categories"
+    }
+  },
+
+  "PowerType": {
+    "SPELL": "Spell",
+    "FEATURE": "Feature",
+    "MONSTER_ACTION": "Action",
+    "MONSTER_FEATURE": "Feature",
+    "Plural": {
+      "SPELL": "Spells",
+      "FEATURE": "Features",
+      "MONSTER_ACTION": "Actions",
+      "MONSTER_FEATURE": "Features"
+    }
+  },
+
+  "CreatureType": {
+    "CHARACTER": "Character",
+    "MONSTER": "Monster",
+    "Plural": {
+      "CHARACTER": "Characters",
+      "MONSTER": "Monsters"
+    }
+  },
+
+  "ModifierCategory": {
+    "ABILITY": "Ability",
+    "SKILL": "Skill",
+    "SPEED": "Speed",
+    "SPELL": "Spell",
+    "MISC": "Misc",
+    "ATTACK": "Attack",
+    "DAMAGE": "Damage"
+  },
+
+  "ModifierSubCategory": {
+    "OTHER": "Other",
+    "SCORE": "Score",
+    "SAVE": "Save",
+    "PASSIVE": "Passive"
+  },
+
+  "DiceSize": {
+    "ONE": "1",
+    "TWO": "2",
+    "THREE": "3",
+    "FOUR": "4",
+    "SIX": "6",
+    "EIGHT": "8",
+    "TEN": "10",
+    "TWELVE": "12",
+    "TWENTY": "20",
+    "HUNDRED": "100"
+  },
+
+  "MagicalItemType": {
+    "AMMO": "Ammo",
+    "ARMOR": "Armor",
+    "POTION": "Potion",
+    "RING": "Ring",
+    "ROD": "Rod",
+    "SCROLL": "Scroll",
+    "STAFF": "Staff",
+    "WAND": "Wand",
+    "WEAPON": "Weapon",
+    "WONDROUS": "Wondrous"
+  },
+
+  "MagicalItemTypeLabel": {
+    "AMMO": {
+      "Applicable": "Applicable Ammos:"
+    },
+    "ARMOR": {
+      "Applicable": "Applicable Armors:"
+    },
+    "SCROLL": {
+      "Applicable": "Applicable Spells:"
+    },
+    "WEAPON": {
+      "Applicable": "Applicable Weapons:"
+    }
+  },
+
+  "MagicalItemConfiguration": {
+    "InheritedWeightIfZero": "If the weight is left at 0, then it will inherit its weight from the selected applicable item.",
+    "WeightInherited": "Weight inherited from selected item"
+  },
+
+  "MagicalItemAttunementClass": {
+    "Message": "Only characters using this class or one of the other classes listed, if any, will be able to attune to this item."
+  },
+
+  "MagicalItemAttunementAlignment": {
+    "Message": "Only characters using this alignment or one of the other alignments listed, if any, will be able to attune to this item."
+  },
+
+  "MagicalItemAttunementRace": {
+    "Message": "Only characters using this race or one of the other races listed, if any, will be able to attune to this item."
+  },
+
+  "MagicalItem": {
+    "Spell": {
+      "NotEnoughCharges": "There aren't enough charges remaining to cast this spell at the selected level.",
+      "NotAttuned": "You are not attuned to this item so you can't cast this spell from it.",
+      "RemoveOnCasting": {
+        "Confirmation": {
+          "Title": "Spell removed after casting",
+          "Message": "This spell will be removed from this item after it has been cast. Are you sure you want to continue casting it?"
+        }
+      },
+      "Scroll": {
+        "NotInClassList": "This spell is not in your class list so you can't cast it.",
+        "OneTimeUse": {
+          "Confirmation": {
+            "Title": "One time use",
+            "Message": "A scroll can only be used once. After you cast this spell, the scroll will be destroyed and removed from your inventory. Are you sure you want to continue casting it?"
+          }
+        },
+        "ChanceOfFailure": {
+          "Roll": {
+            "Title": "Chance of Failure: {{itemName}}",
+            "Result": {
+              "Success": "{{itemName}}: {{value}} (DC: {{dc}}) - Success",
+              "Fail": "{{itemName}}: {{value}} (DC: {{dc}}) - Fail"
+            }
+          },
+          "Confirmation": {
+            "Title": "Chance of Failure",
+            "Message": "This spell on this scroll is at a higher level than you can normally cast. To be able to cast this spell, you will be required to make a check using your spellcasting ability modifier with a DC of {{dc}}.\n\nIf you succeed, you will be able to continue casting the spell. Regardless of this check, the spell scroll will be destroyed and removed from your inventory.\n\nAre you sure you want to continue casting this spell?"
+          }
+        }
+      }
+    },
+    "Potion": {
+      "OneTimeUse": {
+        "Confirmation": {
+          "Title": "One time use",
+          "Message": "A potion can only be used once. After you use this potion, it will be destroyed and removed from your inventory. Are you sure you want to continue using it?"
+        }
+      }
+    },
+    "ChanceOfDestruction": {
+      "Roll": {
+        "Title": "Chance of Destruction: {{itemName}}",
+        "Result": {
+          "Success": "Chance of Destruction ({{itemName}}): {{value}} - Not Destroyed",
+          "Fail": "Chance of Destruction ({{itemName}}): {{value}} - Destroyed"
+        }
+      },
+      "Confirmation": {
+        "Title": "Chance of Destruction",
+        "Message": "You are using the last charge of this item and will have a chance of being destroyed. Are you sure you want to continue using the last charge?"
+      }
+    }
+  },
+
+  "Rarity": {
+    "COMMON": "Common",
+    "UNCOMMON": "Uncommon",
+    "RARE": "Rare",
+    "VERY_RARE": "Very Rare",
+    "LEGENDARY": "Legendary"
+  },
+
+  "SupportRequestSubject": {
+    "REPORT_A_BUG": "Report a Bug",
+    "FEATURE_REQUEST": "Feature Request",
+    "OTHER": "Other"
+  },
+
+  "HitDiceReason": "Hit Dice: d{{diceSize}}",
+
+  "AttackType": {
+    "ATTACK": "Attack",
+    "SAVE": "Save",
+    "HEAL": "Heal",
+    "NONE": "None",
+    "DAMAGE": "Damage"
+  },
+
+  "RangeType": {
+    "SELF": "Self",
+    "TOUCH": "Touch",
+    "SIGHT": "Sight",
+    "UNLIMITED": "Unlimited",
+    "OTHER": "Other"
+  },
+
+  "RangeUnit": {
+    "FEET": "ft",
+    "MILE": "mile(s)"
+  },
+
+  "RangeValue": {
+    "FEET": "{{value}} ft",
+    "MILE": "{{value}} mile(s)"
+  },
+
+  "ItemType": {
+    "ALL": "All",
+    "WEAPON": "Weapon",
+    "ARMOR": "Armor",
+    "GEAR": "Gear",
+    "TOOL": "Tool",
+    "AMMO": "Ammo",
+    "MOUNT": "Mount",
+    "TREASURE": "Treasure",
+    "PACK": "Pack",
+    "MAGICAL_ITEM": "Magical Item",
+    "VEHICLE": "Vehicle",
+    "Plural": {
+      "WEAPON": "Weapons",
+      "ARMOR": "Armors",
+      "GEAR": "Gears",
+      "TOOL": "Tools",
+      "AMMO": "Ammos",
+      "MOUNT": "Mounts",
+      "TREASURE": "Treasures",
+      "PACK": "Packs",
+      "MAGICAL_ITEM": "Magical Items",
+      "VEHICLE": "Vehicles"
+    }
+  },
+
+  "EquipmentSlotType": {
+    "NONE": "None",
+    "HAND": "Hand",
+    "BODY": "Body",
+    "BACK": "Back",
+    "NECK": "Neck",
+    "GLOVES": "Gloves",
+    "FINGER": "Finger",
+    "HEAD": "Head",
+    "WAIST": "Waist",
+    "FEET": "Feet",
+    "MOUNT": "Mount",
+    "null": ""
+  },
+
+  "WeaponRangeType": {
+    "MELEE": "Melee",
+    "RANGED": "Ranged"
+  },
+
+  "Sense": {
+    "DARKVISION": "Darkvision",
+    "BLINDSIGHT": "Blindsight",
+    "TELEPATHY": "Telepathy",
+    "TREMORSENSE": "Tremorsense",
+    "TRUESIGHT": "Truesight"
+  },
+
+  "StartingEquipmentType": {
+    "ITEM": "Item",
+    "FILTER": "Filter"
+  },
+
+  "MagicalItemApplicabilityType": {
+    "ITEM": "Item",
+    "SPELL": "Spell",
+    "FILTER": "Filter"
+  },
+
+  "MagicalItemAttunementType": {
+    "ANY": "Any",
+    "CASTER": "Spellcaster",
+    "CLASS": "Class",
+    "ALIGNMENT": "Alignment",
+    "RACE":  "Race"
+  },
+
+  "MagicalItemSpellAttackCalculationType": {
+    "TABLE": "Table",
+    "CASTER": "Caster",
+    "CUSTOM":  "Custom",
+    "NONE": "None"
+  },
+  "CasterCalculationTypeMessage": "The attack and save dc will be determined by the stats of the caster.",
+
+  "LimitedUseType": {
+    "QUANTITY": "Quantity",
+    "DICE": "Dice",
+    "LEVEL": "Level",
+    "RECHARGE": "Recharge"
+  },
+
+  "HealthCalculationType": {
+    "MAX": "Max",
+    "AVERAGE": "Average",
+    "ROLL": "Roll"
+  },
+
+  "ExperienceType": {
+    "EXP": "Exp",
+    "MILESTONE": "Milestone"
+  },
+
+  "GroupCheckType": {
+    "GROUP": "Group",
+    "LOWEST": "Lowest"
+  },
+
+  "EncounterDifficulty": {
+    "EASY":  "Easy",
+    "MEDIUM": "Medium",
+    "HARD":  "Hard",
+    "DEADLY": "Deadly"
+  },
+
+  "Gender": {
+    "NEUTRAL": "Neutral",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "Possessive": {
+      "NEUTRAL": "its",
+      "MALE": "his",
+      "FEMALE": "her"
+    }
+  },
+
+  "CharacterPageType": {
+    "BASIC": "Basic",
+    "ABILITIES": "Abilities",
+    "QUICK_ACTIONS": "Actions",
+    "CHARACTERISTICS": "Characteristics",
+    "COMPANIONS": "Companions",
+    "CONDITIONS": "Conditions",
+    "DAMAGE_MODIFIERS": "Damage Modifiers",
+    "EQUIPMENT": "Equipment",
+    "FEATURES": "Features",
+    "NOTES": "Notes",
+    "PROFICIENCIES": "Proficiencies",
+    "SKILLS": "Skills",
+    "SPELLS": "Spells"
+  },
+
+  "CompanionType": {
+    "BEAST": "Beast",
+    "WILD_SHAPE": "Wild Shape",
+    "SUMMON": "Summon"
+  },
+
+  "SortKey": {
+    "NAME": "Name",
+    "LEVEL": "Level",
+    "CATEGORY": "Category",
+    "DATE": "Date",
+    "ABILITY": "Ability"
+  },
+
+  "CreatureState": {
+    "STABLE": "Stable",
+    "UNSTABLE": "Unstable",
+    "CONSCIOUS": "Conscious",
+    "DEAD": "Dead"
+  },
+
+  "MonsterType": {
+    "ABERRATION": "Aberration",
+    "BEAST": "Beast",
+    "CELESTIAL": "Celestial",
+    "CONSTRUCT": "Construct",
+    "DRAGON": "Dragon",
+    "ELEMENTAL": "Elemental",
+    "FEY": "Fey",
+    "FIEND": "Fiend",
+    "GIANT": "Giant",
+    "HUMANOID": "Humanoid",
+    "MONSTROSITY": "Monstrosity",
+    "OOZE": "Ooze",
+    "PLANT": "Plant",
+    "UNDEAD": "Undead"
+  },
+
+  "ChallengeRating": {
+    "ZERO": "0",
+    "EIGHTH": "1/8",
+    "QUARTER": "1/4",
+    "HALF": "1/2",
+    "ONE": "1",
+    "TWO": "2",
+    "THREE": "3",
+    "FOUR": "4",
+    "FIVE": "5",
+    "SIX": "6",
+    "SEVEN": "7",
+    "EIGHT": "8",
+    "NINE": "9",
+    "TEN": "10",
+    "ELEVEN": "11",
+    "TWELVE": "12",
+    "THIRTEEN": "13",
+    "FOURTEEN": "14",
+    "FIFTEEN": "15",
+    "SIXTEEN": "16",
+    "SEVENTEEN": "17",
+    "EIGHTEEN": "18",
+    "NINETEEN": "19",
+    "TWENTY": "20",
+    "TWENTY_ONE": "21",
+    "TWENTY_TWO": "22",
+    "TWENTY_THREE": "23",
+    "TWENTY_FOUR": "24",
+    "TWENTY_FIVE": "25",
+    "TWENTY_SIX": "26",
+    "TWENTY_SEVEN": "27",
+    "TWENTY_EIGHT": "28",
+    "TWENTY_NINE": "29",
+    "THIRTY": "30"
+  },
+
+  "FilterKey": {
+    "ITEM_TYPE": "Item Type",
+    "WEAPON_DIFFICULTY": "Difficulty",
+    "WEAPON_CATEGORY": "Category",
+    "ARMOR_CATEGORY": "Category",
+    "TOOL_CATEGORY": "Category",
+    "EXPENDABLE": "Expendable",
+    "EQUIPPABLE": "Equippable",
+    "CONTAINER": "Container",
+    "MAGICAL_TYPE": "Magical Type",
+    "RARITY": "Rarity",
+    "ATTUNEMENT": "Attunement",
+    "CURSED": "Cursed",
+    "FEATURE_CATEGORY": "Category",
+    "FEATURE_CLASS": "Class",
+    "FEATURE_RACE": "Race",
+    "FEATURE_BACKGROUND": "Background",
+    "LEVEL": "Level",
+    "RANGE": "Range",
+    "AREA_OF_EFFECT": "Area of Effect",
+    "FEATURE_AREA_OF_EFFECT": "Area of Effect Type",
+    "SPELL_CLASS": "Class",
+    "SCHOOL": "School",
+    "RITUAL": "Ritual",
+    "SPELL_AREA_OF_EFFECT": "Area of Effect Type",
+    "VERBAL": "Verbal",
+    "SOMATIC": "Somatic",
+    "MATERIAL": "Material",
+    "CONCENTRATION": "Concentration",
+    "INSTANTANEOUS": "Instantaneous",
+    "PREPARED": "Prepared",
+    "ACTIVE": "Active",
+    "PASSIVE": "Passive",
+    "CONCENTRATING": "Concentrating",
+    "MONSTER_TYPE": "Monster Type",
+    "CHALLENGE_RATING": "Challenge Rating",
+    "ALIGNMENT":  "Alignment",
+    "SPELLCASTER": "Spellcaster",
+    "LEGENDARY":  "Legendary",
+    "FLYING":  "Flying",
+    "SWIMMING":  "Swimming"
+  },
+
+  "CreatureItemActionGroup": {
+    "ACTIONS": "Actions",
+    "MAGICAL_ACTIONS": "Magical Actions",
+    "PROPERTIES": "Properties"
+  },
+
+  "CreatureItemAction": {
+    "ATTACK":  {
+      "Label": "Attack",
+      "ConfirmationMessage": ""
+    },
+    "SHOOT":  {
+      "Label": "Shoot",
+      "ConfirmationMessage": ""
+    },
+    "MELEE":  {
+      "Label": "Melee",
+      "ConfirmationMessage": ""
+    },
+    "THROW":  {
+      "Label": "Throw",
+      "ConfirmationMessage": ""
+    },
+    "EQUIP": {
+      "Label": "Equip",
+      "ConfirmationMessage": ""
+    },
+    "UNEQUIP":  {
+      "Label": "Un-Equip",
+      "ConfirmationMessage": ""
+    },
+    "DROP": {
+      "Label": "Drop",
+      "ConfirmationMessage": ""
+    },
+    "PICKUP":  {
+      "Label": "Pickup",
+      "ConfirmationMessage": ""
+    },
+    "PICKUP_EXPENDED": {
+      "Label": "Pickup",
+      "ConfirmationMessage": "Anything that you don't pickup will be discarded."
+    },
+    "SELL":  {
+      "Label": "Sell",
+      "ConfirmationMessage": ""
+    },
+    "DISCARD": {
+      "Label": "Discard",
+      "ConfirmationMessage": "Are you sure you want to discard this item? This can not be undone."
+    },
+    "MOVE":  {
+      "Label": "Move",
+      "ConfirmationMessage": ""
+    },
+    "EMPTY":  {
+      "Label": "Empty",
+      "ConfirmationMessage": ""
+    },
+    "USE": {
+      "Label": "Use",
+      "ConfirmationMessage": "Are you sure you want to use this item? This can not be undone."
+    },
+    "GAIN":  {
+      "Label": "Gain",
+      "ConfirmationMessage": ""
+    },
+    "POISON": {
+      "Label": "Poison",
+      "ConfirmationMessage": ""
+    },
+    "REMOVE_POISON":  {
+      "Label": "Remove Poison",
+      "ConfirmationMessage": ""
+    },
+    "SILVER": {
+      "Label": "Silver",
+      "ConfirmationMessage": ""
+    },
+    "REMOVE_SILVER":  {
+      "Label": "Remove Silver",
+      "ConfirmationMessage": ""
+    },
+    "MOUNT": {
+      "Label": "Mount",
+      "ConfirmationMessage": ""
+    },
+    "DISMOUNT":  {
+      "Label": "Dismount",
+      "ConfirmationMessage": ""
+    },
+    "STABLE": {
+      "Label": "Stable",
+      "ConfirmationMessage": ""
+    },
+    "UNSTABLE":  {
+      "Label": "Unstable",
+      "ConfirmationMessage": ""
+    },
+    "ENCHANT": {
+      "Label": "Enchant",
+      "ConfirmationMessage": ""
+    },
+    "DISENCHANT":  {
+      "Label": "Disenchant",
+      "ConfirmationMessage": "Are you sure you want to disenchant this item? This will remove all magical properties and convert it to a normal item."
+    },
+    "SPELLS": {
+      "Label": "Spells",
+      "ConfirmationMessage": "",
+      "ClearConfirmation": "Are you sure you want to remove all spells from this item? This can not be undone."
+    },
+    "REMOVE_CURSE":  {
+      "Label": "Remove Curse",
+      "ConfirmationMessage": "Are you sure you want to remove the curse from this item? This can not be undone."
+    },
+    "ATTUNE": {
+      "Label": "Attune",
+      "ConfirmationMessage": ""
+    },
+    "UNATTUNE":  {
+      "Label": "Un-Attune",
+      "ConfirmationMessage": ""
+    },
+    "CHARGES": {
+      "Label": "Charges",
+      "ConfirmationMessage": ""
+    },
+    "TOOL_CHECK": {
+      "Label": "Tool Check",
+      "ConfirmationMessage": ""
+    },
+    "CAST":  {
+      "Label": "Cast",
+      "ConfirmationMessage": ""
+    },
+    "USE_POTION":  {
+      "Label": "Use",
+      "ConfirmationMessage": ""
+    },
+    "USE_SCROLL":  {
+      "Label": "Use",
+      "ConfirmationMessage": ""
+    },
+    "USE_TOOL":  {
+      "Label": "Use",
+      "ConfirmationMessage": ""
+    }
+  },
+
+  "ItemGrouping": {
+    "EQUIPPED": {
+      "Label":"Equipped",
+      "Empty":"No Items Equipped"
+    },
+    "CARRIED": {
+      "Label": "Carried",
+      "Empty": "Empty"
+    },
+    "DROPPED": {
+      "Label": "Dropped",
+      "Empty": "Empty"
+    },
+    "MOUNTS": {
+      "Label": "Mounts",
+      "Empty": "Empty"
+    },
+    "STABLED_MOUNTS": {
+      "Label": "Stabled Mounts",
+      "Empty": "Empty"
+    },
+    "VEHICLES": {
+      "Label": "Vehicles",
+      "Empty": "Empty"
+    },
+    "EXPENDED_AMMO": {
+      "Label": "Expended Ammo",
+      "Empty": "Empty"
+    }
+  },
+
+  "Navigation": {
+    "Menu": "Menu",
+    "Encounter": {
+      "Header": "Encounter",
+      "QuickReferences": "QuickReferences",
+      "RollLog": "Roll Log",
+      "AddCreatures": "Add Creatures",
+      "ReorderInitiative": "Reorder Initiative",
+      "RestartEncounter": "Restart Encounter",
+      "FinishEncounter": "Finish Encounter",
+      "PauseEncounter": "Pause Encounter",
+      "Notifications": "Notifications",
+      "Attack": "Attack",
+      "Initiative": "Initiative"
+    },
+    "Characters": {
+      "Characters": "Characters",
+      "CharacterInfo": "Character Info",
+      "QuickAttacks": "Quick Attacks",
+      "Equipment": "Equipment",
+      "Spells": "Spells",
+      "Features": "Features",
+      "Skills": "Skills",
+      "Proficiencies": "Proficiencies",
+      "Traits": "Traits",
+      "Notes": "Notes",
+      "Companions": "Companions",
+      "DamageModifiers": "Damage Modifiers",
+      "EditCharacter": "Edit Character",
+      "PageOrder": "Page Order",
+      "Settings": "Settings",
+      "RollLog": "Roll Log",
+      "UpdateCharacter": "Update Character",
+      "JoinCampaign": "Join Campaign",
+      "LeaveCampaign": "Leave Campaign",
+      "PrintToPDF": "Print to PDF",
+      "QuickReferences": "Quick References",
+      "Export": "Export"
+    },
+    "GmMode": "GM Mode",
+    "Manage": {
+      "DuplicateMessage": "Please provide a name for the duplicated item.",
+      "ConfirmDelete": "Are you sure you want to delete this item? This action can not be undone.",
+      "ConfirmDeleteMultiple": "Are you sure you want to delete these items? This action can not be undone.",
+      "CancelMessage": "Are you sure you want to cancel editing this item? All changes will be lost. This action can not be undone.",
+
+      "Characters": {
+        "Characters": "Characters",
+        "New": "New Character"
+      },
+      "ArmorTypes": {
+        "ArmorTypes": "Armor Types",
+        "New": "New Armor Type"
+      },
+      "Backgrounds": {
+        "Backgrounds": "Backgrounds",
+        "New": "New Background"
+      },
+      "CasterTypes": {
+        "CasterTypes": "Caster Types",
+        "New": "New Caster Type"
+      },
+      "Classes": {
+        "Classes": "Classes",
+        "New": "New Class",
+        "Add": "Add Class",
+        "Remove": "Remove Class"
+      },
+      "Subclasses": {
+        "Add": "Add Subclass",
+        "New": "New Subclass",
+        "Edit": "Edit Subclass"
+      },
+      "Conditions": {
+        "Conditions": "Conditions",
+        "New": "New Condition"
+      },
+      "Damages": {
+        "Configure": "Configure Damage",
+        "Add": "Add Damage"
+      },
+      "Healing": {
+        "Configure": "Configure Healing",
+        "Add": "Add Healing"
+      },
+      "Modifier": {
+        "Configure": "Configure Modifier",
+        "Add": "Add Modifier"
+      },
+      "DamageTypes": {
+        "DamageTypes": "Damage Types",
+        "New": "New Damage Type"
+      },
+      "Features": {
+        "Add": "Add Feature",
+        "Edit": "Edit Feature",
+        "Features": "Features",
+        "New": "New Feature"
+      },
+      "Items": {
+        "Items": "Items",
+        "New": "New Item",
+        "Add": "Add Items"
+      },
+      "Languages": {
+        "Languages": "Languages",
+        "New": "New Language"
+      },
+      "Monsters": {
+        "Monsters": "Monsters",
+        "New": "New Monster"
+      },
+      "Races": {
+        "Races": "Races",
+        "New": "New Race",
+        "Add": "Add Race"
+      },
+      "SubRaces": {
+        "New": "New Sub-Race"
+      },
+      "SubBackgrounds": {
+        "New": "New Sub-Background"
+      },
+      "Skills": {
+        "Skills": "Skills",
+        "New": "New Skill"
+      },
+      "Spells": {
+        "Spells": "Spells",
+        "New": "New Spell",
+        "Add": "Add Spells",
+        "SpellcastingAbility": "Spellcasting Ability:",
+        "InnateSpellcastingAbility": "Innate Spellcasting Ability:",
+        "AlwaysPrepared": "Always Prepared",
+        "CountTowardsNumberPrepared": "Count Towards Prepared",
+        "LevelGained": "Level Gained:",
+        "DontAutoGain": "Don't Auto-Gain",
+        "ConfigureSpell": "Configure Spell",
+        "ConfigureAbility": "Configure Ability",
+        "ConfigureAttack": "Configure Attack",
+        "ConfigureSave": "Configure Save"
+      },
+      "WeaponProperties": {
+        "WeaponProperties": "Weapon Properties",
+        "New": "New Weapon Property"
+      },
+      "Alignments": {
+        "Add": "Add Alignments",
+        "Alignments": "Alignments",
+        "New": "New Alignment"
+      },
+      "AreaOfEffects": {
+        "AreaOfEffects": "Area of Effects",
+        "New": "New Area of Effect"
+      },
+      "Deities": {
+        "Deities": "Deities",
+        "New": "New Deity"
+      },
+      "DeityCategories": {
+        "DeityCategories": "Deity Categories",
+        "New": "New Deity Category"
+      },
+      "EquipmentSlots": {
+        "EquipmentSlots": "Equipment Slots",
+        "New": "New Equipment Slot"
+      },
+      "Levels": {
+        "Levels": "Levels",
+        "New": "New Level",
+        "Add": "Add Level"
+      },
+      "ToolCategories": {
+        "ToolCategories": "Tool Categories",
+        "New": "New Tool Category"
+      },
+      "Campaigns": {
+        "Campaigns": "Campaigns",
+        "New": "New Campaign",
+        "Invite": "Invite"
+      }
+    },
+    "MyStuff": "My Stuff",
+    "PublicContent": "Public Content",
+    "SharedWithMe": "Shared with Me"
+  },
+
+  "Messages": {
+    "Concentration": "The following factors can break concentration:\n\n• Casting another spell that requires concentration. You lose concentration on a spell if you cast another spell that requires concentration. You can't concentrate on two spells at once.\n\n• Taking damage. Whenever you take damage while you are concentrating on a spell, you must make a Constitution saving throw to maintain your concentration. The DC equals 10 or half the damage you take, whichever number is higher. If you take damage from multiple sources, such as an arrow and a dragon's breath, you make a separate saving throw for each source of damage.\n\n• Being incapacitated or killed. You lose concentration on a spell if you are incapacitated or if you die.\n\nThe GM might also decide that certain environmental phenomena, such as a wave crashing over you while you're on a storm-tossed ship, require you to succeed on a DC 10 Constitution saving throw to maintain concentration on a spell.",
+    "ShortRest": "A short rest is a period of downtime, at least 1 hour long, during which a character does nothing more strenuous than eating, drinking, reading, and tending to wounds.\n\nA character can spend one or more Hit Dice at the end of a short rest, up to the character’s maximum number of Hit Dice, which is equal to the character’s level. For each Hit Die spent in this way, the player rolls the die and adds the character’s Constitution modifier to it. The character regains hit points equal to the total. The player can decide to spend an additional Hit Die after each roll. A character regains some spent Hit Dice upon finishing a long rest.",
+    "LongRest": "A long rest is a period of extended downtime, at least 8 hours long, during which a character sleeps or performs light activity: reading, talking, eating, or standing watch for no more than 2 hours. If the rest is interrupted by a period of strenuous activity - at least 1 hour of walking, fighting, casting spells, or similar adventuring activity - the characters must begin the rest again to gain any benefit from it.\n\nAt the end of a long rest, a character regains all lost hit points. The character also regains spent Hit Dice, up to a number of dice equal to half of the character’s total number of them (minimum of one die). For example, if a character has eight Hit Dice, he or she can regain four spent Hit Dice upon finishing a long rest.\n\nA character can’t benefit from more than one long rest in a 24-hour period, and a character must have at least 1 hit point at the start of the rest to gain its benefits.",
+    "Resurrection": "{{characterName}} has come to {{genderPossessive}} ultimate demise, but this doesn't have to be the end. Please insert the necessary ritual components to continue."
+  },
+
+  "IgnoreFeatures": {
+    "Title": "Ignore Features",
+    "Message": "You have features that you haven't selected. Do you want to ignore these features in the future?\n\nIf you select yes, the next time you are prompted to level up, you won't see these features listed. To add these features later, you will manually have to search for them in the 'Add Features' panel.\n\nIf you select no, the next time you are prompted to level up, you will see these features listed again."
+  },
+  "CharacterValidation": {
+    "Prompt": {
+      "Title": "Update Character?",
+      "Message": "You potentially have new features to select. Would you like to perform a character validation?\n\nYou can open the character validation at any time through the character menu."
+    },
+    "AllValid": "Your character is valid. There are no features or ability scores to be selected.",
+    "ResetIgnoredFeatures": {
+      "Label": "Reset Ignored Features",
+      "Message": "Resetting your ignored features will cause you to be re-prompted for the features that you haven't selected for ALL levels.",
+      "Confirmation": "Are you sure you want to reset all of your ignored features? This action can not be undone. This will also cause you to lose any unsaved changes you've made of your current selections."
+    },
+    "IgnoreUnselectedFeatures": {
+      "Label": "Ignore Unselected Features",
+      "Tooltip": "If this is checked, you will not be prompted again for any of the features that you don't select."
+    },
+    "IgnoreUnselectedSpells": {
+      "Label": "Ignore Unselected Spells",
+      "Tooltip": "If this is checked, you will not be prompted again for any of the spells that you don't select."
+    },
+    "IgnoreUnselectedASI": {
+      "Label": "Ignore Unselected ASI",
+      "Tooltip": "If this is checked, you will not be prompted again for this Ability Score Increase."
+    },
+    "Modal": {
+      "Message": "Choose Features to Ignore",
+      "Details": "long message goes here\nthis can span several lines"
+    },
+    "ConfirmCancel": "Are you sure you want to cancel character validation? All changes and selections made will be lost.",
+    "Warning": {
+      "Title": "Warning",
+      "Message": "You have potential issues with your selections. Please review before continuing.",
+      "UnselectedFeatures": "Unselected Features",
+      "UnselectedSpells": "Unselected Spells",
+      "NoFeaturesSelected": "No Features Selected",
+      "NoSpellsSelected": "No Spells Selected",
+      "AsiUnassigned": "ASI Points Unassigned",
+      "NoFeatSelected": "No Feat Selected",
+      "Page": "(Page {{page}})"
+    }
+  },
+  "CostDetails": {
+    "PurchaseForFree": {
+      "Title": "Purchase for Free",
+      "Message": "You have not specified a price for the purchase. Are you sure you want to proceed?"
+    },
+    "GiveAwayForFree": {
+      "Title": "Give Away for Free",
+      "Message": "You have not specified a price for the sale. Are you sure you want to proceed?"
+    },
+    "Debt": {
+      "Title": "Debt",
+      "Message": "The current purchase will put your character in debt. Are you sure you want to proceed?"
+    }
+  },
+  "CharacterWealth": {
+    "ConversionTooltip": "{{fromAmount}} {{fromUnit}} = {{toAmount}} {{toUnit}}",
+    "Negative": {
+      "Message": "You have negative values. Are you sure you want to have negative values?"
+    },
+    "Configure": {
+      "ContinueWithoutSaving": "You have unsaved changes. You will lose these changes if you continue. Do you want to continue?"
+    },
+    "Warning": {
+      "Message": "You have unsaved changes. Do you want to continue without applying these changes?"
+    }
+  },
+  "CreatureHealth": {
+    "Cancel": {
+      "Title": "Unsaved Changes",
+      "Message": "You have unsaved changes. Are you sure you want to cancel without saving these changes?"
+    }
+  },
+
+  "ShoppingCart": {
+    "Empty": "Empty Cart",
+    "Cancel": {
+      "Title": "Cancel Shopping",
+      "Message": "Are you sure you want to cancel shopping? You will lose all of the items that are in your cart."
+    },
+    "Error": {
+      "NoItems": "You have not selected any items to purchase. Please select at least one item with a quantity greater than zero to proceed."
+    }
+  },
+
+  "ActionsPage": {
+    "NoActions": "No Actions available"
+  },
+
+  "StartingEquipment": {
+    "GroupLabel": "Item Group {{group}}",
+    "OptionLabel": "Option {{option}}",
+    "ConfirmCancel": "Are you sure you want to cancel selecting your starting equipment? You will not be prompted for these items again.",
+    "NoItems": "There are no items available for your character to start off with.",
+    "Prompt": {
+      "Title": "Starting Equipment",
+      "Message": "Would you like to choose your starting equipment?"
+    },
+    "MissingItems": {
+      "Title": "Missing Items",
+      "Message": "You have items that you can still select. Are you sure you want to continue without selecting everything available?"
+    },
+    "MissingCurrency": {
+      "Title": "Missing Currency",
+      "Message": "You have starting gold values that you can still select. Are you sure you want to continue without selecting everything available?"
+    },
+    "ContinueConfirmation": {
+      "Title": "Continue",
+      "Message": "You are about to add the selected items. Are you sure these are the items you want to select?"
+    }
+  },
+
+  "InUse": {
+    "Title": "{{name}} in Use",
+    "MessageDeletable": "Are you sure you want to delete this {{type}}? It is currently in use by the following and will be removed from them:",
+    "MessageNotDeletable": "You can not delete this {{type}} because it is currently in use by the following:"
+  },
+
+  "RollLog": {
+    "ConfirmArchive": {
+      "Title": "Confirm Archive",
+      "Message": "Are you sure you want to archive this roll? This can not be undone."
+    },
+    "ConfirmClear": {
+      "Message": "Are you sure you want to clear out your roll log? This can not be undone."
+    }
+  },
+
+  "NoFeatureCharacteristicAvailable": "There are no items of this type available that you are the author of.",
+
+  "Imports": {
+    "Message": {
+      "Instructions": "Export files from the Android app and then select one of those files after it's been downloaded to your device. While importing, it's best to not go to any of the other configuration screens and modify anything. Otherwise you risk getting data out of sync and your imports might not work the way you want it to.",
+      "Mobile": "It is highly recommended that you perform the import on a computer instead of your mobile device. Errors may occur due to insufficient memory if you continue to import on your mobile device."
+    },
+    "UploadFileError": {
+      "Title": "File Upload Error",
+      "BadFormat": "The file you upload is poorly formatted. Please correct the file before trying again.",
+      "Empty": "The file you uploaded was empty.",
+      "MultipleCharacters": "The file contains multiple characters and can only contain one. Please remove one of the characters from the import file and upload it again.",
+      "MixedCharacters": "The file contains a character and other items. Please import a character by itself.",
+      "MaxItemsExceeded": "The file contains {{count}} items. Please limit the file to no more than {{max}} items."
+    },
+    "Cancel": {
+      "All": "Are you sure you want to cancel importing? You will lose all of your changes.",
+      "Remaining": "Are you sure you want to cancel importing the remaining items? Any items that have already been imported will not be affected by canceling."
+    },
+    "ChooseFile": "Choose File",
+    "Status": {
+      "undefined": "Not Supported",
+      "NOT_SUPPORTED": "Not Supported",
+      "MISSING_PROPERTIES": "Missing Required Properties",
+      "DEPENDENCIES_NOT_COMPLETE": "Dependencies not Complete",
+      "COMPLETE": "Complete",
+      "ERROR": "Error",
+      "READY": "Ready",
+      "POSSIBLE_DUPLICATES": "Possible Duplicates",
+      "LINKED": "Linked to another item",
+      "UNLINKED": "Unlinked from another item"
+    },
+    "Action": {
+      "COMPARE": "Compare",
+      "VIEW": "View",
+      "USE_EXISTING": "Use Existing",
+      "USE_EXISTING_UNCONFIRMED": "Use Existing - Unconfirmed",
+      "REPLACE_EXISTING": "Replace Existing",
+      "REPLACE_EXISTING_UNCONFIRMED": "Replace Existing - Unconfirmed",
+      "INSERT_AS_NEW": "Insert as New",
+      "SKIP_ENTRY": "Skip Entry",
+      "CLEAR": "Clear",
+      "CLEAR_COMPLETED": "Clear Completed",
+      "Completed": {
+        "USE_EXISTING": "Existing Used",
+        "REPLACE_EXISTING": "Replaced",
+        "INSERT_AS_NEW": "Created",
+        "SKIP_ENTRY": "Skipped"
+      },
+      "Nested": {
+        "SelfOnly": "Self Only",
+        "ChildrenOnly": "Children Only",
+        "All": "All"
+      }
+    },
+    "Category": {
+      "ArmorType": "Armor Types",
+      "DamageType": "Damage Types",
+      "AreaOfEffect": "Area of Effects",
+      "CasterType": "Caster Types",
+      "Condition": "Conditions",
+      "Language": "Languages",
+      "Skill": "Skills",
+      "WeaponProperty": "Weapon Properties",
+      "Background": "Backgrounds",
+      "CharacterClass": "Classes",
+      "Race": "Races",
+      "Feature": "Features",
+      "Spell": "Spells",
+      "Equipment": "Equipment",
+      "Pack": "Packs",
+      "Character": "Character",
+      "Monster": "Monsters"
+    },
+    "Type": {
+      "ArmorType": "Armor Type",
+      "Background": "Background",
+      "CasterType": "Caster Type",
+      "CharacterClass": "Class",
+      "Subclass": "Subclass",
+      "Condition": "Condition",
+      "Feature": "Feature",
+      "Item": "Item",
+      "Language": "Language",
+      "Race": "Race",
+      "Skill": "Skill",
+      "Spell":"Spell",
+      "WeaponProperty": "Weapon Property",
+      "Character":"Character",
+      "Monster": "Monster",
+      "AmmoCategory": "Ammo",
+      "Ammo": "Ammo",
+      "BasicAmmo": "Ammo",
+      "ArmorCategory": "Armor",
+      "Armor": "Armor",
+      "BasicArmor": "Armor",
+      "GearCategory": "Gear",
+      "Gear": "Gear",
+      "MountCategory": "Mount",
+      "Mount": "Mount",
+      "BasicMount": "Mount",
+      "Tool": "Tool",
+      "ToolCategory": "Tool",
+      "WeaponCategory": "Weapon",
+      "Weapon": "Weapon",
+      "BasicWeapon": "Weapon",
+      "MagicalItem": "Magical Item",
+      "MagicalItemCategory": "Magical Item",
+      "Treasure": "Treasure",
+      "TreasureCategory": "Treasure",
+      "Pack": "Pack",
+      "PackCategory": "Pack",
+      "": "Unknown"
+    },
+    "CascadeActionConfirmation": {
+      "Title": "Apply Action to Children",
+      "Message": "This action is going to be applied to this entry's children as well. Are you sure this is what you want to do?"
+    },
+    "ImportResults": {
+      "Title": {
+        "Confirmation": "Continue Import",
+        "EnterName": "Enter a character name",
+        "Importing": "Importing...",
+        "Complete": "Import Complete"
+      },
+      "Message": {
+        "Confirmation": "You are about to import the content of this file into your account. Are you sure you want to continue? Please make sure that you have correctly selected everything. Once you continue with the import, this CAN NOT be undone.",
+        "UnconfirmedDuplicated": "You have entries with more than one duplicate and you have not selected which one you want to use. If you continue it will default to the first possible duplicate."
+      },
+      "Importing": "Importing...",
+      "Complete": "Importing Completed"
+    },
+    "Links": {
+      "Header": "Links",
+      "Count1": "This entry is linked to 1 other entry.",
+      "Count": "This entry is linked to {{count}} other entries.",
+      "Message": "This item is an exact match of another item you are trying to import. If this item is linked, then they will be treated as the same item and will not be duplicated. If unlinked, you will have duplicate entries.",
+      "Link": "Link",
+      "Unlink": "Unlink"
+    }
+  },
+
+  "MagicalItemTable": {
+    "Instructions": "Click on a cell to edit the value.",
+    "RemoveColumnConfirmation": "Are you sure you want to remove this column?",
+    "RemoveRowConfirmation": "Are you sure you want to remove this row?",
+    "RemoveTableConfirmation": "Are you sure you want to remove the table?",
+    "NotAllValuesSet": "Not all values of the table have been set."
+  },
+
+  "Sharing": {
+    "Share": {
+      "Button": "Share",
+      "Confirmation": "Are you sure you want to share this item?",
+      "Message": "Sharing this item will allow all users to see this item and any of its changes. If a user wants to use this item, they will make a copy of it when adding it to their stuff. If you make any additional changes, the users that have added this item to their stuff will be notified and will have the option to update their copy."
+    },
+    "Remove": {
+      "Button": "Remove",
+      "Confirmation": "Are you sure you want to un-share this item?",
+      "Header": "This item is currently being shared.",
+      "Message": "Anyone can see the changes you make to this item. If you un-share this item, no one will be able to see any more of your updates. Anyone that's already added this item to their stuff will continue to have their copy of it."
+    },
+    "Dependencies": "If this item has any dependencies, those will also be made available.",
+    "Disclaimer": "You are responsible for any content that you share. Do not share any copyright material. Any legal action from sharing will be your full responsibility.",
+
+    "MyStuff": {
+      "Add": {
+        "Button": "My Stuff",
+        "Message": "You are about to add this item to your stuff. This item will show up in your content and you will be able to use it as if it were your own. If the author of this item makes any changes to the item, you will be able to update your copy."
+      },
+      "Update": {
+        "Button": "Update My Stuff",
+        "Message": "The author has made changes to this item. Updating this item in your stuff will replace any changes you may have made, if any. If you have any characters using this item, it will be updated automatically."
+      },
+      "Dependencies": "If this item has any dependencies, those will also be added to your stuff as well. If you already have a copy of these dependencies, they will be updated to the latest version. Any changes you have made to them will be overwritten.",
+      "Footer": "Are you sure you want to continue?"
+    }
+  },
+
+  "User": {
+    "SubscriptionType": {
+      "FREE": "Free",
+      "LIFETIME": "Lifetime",
+      "LIMITED":  "Limited"
+    },
+    "Role": {
+      "BASIC": {
+        "Header": "Free",
+        "Perks": {
+          "Perk0": "Unlimited Characters",
+          "Perk1": "Custom Content Creation",
+          "Perk2": "Sharing",
+          "Perk3": "Importing",
+          "Perk4": "Equipment Management",
+          "Perk5": "Spell Management",
+          "Perk6": "Feature Management",
+          "Perk7": "Modifiers"
+        }
+      },
+      "PRO": {
+        "Header": "Pro",
+        "Perks": {
+          "Message": "Everything from the free version plus the following:",
+          "Perk0": "Access to Magical Items",
+          "Perk1": "Sharing Live Characters",
+          "Perk2": "Synced Sessions (Coming Soon)",
+          "Perk3": "GM Tools (Coming Soon)",
+          "Perk4": "Companions",
+          "Perk5": "Image Uploads"
+        }
+      }
+    },
+    "UserSubscriptionType": {
+      "FREE": "Free",
+      "TRIAL": "Trial",
+      "LIMITED": "Limited",
+      "LIFETIME": "Lifetime"
+    },
+    "Subscription": {
+      "Levels": "Subscription Levels",
+      "Warning": {
+        "Expired": "Your subscription has expired.",
+        "Expiring": "Your subscription will expire in {{days}} days."
+      },
+      "Checkout": {
+        "Header": "Subscribe",
+        "Button": "Checkout",
+        "Success": "Success - Subscription Purchased",
+        "Error": "Unable to complete purchase",
+        "SubscriptionMessage": "This is a recurring subscription. You will be billed at the price above at the end of each subscription period until you cancel your subscription.",
+        "LifetimeMessage": "This is a one-time purchase. You will only be billed once.",
+        "CancelMessage": "If you cancel your membership, you will maintain your membership benefits until your remaining credits run out. At which point, you will NOT be billed again and you will be reverted back to the Free Tier."
+      },
+      "Redeem": {
+        "Header": "Redeem Code",
+        "Button": "Redeem",
+        "Success": "Success - Code Redeemed",
+        "Error": "Unable to redeem code",
+        "ConfirmationMessage": "This code can only be used once. Are you sure you want to continue?",
+        "ConfirmationLifetime": "You already have a lifetime membership. Instead of using this code, you can give it to a friend. Are you sure you want to redeem this code?"
+      },
+      "Manage": {
+        "Header": "Manage Subscription",
+        "Button": "Cancel",
+        "Success": "Success - Subscription Canceled",
+        "Error": "Unable to cancel subscription",
+        "Message": "This is a recurring subscription. You will be billed the amount above on your next payment date. You can cancel at anytime. If you do cancel, you will maintain your membership benefits until your remaining credits run out. At which point, you will NOT be billed again and you will be reverted back to the Free Tier.",
+        "Confirmation": {
+          "Title": "Cancel Subscription",
+          "Message": "Are you sure you want to cancel your subscription?"
+        }
+      },
+      "Update": {
+        "Success": "Success - Payment Information Updated",
+        "Error": "Unable to update payment information"
+      },
+      "RedeemTooltip": "Insert code here",
+      "Status": {
+        "Label": "Status:",
+        "FREE": "Free",
+        "TRIAL": "Trial",
+        "LIMITED": "Pro",
+        "LIFETIME": "Pro"
+      },
+      "Actions": {
+        "Extend": "Extend",
+        "Subscribe": "Subscribe",
+        "Manage": "Manage"
+      },
+      "Lifetime": "(Lifetime)",
+      "Subscribed": "(Subscribed)",
+      "Expired": "(Expired)",
+      "DaysRemaining": "({{days}} days remaining)",
+      "Paypal": "Paypal"
+    }
+  },
+
+  "Companion": {
+    "Page": {
+      "Actions": "Actions",
+      "Features": "Features",
+      "Spells": "Spells",
+      "Scores": "Scores",
+      "Skills": "Skills",
+      "Misc": "Misc"
+    },
+
+    "RechargeCheck": {
+      "Success": "Recharge ({{powerName}}): {{value}} - Success",
+      "Fail": "Recharge ({{powerName}}): {{value}} - Fail"
+    }
+  },
+
+  "CompanionConfiguration": {
+    "Error": {
+      "MonsterRequired": "Monster required",
+      "SaveFailed": "Failed to save companion"
+    },
+    "Page": {
+      "Basic": "Basic",
+      "Scores": "Scores",
+      "Checks": "Checks"
+    },
+    "UseCharactersScore": "Use Character's Score",
+    "IncludeCharactersSavingThrows": "Include Character's Saving Throws",
+    "IncludeCharactersSkills": "Include Character's Skills",
+    "CharactersProf": "Character's Prof",
+    "Tooltips": {
+      "RollOver": "Whenever this creature dies, any extra damage dealt will roll over to the character."
+    },
+    "RollOverDamage": "Roll over damage",
+    "ConfirmDelete":  "Are you sure you want to delete this companion? This action can not be undone."
+  },
+
+  "Campaign": {
+    "Character": {
+      "View": "View",
+      "NewTab": "New Tab",
+      "RemoveConfirmation": {
+        "Message": "Are you sure you want to remove this character from the campaign?",
+        "Success": "Character removed from the campaign.",
+        "Error": "Error removing character. Please try again later."
+      }
+    },
+    "Settings": {
+      "Header": "Campaign Settings",
+      "Save": {
+        "Error": "Failed to save campaign settings"
+      },
+      "Health": {
+        "Grouped": {
+          "Label": "Grouped",
+          "Tooltip": "When grouped, all monsters in the group will have the same HP value."
+        },
+        "KillMonsters": {
+          "Label": "Kill Monsters",
+          "Tooltip": "When a monster receives enough damage to reduce its hp to 0, the monster will be marked as killed instead of having it make death saving throws."
+        }
+      },
+      "Initiative": {
+        "Grouped": {
+          "Label": "Grouped",
+          "Tooltip": "When grouped, all monsters int he group will have the same initiative value."
+        },
+        "Natural20GoesFirst": {
+          "Label": "Natural 20 Goes First",
+          "Tooltip": "When sorting initiative, natural 20's will go first regardless of the total roll."
+        },
+        "HideKilled": {
+          "Label": "Hide Killed",
+          "Tooltip": "When on, a killed monster won't show in the initiative order."
+        }
+      },
+      "Experience": {
+        "UseAdjusted": {
+          "Label": "Use Adjusted",
+          "Tooltip": "Adjust the experience reward of the encounter based on difficulty based on the characters involved in the encounter."
+        },
+        "SplitEvenly": {
+          "Label": "Split Evenly",
+          "Tooltip": "Split experience evenly between all characters involved in the encounter."
+        }
+      },
+      "SurpriseRound": {
+        "GroupCheckType": {
+          "Tooltip": "If 'Group', surprised will be calculated by the number of successes compared to the number of failures. If 'Lowest', only the lowest rolled value will be used."
+        },
+        "CriticalDoubles": {
+          "Label": "Critical Doubles",
+          "Tooltip": "Natural 20's will count as 2 successes and natural 1's will count as 2 failures."
+        }
+      }
+    },
+    "Invite": {
+      "Invite": "Invite",
+      "Message": "Share this token with your friends to have them join your campaign.",
+      "CopyToken": "Copy Token",
+      "RefreshToken": "Refresh Token",
+      "RefreshError": "Unable to refresh token. Please try again later."
+    },
+    "Join": "Join",
+    "EnterToken": "Enter Invite Token:",
+    "SuccessJoining": "Successfully joined campaign.",
+    "ErrorJoining": "Error joining campaign. Please double check the token.",
+    "RemoveCharacter": "Remove Character",
+    "ViewCharacter": "View Character",
+    "LeaveConfirmation": {
+      "Title": "Leave Campaign",
+      "Message": "Are you sure you want to leave your current campaign?",
+      "Success": "You have left the campaign.",
+      "Error": "Unable to leave campaign. Please try again later."
+    },
+    "Load": {
+      "Error": "Unable to load campaign"
+    }
+  },
+
+  "CharacterImage": {
+    "AddImage": "Add Image",
+    "EditImage": "Edit Image",
+    "SelectImage": "Select Image",
+    "Upload": {
+      "Error": "Error uploading image"
+    },
+    "Delete": {
+      "Confirmation": "Are you sure you want to delete this image?",
+      "Error": "Error deleting image"
+    }
+  },
+
+  "QuickReferences": {
+    "Ailments": {
+      "Header": "Ailments",
+      "Diseases": {
+        "Header": "Diseases",
+        "Description": "A plague ravages the kingdom, setting the adventurers on a quest to find a cure. An adventurer emerges from an ancient tomb, unopened for centuries, and soon finds herself suffering from a wasting illness. A warlock offends some dark power and contracts a strange affliction that spreads whenever he casts spells.\n\nA simple outbreak might amount to little more than a small drain on party resources, curable by a casting of lesser restoration. A more complicated outbreak can form the basis of one or more adventures as characters search for a cure, stop the spread of the disease, and deal with the consequences.\n\nA disease that does more than infect a few party members is primarily a plot device. The rules help describe the effects of the disease and how it can be cured, but the specifics of how a disease works aren't bound by a common set of rules. Diseases can affect any creature, and a given illness might or might not pass from one race or kind of creature to another. A plague might affect only constructs or undead, or sweep through a halfling neighborhood but leave other races untouched. What matters is the story you want to tell."
+      },
+      "Madness": {
+        "Header": "Madness",
+        "Description": "In a typical campaign, characters aren't driven mad by the horrors they face and the carnage they inflict day after day, but sometimes the stress of being an adventurer can be too much to bear. If your campaign has a strong horror theme, you might want to use madness as a way to reinforce that theme, emphasizing the extraordinarily horrific nature of the threats the adventurers face.",
+        "GoingMad": {
+          "Header": "Going Mad",
+          "Description": "Various magical effects can inflict madness on an otherwise stable mind. Certain spells, such as contact other plane and symbol, can cause insanity, and you can use the madness rules here instead of the spell effects of those spells. Diseases, poisons, and planar effects such as psychic wind or the howling winds of Pandemonium can all inflict madness. Some artifacts can also break the psyche of a character who uses or becomes attuned to them.\n\nResisting a madness-inducing effect usually requires a Wisdom or Charisma saving throw.\n\nMadness can be short-term, long-term, or indefinite. Most relatively mundane effects impose short-term madness, which lasts for just a few minutes. More horrific effects or cumulative effects can result in long-term or indefinite madness."
+        },
+        "ShortTermMadness": {
+          "Header": "Short-term Madness",
+          "Description": "A character afflicted with short-term madness is subjected to an effect from the Short-Term Madness table for 1d10 minutes."
+        },
+        "LongTermMadness": {
+          "Header": "Long-term Madness",
+          "Description": "A character afflicted with long-term madness is subjected to an effect from the Long-Term Madness table for 1d10 × 10 hours."
+        },
+        "IndefiniteMadness": {
+          "Header": "Indefinite Madness",
+          "Description": "A character afflicted with indefinite madness gains a new character flaw from the Indefinite Madness table that lasts until cured."
+        },
+        "CuringMadness": {
+          "Header": "Curing Madness",
+          "Description": "A calm emotions spell can suppress the effects of madness, while a lesser restoration spell can rid a character of a short-term or long-term madness. Depending on the source of the madness, remove curse or dispel evil might also prove effective. A greater restoration spell or more powerful magic is required to rid a character of indefinite madness."
+        }
+      }
+    },
+    "Alignments": {
+      "Header": "Alignments",
+      "Description": "A typical creature in the game world has an alignment, which broadly describes its moral and personal attitudes. Alignment is a combination of two factors: one identifies morality (good, evil, or neutral), and the other describes attitudes toward society and order (lawful, chaotic, or neutral). Thus, nine distinct alignments define the possible combinations.\n\nThese brief summaries of the nine alignments describe the typical behavior of a creature with that alignment. Individuals might vary significantly from that typical behavior, and few people are perfectly and consistently faithful to the precepts of their alignment."
+    },
+    "Combat": {
+      "Header": "Combat",
+      "SurpriseRound": {
+        "Header": "Surprise Round",
+        "Description": "A band of adventurers sneaks up on a bandit camp, springing from the trees to attack them. A gelatinous cube glides down a dungeon passage, unnoticed by the adventurers until the cube engulfs one of them. In these situations, one side of the battle gains surprise over the other.\n\nThe GM determines who might be surprised. If neither side tries to be stealthy, they automatically notice each other. Otherwise, the GM compares the Dexterity (Stealth) checks of anyone hiding with the passive Wisdom (Perception) score of each creature on the opposing side. Any character or monster that doesn’t notice a threat is surprised at the start of the encounter.\n\nIf you’re surprised, you can’t move or take an action on your first turn of the combat, and you can’t take a reaction until that turn ends. A member of a group can be surprised even if the other members aren't."
+      },
+      "YourTurn": {
+        "Header": "Your Turn",
+        "Description": "On your turn, you can move a distance up to your speed and take one action. You decide whether to move first or take your action first. Your speed— sometimes called your walking speed—is noted on your character sheet.\n\nThe most common actions you can take are described in the “Actions in Combat” section. Many class features and other abilities provide additional options for your action.\n\nThe “Movement and Position” section gives the rules for your move.\n\nYou can forgo moving, taking an action, or doing anything at all on your turn. If you can’t decide what to do on your turn, consider taking the Dodge or Ready action, as described in “Actions in Combat."
+      },
+      "ActionsInCombat": {
+        "Header": "Actions in Combat",
+        "MainAction": {
+          "Header": "Main Action",
+          "Attack": {
+            "Header": "Attack",
+            "Description": "The most common action to take in combat is the Attack action, whether you are swinging a sword, firing an arrow from a bow, or brawling with your fists.\n\nWith this action, you make one melee or ranged attack. See the “Making an Attack” section for the rules that govern attacks.\n\nCertain features, such as the Extra Attack feature of the fighter, allow you to make more than one attack with this action."
+          },
+          "CastASpell": {
+            "Header": "Cast a Spell",
+            "Description": "Spellcasters such as wizards and clerics, as well as many monsters, have access to spells and can use them to great effect in combat. Each spell has a casting time, which specifies whether the caster must use an action, a reaction, minutes, or even hours to cast the spell. Casting a spell is, therefore, not necessarily an action. Most spells do have a casting time of 1 action, so a spellcaster often uses his or her action in combat to cast such a spell."
+          },
+          "Dash": {
+            "Header": "Dash",
+            "Description": "When you take the Dash action, you gain extra movement for the current turn. The increase equals your speed, after applying any modifiers. With a speed of 30 feet, for example, you can move up to 60 feet on your turn if you dash.\n\nAny increase or decrease to your speed changes this additional movement by the same amount. If your speed of 30 feet is reduced to 15 feet, for instance, you can move up to 30 feet this turn if you dash."
+          },
+          "Disengage": {
+            "Header": "Disengage",
+            "Description": "If you take the Disengage action, your movement doesn't provoke opportunity attacks for the rest of the turn.\""
+          },
+          "Dodge": {
+            "Header": "Dodge",
+            "Description": "When you take the Dodge action, you focus entirely on avoiding attacks. Until the start of your next turn, any attack roll made against you has disadvantage if you can see the attacker, and you make Dexterity saving throws with advantage. You lose this benefit if you are incapacitated (as explained in appendix PH-A) or if your speed drops to 0.\""
+          },
+          "Help": {
+            "Header": "Help",
+            "Description": "You can lend your aid to another creature in the completion of a task. When you take the Help action, the creature you aid gains advantage on the next ability check it makes to perform the task you are helping with, provided that it makes the check before the start of your next turn.\n\nAlternatively, you can aid a friendly creature in attacking a creature within 5 feet of you. You feint, distract the target, or in some other way team up to make your ally’s attack more effective. If your ally attacks the target before your next turn, the first attack roll is made with advantage."
+          },
+          "Hide": {
+            "Header": "Hide",
+            "Description": "When you take the Hide action, you make a Dexterity (Stealth) check in an attempt to hide, following the rules for hiding. If you succeed, you gain certain benefits, as described in the “Unseen Attackers and Targets” section."
+          },
+          "Ready": {
+            "Header": "Ready",
+            "Description": "Sometimes you want to get the jump on a foe or wait for a particular circumstance before you act. To do so, you can take the Ready action on your turn, which lets you act using your reaction before the start of your next turn.\n\nFirst, you decide what perceivable circumstance will trigger your reaction. Then, you choose the action you will take in response to that trigger, or you choose to move up to your speed in response to it. Examples include “If the cultist steps on the trapdoor, I’ll pull the lever that opens it,” and “If the goblin steps next to me, I move away.”\n\nWhen the trigger occurs, you can either take your reaction right after the trigger finishes or ignore the trigger. Remember that you can take only one reaction per round.\n\nWhen you ready a spell, you cast it as normal but hold its energy, which you release with your reaction when the trigger occurs. To be readied, a spell must have a casting time of 1 action, and holding onto the spell’s magic requires concentration. If your concentration is broken, the spell dissipates without taking effect. For example, if you are concentrating on the web spell and ready magic missile, your web spell ends, and if you take damage before you release magic missile with your reaction, your concentration might be broken."
+          },
+          "Search": {
+            "Header": "Search",
+            "Description": "When you take the Search action, you devote your attention to finding something. Depending on the nature of your search, the GM might have you make a Wisdom (Perception) check or an Intelligence (Investigation) check."
+          },
+          "UseAnObject": {
+            "Header": "Use and Object",
+            "Description": "You normally interact with an object while doing something else, such as when you draw a sword as part of an attack. When an object requires your action for its use, you take the Use an Object action. This action is also useful when you want to interact with more than one object on your turn."
+          }
+        },
+        "MovementAndPosition": {
+          "Header": "Movement and Position",
+          "Description": "In combat, characters and monsters are in constant motion, often using movement and position to gain the upper hand.\n\nOn your turn, you can move a distance up to your speed. You can use as much or as little of your speed as you like on your turn, following the rules here.\n\nYour movement can include jumping, climbing, and swimming. These different modes of movement can be combined with walking, or they can constitute your entire move. However you’re moving, you deduct the distance of each part of your move from your speed until it is used up or until you are done moving.",
+          "BreakingUpYourMove": {
+            "Header": "Breaking Up Your Move",
+            "Description": "You can break up your movement on your turn, using some of your speed before and after your action. For example, if you have a speed of 30 feet, you can move 10 feet, take your action, and then move 20 feet."
+          },
+          "MovingBetweenAttacks": {
+            "Header": "Moving Between Attacks",
+            "Description": "If you take an action that includes more than one weapon attack, you can break up your movement even further by moving between those attacks. For example, a fighter who can make two attacks with the Extra Attack feature and who has a speed of 25 feet could move 10 feet, make an attack, move 15 feet, and then attack again."
+          },
+          "UsingDifferentSpeeds": {
+            "Header": "Using Different Speeds",
+            "Description": "If you have more than one speed, such as your walking speed and a flying speed, you can switch back and forth between your speeds during your move. Whenever you switch, subtract the distance you’ve already moved from the new speed. The result determines how much farther you can move. If the result is 0 or less, you can’t use the new speed during the current move.\n\nFor example, if you have a speed of 30 and a flying speed of 60 because a wizard cast the fly spell on you, you could fly 20 feet, then walk 10 feet, and then leap into the air to fly 30 feet more."
+          },
+          "DifficultTerrain": {
+            "Header": "Difficult Terrain",
+            "Description": "Combat rarely takes place in bare rooms or on featureless plains. Boulder-strewn caverns, briarchoked forests, treacherous staircases—the setting of a typical fight contains difficult terrain.\n\nEvery foot of movement in difficult terrain costs 1 extra foot. This rule is true even if multiple things in a space count as difficult terrain.\n\nLow furniture, rubble, undergrowth, steep stairs, snow, and shallow bogs are examples of difficult terrain. The space of another creature, whether hostile or not, also counts as difficult terrain."
+          },
+          "BeingProne": {
+            "Header": "Being Prone",
+            "Description": "Combatants often find themselves lying on the ground, either because they are knocked down or because they throw themselves down. In the game, they are prone.\n\nYou can drop prone without using any of your speed. Standing up takes more effort; doing so costs an amount of movement equal to half your speed. For example, if your speed is 30 feet, you must spend 15 feet of movement to stand up. You can’t stand up if you don’t have enough movement left or if your speed is 0.\n\nTo move while prone, you must crawl or use magic such as teleportation. Every foot of movement while crawling costs 1 extra foot. Crawling 1 foot in difficult terrain, therefore, costs 3 feet of movement."
+          },
+          "MovingAroundOtherCreatures": {
+            "Header": "Moving Around Other Creatures",
+            "Description": "You can move through a non-hostile creature’s space. In contrast, you can move through a hostile creature’s space only if the creature is at least two sizes larger or smaller than you. Remember that another creature’s space is difficult terrain for you.\n\nWhether a creature is a friend or an enemy, you can’t willingly end your move in its space.\n\nIf you leave a hostile creature’s reach during your move, you provoke an opportunity attack."
+          },
+          "Space": {
+            "Header": "Space",
+            "Description": "A creature’s space is the area in feet that it effectively controls in combat, not an expression of its physical dimensions. A typical Medium creature isn’t 5 feet wide, for example, but it does control a space that wide. If a Medium hobgoblin stands in a 5- foot-wide doorway, other creatures can’t get through unless the hobgoblin lets them.\n\nA creature’s space also reflects the area it needs to fight effectively. For that reason, there’s a limit to the number of creatures that can surround another creature in combat. Assuming Medium combatants, eight creatures can fit in a 5-foot radius around another one.\n\nBecause larger creatures take up more space, fewer of them can surround a creature. If five Large creatures crowd around a Medium or smaller one, there’s little room for anyone else. In contrast, as many as twenty Medium creatures can surround a Gargantuan one."
+          },
+          "SqueezingIntoASmallerSpace": {
+            "Header": "Squeezing into a Smaller Space",
+            "Description": "A creature can squeeze through a space that is large enough for a creature one size smaller than it. Thus, a Large creature can squeeze through a passage that’s only 5 feet wide. While squeezing through a space, a creature must spend 1 extra foot for every foot it moves there, and it has disadvantage on attack rolls and Dexterity saving throws. Attack rolls against the creature have advantage while it’s in the smaller space."
+          }
+        },
+        "BonusActions": {
+          "Header": "Bonus Actions",
+          "Description": "Various class features, spells, and other abilities let you take an additional action on your turn called a bonus action. The Cunning Action feature, for example, allows a rogue to take a bonus action. You can take a bonus action only when a special ability, spell, or other feature of the game states that you can do something as a bonus action. You otherwise don’t have a bonus action to take.\n\nYou can take only one bonus action on your turn, so you must choose which bonus action to use when you have more than one available.\n\nYou choose when to take a bonus action during your turn, unless the bonus action’s timing is specified, and anything that deprives you of your ability to take actions also prevents you from taking a bonus action."
+        },
+        "Reactions": {
+          "Header": "Reactions",
+          "Description": "Certain special abilities, spells, and situations allow you to take a special action called a reaction. A reaction is an instant response to a trigger of some kind, which can occur on your turn or on someone else’s. The opportunity attack is the most common type of reaction.\n\nWhen you take a reaction, you can’t take another one until the start of your next turn. If the reaction interrupts another creature’s turn, that creature can continue its turn right after the reaction.",
+          "OpportunityAttack": {
+            "Header": "Opportunity Attack",
+            "Description": "In a fight, everyone is constantly watching for a chance to strike an enemy who is fleeing or passing by. Such a strike is called an opportunity attack.\n\nYou can make an opportunity attack when a hostile creature that you can see moves out of your reach. To make the opportunity attack, you use your reaction to make one melee attack against the provoking creature. The attack occurs right before the creature leaves your reach.\n\nYou can avoid provoking an opportunity attack by taking the Disengage action. You also don’t provoke an opportunity attack when you teleport or when someone or something moves you without using your movement, action, or reaction. For example, you don’t provoke an opportunity attack if an explosion hurls you out of a foe’s reach or if gravity causes you to fall past an enemy."
+          }
+        }
+      },
+      "TwoWeaponFighting": {
+        "Header": "Two-Weapon Fighting",
+        "Description": "When you take the Attack action and attack with a light melee weapon that you’re holding in one hand, you can use a bonus action to attack with a different light melee weapon that you’re holding in the other hand. You don’t add your ability modifier to the damage of the bonus attack, unless that modifier is negative.\n\nIf either weapon has the thrown property, you can throw the weapon, instead of making a melee attack with it."
+      },
+      "Grappling": {
+        "Header": "Grappling",
+        "Description": "When you want to grab a creature or wrestle with it, you can use the Attack action to make a special melee attack, a grapple. If you’re able to make multiple attacks with the Attack action, this attack replaces one of them.\n\nThe target of your grapple must be no more than one size larger than you and must be within your reach. Using at least one free hand, you try to seize the target by making a grapple check instead of an attack roll: a Strength (Athletics) check contested by the target’s Strength (Athletics) or Dexterity (Acrobatics) check (the target chooses the ability to use). If you succeed, you subject the target to the grappled condition (see appendix PH-A). The condition specifies the things that end it, and you can release the target whenever you like (no action required).",
+        "EscapingAGrapple": {
+          "Header": "Escaping a Grapple",
+          "Description": "A grappled creature can use its action to escape. To do so, it must succeed on a Strength (Athletics) or Dexterity (Acrobatics) check contested by your Strength (Athletics) check."
+        },
+        "MovingAGrappledCreature": {
+          "Header": "Moving a Grappled Creature",
+          "Description": "When you move, you can drag or carry the grappled creature with you, but your speed is halved, unless the creature is two or more sizes smaller than you."
+        }
+      },
+      "ShovingACreature": {
+        "Header": "Shoving a Creature",
+        "Description": "Using the Attack action, you can make a special melee attack to shove a creature, either to knock it prone or push it away from you. If you’re able to make multiple attacks with the Attack action, this attack replaces one of them.\n\nThe target must be no more than one size larger than you and must be within your reach. Instead of making an attack roll, you make a Strength (Athletics) check contested by the target’s Strength (Athletics) or Dexterity (Acrobatics) check (the target chooses the ability to use). If you win the contest, you either knock the target prone or push it 5 feet away from you."
+      },
+      "Cover": {
+        "Header": "Cover",
+        "Description": "Walls, trees, creatures, and other obstacles can provide cover during combat, making a target more difficult to harm. A target can benefit from cover only when an attack or other effect originates on the opposite side of the cover.\n\nThere are three degrees of cover. If a target is behind multiple sources of cover, only the most protective degree of cover applies; the degrees aren’t added together. For example, if a target is behind a creature that gives half cover and a tree trunk that gives three-quarters cover, the target has three-quarters cover.",
+        "HalfCover": {
+          "Header": "Half Cover",
+          "Description": "A target with half cover has a +2 bonus to AC and Dexterity saving throws. A target has half cover if an obstacle blocks at least half of its body. The obstacle might be a low wall, a large piece of furniture, a narrow tree trunk, or a creature, whether that creature is an enemy or a friend. A target with three-quarters cover has a +5 bonus to AC and Dexterity saving throws."
+        },
+        "ThreeQuartersCover": {
+          "Header": "Three-Quarters Cover",
+          "Description": "A target has three-quarters cover if about three-quarters of it is covered by an obstacle. The obstacle might be a portcullis, an arrow slit, or a thick tree trunk."
+        },
+        "TotalCover": {
+          "Header": "Total Cover",
+          "Description": "A target with total cover can’t be targeted directly by an attack or a spell, although some spells can reach such a target by including it in an area of effect. A target has total cover if it is completely concealed by an obstacle."
+        }
+      },
+      "CriticalHits": {
+        "Header": "Critical Hits",
+        "Description": "When you score a critical hit, you get to roll extra dice for the attack’s damage against the target. Roll all of the attack’s damage dice twice and add them together. Then add any relevant modifiers as normal. To speed up play, you can roll all the damage dice at once.\n\nFor example, if you score a critical hit with a dagger, roll 2d4 for the damage, rather than 1d4, and then add your relevant ability modifier. If the attack involves other damage dice, such as from the rogue’s Sneak Attack feature, you roll those dice twice as well."
+      },
+      "Damage": {
+        "Header": "Damage",
+        "DamageTypes": {
+          "Header": "Damage Types",
+          "Description": "Different attacks, damaging spells, and other harmful effects deal different types of damage. Damage types have no rules of their own, but other rules, such as damage resistance, rely on the types.\n\nThe damage types follow, with examples to help a GM assign a damage type to a new effect."
+        },
+        "DamageModifiers": {
+          "Header": "Damage Modifiers",
+          "Description": "Some creatures and objects are exceedingly difficult or unusually easy to hurt with certain types of damage.",
+          "Resistance": {
+            "Header": "Resistance",
+            "Description": "If a creature or an object has resistance to a damage type, damage of that type is halved against it."
+          },
+          "Vulnerability": {
+            "Header": "Vulnerability",
+            "Description": "If a creature or an object has vulnerability to a damage type, damage of that type is doubled against it."
+          }
+        },
+        "InstantDeath": {
+          "Header": "Instant Death",
+          "Description": "Massive damage can kill you instantly. When damage reduces you to 0 hit points and there is damage remaining, you die if the remaining damage equals or exceeds your hit point maximum.\n\nFor example, a cleric with a maximum of 12 hit points currently has 6 hit points. If she takes 18 damage from an attack, she is reduced to 0 hit points, but 12 damage remains. Because the remaining damage equals her hit point maximum, the cleric dies."
+        },
+        "FallingUnconscious": {
+          "Header": "Falling Unconscious",
+          "Description": "If damage reduces you to 0 hit points and fails to kill you, you fall unconscious. This unconsciousness ends if you regain any hit points."
+        },
+        "DeathSavingThrows": {
+          "Header": "Death Saving Throws",
+          "Description": "Whenever you start your turn with 0 hit points, you must make a special saving throw, called a death saving throw, to determine whether you creep closer to death or hang onto life. Unlike other saving throws, this one isn’t tied to any ability score. You are in the hands of fate now, aided only by spells and features that improve your chances of succeeding on a saving throw.\n\nRoll a d20. If the roll is 10 or higher, you succeed. Otherwise, you fail. A success or failure has no effect by itself. On your third success, you become stable (see below). On your third failure, you die. The successes and failures don’t need to be consecutive; keep track of both until you collect three of a kind. The number of both is reset to zero when you regain any hit points or become stable.\n\nRolling 1 or 20: When you make a death saving throw and roll a 1 on the d20, it counts as two failures. If you roll a 20 on the d20, you regain 1 hit point.\n\nDamage at 0 Hit Points: If you take any damage while you have 0 hit points, you suffer a death saving throw failure. If the damage is from a critical hit, you suffer two failures instead. If the damage equals or exceeds your hit point maximum, you suffer instant death."
+        },
+        "Stabilizing": {
+          "Header": "Stabilizing",
+          "Description": "The best way to save a creature with 0 hit points is to heal it. If healing is unavailable, the creature can at least be stabilized so that it isn’t killed by a failed death saving throw.\n\nYou can use your action to administer first aid to an unconscious creature and attempt to stabilize it, which requires a successful DC 10 Wisdom (Medicine) check.\n\nA stable creature doesn’t make death saving throws, even though it has 0 hit points, but it does remain unconscious. The creature stops being stable, and must start making death saving throws again, if it takes any damage. A stable creature that isn’t healed regains 1 hit point after 1d4 hours."
+        },
+        "MonstersAndDeath": {
+          "Header": "Monsters and Death",
+          "Description": "Most GMs have a monster die the instant it drops to 0 hit points, rather than having it fall unconscious and make death saving throws.\n\nMighty villains and special nonplayer characters are common exceptions; the GM might have them fall unconscious and follow the same rules as player characters."
+        },
+        "KnockingACreatureOut": {
+          "Header": "Knocking a Creature Out",
+          "Description": "Sometimes an attacker wants to incapacitate a foe, rather than deal a killing blow. When an attacker reduces a creature to 0 hit points with a melee attack, the attacker can knock the creature out. The attacker can make this choice the instant the damage is dealt. The creature falls unconscious and is stable."
+        }
+      }
+    },
+    "Conditions": {
+      "Header": "Conditions",
+      "Exhaustion": {
+        "Header": "Exhaustion",
+        "Description": "Some special abilities and environmental hazards, such as starvation and the long-term effects of freezing or scorching temperatures, can lead to a special condition called exhaustion. Exhaustion is measured in six levels. An effect can give a creature one or more levels of exhaustion, as specified in the effect's description. If an already exhausted creature suffers another effect that causes exhaustion, its current level of exhaustion increases by the amount specified in the effect's description. A creature suffers the effect of its current level of exhaustion as well as all lower levels.\n\nAn effect that removes exhaustion reduces its level as specified in the effect's description, with all exhaustion effects ending if a creature's exhaustion level is reduced below 1. Finishing a long rest reduces a creature's exhaustion level by 1, provided that the creature has also ingested some food and drink."
+      }
+    },
+    "Environment": {
+      "Header": "Environment",
+      "Falling": {
+        "Header": "Falling",
+        "Description": "A fall from a great height is one of the most common hazards facing an adventurer. At the end of a fall, a creature takes 1d6 bludgeoning damage for every 10 feet it fell, to a maximum of 20d6. The creature lands prone, unless it avoids taking damage from the fall."
+      },
+      "Suffocating": {
+        "Header": "Suffocating",
+        "Description": "A creature can hold its breath for a number of minutes equal to 1 + its Constitution modifier (minimum of 30 seconds).\n\nWhen a creature runs out of breath or is choking, it can survive for a number of rounds equal to its Constitution modifier (minimum of 1 round). At the start of its next turn, it drops to 0 hit points and is dying, and it can’t regain hit points or be stabilized until it can breathe again.\n\nFor example, a creature with a Constitution of 14 can hold its breath for 3 minutes. If it starts suffocating, it has 2 rounds to reach air before it drops to 0 hit points."
+      },
+      "VisionAndLight": {
+        "Header": "Vision and Light",
+        "Description": "The most fundamental tasks of adventuring— noticing danger, finding hidden objects, hitting an enemy in combat, and targeting a spell, to name just a few—rely heavily on a character’s ability to see. Darkness and other effects that obscure vision can prove a significant hindrance.",
+        "LightlyObscured": {
+          "Header": "Lightly Obscured",
+          "Description": "A given area might be lightly or heavily obscured. In a lightly obscured area, such as dim light, patchy fog, or moderate foliage, creatures have disadvantage on Wisdom (Perception) checks that rely on sight."
+        },
+        "HeavilyObscured": {
+          "Header": "Heavily Obscured",
+          "Description": "A heavily obscured area—such as darkness, opaque fog, or dense foliage—blocks vision entirely. A creature effectively suffers from the blinded condition when trying to see something in that area.\n\nThe presence or absence of light in an environment creates three categories of illumination: bright light, dim light, and darkness."
+        },
+        "BrightLight": {
+          "Header": "Bright Light",
+          "Description": "Bright light lets most creatures see normally. Even gloomy days provide bright light, as do torches, lanterns, fires, and other sources of illumination within a specific radius."
+        },
+        "DimLight": {
+          "Header": "Dim Light",
+          "Description": "Dim light, also called shadows, creates a lightly obscured area. An area of dim light is usually a boundary between a source of bright light, such as a torch, and surrounding darkness. The soft light of twilight and dawn also counts as dim light. A particularly brilliant full moon might bathe the land in dim light."
+        },
+        "Darkness": {
+          "Header": "Darkness",
+          "Description": "Darkness creates a heavily obscured area. Characters face darkness outdoors at night (even most moonlit nights), within the confines of an unlit dungeon or a subterranean vault, or in an area of magical darkness."
+        }
+      },
+      "Senses": {
+        "Header": "Senses",
+        "Blindsignt": {
+          "Header": "Blindsignt",
+          "Description": "A creature with blindsight can perceive its surroundings without relying on sight, within a specific radius. Creatures without eyes, such as oozes, and creatures with echolocation or heightened senses, such as bats and true dragons, have this sense."
+        },
+        "Darkvision": {
+          "Header": "Darkvision",
+          "Description": "Many creatures in fantasy gaming worlds, especially those that dwell underground, have darkvision. Within a specified range, a creature with darkvision can see in darkness as if the darkness were dim light, so areas of darkness are only lightly obscured as far as that creature is concerned. However, the creature can’t discern color in darkness, only shades of gray."
+        },
+        "Tremorsense": {
+          "Header": "Tremorsense",
+          "Description": "A creature with tremorsense can detect and pinpoint the origin of vibrations within a specific radius, provided that the monster and the source of the vibrations are in contact with the same ground or substance. Tremorsense can’t be used to detect flying or incorporeal creatures. Many burrowing creatures, such as ankhegs and umber hulks, have this special sense."
+        },
+        "Truesight": {
+          "Header": "Truesight",
+          "Description": "A creature with truesight can, out to a specific range, see in normal and magical darkness, see invisible creatures and objects, automatically detect visual illusions and succeed on saving throws against them, and perceives the original form of a shapechanger or a creature that is transformed by magic. Furthermore, the creature can see into the Ethereal Plane."
+        }
+      }
+    },
+    "Monsters": {
+      "Header": "Monsters",
+      "MonsterTypes": {
+        "Header": "Monster Types",
+        "Description": "A monster’s type speaks to its fundamental nature. Certain spells, magic items, class features, and other effects in the game interact in special ways with creatures of a particular type. For example, an arrow of dragon slaying deals extra damage not only to dragons but also other creatures of the dragon type, such as dragon turtles and wyverns.\n\nThe game includes the following monster types, which have no rules of their own.",
+        "ABERRATION": {
+          "Header": "Aberrations",
+          "Description": "Aberrations are utterly alien beings. Many of them have innate magical abilities drawn from the creature’s alien mind rather than the mystical forces of the world. The quintessential aberrations are aboleths, beholders, mind flayers, and slaadi."
+        },
+        "BEAST": {
+          "Header":  "Beasts",
+          "Description":  "Beasts are nonhumanoid creatures that are a natural part of the fantasy ecology. Some of them have magical powers, but most are unintelligent and lack any society or language. Beasts include all varieties of ordinary animals, dinosaurs, and giant versions of animals. Celestials are creatures native to the Upper Planes. Many of them are the servants of deities, employed as messengers or agents in the mortal realm and throughout the planes."
+        },
+        "CELESTIAL": {
+          "Header":  "Celestials",
+          "Description":  "Celestials are good by nature, so the exceptional celestial who strays from a good alignment is a horrifying rarity. Celestials include angels, couatls, and pegasi."
+        },
+        "CONSTRUCT": {
+          "Header":  "Constructs",
+          "Description":  "Constructs are made, not born. Some are programmed by their creators to follow a simple set of instructions, while others are imbued with sentience and capable of independent thought. Golems are the iconic constructs. Many creatures native to the outer plane of Mechanus, such as modrons, are constructs shaped from the raw material of the plane by the will of more powerful creatures."
+        },
+        "DRAGON": {
+          "Header":  "Dragons",
+          "Description":  "Dragons are large reptilian creatures of ancient origin and tremendous power. True dragons, including the good metallic dragons and the evil chromatic dragons, are highly intelligent and have innate magic. Also in this category are creatures distantly related to true dragons, but less powerful, less intelligent, and less magical, such as wyverns and pseudodragons."
+        },
+        "ELEMENTAL": {
+          "Header":  "Elementals",
+          "Description":  "Elementals are creatures native to the elemental planes. Some creatures of this type are little more than animate masses of their respective elements, including the creatures simply called elementals. Others have biological forms infused with elemental energy. The races of genies, including djinn and efreet, form the most important civilizations on the elemental planes. Other elemental creatures include azers and invisible stalkers."
+        },
+        "FEY": {
+          "Header":  "Fey",
+          "Description":  "Fey are magical creatures closely tied to the forces of nature. They dwell in twilight groves and misty forests. In some worlds, they are closely tied to the Feywild, also called the Plane of Faerie. Some are also found in the Outer Planes, particularly the planes of Arborea and the Beastlands. Fey include dryads, pixies, and satyrs."
+        },
+        "FIEND": {
+          "Header":  "Fiends",
+          "Description":  "Fiends are creatures of wickedness that are native to the Lower Planes. A few are the servants of deities, but many more labor under the leadership of archdevils and demon princes. Evil priests and mages sometimes summon fiends to the material world to do their bidding. If an evil celestial is a rarity, a good fiend is almost inconceivable. Fiends include demons, devils, hell hounds, rakshasas, and yugoloths."
+        },
+        "GIANT": {
+          "Header":  "Giants",
+          "Description":  "Giants tower over humans and their kind. They are humanlike in shape, though some have multiple heads (ettins) or deformities (fomorians). The six varieties of true giant are hill giants, stone giants, frost giants, fire giants, cloud giants, and storm giants. Besides these, creatures such as ogres and trolls are giants."
+        },
+        "HUMANOID": {
+          "Header":  "Humanoids",
+          "Description":  "Humanoids are the main peoples of a fantasy gaming world, both civilized and savage, including humans and a tremendous variety of other species. They have language and culture, few if any innate magical abilities (though most humanoids can learn spellcasting), and a bipedal form. The most common humanoid races are the ones most suitable as player characters: humans, dwarves, elves, and halflings. Almost as numerous but far more savage and brutal, and almost uniformly evil, are the races of goblinoids (goblins, hobgoblins, and bugbears), orcs, gnolls, lizardfolk, and kobolds."
+        },
+        "MONSTROSITY": {
+          "Header":  "Monstrosities",
+          "Description":  "Monstrosities are monsters in the strictest sense—frightening creatures that are not ordinary, not truly natural, and almost never benign. Some are the results of magical experimentation gone awry (such as owlbears), and others are the product of terrible curses (including minotaurs and yuan-ti). They defy categorization, and in some sense serve as a catch-all category for creatures that don’t fit into any other type."
+        },
+        "OOZE": {
+          "Header":  "Oozes",
+          "Description":  "Oozes are gelatinous creatures that rarely have a fixed shape. They are mostly subterranean, dwelling in caves and dungeons and feeding on refuse, carrion, or creatures unlucky enough to get in their way. Black puddings and gelatinous cubes are among the most recognizable oozes."
+        },
+        "PLANT": {
+          "Header":  "Plants",
+          "Description":  "Plants in this context are vegetable creatures, not ordinary flora. Most of them are ambulatory, and some are carnivorous. The quintessential plants are the shambling mound and the treant. Fungal creatures such as the gas spore and the myconid also fall into this category. Undead are once-living creatures brought to a horrifying state of undeath through the practice of necromantic magic or some unholy curse."
+        },
+        "UNDEAD": {
+          "Header":  "Undead",
+          "Description":  "Undead include walking corpses, such as vampires and zombies, as well as bodiless spirits, such as ghosts and specters."
+        }
+      },
+      "Actions": {
+        "Header": "Actions",
+        "Reactions": {
+          "Header": "Reactions",
+          "Description": "If a monster can do something special with its reaction, that information is contained here. If a creature has no special reaction, this section is absent."
+        },
+        "LimitedUsage": {
+          "Header": "Limited Usage",
+          "Description": "Some special abilities have restrictions on the number of times they can be used.\n\nX/Day: The notation “X/Day” means a special ability can be used X number of times and that a monster must finish a long rest to regain expended uses. For example, “1/Day” means a special ability can be used once and that the monster must finish a long rest to use it again.\n\nRecharge X–Y: The notation “Recharge X–Y” means a monster can use a special ability once and that the ability then has a random chance of recharging during each subsequent round of combat. At the start of each of the monster’s turns, roll a d6. If the roll is one of the numbers in the recharge notation, the monster regains the use of the special ability. The ability also recharges when the monster finishes a short or long rest.\n\nFor example, “Recharge 5–6” means a monster can use the special ability once. Then, at the start of the monster’s turn, it regains the use of that ability if it rolls a 5 or 6 on a d6.\n\nRecharge after a Short or Long Rest: This notation means that a monster can use a special ability once and then must finish a short or long rest to use it again."
+        },
+        "LegendaryActions": {
+          "Header": "Legendary Actions",
+          "Description": "A legendary creature can take a certain number of special actions—called legendary actions—outside its turn. Only one legendary action option can be used at a time and only at the end of another creature’s turn. A creature regains its spent legendary actions at the start of its turn. It can forgo using them, and it can’t use them while incapacitated or otherwise unable to take actions. If surprised, it can’t use them until after its first turn in the combat."
+        },
+        "LairActions": {
+          "Header": "Lair Actions",
+          "Description": "If a legendary creature has lair actions, it can use them to harness the ambient magic in its lair. On initiative count 20 (losing all initiative ties), it can use one of its lair action options. It can’t do so while incapacitated or otherwise unable to take actions. If surprised, it can’t use one until after its first turn in the combat."
+        }
+      }
+    },
+    "Poisons": {
+      "Header": "Poisons",
+      "Description": "Given their insidious and deadly nature, poisons are illegal in most societies but are a favorite tool among assassins, drow, and other evil creatures.\n\nPoisons come in the following four types:",
+      "Contact": {
+        "Header": "Contact",
+        "Description": "Contact poison can be smeared on an object and remains potent until it is touched or washed off. A creature that touches contact poison with exposed skin suffers its effects."
+      },
+      "Ingested": {
+        "Header": "Ingested",
+        "Description": "A creature must swallow an entire dose of ingested poison to suffer its effects. The dose can be delivered in food or a liquid. You may decide that a partial dose has a reduced effect, such as allowing advantage on the saving throw or dealing only half damage on a failed save."
+      },
+      "Inhaled": {
+        "Header": "Inhaled",
+        "Description": "These poisons are powders or gases that take effect when inhaled. Blowing the powder or releasing the gas subjects creatures in a 5-foot cube to its effect. The resulting cloud dissipates immediately afterward. Holding one’s breath is ineffective against inhaled poisons, as they affect nasal membranes, tear ducts, and other parts of the body."
+      },
+      "Injury": {
+        "Header": "Injury",
+        "Description": "Injury poison can be applied to weapons, ammunition, trap components, and other objects that deal piercing or slashing damage and remains potent until delivered through a wound or washed off. A creature that takes piercing or slashing damage from an object coated with the poison is exposed to its effects."
+      }
+    },
+    "Skills": {
+      "Header": "Skills",
+      "GroupChecks": {
+        "Header": "Group Checks",
+        "Description": "When a number of individuals are trying to accomplish something as a group, the GM might ask for a group ability check. In such a situation, the characters who are skilled at a particular task help cover those who aren’t.\n\nTo make a group ability check, everyone in the group makes the ability check. If at least half the group succeeds, the whole group succeeds. Otherwise, the group fails.\n\nGroup checks don’t come up very often, and they’re most useful when all the characters succeed or fail as a group. For example, when adventurers are navigating a swamp, the GM might call for a group Wisdom (Survival) check to see if the characters can avoid the quicksand, sinkholes, and other natural hazards of the environment. If at least half the group succeeds, the successful characters are able to guide their companions out of danger. Otherwise, the group stumbles into one of these hazards."
+      }
+    },
+    "Spellcasting": {
+      "Header": "Spellcasting",
+      "Cantrips": {
+        "Header": "Cantrips",
+        "Description": "A cantrip is a spell that can be cast at will, without using a spell slot and without being prepared in advance. Repeated practice has fixed the spell in the caster’s mind and infused the caster with the magic needed to produce the effect over and over. A cantrip’s spell level is 0."
+      },
+      "Rituals": {
+        "Header": "Rituals",
+        "Description": "Certain spells have a special tag: ritual. Such a spell can be cast following the normal rules for spellcasting, or the spell can be cast as a ritual. The ritual version of a spell takes 10 minutes longer to cast than normal. It also doesn’t expend a spell slot, which means the ritual version of a spell can’t be cast at a higher level.\n\nTo cast a spell as a ritual, a spellcaster must have a feature that grants the ability to do so. The cleric and the druid, for example, have such a feature. The caster must also have the spell prepared or on his or her list of spells known, unless the character’s ritual feature specifies otherwise, as the wizard’s does."
+      },
+      "Components": {
+        "Header": "Components",
+        "Verbal": {
+          "Header": "Verbal (V)",
+          "Description": "Most spells require the chanting of mystic words. The words themselves aren’t the source of the spell’s power; rather, the particular combination of sounds, with specific pitch and resonance, sets the threads of magic in motion. Thus, a character who is gagged or in an area of silence, such as one created by the silence spell, can’t cast a spell with a verbal component."
+        },
+        "Somatic": {
+          "Header": "Somatic (S)",
+          "Description": "Spellcasting gestures might include a forceful gesticulation or an intricate set of gestures. If a spell requires a somatic component, the caster must have free use of at least one hand to perform these gestures."
+        },
+        "Material": {
+          "Header": "Material (M)",
+          "Description": "Casting some spells requires particular objects, specified in parentheses in the component entry. A character can use a component pouch or a spellcasting focus (found in “Equipment”) in place of the components specified for a spell. But if a cost is indicated for a component, a character must have that specific component before he or she can cast the spell.\n\nIf a spell states that a material component is consumed by the spell, the caster must provide this component for each casting of the spell.\n\nA spellcaster must have a hand free to access a spell’s material components—or to hold a spellcasting focus—but it can be the same hand that he or she uses to perform somatic components."
+        }
+      },
+      "AreaOfEffects": {
+        "Header": "Area of Effects",
+        "Description": "Spells such as burning hands and cone of cold cover an area, allowing them to affect multiple creatures at once.\n\nA spell’s description specifies its area of effect, which typically has one of five different shapes: cone, cube, cylinder, line, or sphere. Every area of effect has a point of origin, a location from which the spell’s energy erupts. The rules for each shape specify how you position its point of origin. Typically, a point of origin is a point in space, but some spells have an area whose origin is a creature or an object.\n\nA spell’s effect expands in straight lines from the point of origin. If no unblocked straight line extends from the point of origin to a location within the area of effect, that location isn’t included in the spell’s area. To block one of these imaginary lines, an obstruction must provide total cover."
+      },
+      "TheSchoolsOfMagic": {
+        "Header": "The Schools of Magic",
+        "Description": "Academies of magic group spells into eight categories called schools of magic. Scholars, particularly wizards, apply these categories to all spells, believing that all magic functions in essentially the same way, whether it derives from rigorous study or is bestowed by a deity. The schools of magic help describe spells; they have no rules of their own, although some rules refer to the schools."
+      }
+    },
+    "Traps": {
+      "Header": "Traps",
+      "Description": "Traps can be found almost anywhere. One wrong step in an ancient tomb might trigger a series of scything blades, which cleave through armor and bone. The seemingly innocuous vines that hang over a cave entrance might grasp and choke anyone who pushes through them. A net hidden among the trees might drop on travelers who pass underneath. In a fantasy game, unwary adventurers can fall to their deaths, be burned alive, or fall under a fusillade of poisoned darts.\n\nA trap can be either mechanical or magical in nature. Mechanical traps include pits, arrow traps, falling blocks, water-filled rooms, whirling blades, and anything else that depends on a mechanism to operate. Magic traps are either magical device traps or spell traps. Magical device traps initiate spell effects when activated. Spell traps are spells such as glyph of warding and symbol that function as traps.",
+      "TriggeringATrap": {
+        "Header": "Triggering a Trap",
+        "Description": "Most traps are triggered when a creature goes somewhere or touches something that the trap’s creator wanted to protect. Common triggers include stepping on a pressure plate or a false section of floor, pulling a trip wire, turning a doorknob, and using the wrong key in a lock. Magic traps are often set to go off when a creature enters an area or touches an object. Some magic traps (such as the glyph of warding spell) have more complicated trigger conditions, including a password that prevents the trap from activating."
+      },
+      "DetectingAndDisablingATrap": {
+        "Header": "Detecting and Disabling a Trap",
+        "Description": "Usually, some element of a trap is visible to careful inspection. Characters might notice an uneven flagstone that conceals a pressure plate, spot the gleam of light off a trip wire, notice small holes in the walls from which jets of flame will erupt, or otherwise detect something that points to a trap’s presence.\n\nA trap’s description specifies the checks and DCs needed to detect it, disable it, or both. A character actively looking for a trap can attempt a Wisdom (Perception) check against the trap’s DC. You can also compare the DC to detect the trap with each character’s passive Wisdom (Perception) score to determine whether anyone in the party notices the trap in passing. If the adventurers detect a trap before triggering it, they might be able to disarm it, either permanently or long enough to move past it. You might call for an Intelligence (Investigation) check for a character to deduce what needs to be done, followed by a Dexterity check using thieves’ tools to perform the necessary sabotage.\n\nAny character can attempt an Intelligence (Arcana) check to detect or disarm a magic trap, in addition to any other checks noted in the trap’s description. The DCs are the same regardless of the check used. In addition, dispel magic has a chance of disabling most magic traps. A magic trap’s description provides the DC for the ability check made when you use dispel magic.\n\nIn most cases, a trap’s description is clear enough that you can adjudicate whether a character’s actions locate or foil the trap. As with many situations, you shouldn’t allow die rolling to override clever play and good planning. Use your common sense, drawing on the trap’s description to determine what happens. No trap’s design can anticipate every possible action that the characters might attempt.\n\nYou should allow a character to discover a trap without making an ability check if an action would clearly reveal the trap’s presence. For example, if a character lifts a rug that conceals a pressure plate, the character has found the trigger and no check is required.\n\nFoiling traps can be a little more complicated. Consider a trapped treasure chest. If the chest is opened without first pulling on the two handles set in its sides, a mechanism inside fires a hail of poison needles toward anyone in front of it. After inspecting the chest and making a few checks, the characters are still unsure if it’s trapped. Rather than simply open the chest, they prop a shield in front of it and push the chest open at a distance with an iron rod. In this case, the trap still triggers, but the hail of needles fires harmlessly into the shield.\n\nTraps are often designed with mechanisms that allow them to be disarmed or bypassed. Intelligent monsters that place traps in or around their lairs need ways to get past those traps without harming themselves. Such traps might have hidden levers that disable their triggers, or a secret door might conceal a passage that goes around the trap."
+      }
+    },
+    "Travel": {
+      "Header": "Travel",
+      "ForcedMarch": {
+        "Header": "Forced March",
+        "Description": "The Travel Pace table assumes that characters travel for 8 hours in day. They can push on beyond that limit, at the risk of exhaustion.\n\nFor each additional hour of travel beyond 8 hours, the characters cover the distance shown in the Hour column for their pace, and each character must make a Constitution saving throw at the end of the hour. The DC is 10 + 1 for each hour past 8 hours. On a failed saving throw, a character suffers one level of exhaustion."
+      },
+      "MountsAndVehicles": {
+        "Header": "Mounts and Vehicles",
+        "Description": "For short spans of time (up to an hour), many animals move much faster than humanoids. A mounted character can ride at a gallop for about an hour, covering twice the usual distance for a fast pace. If fresh mounts are available every 8 to 10 miles, characters can cover larger distances at this pace, but this is very rare except in densely populated areas.\n\nCharacters in wagons, carriages, or other land vehicles choose a pace as normal. Characters in a waterborne vessel are limited to the speed of the vessel, and they don’t suffer penalties for a fast pace or gain benefits from a slow pace. Depending on the vessel and the size of the crew, ships might be able to travel for up to 24 hours per day.\n\nCertain special mounts, such as a pegasus or griffon, or special vehicles, such as a carpet of flying, allow you to travel more swiftly."
+      },
+      "DifficultTerrain": {
+        "Header": "Difficult Terrain",
+        "Description": "The travel speeds given in the Travel Pace table assume relatively simple terrain: roads, open plains, or clear dungeon corridors. But adventurers often face dense forests, deep swamps, rubble-filled ruins, steep mountains, and ice-covered ground—all considered difficult terrain.\n\nYou move at half speed in difficult terrain— moving 1 foot in difficult terrain costs 2 feet of speed—so you can cover only half the normal distance in a minute, an hour, or a day."
+      },
+      "ClimbingSwimmingAndCrawling": {
+        "Header": "Climbing, Swimming, and Crawling",
+        "Description": "While climbing or swimming, each foot of movement costs 1 extra foot (2 extra feet in difficult terrain), unless a creature has a climbing or swimming speed. At the GM’s option, climbing a slippery vertical surface or one with few handholds requires a successful Strength (Athletics) check. Similarly, gaining any distance in rough water might require a successful Strength (Athletics) check."
+      },
+      "LongJump": {
+        "Header": "Long Jump",
+        "Description": "When you make a long jump, you cover a number of feet up to your Strength score if you move at least 10 feet on foot immediately before the jump. When you make a standing long jump, you can leap only half that distance. Either way, each foot you clear on the jump costs a foot of movement.\n\nThis rule assumes that the height of your jump doesn’t matter, such as a jump across a stream or chasm. At your GM’s option, you must succeed on a DC 10 Strength (Athletics) check to clear a low obstacle (no taller than a quarter of the jump’s distance), such as a hedge or low wall. Otherwise, you hit it.\n\nWhen you land in difficult terrain, you must succeed on a DC 10 Dexterity (Acrobatics) check to land on your feet. Otherwise, you land prone."
+      },
+      "HighJump": {
+        "Header": "High Jump",
+        "Description": "When you make a high jump, you leap into the air a number of feet equal to 3 + your Strength modifier if you move at least 10 feet on foot immediately before the jump. When you make a standing high jump, you can jump only half that distance. Either way, each foot you clear on the jump costs a foot of movement. In some circumstances, your GM might allow you to make a Strength (Athletics) check to jump higher than you normally can.\n\nYou can extend your arms half your height above yourself during the jump. Thus, you can reach above you a distance equal to the height of the jump plus 1½ times your height."
+      }
+    },
+    "WeaponProperties": {
+      "Header": "Weapon Properties",
+      "Improvised": {
+        "Header": "Improvised",
+        "Description": "Sometimes characters don’t have their weapons and have to attack with whatever is at hand. An improvised weapon includes any object you can wield in one or two hands, such as broken glass, a table leg, a frying pan, a wagon wheel, or a dead goblin.\n\nOften, an improvised weapon is similar to an actual weapon and can be treated as such. For example, a table leg is akin to a club. At the GM’s option, a character proficient with a weapon can use a similar object as if it were that weapon and use his or her proficiency bonus.\n\nAn object that bears no resemblance to a weapon deals 1d4 damage (the GM assigns a damage type appropriate to the object). If a character uses a ranged weapon to make a melee attack, or throws a melee weapon that does not have the thrown property, it also deals 1d4 damage. An improvised thrown weapon has a normal range of 20 feet and a long range of 60 feet."
+      },
+      "Silvered": {
+        "Header": "Silvered",
+        "Description": "Some monsters that have immunity or resistance to nonmagical weapons are susceptible to silver weapons, so cautious adventurers invest extra coin to plate their weapons with silver. You can silver a single weapon or ten pieces of ammunition for 100 gp. This cost represents not only the price of the silver, but the time and expertise needed to add silver to the weapon without making it less effective."
+      }
+    }
+  },
+
+  "ManageBulk": {
+    "DELETE":  {
+      "Title": {
+        "Confirmation": "Continue Delete",
+        "InProgress": "Deleting...",
+        "Complete": "Delete Complete"
+      },
+      "Message": {
+        "Confirmation": "You are about to delete {{count}} items. Are you sure you want to continue? This CAN NOT be undone."
+      }
+    },
+    "SHARE":  {
+      "Title": {
+        "Confirmation": "Continue Share",
+        "InProgress": "Sharing...",
+        "Complete": "Share Complete"
+      },
+      "Message": {
+        "Confirmation": "You are about to share {{count}} items. Are you sure you want to continue?"
+      }
+    },
+    "EXPORT":  {
+      "Title": {
+        "Confirmation": "Continue Export",
+        "InProgress": "Exporting...",
+        "Complete": "Export Complete"
+      },
+      "Message": {
+        "Confirmation": "You are about to export {{count}} items. Are you sure you want to continue?"
+      },
+      "Pro": {
+        "Label": "Pro Export",
+        "Message": "The file generated from this can only be used with the 'Squire - Pro' Android app."
+      },
+      "Free": {
+        "Label": "Free Export",
+        "Message": "The file generated from this can only be used with the 'Squire - Free' and 'Squire - Pro' Android apps. If imported into 'Squire - Pro', there will potentially be missing data. Use the Pro Export if this happens."
+      }
+    }
+  },
+
+  "Encounter": {
+    "Add": "Add Encounter",
+    "Edit": "Edit Encounter",
+    "Load": {
+      "Error": "Failed to load the encounter"
+    },
+    "StartPrompt": {
+      "Title": "Start Encounter",
+      "Message": "Would you like to start the encounter that you just created?"
+    },
+    "Save": {
+      "Error": "Unable to save encounter",
+      "NameRequired": "A name is required."
+    },
+    "Start": {
+      "Error": "Failed to start the encounter"
+    },
+    "UnrolledValues": {
+      "Title": "Unrolled Values",
+      "Message": "You still have initiative/hp values that haven't been set. In order to continue, all values need to be set and these will be rolled for you. Are you sure you want to continue?"
+    },
+    "Cancel": {
+      "Confirmation": "Are you sure you want to cancel editing this encounter? All of your changes will be lost. This can not be undone."
+    },
+    "Delete": {
+      "Error": "Unable to delete the encounter",
+      "Title": "Delete Encounter",
+      "Confirmation": "Are you sure you want to delete this encounter? This can not be undone."
+    },
+    "Restart": {
+      "Title": "Restart Encounter",
+      "Message": "Are you sure you want to restart this encounter? This can not be undone.",
+      "Error": "Failed to restart the encounter"
+    },
+    "Pause": {
+      "Title": "Pause Encounter",
+      "Message": "Your progress will be saved and you will be redirected to the current campaign. Are you sure you want to continue?"
+    },
+    "Finish": {
+      "Error": "Failed to finish the encounter",
+      "Title": "Finish Encounter",
+      "Message": "Are you sure you want to finish this encounter? This can not be undone."
+    },
+    "Monster": {
+      "Add": "Add Monsters",
+      "Empty": "No monsters selected"
+    },
+    "Group": {
+      "GroupedHp": "Grouped HP",
+      "GroupedInitiative": "Grouped Initiative",
+      "Remove":  {
+        "Title": "Remove Group",
+        "Confirmation": "Are you sure you want to remove this group of monsters?"
+      },
+      "Stealth": {
+        "Lowest": "Lowest: {{value}}",
+        "Average": "Avg Stealth: {{value}}"
+      }
+    },
+    "RoundTurn": "Round {{round}} Turn {{turn}}",
+    "Round": "Round {{round}}",
+    "TotalExp": "Total Exp:",
+    "TotalCr": "Total CR:",
+    "ExpPerPlayer": "({{exp}} per player)",
+    "AdjustedExp": "Adjusted Exp:",
+    "Difficulty": "Difficulty:",
+    "ExpandInitiative": "Expand Initiative",
+    "Roll": {
+      "Error": "Failed to roll values"
+    },
+    "CustomSort": {
+      "Label": "Custom Sort",
+      "Tooltip": "You have a custom sort applied. Any changes to initiative rolls will not automatically sort this list until you click the 'Sort' button below."
+    },
+    "HpValue":  "{{value}} hp",
+    "InitiativeValue":  "{{value}} Init",
+    "CountMoreItems": "+ {{count}} more items",
+    "NoCreatures": "Please add one or more characters/monsters to the encounter.",
+    "TooManyMonsters": "You have too many monsters in this encounter. Please reduce the number before continuing.",
+    "CountMonsters": "{{current}} / {{max}} Monsters",
+    "HideKilled": "Hide Killed",
+    "SplitGroup": "Split Group",
+    "Health": {
+      "Error": "Unable to update creature's health"
+    },
+    "Flee": {
+      "Title": "{{name}} wants to Flee the Encounter",
+      "Message": "Are you sure you want this creature to flee the encounter? This can not be undone.",
+      "Error": "Unable to flee"
+    },
+    "FleeGroup": "Flee Group",
+    "Remove": {
+      "Title": "Remove {{name}} from Encounter",
+      "Message": "Are you sure you want to remove this creature from the encounter? This can not be undone.",
+      "Error": "Unable to remove creature"
+    },
+    "Kill": {
+      "Title": "Kill {{name}}",
+      "Message": "Are you sure you want to kill this creature?",
+      "Error": "Error killing creature"
+    },
+    "NoMonstersRemaining": {
+      "Title": "No Monsters Remaining",
+      "Message": "There aren't any monsters remaining in this encounter. Would you like to finish the encounter?"
+    },
+    "EncounterCreature": {
+      "Refresh": {
+        "Error": "Unable to refresh creature"
+      }
+    },
+    "MonsterFeature": {
+      "Error": {
+        "Loading": "Error loading feature",
+        "Use": "Error using feature",
+        "Reset": "Error resetting feature"
+      }
+    },
+    "Recharge": {
+      "Success": "{{name}} Recharged: Rolled {{roll}}",
+      "Fail": "{{name}} Not Recharged: Rolled {{roll}}"
+    },
+    "LegendaryPoints": {
+      "Reset": "Legendary points reset to {{max}} for {{name}}"
+    }
+  }
+}

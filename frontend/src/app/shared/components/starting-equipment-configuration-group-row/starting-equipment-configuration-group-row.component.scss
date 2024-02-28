@@ -1,0 +1,38 @@
+input {
+  width: 70px;
+  display: inline;
+}
+
+.delete-config {
+  float: right;
+  margin: auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.configure-config {
+  float: right;
+  margin: auto 10px auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}

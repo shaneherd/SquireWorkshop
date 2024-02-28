@@ -1,0 +1,43 @@
+<div>
+  <h3 class="header">{{ 'Headers.MultiClass' | translate }}</h3>
+  <div class="multi-class-caster">
+    <div *ngIf="casterType.multiClassWeight > 0">
+      <div class="form-group no-margin-bottom">
+        <label>{{ 'Labels.MultiClassWeight' | translate }}</label>
+        <span>{{casterType.multiClassWeight}}</span>
+        <span *ngIf="casterType.roundUp">({{ 'RoundUp' | translate }})</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-group info-description" *ngIf="casterType.description.length > 0">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span class="info-description">{{casterType.description}}</span>
+</div>
+
+<div class="slots-header">
+  <label class="slot-value">{{ 'Headers.Level' | translate }}</label>
+  <span class="slot-value">1</span>
+  <span class="slot-value">2</span>
+  <span class="slot-value">3</span>
+  <span class="slot-value">4</span>
+  <span class="slot-value">5</span>
+  <span class="slot-value">6</span>
+  <span class="slot-value">7</span>
+  <span class="slot-value">8</span>
+  <span class="slot-value">9</span>
+</div>
+<mat-divider class="divider"></mat-divider>
+<div *ngFor="let spellSlots of casterType.spellSlots; let i = index" class="spell-slots-display">
+  <label class="slot-value">{{i + 1}}</label>
+  <span class="slot-value">{{spellSlots.slot1}}</span>
+  <span class="slot-value">{{spellSlots.slot2}}</span>
+  <span class="slot-value">{{spellSlots.slot3}}</span>
+  <span class="slot-value">{{spellSlots.slot4}}</span>
+  <span class="slot-value">{{spellSlots.slot5}}</span>
+  <span class="slot-value">{{spellSlots.slot6}}</span>
+  <span class="slot-value">{{spellSlots.slot7}}</span>
+  <span class="slot-value">{{spellSlots.slot8}}</span>
+  <span class="slot-value">{{spellSlots.slot9}}</span>
+</div>

@@ -1,0 +1,28 @@
+<div class="option-row">
+  <label [translate]="'StartingEquipment.OptionLabel'"
+        [translateParams]="{option: option.label}"></label>
+  <i *ngIf="editing"
+     class="fas fa-plus"
+     [ngClass]="{'disabled': disabled || option.inheritedFrom != null}"
+     (click)="onAddItem()"
+     matTooltip="{{ 'Tooltips.Configure' | translate }}"></i>
+  <i *ngIf="editing"
+     class="fas fa-trash-alt"
+     [ngClass]="{'disabled': disabled || option.inheritedFrom != null}"
+     (click)="removeOption()"
+     matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+</div>
+
+<div *ngIf="option.items.length === 0" class="no-items">
+  {{ 'NoItems' | translate }}
+</div>
+
+<div *ngFor="let item of option.items" class="item-container">
+  <app-starting-equipment-configuration-row [editing]="editing"
+                                            [loading]="loading"
+                                            [disabled]="disabled"
+                                            [item]="item"
+                                            (configure)="editItem($event)"
+                                            (delete)="removeItem($event)">
+  </app-starting-equipment-configuration-row>
+</div>

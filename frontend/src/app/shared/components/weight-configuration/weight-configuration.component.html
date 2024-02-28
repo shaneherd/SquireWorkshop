@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label>{{ 'Labels.Weight' | translate }}</label>
+  <span *ngIf="!editing" translate="WeightValue"
+        [translateParams]="{value: item.weight}"></span>
+  <div *ngIf="editing">
+    <input type="number"
+           class="form-control dice-collection"
+           max="999" min="0"
+           appInputNumber [minValue]="0" [maxValue]="999.999" [allowDecimal]="true"
+           [ngModel]="item.weight"
+           (valueChange)="weightChange($event)"/>
+    <span>{{ 'Lbs' | translate }}</span>
+  </div>
+</div>

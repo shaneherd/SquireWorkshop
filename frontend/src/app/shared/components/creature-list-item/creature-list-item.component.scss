@@ -1,0 +1,57 @@
+@import '../../../sass/variables';
+
+.name-container {
+  display: flex;
+  flex-direction: row;
+
+  &.nested {
+    padding-top: 8px;
+  }
+
+  .name-contents {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .info {
+    margin-left: 10px;
+    flex-shrink: 0;
+  }
+
+  .quantity-tag {
+    margin-left: 10px;
+  }
+}
+
+.nested-name-display {
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.no-uses-remaining {
+  background-color: $skill_with_disadvantage_background;
+  color: white;
+  border-color: #000000;
+}
+
+.sub-name {
+  margin-left: 5px;
+}
+
+@mixin creature-list-item-theme($theme) {
+  $primary: mat-color($squire-red, 900);
+  //$quantity: $info-background;
+  //$charges: $secondary_color;
+  //$spellCount: $warn-background;
+
+  .nested-name-display {
+    color: $info-color;
+  }
+
+  .on-dark .nested-name-display {
+    color: #ffffff;
+  }
+}

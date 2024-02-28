@@ -1,0 +1,41 @@
+.damage-type {
+  margin-left: 10px;
+}
+
+.delete-config {
+  float: right;
+  margin: auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.configure-config {
+  float: right;
+  margin: auto 10px auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.spaced {
+  margin-left: 5px;
+}

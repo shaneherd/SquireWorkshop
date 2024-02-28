@@ -1,0 +1,38 @@
+@import '~@angular/material/theming';
+@import 'styles.scss';
+@import 'palettes.scss';
+@import '../shared/components/user-menu/user-menu.component.scss';
+@import '../shared/components/health-calculator/health-calculator.component.scss';
+@import '../core/header/user-settings/user-settings.component.scss';
+@import '../dashboard/view-edit/view-edit.component.scss';
+@import '../shared/components/menu-item/menu-item.component.scss';
+@import '../shared/components/list-menu/list-menu.component.scss';
+@import '../shared/components/slide-in-header/slide-in-header.component.scss';
+@import '../shared/components/card-badges/card-badges.component.scss';
+@import '../shared/components/creature-list-item/creature-list-item.component.scss';
+@import '../shared/components/adjustment-card/adjustment-card.component.scss';
+@include mat-core();
+
+$squire-primary: mat-palette($squire-red, 900);
+$squire-accent:  mat-palette($squire-yellow, 500, 900, A100);
+$squire-warn:    mat-palette($squire-red, 900);
+
+$squire-theme: mat-light-theme($squire-primary, $squire-accent, $squire-warn);
+
+@mixin custom-theme($theme) {
+  @include user-menu-theme($theme);
+  @include user-settings-theme($theme);
+  @include mat-dialog-theme($theme);
+  @include button-theme($theme);
+  @include view-edit-theme($theme);
+  @include menu-item-theme($theme);
+  @include list-menu-theme($theme);
+  @include slide-in-header-theme($theme);
+  @include health-theme($theme);
+  @include badge-theme($theme);
+  @include creature-list-item-theme($theme);
+  @include adjustment-card-theme($theme);
+}
+
+@include angular-material-theme($squire-theme);
+@include custom-theme($squire-theme);

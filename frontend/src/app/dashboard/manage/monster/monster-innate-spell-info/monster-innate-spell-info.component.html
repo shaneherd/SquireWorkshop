@@ -1,0 +1,86 @@
+<div class="form-group">
+  <mat-checkbox
+    (change)="spellcasterChange($event)"
+    [disabled]="!editing"
+    [checked]="monster.innateSpellcaster">
+  </mat-checkbox>
+  <span>{{ 'InnateSpellcaster' | translate }}</span>
+</div>
+
+<ng-container *ngIf="monster.innateSpellcaster">
+  <!--Spellcaster Level-->
+  <div class="caster-type-container form-group">
+    <label>{{ 'Labels.InnateSpellcasterLevel' | translate }}</label>
+    <span *ngIf="!editing">{{monster.innateSpellcasterLevel.name}}</span>
+    <div *ngIf="editing">
+      <mat-form-field>
+        <mat-select [(ngModel)]="spellcasterLevel"
+                    [ngModelOptions]="{standalone: true}"
+                    (selectionChange)="spellcasterLevelChange($event.value)">
+          <mat-option *ngFor="let level of levels" [value]="level">
+            {{level.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--Spellcasting Ability-->
+  <div class="spellcasting-ability-container form-group">
+    <label>{{ 'Navigation.Manage.Spells.InnateSpellcastingAbility' | translate }}</label>
+    <span *ngIf="!editing">{{monsterConfigurationCollection.spellConfigurationCollection.innateSpellcastingAbility === '0' ? none : getAbility(monsterConfigurationCollection.spellConfigurationCollection.innateSpellcastingAbility)?.name}}</span>
+    <div *ngIf="editing">
+      <mat-form-field>
+        <mat-select [(ngModel)]="monsterConfigurationCollection.spellConfigurationCollection.innateSpellcastingAbility"
+                    [ngModelOptions]="{standalone: true}"
+                    (selectionChange)="spellcastingAbilityChange($event.value)">
+          <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+            {{ability.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-icon matTooltip="{{ 'Tooltips.SpellcastingAbility' | translate }}" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.InnateSpellAttack' | translate }}</label>
+    <span *ngIf="!editing" matTooltip="{{spellAttackTotalTooltip}}">{{spellAttackTotal}}</span>
+    <div *ngIf="editing">
+      <span matTooltip="{{spellAttackTooltip}}">{{spellAttackBase}} + </span>
+      <input *ngIf="editing" type="number" class="form-control inline number-inline" max="99" min="0"
+             appInputNumber minValue="0" maxValue="99"
+             [(ngModel)]="monster.innateSpellAttackModifier"
+             [ngModelOptions]="{standalone: true}"
+             (valueChange)="spellAttackMiscChange($event)"/>
+      <span>= {{spellAttackTotal}}</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.InnateSpellSave' | translate }}</label>
+    <span *ngIf="!editing" matTooltip="{{spellSaveTotalTooltip}}">{{spellSaveTotal}}</span>
+    <div *ngIf="editing">
+      <span matTooltip="{{spellSaveTooltip}}">{{spellSaveBase}} + </span>
+      <input *ngIf="editing" type="number" class="form-control inline number-inline" max="99" min="0"
+             appInputNumber minValue="0" maxValue="99"
+             [(ngModel)]="monster.innateSpellSaveModifier"
+             [ngModelOptions]="{standalone: true}"
+             (valueChange)="spellSaveMiscChange($event)"/>
+      <span>= {{spellSaveTotal}}</span>
+    </div>
+  </div>
+
+  <span class="font-weight-bold" *ngIf="editing || monsterConfigurationCollection.spellConfigurationCollection.innateSpellConfigurations.length > 0">{{ 'Labels.SpellsKnown' | translate }}</span>
+  <app-monster-spell-configuration-list [editing]="editing"
+                                        (configListUpdated)="handleConfigListUpdated()"
+                                        [monster]="monster"
+                                        [isPublic]="isPublic"
+                                        [isShared]="isShared"
+                                        [innate]="true"
+                                        [spellConfigurationCollection]="monsterConfigurationCollection.spellConfigurationCollection">
+  </app-monster-spell-configuration-list>
+</ng-container>

@@ -1,0 +1,93 @@
+@import '../../../../sass/variables';
+
+.health-card-details {
+  display: flex;
+  flex-direction: row;
+
+  .health-info-container {
+    flex-grow: 1;
+  }
+}
+
+.death-saves-container {
+  flex-shrink: 0;
+  margin: -4px 0;
+
+  .death-saves-row {
+    height: 16px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .death-save-icon {
+    min-width: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .fa-check-square,
+    .fa-window-close {
+      color: #a0a0a0;
+    }
+
+    .fa-check-square {
+      &.fas {
+        color: $skill_with_advantage_background;
+      }
+    }
+
+    .fa-window-close {
+      &.fas {
+        color: $skill_with_disadvantage_background;
+      }
+    }
+  }
+}
+
+.basic-card {
+  display: inline-block;
+
+  mat-card {
+    width: 100%;
+    margin-bottom: 0;
+  }
+}
+
+.half-column {
+  width: 50%;
+
+  &:first-child {
+    padding-right: 5px;
+  }
+
+  &:not(:first-child) {
+    padding-left: 5px;
+  }
+}
+
+.full-column {
+  width: 100%;
+}
+
+.cards-container {
+  width: 100%;
+}
+
+.basic-container {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.progress-card {
+  position: relative;
+}
+
+.hp-progress,
+.exp-progress,
+.carrying-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

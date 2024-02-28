@@ -1,0 +1,80 @@
+<div class="form-group" *ngIf="characteristic.savingThrowProfs.length > 0">
+  <label>{{ 'Headers.SavingThrows' | translate }}</label>
+  <ng-container *ngFor="let prof of characteristic.savingThrowProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.armorTypeProfs.length > 0 || characteristic.armorProfs.length > 0">
+  <label>{{ 'Headers.ArmorProfs' | translate }}</label>
+  <ng-container *ngFor="let prof of characteristic.armorTypeProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+  <ng-container *ngFor="let prof of characteristic.armorProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.weaponTypeProfs.length > 0 || characteristic.weaponProfs.length > 0">
+  <label>{{ 'Headers.WeaponProfs' | translate }}</label>
+  <ng-container *ngFor="let prof of characteristic.weaponTypeProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+  <ng-container *ngFor="let prof of characteristic.weaponProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.skillProfs.length > 0">
+  <label>{{ 'Headers.SkillProfs' | translate }}</label>
+  <ng-container *ngFor="let prof of characteristic.skillProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.languageProfs.length > 0">
+  <label>{{ 'Headers.LanguageProfs' | translate }}</label>
+  <ng-container *ngFor="let prof of characteristic.languageProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.toolCategoryProfs.length > 0 || characteristic.toolProfs.length > 0">
+  <label>{{ 'Headers.ToolProfs' | translate }}</label>
+  <ng-container *ngFor="let prof of characteristic.toolCategoryProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+  <ng-container *ngFor="let prof of characteristic.toolProfs;">
+    <div class="detail-value" *ngIf="prof.proficient">{{prof.attribute.name}}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.damageModifiers.length > 0">
+  <label>{{ 'Headers.DamageModifiers' | translate }}</label>
+  <ng-container *ngFor="let damageModifier of characteristic.damageModifiers;">
+    <div class="detail-value" *ngIf="damageModifier.damageModifierType.toString() !== 'NORMAL'">
+      {{ damageModifier.damageType.name + ' ' + ('DamageModifier.' + damageModifier.damageModifierType | translate) }}
+    </div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.senses.length > 0">
+  <label>{{ 'Headers.Senses' | translate }}</label>
+  <ng-container *ngFor="let senseValue of characteristic.senses;">
+    <div class="detail-value">{{ ('Sense.' + senseValue.sense | translate) + ': ' + senseValue.range }}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.conditionImmunities.length > 0">
+  <label>{{ 'Headers.ConditionImmunities' | translate }}</label>
+  <ng-container *ngFor="let condition of characteristic.conditionImmunities;">
+    <div class="detail-value">{{ condition.name }}</div>
+  </ng-container>
+</div>
+
+<div class="form-group" *ngIf="characteristic.spellConfigurations.length > 0">
+  <label>{{ 'Headers.Spellcasting' | translate }}</label>
+  <ng-container *ngFor="let spellConfiguration of characteristic.spellConfigurations;">
+    <div class="detail-value">{{ spellConfiguration.spell.name }}</div>
+  </ng-container>
+</div>

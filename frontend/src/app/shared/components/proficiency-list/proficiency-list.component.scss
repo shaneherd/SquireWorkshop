@@ -1,0 +1,40 @@
+.child-prof-container {
+  margin-left: 25px;
+}
+
+.proficiency-list mat-slide-toggle {
+  margin-bottom: 5px;
+
+  &.secondary {
+    float: right;
+    margin-right: 40px;
+  }
+}
+
+.secondary-header-container {
+  display: inline-block;
+  width: 100%;
+
+  .secondary-header {
+    float: right;
+  }
+
+  .help-icon {
+    margin-left: 10px;
+  }
+}
+
+.proficiency-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .primary-prof {
+    flex-grow: 1;
+  }
+
+  .secondary {
+    flex-shrink: 0;
+    margin-right: 47px;
+  }
+}

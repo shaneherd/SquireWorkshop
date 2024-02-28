@@ -1,0 +1,28 @@
+<app-details [headerName]="combatCreature.battleCreature.creature.name"
+             [configurable]="false"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [closeOnClick]="false"
+             [slideLeft]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="full-height-component">
+    <app-health-calculator [creature]="combatCreature.battleCreature.creature"
+                           [collection]="combatCreature.collection"
+                           [calculatorState]="calculatorState"
+                           [showHitDice]="false"
+                           [maxHP]="maxHP"
+                           [maxHpModifier]="maxHpModifier"
+                           [maxHPTooltip]="maxHPTooltip"
+                           [flashLCD]="true"
+                           [highlightValues]="true"
+                           [dropItemsWhenDying]="false"
+                           [removeProneOnRevive]="false"
+                           [quickKill]="quickKill">
+    </app-health-calculator>
+  </div>
+</app-details>

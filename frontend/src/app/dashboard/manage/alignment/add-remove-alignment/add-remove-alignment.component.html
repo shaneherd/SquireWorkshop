@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="alignment.name"
+                         [loading]="loading"
+                         [selected]="alignment.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-alignment-details *ngIf="viewingAlignment != null"
+                         [alignment]="viewingAlignment">
+  </app-alignment-details>
+</app-add-remove-slide-in>

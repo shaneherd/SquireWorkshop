@@ -1,0 +1,9 @@
+<div>
+  <label>{{ 'Labels.Weight' | translate }}</label>
+  <span translate="WeightValue"
+        [translateParams]="{value: weight}"></span>
+  <span *ngIf="creatureItem != null && creatureItem.quantity > 1"
+        class="total-weight"
+        translate="TotalWeightValue"
+        [translateParams]="{value: totalWeight}"></span>
+</div>

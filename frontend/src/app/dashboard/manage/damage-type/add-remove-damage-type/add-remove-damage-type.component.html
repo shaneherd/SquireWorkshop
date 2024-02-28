@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="damageType.name"
+                         [loading]="loading"
+                         [selected]="damageType.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-damage-type-details *ngIf="viewingDamageType != null"
+                           [damageType]="viewingDamageType">
+  </app-damage-type-details>
+</app-add-remove-slide-in>

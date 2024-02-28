@@ -1,0 +1,33 @@
+<app-details [headerName]="campaignCharacter.name"
+             [configurable]="false"
+             (close)="closeDetails()"
+             (primary)="viewClick(false)"
+             [primaryActions]="primaryActions"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             (tertiary)="removeClick()"
+             [tertiaryCloseOnClick]="false"
+             tertiaryConfirmationMessage="{{ 'Campaign.Character.RemoveConfirmation.Message' | translate }}"
+             tertiaryLabel="{{ 'Remove' | translate }}">
+  <div class="details">
+    <div *ngIf="campaignCharacter.characterClass != null">
+      <label>{{ 'Labels.Class' | translate }}</label>
+      <span>{{campaignCharacter.characterClass.name}}</span>
+    </div>
+
+    <div *ngIf="campaignCharacter.subclass != null">
+      <label>{{ 'Labels.Subclass' | translate }}</label>
+      <span>{{campaignCharacter.subclass.name}}</span>
+    </div>
+
+    <div *ngIf="campaignCharacter.race != null">
+      <label>{{ 'Labels.Race' | translate }}</label>
+      <span>{{campaignCharacter.race.name}}</span>
+    </div>
+
+    <div *ngIf="campaignCharacter.background != null">
+      <label>{{ 'Labels.Background' | translate }}</label>
+      <span>{{campaignCharacter.background.name}}</span>
+    </div>
+  </div>
+</app-details>

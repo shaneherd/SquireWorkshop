@@ -1,0 +1,9 @@
+<div class="form-group" *ngIf="editing || (item?.id !== '0' && item.description?.length > 0)">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span *ngIf="!editing" class="info-description">{{item.description}}</span>
+  <textarea *ngIf="editing"
+            [(ngModel)]="item.description"
+            class="form-control info-description"
+            [maxlength]="maxLength">
+  </textarea>
+</div>

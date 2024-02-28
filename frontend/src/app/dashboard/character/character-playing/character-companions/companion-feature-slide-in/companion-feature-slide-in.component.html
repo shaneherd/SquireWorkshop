@@ -1,0 +1,26 @@
+<app-details [headerName]="feature.name"
+             (close)="closeClick()"
+             (secondary)="closeClick()"
+             primaryLabel="{{ limitedUse ? ('Use' | translate) : '' }}"
+             [primaryDisabled]="useDisabled"
+             (primary)="useClick()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             (tertiary)="tertiaryClick()"
+             [tertiaryDisabled]="tertiaryDisabled"
+             [tertiaryCloseOnClick]="false">
+  <div class="form-group" *ngIf="feature.limitedUse != null">
+    <div>
+      <label>{{ 'Labels.UsesRemaining' | translate }}</label>
+      <span>{{usesRemainingDisplay}} / {{maxUses}}</span>
+    </div>
+
+    <div *ngIf="isRecharge" class="nested">
+      <span>Recharge ({{rechargeDisplay}})</span>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="feature.description != null && feature.description.length > 0">
+    <label>{{ 'Labels.Description' | translate }}</label>
+    <span class="info-description">{{feature.description}}</span>
+  </div>
+</app-details>

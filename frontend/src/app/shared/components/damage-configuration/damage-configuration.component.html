@@ -1,0 +1,76 @@
+<app-details [headerName]="headerName"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <!--Character Level-->
+  <div class="form-group" *ngIf="damageConfiguration.characterAdvancement">
+    <label>{{ 'Labels.LevelLabel' | translate }}</label>
+    <div>
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedLevel"
+                    (selectionChange)="levelChange($event.value)">
+          <mat-option *ngFor="let level of levels" [value]="level">
+            {{level.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--Damage Values-->
+  <div class="form-group">
+    <label *ngIf="!damageConfiguration.healing">{{ 'Labels.DamageAmount' | translate }}</label>
+    <label *ngIf="damageConfiguration.healing">{{ 'Labels.HealingAmount' | translate }}</label>
+    <app-dice-collection [editing]="true"
+                         [loading]="loading"
+                         [diceCollection]="diceCollection"
+                         [showAbility]="true"
+                         [diceSizes]="diceSizes"
+                         [abilities]="abilities">
+    </app-dice-collection>
+  </div>
+
+  <!--Spellcasting Ability Modifier-->
+  <div *ngIf="isSpell" class="form-group">
+    <span>+</span>
+    <mat-checkbox
+      class="on-dark spellcasting-ability"
+      (change)="spellcastingAbilityModifierChange($event)"
+      [checked]="spellCastingAbilityModifier">
+    </mat-checkbox>
+    <span>{{ 'SpellcastingAbilityModifier' | translate }}</span>
+  </div>
+
+  <!--Damage Type-->
+  <div class="form-group" *ngIf="!damageConfiguration.healing">
+    <label>{{ 'Labels.DamageType' | translate }}</label>
+    <div>
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedDamageType"
+                    (selectionChange)="damageTypeChange($event.value)">
+          <mat-option *ngFor="let damageType of damageTypes" [value]="damageType">
+            {{damageType.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div *ngIf="!isSpell">
+    <mat-checkbox class="on-dark"
+                  (change)="adjustmentChange($event)"
+                  [checked]="adjustment">
+    </mat-checkbox>
+    <span>{{ 'Adjustment' | translate }}</span>
+    <mat-icon matTooltip="{{ 'Tooltips.Damage.Adjustment' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+</app-details>
+

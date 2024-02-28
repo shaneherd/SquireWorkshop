@@ -1,0 +1,39 @@
+<app-details headerName="{{ 'Navigation.Manage.Spells.Add' | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="search">
+    <div class="search-container">
+      <input [(ngModel)]="searchValue"
+             (input)="searchChange()"
+             class="form-control"/>
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-filter" (click)="filter()"></i>
+    </div>
+  </div>
+
+  <div class="details-configuration">
+    <cdk-virtual-scroll-viewport itemSize="54" class="add-spells-list">
+      <div *cdkVirtualFor="let item of searchedFilteredSpells; templateCacheSize: 50" class="list-menu-item">
+        <mat-checkbox class="on-dark" [checked]="item.selected" (change)="toggleSelected(item)"></mat-checkbox>
+        <mat-card class="card clickable ellipsis" [ngClass]="item.selected ? 'selected' : ''" (click)="spellClick(item)">
+          <div>
+            <span class="bold">{{item.spell.name}}</span>
+          </div>
+        </mat-card>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+
+  <app-add-remove-spell *ngIf="viewingSpell != null"
+                        [spell]="viewingSpell"
+                        (save)="toggleSelected($event)"
+                        (cancel)="closeDetails()" >
+  </app-add-remove-spell>
+</app-details>

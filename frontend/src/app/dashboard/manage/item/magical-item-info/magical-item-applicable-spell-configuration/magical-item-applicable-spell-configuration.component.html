@@ -1,0 +1,55 @@
+<app-details headerName="{{ 'Headers.SelectSpell' | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             (tertiary)="removeClick()"
+             [tertiaryDisabled]="!deletable"
+             primaryLabel="{{ editing ? ('Save' | translate) : '' }}"
+             tertiaryLabel="{{ editing && !newType ? ('Remove' | translate) : '' }}"
+             secondaryLabel="{{ (editing ? 'Cancel' : 'Close') | translate }}"
+             class="details">
+  <!--Item Type-->
+  <div class="form-group">
+    <mat-button-toggle-group [(ngModel)]="selectedItemType" [disabled]="!editing" (change)="typeChange()">
+      <mat-button-toggle *ngFor="let itemType of types"
+                         [value]="itemType">
+        {{ 'MagicalItemApplicabilityType.' + itemType | translate }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!--Spell-->
+  <div class="form-group" *ngIf="isSpell">
+    <label>{{ 'Labels.Spell' | translate }}</label>
+    <span *ngIf="!editing">{{selectedItem?.name}}</span>
+    <div>
+      <mat-form-field *ngIf="editing">
+        <mat-select [(ngModel)]="selectedItem">
+          <mat-option>
+            <ngx-mat-select-search [placeholderLabel]="search"
+                                   [noEntriesFoundLabel]="none"
+                                   [formControl]="spellFilterFormControl"></ngx-mat-select-search>
+          </mat-option>
+
+          <mat-option *ngFor="let itemChoice of filteredItems" [value]="itemChoice">
+            {{itemChoice.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--Filter-->
+  <div class="form-group" *ngIf="!isSpell">
+    <label>{{ 'Labels.Filter' | translate }}</label>
+    <div class="filter-display">
+      <span class="filter-name">{{filterDisplay}}</span>
+      <span class="filter-icon" *ngIf="editing">
+          <i class="fas fa-filter" (click)="filter()"></i>
+        </span>
+    </div>
+  </div>
+</app-details>
+

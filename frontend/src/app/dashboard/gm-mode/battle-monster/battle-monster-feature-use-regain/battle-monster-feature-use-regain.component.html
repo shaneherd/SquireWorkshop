@@ -1,0 +1,10 @@
+<div class="form-group feature" *ngIf="battleMonsterFeature.calculatedMax > 0">
+  <label>{{battleMonsterFeature.powerName}}</label>
+  <span>{{battleMonsterFeature.usesRemaining}}/{{battleMonsterFeature.calculatedMax}}</span>
+
+  <div class="uses-remaining">
+    <app-slider-input [min]="0" [max]="battleMonsterFeature.calculatedMax" [step]="1" [(value)]="battleMonsterFeature.usesRemaining" [displayMax]="false">
+    </app-slider-input>
+  </div>
+</div>
+

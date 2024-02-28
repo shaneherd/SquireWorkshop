@@ -1,0 +1,10 @@
+<app-list-menu [headerName]="parent?.name"
+               [menuService]="subBackgroundService"
+               [searchable]="false"
+               [filterable]="false"
+               [manageable]="false"
+               newItemLabel="{{ 'Navigation.Manage.SubBackgrounds.New' | translate }}"
+               baseNavigation="/home/dashboard"
+               subNavigation="races"
+               parentNavigation="races">
+</app-list-menu>

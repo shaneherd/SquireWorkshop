@@ -1,0 +1,166 @@
+<app-details [headerName]="headerName"
+             [loading]="loading"
+             (close)="onCancel()"
+             (primary)="onSave()"
+             (secondary)="onCancel()"
+             [primaryCloseOnClick]="false"
+             [primaryValidator]="saveValidator"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             tertiaryLabel="{{ (editing ? 'Delete' : '') | translate }}"
+             [tertiaryCloseOnClick]="false"
+             (tertiary)="deleteCompanion()"
+             tertiaryConfirmationMessage="{{ 'CompanionConfiguration.ConfirmDelete' | translate }}"
+             class="details on-dark">
+  <div class="flex-container">
+    <div class="flex-grow-container flex-container">
+      <div class="form-group">
+        <label>{{ 'Labels.Name' | translate }}</label>
+        <input [(ngModel)]="configuringCompanion.name" maxlength="45" class="form-control"/>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'Labels.Monster' | translate }}</label>
+
+        <app-monster-search [selectedMonsterId]="configuringCompanion.monster?.id"
+                            [disabled]="editing"
+                            (monsterSelected)="monsterChange($event)">
+        </app-monster-search>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'Labels.Type' | translate }}</label>
+        <mat-form-field>
+          <mat-select [(ngModel)]="configuringCompanion.companionType"
+                      (selectionChange)="companionTypeChange($event.value)">
+            <mat-option *ngFor="let companionType of companionTypes" [value]="companionType">
+              {{ 'CompanionType.' + companionType | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="flex-grow-container">
+        <ng-container *ngIf="step === 0">
+          <div class="form-group">
+            <label>{{ 'Labels.MaxHp' | translate }}</label>
+            <input type="number"
+                   class="form-control number-inline"
+                   [max]="maxHp" min="0"
+                   appInputNumber minValue="0" [maxValue]="maxHp"
+                   [(ngModel)]="configuringCompanion.maxHp"/>
+            <span>{{hpDisplay}}</span>
+
+            <div class="nested">
+              <mat-checkbox
+                (change)="rollOverChange($event)"
+                [checked]="configuringCompanion.rollOverDamage">
+              </mat-checkbox>
+              <span>{{ 'CompanionConfiguration.RollOverDamage' | translate }}</span>
+
+              <mat-icon matTooltip="{{ 'CompanionConfiguration.Tooltips.RollOver' | translate }}" class="help-icon">
+                help
+              </mat-icon>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="step === 1 && configuringCompanion.monster != null">
+          <app-companion-ability-score-configuration *ngFor="let companionScoreModifier of configuringCompanion.abilityScoreModifiers"
+                                                     [companion]="configuringCompanion"
+                                                     [companionCollection]="companionCollection"
+                                                     [characterCollection]=" characterCollection"
+                                                     [characterProf]="characterProf"
+                                                     [companionScoreModifier]="companionScoreModifier">
+          </app-companion-ability-score-configuration>
+        </ng-container>
+
+        <ng-container *ngIf="step === 2 && configuringCompanion.monster != null">
+          <div class="form-group">
+            <label>AC</label>
+            <app-companion-score-modifier-configuration [companion]="configuringCompanion"
+                                                        [companionCollection]="companionCollection"
+                                                        [characterCollection]=" characterCollection"
+                                                        [base]="configuringCompanion.monster.ac"
+                                                        [companionProf]="0"
+                                                        [characterProf]="characterProf"
+                                                        [companionModifier]="configuringCompanion.acModifier">
+            </app-companion-score-modifier-configuration>
+          </div>
+
+          <div class="form-group">
+            <label>Saving Throws</label>
+            <app-companion-score-modifier-configuration [companion]="configuringCompanion"
+                                                        [companionCollection]="companionCollection"
+                                                        [characterCollection]=" characterCollection"
+                                                        [companionProf]="companionProf"
+                                                        [characterProf]="characterProf"
+                                                        [companionModifier]="configuringCompanion.savingThrowModifier">
+            </app-companion-score-modifier-configuration>
+
+            <div>
+              <mat-checkbox
+                (change)="includeCharacterSavesChange($event)"
+                [checked]="configuringCompanion.includeCharacterSaves">
+              </mat-checkbox>
+              <span>{{ 'CompanionConfiguration.IncludeCharactersSavingThrows' | translate }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Skill Checks</label>
+            <app-companion-score-modifier-configuration [companion]="configuringCompanion"
+                                                        [companionCollection]="companionCollection"
+                                                        [characterCollection]=" characterCollection"
+                                                        [companionProf]="companionProf"
+                                                        [characterProf]="characterProf"
+                                                        [companionModifier]="configuringCompanion.skillCheckModifier">
+            </app-companion-score-modifier-configuration>
+
+            <div>
+              <mat-checkbox
+                (change)="includeCharacterSkillsChange($event)"
+                [checked]="configuringCompanion.includeCharacterSkills">
+              </mat-checkbox>
+              <span>{{ 'CompanionConfiguration.IncludeCharactersSkills' | translate }}</span>
+            </div>
+          </div>
+
+<!--          <div class="form-group">-->
+<!--            <label>Attacks</label>-->
+<!--            <app-companion-score-modifier-configuration [companion]="configuringCompanion"-->
+<!--                                                        [companionCollection]="companionCollection"-->
+<!--                                                        [characterCollection]=" characterCollection"-->
+<!--                                                        [base]="configuringCompanion.monster.ac"-->
+<!--                                                        [companionProf]="companionProf"-->
+<!--                                                        [characterProf]="characterProf"-->
+<!--                                                        [companionModifier]="configuringCompanion.attackModifier">-->
+<!--            </app-companion-score-modifier-configuration>-->
+<!--          </div>-->
+
+<!--          <div class="form-group">-->
+<!--            <label>Damages</label>-->
+<!--            <app-companion-score-modifier-configuration [companion]="configuringCompanion"-->
+<!--                                                        [companionCollection]="companionCollection"-->
+<!--                                                        [characterCollection]=" characterCollection"-->
+<!--                                                        [base]="configuringCompanion.monster.ac"-->
+<!--                                                        [companionProf]="companionProf"-->
+<!--                                                        [characterProf]="characterProf"-->
+<!--                                                        [companionModifier]="configuringCompanion.damageModifier">-->
+<!--            </app-companion-score-modifier-configuration>-->
+<!--          </div>-->
+        </ng-container>
+      </div>
+
+      <div class="flex-shrink-container">
+        <app-pager [pageCount]="3"
+                   [index]="step"
+                   (pageChange)="setStep($event)">
+        </app-pager>
+      </div>
+    </div>
+  </div>
+
+
+
+</app-details>

@@ -1,0 +1,54 @@
+<div>
+  <div class="header-container">
+    <h4 class="carrying-label">{{singleCarryingDetails.label}}</h4>
+    <mat-icon *ngIf="singleCarryingDetails.labelTooltip !== ''"
+              [matTooltip]="singleCarryingDetails.labelTooltip"
+              class="help-icon">
+      help
+    </mat-icon>
+  </div>
+
+  <div class="carrying-details-content">
+    <div *ngIf="singleCarryingDetails.strModifier === 0">
+      <label>{{ 'Labels.Equipment' | translate }}</label>
+      <span [matTooltip]="singleCarryingDetails.baseTooltip">{{singleCarryingDetails.base}}</span>
+    </div>
+
+    <div *ngIf="singleCarryingDetails.strModifier > 0">
+      <label>{{ 'Labels.Strength' | translate }}</label>
+      <span>{{singleCarryingDetails.strScore}}</span>
+    </div>
+
+    <div *ngIf="singleCarryingDetails.strModifier > 0">
+      <label>{{ 'Labels.Multiplier' | translate }}</label>
+      <span>{{singleCarryingDetails.strModifier}}</span>
+    </div>
+
+    <div *ngFor="let modifier of singleCarryingDetails.modifiersDisplay;">
+      <app-label-value [labelValue]="modifier"></app-label-value>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.Misc' | translate }}</label>
+      <span *ngIf="!configuring">{{singleCarryingDetails.misc}}</span>
+      <input *ngIf="configuring"
+             type="number"
+             class="form-control"
+             min="-999" max="999"
+             appInputNumber minValue="-999" maxValue="999"
+             [ngModel]="singleCarryingDetails.misc"
+             (valueChange)="miscChange($event)"/>
+    </div>
+
+    <div class="form-group" *ngIf="singleCarryingDetails.strModifier > 0">
+      <span>({{singleCarryingDetails.strScore}} * {{singleCarryingDetails.strModifier}}) +</span>
+      <span *ngIf="singleCarryingDetails.modifiers !== 0">{{singleCarryingDetails.modifiers}} +</span>
+      <span>{{singleCarryingDetails.misc}}</span>
+    </div>
+
+    <div class="form-group">
+      <label class="font-weight-bold">{{ 'Labels.Total' | translate }}</label>
+      <span>{{singleCarryingDetails.total}}</span>
+    </div>
+  </div>
+</div>

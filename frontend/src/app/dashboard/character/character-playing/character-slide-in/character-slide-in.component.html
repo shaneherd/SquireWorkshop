@@ -1,0 +1,13 @@
+<div class="character-container-desktop">
+  <div class="character-content">
+    <div class="header-content">
+      <app-slide-in-header [headerName]="itemName"></app-slide-in-header>
+      <div class="menu-divider"></div>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+    </div>
+
+    <div class="slide-in-content-data-full-height content-container">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

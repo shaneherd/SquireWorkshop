@@ -1,0 +1,50 @@
+<div class="list-menu-container">
+  <div class="list-menu-header">
+    <button mat-mini-fab
+            class="squire-button small transparent borderless no-focus list-menu-header-icon on-dark back-icon"
+            (click)="onBack()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="list-menu-header-name"><h4>{{headerName}}</h4></div>
+    <button mat-mini-fab
+            [ngClass]="{'hidden': !manageable}"
+            class="squire-button small transparent borderless no-focus list-menu-header-icon on-dark configure-icon"
+            (click)="manageList()">
+      <i class="fas fa-cog"></i>
+    </button>
+  </div>
+
+  <div class="menu-divider"></div>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+
+  <div *ngIf="searchable" class="search">
+    <div class="search-container">
+      <input [(ngModel)]="searchValue"
+             (input)="search()"
+             class="form-control"/>
+    </div>
+    <div class="filter-icon" *ngIf="filterable">
+      <i class="fas fa-filter" (click)="filterClick()"></i>
+    </div>
+  </div>
+  <cdk-virtual-scroll-viewport itemSize="35" class="slide-in-content-data-full-height list-menu">
+    <div *cdkVirtualFor="let menuItem of filteredMenuItems; templateCacheSize: 50"
+         (click)="onSelect(menuItem)"
+         class="list-menu-item">
+      <app-menu-item [menuItem]="menuItem"></app-menu-item>
+    </div>
+  </cdk-virtual-scroll-viewport>
+
+  <div *ngIf="showAddNewItem && newItemLabel !== '' && !isPublic && !isShared"
+       class="details-configuration-action-buttons">
+    <div class="action-button">
+      <app-button color="TERTIARY"
+                  label="{{ newItemLabel === '' ? ('NewItem' | translate) : newItemLabel }}"
+                  [closeOnClick]="false"
+                  (onPrimaryClick)="addItemOnSelect(addNewMenuItem)"
+                  [actions]="actions">
+      </app-button>
+    </div>
+  </div>
+</div>
+

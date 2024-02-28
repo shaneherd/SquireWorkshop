@@ -1,0 +1,44 @@
+<app-details headerName="{{ 'Headers.WealthConfiguration' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+
+  <div cdkDropList class="drag-list form-group" (cdkDropListDropped)="drop($event)">
+    <div class="drag-box" *ngFor="let config of costUnitConfigurations" cdkDrag [cdkDragStartDelay]="100">
+      <mat-checkbox
+        class="on-dark checkbox"
+        (change)="displayChange($event, config)"
+        [checked]="config.display">
+      </mat-checkbox>
+
+      <span class="cost-unit-label">
+        {{config.costUnit.name}}
+      </span>
+
+      <span class="grip-icon" cdkDragHandle>
+        <i class="fas fa-grip-lines"></i>
+      </span>
+    </div>
+  </div>
+
+  <mat-expansion-panel class="on-dark" [expanded]="true" *ngIf="playerCharacter != null">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'Headers.Settings' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <app-equipment-settings [playerCharacter]="playerCharacter"
+                            [settings]="settings"
+                            [showAttuneLimit]="false"
+                            [showAttuneEnforce]="false"
+                            [showAttackWithUnequipped]="false"
+                            [showHideEmptySlots]="false"
+                            [showUseEncumbrance]="false">
+    </app-equipment-settings>
+  </mat-expansion-panel>
+
+</app-details>

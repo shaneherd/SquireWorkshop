@@ -1,0 +1,7 @@
+<span *ngIf="alignment.description.length > 0" class="info-description">
+  {{alignment.description}}
+</span>
+
+<span *ngIf="alignment.description.length === 0">
+  {{ 'NoDescription' | translate }}
+</span>

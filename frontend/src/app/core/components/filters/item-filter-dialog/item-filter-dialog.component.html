@@ -1,0 +1,41 @@
+<app-dialog title="{{ 'Filters' | translate }}"
+            primaryLabel="{{ 'Apply' | translate }}"
+            (primary)="apply()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            tertiaryLabel="{{ 'Clear' | translate }}"
+            (tertiary)="clear()"
+            (close)="cancel()">
+  <app-filter [filterValue]="itemType" [options]="itemTypes"></app-filter>
+
+  <div *ngIf="isWeapon()">
+    <app-filter [filterValue]="weaponDifficulty" [options]="weaponDifficulties"></app-filter>
+    <app-filter [filterValue]="weaponCategory" [options]="weaponCategories"></app-filter>
+  </div>
+
+  <div *ngIf="isArmor()">
+    <app-filter [filterValue]="armorCategory" [options]="armorCategories"></app-filter>
+    <app-yes-no-filter [filterValue]="container"></app-yes-no-filter>
+  </div>
+
+  <div *ngIf="isTool()">
+    <app-filter [filterValue]="toolCategory" [options]="toolCategories"></app-filter>
+  </div>
+
+  <div *ngIf="isMagicalItem()">
+    <!--Type-->
+    <app-filter [filterValue]="magicalType" [options]="magicalTypes"></app-filter>
+    <!--Rarity-->
+    <app-filter [filterValue]="rarity" [options]="rarities"></app-filter>
+    <!--Attunement-->
+    <app-yes-no-filter [filterValue]="attunement"></app-yes-no-filter>
+    <!--Cursed-->
+    <app-yes-no-filter [filterValue]="cursed"></app-yes-no-filter>
+  </div>
+
+  <div *ngIf="isTool() || isGear() || isMagicalItem()">
+    <app-yes-no-filter [filterValue]="expendable"></app-yes-no-filter>
+    <app-yes-no-filter [filterValue]="equippable"></app-yes-no-filter>
+    <app-yes-no-filter [filterValue]="container"></app-yes-no-filter>
+  </div>
+</app-dialog>

@@ -1,0 +1,32 @@
+.header {
+  color: #ffffff;
+}
+
+.multi-class-caster {
+  margin-bottom: 1rem;
+}
+
+.slots-header,
+.spell-slots-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .slot-value {
+    width: 10%;
+  }
+
+  .slot-value {
+    text-align: center;
+  }
+}
+
+.slots-header {
+  .slot-value {
+    font-weight: bold;
+  }
+}
+
+.divider{
+  border-color: #ffffff;
+}

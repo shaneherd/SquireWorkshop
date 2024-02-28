@@ -1,0 +1,59 @@
+<app-details [listObject]="creatureAbilityProficiency.ability"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <div class="form-group">
+      <label>{{ 'Labels.Ability' | translate }}</label>
+      <span>{{abilityModifier}}</span>
+    </div>
+
+    <div *ngFor="let modifier of modifiersDisplay;" class="form-group">
+      <app-label-value [labelValue]="modifier"></app-label-value>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.Prof' | translate }}</label>
+      <span>{{profModifier}}</span>
+    </div>
+
+    <div class="form-group">
+      <app-proficiency-configuration class="on-dark"
+                                     [proficiency]="proficiency"
+                                     [proficiencyDisabled]="isProficiencyDisabled()"
+                                     (proficiencyChange)="proficiencyChange()">
+      </app-proficiency-configuration>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.Misc' | translate }}</label>
+      <input type="number"
+             class="form-control dice-collection"
+             max="99" min="-99"
+             appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+             [ngModel]="misc"
+             (valueChange)="miscChange($event)"/>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="resurrectionPenalty > 0">
+    <label>{{ 'Labels.ResurrectionPenalty' | translate }}</label>
+    <span>-{{resurrectionPenalty}}</span>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Total' | translate }}</label>
+    <span>{{total}}</span>
+  </div>
+
+  <div class="form-group">
+    <app-advantage-configuration class="on-dark"
+                                 [proficiency]="proficiency">
+    </app-advantage-configuration>
+  </div>
+
+  <span class="info-description">{{creatureAbilityProficiency.ability.description}}</span>
+</app-details>

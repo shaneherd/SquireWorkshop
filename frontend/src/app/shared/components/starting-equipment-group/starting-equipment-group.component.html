@@ -1,0 +1,31 @@
+<div class="form-group">
+  <div class="group-row">
+    <label [translate]="'StartingEquipment.GroupLabel'"
+           [translateParams]="{group: group.groupNumber}"></label>
+    <i *ngIf="editing"
+       class="fas fa-plus"
+       [ngClass]="{'disabled': disabled || group.inheritedFrom != null}"
+       (click)="addOption()"
+       matTooltip="{{ 'Tooltips.Configure' | translate }}"></i>
+    <i *ngIf="editing"
+       class="fas fa-trash-alt"
+       [ngClass]="{'disabled': disabled || group.inheritedFrom != null}"
+       (click)="removeGroup()"
+       matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+  </div>
+
+  <div *ngIf="group.options.length === 0" class="no-items">
+    {{ 'NoItems' | translate }}
+  </div>
+
+  <div *ngFor="let option of group.options" class="option-container">
+    <app-starting-equipment-option [option]="option"
+                                   [editing]="editing"
+                                   [loading]="loading"
+                                   [disabled]="disabled"
+                                   (deleteOption)="removeOption($event)"
+                                   (configureItem)="editItem($event)"
+                                   (addItem)="onAddItem($event)">
+    </app-starting-equipment-option>
+  </div>
+</div>

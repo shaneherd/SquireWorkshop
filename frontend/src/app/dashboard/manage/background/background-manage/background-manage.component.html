@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Backgrounds.Backgrounds' | translate }}"
+                 [menuService]="backgroundService"
+                 [manageService]="characteristicService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="Backgrounds"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-background *ngIf="selectedItem != null"
+                           [background]="selectedItem"
+                           (save)="updateSelected($event)"
+                           (cancel)="closeItem()">
+</app-add-remove-background>

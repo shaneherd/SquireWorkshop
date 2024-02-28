@@ -1,0 +1,11 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Deities.Deities' | translate }}"
+                 [menuService]="deityService"
+                 [manageService]="attributeService"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-deity *ngIf="selectedItem != null"
+                      [deity]="selectedItem"
+                      (save)="updateSelected($event)"
+                      (cancel)="closeItem()">
+</app-add-remove-deity>

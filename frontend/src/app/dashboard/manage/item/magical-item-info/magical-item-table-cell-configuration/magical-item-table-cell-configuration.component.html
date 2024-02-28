@@ -1,0 +1,17 @@
+<app-details headerName="{{ (header ? 'Headers.EditHeader' : 'Headers.EditCell') | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (tertiary)="removeClick()"
+             (secondary)="cancelClick()"
+             [tertiaryDisabled]="!removable"
+             primaryLabel="{{ 'Continue' | translate }}"
+             tertiaryLabel="{{ 'Remove' | translate }}"
+             tertiaryConfirmationMessage="{{ (header ? 'MagicalItemTable.RemoveColumnConfirmation' : 'MagicalItemTable.RemoveRowConfirmation') | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <input [(ngModel)]="value" (keyup.enter)="continueClick()" maxlength="1000" class="form-control"/>
+  </div>
+</app-details>

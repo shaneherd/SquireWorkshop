@@ -1,0 +1,12 @@
+.details-divider {
+  flex-shrink: 0;
+  margin: 5px 0;
+  border-color: #ffffff;
+}
+
+input.charges,
+input.spell-attack,
+input.spell-save {
+  width: 70px;
+  display: inline;
+}

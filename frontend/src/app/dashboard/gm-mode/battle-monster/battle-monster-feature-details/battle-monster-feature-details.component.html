@@ -1,0 +1,40 @@
+<div class="details feature-configuration">
+  <div class="content-data-full-height page-content">
+    <div class="form-group" *ngIf="feature.description.length > 0">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span class="info-description">{{feature.description}}</span>
+    </div>
+
+    <!--  LIMITED USE-->
+    <div *ngIf="feature.limitedUse != null" class="form-group">
+      <label>{{ 'Headers.LimitedUse' | translate }}</label>
+      <div class="padded">
+        <label>{{ 'Labels.MaxUses' | translate }}</label>
+        <app-single-limited-use-row [limitedUse]="feature.limitedUse"
+                                    [abilities]="abilities"
+                                    [deletable]="false"
+                                    [showLevel]="false"
+                                    [editing]="false"
+                                    [disabled]="true">
+        </app-single-limited-use-row>
+      </div>
+
+      <div class="padded">
+        <label>{{ 'Labels.UsesRemaining' | translate }}</label>
+        <span>{{battleMonsterFeature.usesRemaining}}</span>
+      </div>
+
+      <div *ngIf="isRecharge" class="padded">
+        <div class="form-group recharge-range">
+          <label>{{ 'Labels.Min' | translate }}</label>
+          <span>{{feature.rechargeMin}}</span>
+        </div>
+
+        <div class="form-group recharge-range">
+          <label>{{ 'Labels.Max' | translate }}</label>
+          <span>{{feature.rechargeMax}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

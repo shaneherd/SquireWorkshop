@@ -1,0 +1,23 @@
+<div class="progress-container">
+  <button mat-icon-button
+          type="button"
+          class="no-focus navigation-button medium squire-button square transparent on-dark clickable"
+          (click)="onPreviousPage()"
+          [disabled]="index === 0">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+  <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+<!--  <div class="progress-bar-container">-->
+<!--  </div>-->
+  <button mat-icon-button
+          type="button"
+          class="no-focus navigation-button medium squire-button square transparent on-dark clickable"
+          (click)="onNextPage()"
+          [disabled]="index === pageCount - 1">
+    <i class="fas fa-arrow-right"></i>
+  </button>
+</div>
+<div class="page-label-container">
+        <span [translate]="'PageOfPages'"
+              [translateParams]="{page: index + 1, total: pageCount}"></span>
+</div>

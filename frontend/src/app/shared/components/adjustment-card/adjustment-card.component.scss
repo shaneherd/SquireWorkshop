@@ -1,0 +1,38 @@
+@import '../../../sass/variables';
+
+.adjustment-name-container {
+  flex-grow: 1;
+}
+
+.adjustment-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.tags-container {
+  flex-shrink: 0;
+}
+
+.adjustment-badge {
+  position: absolute;
+  top: -4px;
+  right: -5px;
+  border-radius: 10px;
+  margin-left: 2px;
+}
+
+@mixin adjustment-card-theme($theme) {
+  $primary: mat-color($squire-red, 900);
+
+  .adjustment-badge {
+    &.positive {
+      background-color: $warn-background;
+      color: #000000;
+    }
+
+    &.negative {
+      background-color: $primary;
+      color: #ffffff;
+    }
+  }
+}

@@ -1,0 +1,160 @@
+<app-view-edit [cancelable]="cancelable"
+               [editing]="true"
+               [editable]="false"
+               [deletable]="playerCharacter.id !== '0'"
+               [loading]="loading || saving"
+               [itemName]="itemName"
+               (save)="save()"
+               [exportable]="true"
+               (export)="exportClick()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="characterForm" *ngIf="!loading">
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.BasicInfo' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input formControlName="name" maxlength="45" class="form-control"/>
+        </div>
+
+        <app-character-edit-basic-info [playerCharacter]="playerCharacter"
+                                       [collection]="collection">
+        </app-character-edit-basic-info>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Characteristics' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-character-edit-characteristics [playerCharacter]="playerCharacter"
+                                            [characteristics]="playerCharacter.characteristics">
+        </app-character-edit-characteristics>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Background' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-character-edit-background [characterBackground]="playerCharacter.characterBackground"
+                                       [collection]="collection">
+        </app-character-edit-background>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Abilities' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-character-edit-abilities [collection]="collection.proficiencyCollection">
+        </app-character-edit-abilities>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Health' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-character-edit-health [playerCharacter]="playerCharacter"
+                                   [collection]="collection"
+                                   [classes]="playerCharacter.classes"
+                                   [abilitiesToIncreaseByOne]="collection.proficiencyCollection.abilityProficiencies">
+        </app-character-edit-health>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.ArmorProfs' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-creature-proficiency-list [proficiencies]="collection.proficiencyCollection.armorProficiencies">
+        </app-creature-proficiency-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.WeaponProfs' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-creature-proficiency-list [proficiencies]="collection.proficiencyCollection.weaponProficiencies">
+        </app-creature-proficiency-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.SkillProfs' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-creature-choice-list [profs]="collection.proficiencyCollection.skillProficiencies"
+                                  [choices]="collection.proficiencyCollection.skillChoiceProficiencies">
+        </app-creature-choice-list>
+
+        <app-creature-proficiency-list [proficiencies]="collection.proficiencyCollection.skillProficiencies">
+        </app-creature-proficiency-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.ToolProfs' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-creature-choice-list [profs]="collection.proficiencyCollection.toolProficiencies"
+                                  [choices]="collection.proficiencyCollection.toolChoiceProficiencies"
+                                  [checkParent]="true">
+        </app-creature-choice-list>
+
+        <app-creature-proficiency-list [proficiencies]="collection.proficiencyCollection.toolProficiencies"
+                                       [parentEnabled]="false">
+        </app-creature-proficiency-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.LanguageProfs' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-creature-choice-quantity [profs]="collection.proficiencyCollection.languageProficiencies"
+                                      [quantities]="collection.proficiencyCollection.numLanguages">
+        </app-creature-choice-quantity>
+
+        <app-creature-proficiency-list [proficiencies]="collection.proficiencyCollection.languageProficiencies">
+        </app-creature-proficiency-list>
+      </mat-expansion-panel>
+
+      <app-creature-damage-modifier-configurations [damageModifierCollection]="collection.damageModifierCollection">
+      </app-creature-damage-modifier-configurations>
+
+      <app-creature-sense-configurations [senseConfigurationCollection]="collection.senseConfigurationCollection">
+      </app-creature-sense-configurations>
+
+      <app-creature-condition-immunity-configurations [conditionImmunityConfigurationCollection]="collection.conditionImmunityConfigurationCollection">
+      </app-creature-condition-immunity-configurations>
+    </mat-accordion>
+  </form>
+</app-view-edit>

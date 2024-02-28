@@ -1,0 +1,8 @@
+<app-basic-item-details [creature]="creature"
+                        [collection]="collection"
+                        [creatureItem]="creatureItem"
+                        [item]="tool"
+                        (itemClick)="onItemClick($event)"
+                        [type]="tool.category.name"
+                        [typeDescription]="tool.category.description">
+</app-basic-item-details>

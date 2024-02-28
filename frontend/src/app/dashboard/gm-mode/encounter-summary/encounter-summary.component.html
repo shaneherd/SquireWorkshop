@@ -1,0 +1,48 @@
+<div *ngIf="encounterSummary != null">
+  <div>
+    <label>{{ 'Encounter.TotalCr' | translate }}</label>
+    <span>{{encounterSummary.totalCr | number}}</span>
+  </div>
+
+  <div>
+    <label>{{ 'Encounter.TotalExp' | translate }}</label>
+    <span>{{ encounterSummary.totalExp | number }}</span>
+    <span *ngIf="encounterSummary.expPerPlayer > 0"
+          class="exp-per-player"
+          translate="Encounter.ExpPerPlayer"
+          [translateParams]="{exp: encounterSummary.expPerPlayer | number}"></span>
+  </div>
+
+  <div *ngIf="encounterSummary.adjustedExp > 0">
+    <label>{{ 'Encounter.AdjustedExp' | translate }}</label>
+    <span>{{ encounterSummary.adjustedExp | number }}</span>
+    <span *ngIf="encounterSummary.adjustedExpPerPlayer > 0"
+          class="exp-per-player"
+          translate="Encounter.ExpPerPlayer"
+          [translateParams]="{exp: encounterSummary.adjustedExpPerPlayer | number}"></span>
+  </div>
+
+  <div *ngIf="encounterSummary.difficulty != null">
+    <label>{{ 'Encounter.Difficulty' | translate }}</label>
+    <span>{{ 'EncounterDifficulty.' + encounterSummary.difficulty | translate }}</span>
+  </div>
+
+  <div class="party-threshold">
+    <div>
+      <label>{{ 'EncounterDifficulty.EASY' | translate }}:</label>
+      <span>{{encounterSummary.partyThreshold[0] | number}} exp</span>
+    </div>
+    <div>
+      <label>{{ 'EncounterDifficulty.MEDIUM' | translate }}:</label>
+      <span>{{encounterSummary.partyThreshold[1] | number}} exp</span>
+    </div>
+    <div>
+      <label>{{ 'EncounterDifficulty.HARD' | translate }}:</label>
+      <span>{{encounterSummary.partyThreshold[2] | number}} exp</span>
+    </div>
+    <div>
+      <label>{{ 'EncounterDifficulty.DEADLY' | translate }}:</label>
+      <span>{{encounterSummary.partyThreshold[3] | number}} exp</span>
+    </div>
+  </div>
+</div>

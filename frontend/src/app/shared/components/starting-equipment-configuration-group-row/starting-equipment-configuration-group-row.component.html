@@ -1,0 +1,12 @@
+<span [translate]="'GroupChoseAmount'"
+      [translateParams]="{groupNumber: group.groupNumber, chooseAmount: group.numToChoose}"></span>
+<i *ngIf="editing"
+   class="delete-config fas fa-trash-alt"
+   [ngClass]="{'disabled': disabled || group.inherited}"
+   (click)="deleteGroup()"
+   matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+<i *ngIf="editing"
+   class="configure-config fas fa-cog"
+   [ngClass]="{'disabled': disabled || group.inherited}"
+   (click)="configureGroup()"
+   matTooltip="{{ 'Tooltips.Configure' | translate }}"></i>

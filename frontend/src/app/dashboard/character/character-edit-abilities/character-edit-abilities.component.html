@@ -1,0 +1,32 @@
+<div *ngIf="getTotalAbilitiesToIncreaseByOne() > 0" class="form-group">
+  <span>Choose</span>
+  <span class="quantity" [matTooltip]="getTotalAbilitiesToIncreaseByOneTooltip()">{{getTotalAbilitiesToIncreaseByOne()}}</span>
+  <span>abilities to increase by 1</span>
+  <span class="chosen-count">({{getQuantityChosen()}}/{{getTotalAbilitiesToIncreaseByOne()}})</span>
+  <i class="material-icons"
+     [ngClass]="getQuantityChosen() < getTotalAbilitiesToIncreaseByOne() ? 'text-danger' : 'text-success'">
+    {{ getQuantityChosen() < getTotalAbilitiesToIncreaseByOne() ? 'cancel' : 'check_circle' }}
+  </i>
+
+  <div class="form-group">
+    <div *ngFor="let abilityChoice of collection.abilityProficiencies;">
+      <app-creature-proficiency [prof]="abilityChoice"></app-creature-proficiency>
+    </div>
+  </div>
+</div>
+
+<h3>{{ 'Headers.Scores' | translate}}</h3>
+<div *ngFor="let ability of collection.abilities;">
+  <app-character-edit-ability [creatureAbilityProficiency]="ability"
+                              [collection]="collection"
+                              [abilitiesToIncreaseByOne]="collection.abilityProficiencies">
+  </app-character-edit-ability>
+</div>
+
+<h3>{{ 'Headers.SavingThrows' | translate}}</h3>
+<app-creature-choice-quantity [profs]="collection.savingThrowProficiencies"
+                              [quantities]="collection.numSavingThrows">
+</app-creature-choice-quantity>
+
+<app-creature-proficiency-list [proficiencies]="collection.savingThrowProficiencies">
+</app-creature-proficiency-list>

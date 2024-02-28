@@ -1,0 +1,173 @@
+<app-details headerName="{{ 'Headers.UpdateCharacter' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             [primaryCloseOnClick]="false"
+             [primaryDisabled]="pages.length === 0"
+             [secondaryCloseOnClick]="true"
+             (secondary)="closeDetails()"
+             [tertiaryCloseOnClick]="false"
+             (tertiary)="selectAllClick()"
+             [tertiaryDisabled]="currentPage == null || (currentPage.features.length === 0 && currentPage.spells.length === 0)"
+             [loading]="loading"
+             [configurable]="true"
+             (configure)="configure()"
+             primaryLabel="{{ pages.length === 0 ? '' : ('Save' | translate) }}"
+             secondaryLabel="{{ (pages.length === 0 ? 'Close' : 'Cancel') | translate }}"
+             secondaryConfirmationMessage="{{ (pages.length === 0 ? '' : 'CharacterValidation.ConfirmCancel') | translate }}"
+             tertiaryLabel="{{ pages.length === 0 ? '' : ((selectedFeatureCount === 0 && selectedSpellCount === 0 ? 'SelectAll' : 'DeselectAll')  | translate) }}"
+             class="details">
+  <div *ngIf="pages.length === 0 && !loading">
+    <span>{{ 'CharacterValidation.AllValid' | translate }}</span>
+  </div>
+
+  <div class="validate-character-container" *ngIf="pages.length > 0 && !loading">
+    <div class="class-name-container form-group" *ngIf="currentPage != null">
+      <div class="name">
+        <h1>{{currentPage.characterValidationItem.characteristic.name}}</h1>
+      </div>
+
+      <div class="subclass-container">
+        <span [translate]="'Lvl'"
+              [translateParams]="{level: currentPage.characterValidationItem.level.name}"></span>
+        <span class="slash" *ngIf="currentPage.characterValidationItem.subCharacteristic != null">-</span>
+        <span class="subclass" *ngIf="currentPage.characterValidationItem.subCharacteristic != null">{{currentPage.characterValidationItem.subCharacteristic.name}}</span>
+      </div>
+    </div>
+
+    <div *ngIf="currentPage.characterValidationItem.abilityScoreIncreaseApplicable && currentPage.features.length === 0">
+      <div class="ignore-features-container">
+        <mat-checkbox class="on-dark"
+                      [checked]="currentPage.ignoreASI"
+                      (change)="ignoreAsiChange($event)">
+        </mat-checkbox>
+        <span>{{ 'CharacterValidation.IgnoreUnselectedASI.Label' | translate }}</span>
+        <mat-icon matTooltip="{{ 'CharacterValidation.IgnoreUnselectedASI.Tooltip' | translate }}" class="help-icon">
+          help
+        </mat-icon>
+      </div>
+
+      <div class="form-group">
+        <div class="asi-container">
+          <span class="label">{{ 'Headers.AbilityScoreIncreases' | translate }}</span>
+          <button mat-icon-button
+                  class="no-focus configure-button medium squire-button square transparent on-dark clickable"
+                  (click)="configureASI()"
+                  [disabled]="currentPage.disableASISelection">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+        <div class="asi-values-container">
+          <div *ngFor="let asi of currentPage.abilityScoreIncreases">
+            <span>{{asi.ability.name}}: +{{asi.amount}}</span>
+          </div>
+          <div *ngIf="currentPage.abilityScoreIncreases.length === 0">
+            <span>{{ 'None' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="playerCharacter.characterSettings.validation.allowFeatSelection">
+        <div class="feat-container">
+          <span class="label">{{ 'Headers.FeatSelection' | translate }}</span>
+          <button mat-icon-button
+                  class="no-focus configure-button medium squire-button square transparent on-dark clickable"
+                  (click)="selectFeat()"
+                  [disabled]="currentPage.disableFeatSelection">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+        <div class="feat-selected-container">
+          <span *ngIf="currentPage.feat != null">{{currentPage.feat.name}}</span>
+          <span *ngIf="currentPage.feat == null">{{ 'None' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="currentPage != null && currentPage.features.length > 0"
+         class="ignore-features-container">
+      <mat-checkbox class="on-dark"
+                    [checked]="currentPage.ignoreUnselectedFeatures"
+                    (change)="ignoreFeaturesChange($event)">
+      </mat-checkbox>
+      <span>{{ 'CharacterValidation.IgnoreUnselectedFeatures.Label' | translate }}</span>
+      <mat-icon matTooltip="{{ 'CharacterValidation.IgnoreUnselectedFeatures.Tooltip' | translate }}" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+
+    <div *ngIf="currentPage != null && currentPage.spells.length > 0"
+         class="ignore-features-container">
+      <mat-checkbox class="on-dark"
+                    [checked]="currentPage.ignoreUnselectedSpells"
+                    (change)="ignoreSpellsChange($event)">
+      </mat-checkbox>
+      <span>{{ 'CharacterValidation.IgnoreUnselectedSpells.Label' | translate }}</span>
+      <mat-icon matTooltip="{{ 'CharacterValidation.IgnoreUnselectedSpells.Tooltip' | translate }}" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+
+    <div class="content-data-full-height" *ngIf="currentPage != null">
+      <app-feature-selection-items *ngIf="currentPage.features.length > 0"
+                                   [features]="currentPage.features"
+                                   [playerCharacter]="playerCharacter"
+                                   (checkChange)="featureCheckChange($event)"
+                                   (featureClick)="featureClick($event)">
+      </app-feature-selection-items>
+
+      <app-spell-selection-items *ngIf="currentPage.spells.length > 0"
+                                 [spells]="currentPage.spells"
+                                 (checkChange)="spellCheckChange($event)"
+                                 (spellClick)="spellClick($event)">
+      </app-spell-selection-items>
+    </div>
+
+    <div *ngIf="pages.length > 1">
+      <app-pager [pageCount]="pages.length"
+                 [index]="step"
+                 (pageChange)="setStep($event)">
+      </app-pager>
+    </div>
+  </div>
+
+  <app-add-remove-feature *ngIf="viewingFeature != null"
+                          [feature]="viewingFeature"
+                          [playerCharacter]="playerCharacter"
+                          [collection]="collection"
+                          (save)="toggleFeatureSelected($event)"
+                          (cancel)="addFeatureClose()" >
+  </app-add-remove-feature>
+
+  <app-add-remove-spell *ngIf="viewingSpell != null"
+                        [spell]="viewingSpell"
+                        [creature]="playerCharacter"
+                        [collection]="collection"
+                        (save)="toggleSpellSelected($event)"
+                        (cancel)="addSpellClose()" >
+  </app-add-remove-spell>
+
+  <app-ability-score-increase-configuration *ngIf="configuringASI"
+                                            [playerCharacter]="playerCharacter"
+                                            [collection]="collection"
+                                            [page]="currentPage"
+                                            [pages]="pages"
+                                            (save)="saveASI()"
+                                            (cancel)="closeASI()">
+  </app-ability-score-increase-configuration>
+
+  <app-feat-selection *ngIf="selectingFeat"
+                      [playerCharacter]="playerCharacter"
+                      [collection]="collection"
+                      [page]="currentPage"
+                      [pages]="pages"
+                      (save)="saveFeatSelection()"
+                      (cancel)="closeFeatSelection()">
+  </app-feat-selection>
+
+  <app-validate-character-configuration *ngIf="configuring"
+                                        [playerCharacter]="playerCharacter"
+                                        (save)="saveConfiguration($event)"
+                                        (cancel)="cancelConfiguration()">
+  </app-validate-character-configuration>
+</app-details>
+

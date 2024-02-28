@@ -1,0 +1,25 @@
+.radius,
+.width,
+.length {
+  input {
+    width: 70px;
+    display: inline;
+    margin: 0 5px;
+  }
+}
+
+.height {
+  input {
+    width: 80px;
+    display: inline;
+    margin: 0 5px;
+  }
+}
+
+.area-of-effect-dimensions {
+  margin-left: 20px;
+}
+
+mat-icon.light {
+  color: #ffffff;
+}

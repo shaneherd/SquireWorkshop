@@ -1,0 +1,18 @@
+<div *ngIf="creatureItem != null && (container || item.type === 'Mount' || item.type === 'Vehicle')" [class]="class + ' container-contents'">
+  <div class="header-row">
+    <label class="item-header">{{ 'Headers.Items' | translate }}</label>
+    <span class="weight" *ngIf="!item.ignoreWeight" [translate]="'NestedItems.Weight'"
+          [translateParams]="{weight: weight}"></span>
+    <span class="weight" *ngIf="item.ignoreWeight" [translate]="'NestedItems.WeightIgnored'"
+          [translateParams]="{weight: weight}"></span>
+  </div>
+  <div class="items-list">
+    <span *ngIf="creatureItem.items.length === 0">{{ 'Empty' | translate }}</span>
+    <div *ngFor="let subItem of creatureItem.items">
+      <app-creature-list-item [creatureItem]="subItem"
+                              (itemClick)="onItemClick(subItem)">
+      </app-creature-list-item>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,31 @@
+<div *ngIf="additionalProperties.length > 0 || proficient || (creatureItem != null && (creatureItem.attuned || creatureItem.cursed || creatureItem.poisoned || creatureItem.silvered))" [class]="class">
+  <label>{{ 'Labels.Properties' | translate }}</label>
+  <div *ngIf="proficient" class="property">
+    <span>{{ 'Proficient' | translate }}</span>
+    <span matTooltip="{{ 'Proficient' | translate }}" class="tag">Prof</span>
+  </div>
+
+  <div *ngIf="creatureItem != null && creatureItem.attuned" class="property">
+    <span>{{ 'Attuned' | translate }}</span>
+    <app-attuned-tag></app-attuned-tag>
+  </div>
+
+  <div *ngIf="creatureItem != null && creatureItem.cursed" class="property">
+    <span>{{ 'Cursed' | translate }}</span>
+    <app-cursed-tag></app-cursed-tag>
+  </div>
+
+  <div *ngIf="creatureItem != null && creatureItem.poisoned" class="property">
+    <span>{{ 'Poisoned' | translate }}</span>
+    <app-poisoned-tag></app-poisoned-tag>
+  </div>
+
+  <div *ngIf="creatureItem != null && creatureItem.silvered" class="property">
+    <span>{{ 'Silvered' | translate }}</span>
+    <app-silvered-tag></app-silvered-tag>
+  </div>
+
+  <div *ngFor="let property of additionalProperties" class="property">
+    <span>{{property}}</span>
+  </div>
+</div>

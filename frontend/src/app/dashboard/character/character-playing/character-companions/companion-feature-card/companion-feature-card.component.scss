@@ -1,0 +1,25 @@
+@import '../../../../../sass/variables';
+
+.verticle-bar {
+  &.feature-active {
+    background-color: $active-card-color;
+  }
+
+  &.feature-not-active {
+    background-color: $non-active-card-color;
+  }
+}
+
+.no-uses-remaining {
+  background-color: $skill_with_disadvantage_background;
+  color: white;
+  border-color: #000000;
+}
+
+.clickable {
+  &:hover {
+    .verticle-bar {
+      background-color: $secondary_color;
+    }
+  }
+}

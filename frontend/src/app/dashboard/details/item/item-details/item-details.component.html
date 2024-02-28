@@ -1,0 +1,77 @@
+<app-weapon-details *ngIf="itemTypeValue === 'Weapon' && weapon != null"
+                    [creature]="creature"
+                    [collection]="collection"
+                    [creatureItem]="creatureItem"
+                    [weapon]="weapon">
+</app-weapon-details>
+
+<app-armor-details *ngIf="itemTypeValue === 'Armor' && armor != null"
+                   [creature]="creature"
+                   [collection]="collection"
+                   [creatureItem]="creatureItem"
+                   [armor]="armor"
+                   (itemClick)="onItemClick($event)">
+</app-armor-details>
+
+<app-gear-details *ngIf="itemTypeValue === 'Gear' && gear != null"
+                  [creature]="creature"
+                  [collection]="collection"
+                  [creatureItem]="creatureItem"
+                  [gear]="gear"
+                  (itemClick)="onItemClick($event)">
+</app-gear-details>
+
+<app-tool-details *ngIf="itemTypeValue === 'Tool' && tool != null"
+                  [creature]="creature"
+                  [collection]="collection"
+                  [creatureItem]="creatureItem"
+                  [tool]="tool"
+                  (itemClick)="onItemClick($event)">
+</app-tool-details>
+
+<app-ammo-details *ngIf="itemTypeValue === 'Ammo' && ammo != null"
+                  [creature]="creature"
+                  [collection]="collection"
+                  [creatureItem]="creatureItem"
+                  [ammo]="ammo">
+</app-ammo-details>
+
+<app-mount-details *ngIf="itemTypeValue === 'Mount' && mount != null"
+                   [creature]="creature"
+                   [collection]="collection"
+                   [creatureItem]="creatureItem"
+                   [mount]="mount"
+                   (itemClick)="onItemClick($event)">
+</app-mount-details>
+
+<app-treasure-details *ngIf="itemTypeValue === 'Treasure' && treasure != null"
+                      [creature]="creature"
+                      [collection]="collection"
+                      [creatureItem]="creatureItem"
+                      [treasure]="treasure">
+</app-treasure-details>
+
+<app-pack-details *ngIf="itemTypeValue === 'Pack' && pack != null"
+                  [creature]="creature"
+                  [collection]="collection"
+                  [creatureItem]="creatureItem"
+                  [disabled]="disabled"
+                  [pack]="pack">
+</app-pack-details>
+
+<app-magical-item-details *ngIf="itemTypeValue === 'MagicalItem' && magicalItem != null"
+                          [creature]="creature"
+                          [collection]="collection"
+                          [creatureItem]="creatureItem"
+                          [magicalItem]="magicalItem"
+                          [castable]="castable"
+                          (itemClick)="onItemClick($event)">
+</app-magical-item-details>
+
+<app-vehicle-details *ngIf="itemTypeValue === 'Vehicle' && vehicleItem != null"
+                     [creature]="creature"
+                     [collection]="collection"
+                     [creatureItem]="creatureItem"
+                     [vehicle]="vehicleItem"
+                     (itemClick)="onItemClick($event)">
+</app-vehicle-details>

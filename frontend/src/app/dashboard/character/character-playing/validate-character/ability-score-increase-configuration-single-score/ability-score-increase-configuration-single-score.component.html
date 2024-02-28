@@ -1,0 +1,24 @@
+<div class="asi-container">
+  <div class="name-score">
+    <label class="ability-name">{{config.creatureAbilityProficiency.ability.name}}:</label>
+    <span>{{config.score}}</span>
+    <span *ngIf="config.adjustmentAmount + config.otherAdjustment > 0" class="slash">+</span>
+    <span *ngIf="config.adjustmentAmount + config.otherAdjustment > 0">{{config.adjustmentAmount + config.otherAdjustment}}</span>
+  </div>
+
+  <div class="adjustments">
+    <button mat-icon-button
+            class="no-focus asi-button squire-button square transparent on-dark clickable"
+            (click)="step(-1)"
+            [disabled]="config.downDisabled">
+      <i class="fas fa-minus"></i>
+    </button>
+
+    <button mat-icon-button
+            class="no-focus asi-button squire-button square transparent on-dark clickable"
+            (click)="step(1)"
+            [disabled]="config.upDisabled">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+</div>

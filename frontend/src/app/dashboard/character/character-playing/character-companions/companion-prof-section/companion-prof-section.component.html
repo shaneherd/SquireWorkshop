@@ -1,0 +1,6 @@
+<div class="form-group" *ngIf="attributeProfs.length > 0">
+  <label>{{label}}</label>
+  <div *ngFor="let prof of attributeProfs" class="nested">
+    <span>{{prof.attribute.name}}</span>
+  </div>
+</div>

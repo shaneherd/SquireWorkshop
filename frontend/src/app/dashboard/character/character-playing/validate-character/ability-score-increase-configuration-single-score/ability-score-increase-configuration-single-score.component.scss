@@ -1,0 +1,22 @@
+.asi-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.asi-button:not(:last-child) {
+  margin-right: 5px;
+}
+
+.name-score {
+  flex-grow: 1;
+}
+
+.adjustments {
+  flex-shrink: 0;
+}
+
+.ability-name {
+  font-weight: bold;
+}

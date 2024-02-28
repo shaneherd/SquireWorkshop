@@ -1,0 +1,70 @@
+<app-dialog [title]="title"
+            [primaryLabel]="primaryLabel"
+            [secondaryLabel]="secondaryLabel"
+            (primary)="primaryClick()"
+            (secondary)="secondaryClick()"
+            [secondaryDisabled]="importing"
+            (close)="close()">
+  <ng-container *ngIf="confirmation">
+    <div class="form-group">{{ 'Imports.ImportResults.Message.Confirmation' | translate}}</div>
+
+    <div class="import-action-container" *ngIf="useExistingCount > 0">
+      <i class="import-icon far fa-dot-circle complete"></i>
+      <span>{{ 'Imports.Action.USE_EXISTING' | translate }} ({{useExistingCount}})</span>
+    </div>
+
+    <div class="import-action-container" *ngIf="unconfirmedUseExistingCount > 0">
+      <div class="status-container">
+        <i class="import-icon far fa-dot-circle complete"></i>
+        <span class="unconfirmed-warning badge">!</span>
+      </div>
+      <span>{{ 'Imports.Action.USE_EXISTING_UNCONFIRMED' | translate }} ({{unconfirmedUseExistingCount}})</span>
+    </div>
+
+    <div class="import-action-container" *ngIf="replaceExistingCount > 0">
+      <i class="import-icon fas fa-sync-alt replace"></i>
+      <span>{{ 'Imports.Action.REPLACE_EXISTING' | translate }} ({{replaceExistingCount}})</span>
+    </div>
+
+    <div class="import-action-container" *ngIf="unconfirmedReplaceExistingCount > 0">
+      <div class="status-container">
+        <i class="import-icon fas fa-sync-alt replace"></i>
+        <span class="unconfirmed-warning badge">!</span>
+      </div>
+      <span>{{ 'Imports.Action.REPLACE_EXISTING_UNCONFIRMED' | translate }} ({{unconfirmedReplaceExistingCount}})</span>
+    </div>
+
+    <div class="import-action-container" *ngIf="insertAsNewCount > 0">
+      <i class="import-icon fas fa-plus-circle new"></i>
+      <span>{{ 'Imports.Action.INSERT_AS_NEW' | translate }} ({{insertAsNewCount}})</span>
+    </div>
+
+    <div class="import-action-container" *ngIf="skipEntryCount > 0">
+      <i class="import-icon fas fa-minus-circle error"></i>
+      <span>{{ 'Imports.Action.SKIP_ENTRY' | translate }} ({{skipEntryCount}})</span>
+    </div>
+
+    <div class="unconfirmed-duplicates" *ngIf="unconfirmedUseExistingCount > 0 || unconfirmedReplaceExistingCount > 0">
+      {{ 'Imports.ImportResults.Message.UnconfirmedDuplicated' | translate }}
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="showNamePrompt">
+    <input class="form-control inline" [(ngModel)]="characterName" maxLength="45"/>
+  </ng-container>
+
+  <ng-container *ngIf="importing || complete">
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    <div class="center-content form-group">
+      <span>{{count}}/{{total}} ({{percent}}%)</span>
+    </div>
+    <div class="center-content">
+      <label>{{ 'Labels.Success' | translate }}</label>
+      <span>{{successCount}}</span>
+    </div>
+    <div class="center-content">
+      <label>{{ 'Labels.Error' | translate }}</label>
+      <span>{{errorCount}}</span>
+    </div>
+  </ng-container>
+</app-dialog>

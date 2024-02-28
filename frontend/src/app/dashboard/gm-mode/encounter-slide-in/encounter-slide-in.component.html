@@ -1,0 +1,82 @@
+<app-details [headerName]="encounter.name"
+             [loading]="loading"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeClick()"
+             (secondary)="closeClick()"
+             [primaryCloseOnClick]="false"
+             [primaryActions]="primaryActions"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryActions]="tertiaryActions"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="content-data-full-height page-content">
+    <div class="form-group" *ngIf="startedAt !== '' || lastPlayedAt !== '' || finishedAt !== ''">
+      <div *ngIf="startedAt !== ''">
+        <label>{{ 'Labels.StartedAt' | translate }}</label>
+        <span>{{ startedAt | date }}</span>
+      </div>
+
+      <div *ngIf="lastPlayedAt !== '' && lastPlayedAt !== startedAt && lastPlayedAt !== finishedAt">
+        <label>{{ 'Labels.LastPlayedAt' | translate }}</label>
+        <span>{{ lastPlayedAt | date }}</span>
+      </div>
+
+      <div *ngIf="finishedAt !== ''">
+        <label>{{ 'Labels.FinishedAt' | translate }}</label>
+        <span>{{ finishedAt | date }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="encounter.currentRound > 0 && startedAt !== ''">
+      <label>{{ 'Labels.Round' | translate }}</label>
+      <span>{{encounter.currentRound}}</span>
+    </div>
+    <div class="form-group" *ngIf="displayTurn > 0 && startedAt !== ''">
+      <label>{{ 'Labels.Turn' | translate }}</label>
+      <span>{{displayTurn}}</span>
+    </div>
+
+    <div class="form-group" *ngIf="monsterCount > 0">
+      <label>{{ 'Headers.Monsters' | translate }}</label>
+      <ng-container *ngFor="let group of encounter.encounterMonsterGroups">
+        <div class="encounter-monster-group" *ngIf="group.quantity > 0">
+          <span class="group-quantity">x{{group.quantity}}</span>
+          <span (click)="monsterGroupClick(group)" class="group-name">{{group.monster.name}}</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="form-group" *ngIf="encounter.encounterCharacters.length > 0">
+      <label>{{ 'Headers.Characters' | translate }}</label>
+      <ng-container *ngFor="let character of encounter.encounterCharacters">
+        <div class="encounter-monster-group" *ngIf="!character.removed">
+          <span class="character-name">{{character.character.name}}</span>
+<!--          <span *ngIf="character.expEarned !== 0">({{character.expEarned}} exp)</span>-->
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="form-group">
+      <app-encounter-summary [campaignSettings]="campaign.settings"
+                             [encounterSummary]="encounterSummary">
+      </app-encounter-summary>
+    </div>
+  </div>
+</app-details>
+
+<app-encounter-configure-slide-in *ngIf="editing || starting"
+                                  [encounter]="encounter"
+                                  [campaign]="campaign"
+                                  [active]="starting"
+                                  [initialPage]="startImmediately ? 1 : 0"
+                                  (cancel)="cancelClick()"
+                                  (save)="saveClick($event)"
+                                  (start)="startEncounterClick()"
+                                  (delete)="deleteClick()">
+</app-encounter-configure-slide-in>
+
+<app-monster-details-slide-in *ngIf="viewingMonster != null"
+                              [monster]="viewingMonster"
+                              (close)="monsterClose()">
+</app-monster-details-slide-in>

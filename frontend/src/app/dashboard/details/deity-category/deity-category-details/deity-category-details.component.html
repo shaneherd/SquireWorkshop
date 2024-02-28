@@ -1,0 +1,7 @@
+<span *ngIf="deityCategory.description.length > 0" class="info-description">
+  {{deityCategory.description}}
+</span>
+
+<span *ngIf="deityCategory.description.length === 0">
+  {{ 'NoDescription' | translate }}
+</span>

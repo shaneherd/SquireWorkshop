@@ -1,0 +1,34 @@
+<app-details [listObject]="skill.item"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="roll()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Roll' | translate }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Modifier' | translate }}</label>
+    <span [matTooltip]="tooltip">{{total}}</span>
+  </div>
+
+  <div class="form-group" *ngIf="displayPassive">
+    <label>{{ 'Labels.Passive' | translate }}</label>
+    <span [matTooltip]="passiveTooltip">{{passive}}</span>
+  </div>
+
+  <div class="form-group">
+    <app-advantage-configuration class="on-dark" [proficiency]="proficiency" (change)="advantageChange()">
+    </app-advantage-configuration>
+  </div>
+
+  <span class="info-description">{{skill.skill.description}}</span>
+</app-details>
+
+<app-skill-configuration-details *ngIf="configuring"
+                                 [skill]="skill"
+                                 [creature]="creature"
+                                 [collection]="collection"
+                                 (save)="saveConfiguration()"
+                                 (close)="closeConfiguration()">
+</app-skill-configuration-details>

@@ -1,0 +1,15 @@
+<div class="list-menu-header">
+  <button mat-mini-fab
+          class="squire-button small transparent borderless no-focus list-menu-header-icon on-dark back-icon"
+          (click)="onBack()">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <span class="list-menu-header-name">{{ 'Navigation.Characters.CharacterInfo' | translate }}</span>
+</div>
+
+<div class="menu-divider"></div>
+
+<div *ngFor="let menuItem of bottomItems"
+     (click)="onSelect(menuItem)">
+  <app-menu-item [menuItem]="menuItem"></app-menu-item>
+</div>

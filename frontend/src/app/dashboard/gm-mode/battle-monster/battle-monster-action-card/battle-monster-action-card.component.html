@@ -1,0 +1,27 @@
+<mat-card [ngClass]="{'clickable': !clickDisabled}"
+          (click)="onActionClick()">
+  <div class="verticle-bar" [ngClass]="{
+        'clickable': !clickDisabled,
+        'action-active': action.active && highlightActive,
+        'action-not-active': !action.active && canActivate && highlightNonActive
+      }"></div>
+
+  <span>{{action.powerName}}</span>
+  <div class="tags-container">
+    <span *ngIf="action.calculatedMax > 0" class="tag" [ngClass]="{'no-uses-remaining': action.usesRemaining === 0}">
+      {{action.usesRemaining}}/{{action.calculatedMax}}
+    </span>
+    <span *ngIf="isLegendary && action.legendaryCost > 0" class="tag">
+      {{ 'Labels.Cost' | translate }} {{action.legendaryCost}}
+    </span>
+    <span *ngIf="isRecharge" class="tag">
+      {{ 'Labels.Recharge' | translate }} {{recharge}}
+    </span>
+<!--    <span *ngIf="isLair" class="tag">-->
+<!--      {{ 'Action.LAIR' | translate }}-->
+<!--    </span>-->
+    <span class="tag borderless" matTooltip="{{ 'Active' | translate }}"  *ngIf="action.active">
+      <i class="far fa-clock"></i>
+    </span>
+  </div>
+</mat-card>

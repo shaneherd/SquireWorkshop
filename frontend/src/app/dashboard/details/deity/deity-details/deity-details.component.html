@@ -1,0 +1,24 @@
+<div class="form-group" *ngIf="deity.deityCategory != null">
+  <label>{{ 'Labels.Category' | translate }}</label>
+  <span>{{deity.deityCategory.name}}</span>
+</div>
+
+<div class="form-group" *ngIf="deity.alignment != null">
+  <label>{{ 'Labels.Alignment' | translate }}</label>
+  <span>{{deity.alignment.name}}</span>
+</div>
+
+<div class="form-group" *ngIf="deity.symbol.length > 0">
+  <label>{{ 'Labels.Symbol' | translate }}</label>
+  <span>{{deity.symbol}}</span>
+</div>
+
+
+
+<span *ngIf="deity.description.length > 0" class="info-description">
+  {{deity.description}}
+</span>
+
+<span *ngIf="deity.description.length === 0">
+  {{ 'NoDescription' | translate }}
+</span>

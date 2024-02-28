@@ -1,0 +1,29 @@
+<app-details headerName="{{ 'Headers.RestInPeace' | translate }}"
+             (close)="closeDetails()"
+             (primary)="resurrectClick()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Resurrect' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <span>{{resurrectionMessage}}</span>
+  </div>
+
+  <div class="form-group resurrection-option">
+    <mat-checkbox class="on-dark"
+                  [checked]="returnWith1Hp"
+                  (change)="returnWith1Change($event)">
+    </mat-checkbox>
+    <span>{{ 'ReturnWith1HP' | translate }}</span>
+  </div>
+
+  <div class="form-group">
+    <div class="resurrection-option">
+      <mat-checkbox class="on-dark"
+                    [checked]="applyPenalties"
+                    (change)="applyPenaltiesChange($event)">
+      </mat-checkbox>
+      <span class="allow-line-break">{{ 'ResurrectionPenalties' | translate }}</span>
+    </div>
+  </div>
+</app-details>

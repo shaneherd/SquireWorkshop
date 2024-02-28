@@ -1,0 +1,46 @@
+<div class="form-group">
+  <app-setting [checked]="settings.spellcasting.displayClassSpellcasting"
+               label="{{ 'CharacterSettings.Spellcasting.DisplayClassSpellcasting' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Spellcasting.DisplayClassSpellcasting' | translate }}"
+               (change)="displayClassSpellcasting($event)">
+  </app-setting>
+
+  <ng-container *ngIf="settings.spellcasting.displayClassSpellcasting">
+    <div class="class-spellcasting" *ngFor="let chosenClass of playerCharacter.classes">
+      <app-setting [checked]="chosenClass.displaySpellcasting"
+                   [label]="chosenClass.characterClass.name"
+                   (change)="classChange($event, chosenClass)">
+      </app-setting>
+    </div>
+  </ng-container>
+
+  <app-setting [checked]="settings.spellcasting.displayRaceSpellcasting"
+               label="{{ 'CharacterSettings.Spellcasting.DisplayRaceSpellcasting' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Spellcasting.DisplayRaceSpellcasting' | translate }}"
+               (change)="displayRaceSpellcasting($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.spellcasting.displayBackgroundSpellcasting"
+               label="{{ 'CharacterSettings.Spellcasting.DisplayBackgroundSpellcasting' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Spellcasting.DisplayBackgroundSpellcasting' | translate }}"
+               (change)="displayBackgroundSpellcasting($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.spellcasting.displayOtherSpellcasting"
+               label="{{ 'CharacterSettings.Spellcasting.DisplayOtherSpellcasting' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Spellcasting.DisplayOtherSpellcasting' | translate }}"
+               (change)="displayOtherSpellcasting($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.spellcasting.displayTags"
+               label="{{ 'CharacterSettings.Spellcasting.DisplayTags' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Spellcasting.DisplayTags' | translate }}"
+               (change)="displayTags($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.spellcasting.highlightActive"
+               label="{{ 'CharacterSettings.Spellcasting.HighlightActive' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Spellcasting.HighlightActive' | translate }}"
+               (change)="highlightActive($event)">
+  </app-setting>
+</div>

@@ -1,0 +1,45 @@
+<div class="details">
+  <h4 class="font-weight-bold">{{label}}</h4>
+
+  <div class="form-group tabbed">
+    <div>
+      <label>{{ 'Labels.Known' | translate }}</label>
+      <span>{{spellsKnown}}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.Cantrips' | translate }}</label>
+      <span>{{cantripsKnown}}</span>
+    </div>
+  </div>
+
+  <div *ngIf="classSpellPreparation != null && maxPrepared > 0" class="tabbed">
+    <div class="prepared-count">
+      <label>{{ 'Labels.Prepared' | translate }}</label>
+      <span>{{prepared}} / </span>
+      <span [matTooltip]="maxPreparedTooltip">{{maxPrepared}}</span>
+    </div>
+
+    <div *ngFor="let configuration of applicableSpells" class="spell">
+      <mat-checkbox class="on-dark"
+                    [checked]="configuration.creatureSpell.prepared || (configuration.configuration != null && configuration.configuration.alwaysPrepared)"
+                    (change)="checkChange($event, configuration)"
+                    [disabled]="configuration.creatureSpell.spell.level === 0 || (configuration.configuration != null && configuration.configuration.alwaysPrepared)">
+      </mat-checkbox>
+
+      <app-spell-card class="spell-card"
+                      [creatureSpellConfiguration]="configuration"
+                      [creature]="playerCharacter"
+                      [displayClass]="false"
+                      [displaySpellTags]="playerCharacter.characterSettings.spellcasting.displayTags"
+                      [highlightActive]="playerCharacter.characterSettings.spellcasting.highlightActive"
+                      [clickDisabled]="false"
+                      (spellClick)="onSpellCLick($event)">
+      </app-spell-card>
+    </div>
+
+    <div *ngIf="applicableSpells.length === 0">
+      {{ 'No spells available to prepare' | translate }}
+    </div>
+  </div>
+</div>

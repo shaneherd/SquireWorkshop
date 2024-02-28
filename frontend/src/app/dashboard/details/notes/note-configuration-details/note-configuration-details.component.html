@@ -1,0 +1,27 @@
+<app-details [headerName]="headerName"
+             (primary)="saveNote()"
+             (close)="closeNote()"
+             (tertiary)="deleteNote()"
+             (secondary)="closeNote()"
+             primaryLabel="{{ 'Save' | translate }}"
+             tertiaryLabel="{{ deletable ? 'Delete' : '' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Category' | translate }}</label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="category" (selectionChange)="categoryChange($event.value)">
+        <mat-option *ngFor="let category of categories" [value]="category.id">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="other" class="form-group">
+    <input class="form-control inline" placeholder="{{ 'CategoryName' | translate }}" [(ngModel)]="otherName" maxLength="45"/>
+  </div>
+
+  <textarea placeholder="{{ 'Note' | translate }}" [(ngModel)]="noteValue" class="form-control info-description" maxlength="1000"> </textarea>
+
+</app-details>

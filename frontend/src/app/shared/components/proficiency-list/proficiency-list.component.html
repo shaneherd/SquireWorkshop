@@ -1,0 +1,51 @@
+<div *ngIf="showSecondary && (editing || hasProficiencies())" class="secondary-header-container">
+  <div class="secondary-header">
+    <span>{{ 'Secondary' | translate }}</span>
+    <mat-icon matTooltip="{{ 'Tooltips.SecondaryProfs' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+</div>
+<div *ngIf="!editing && !hasProficiencies()" class="no-items-label">
+  {{ 'NoProficiencies' | translate }}
+</div>
+<div *ngFor="let prof of proficiencies;" class="proficiency-list form-group">
+  <div *ngIf="editing || prof.proficient || isChecked(prof) || prof.secondaryProficient || (showSecondary && isSecondaryChecked(prof)) || isChildChecked(prof) || (showSecondary && isChildSecondaryChecked(prof))" class="proficiency-row">
+    <div class="primary-prof">
+      <mat-checkbox
+        (change)="profChange($event, prof)"
+        [disabled]="!editing || isDisabled(prof)"
+        [checked]="prof.proficient || isChecked(prof)">
+      </mat-checkbox>
+      <span>{{prof.item.name}}</span>
+    </div>
+    <mat-checkbox
+      *ngIf="showSecondary"
+      class="secondary"
+      (change)="profSecondaryChange($event, prof)"
+      [disabled]="!editing || isSecondaryDisabled(prof)"
+      [checked]="prof.secondaryProficient || isSecondaryChecked(prof)">
+    </mat-checkbox>
+  </div>
+
+  <div *ngFor="let child of prof.childrenProficiencies">
+    <div class="child-prof-container proficiency-row" *ngIf="editing || isChecked(child) || (showSecondary && isSecondaryChecked(child))">
+      <div class="primary-prof">
+        <mat-checkbox
+          (change)="profChange($event, child)"
+          [disabled]="!editing || isDisabled(child)"
+          [checked]="isChecked(child)">
+        </mat-checkbox>
+        <span>{{child.item.name}}</span>
+      </div>
+
+      <mat-checkbox
+        *ngIf="showSecondary"
+        class="secondary"
+        (change)="profSecondaryChange($event, child)"
+        [disabled]="!editing || isSecondaryDisabled(child)"
+        [checked]="isSecondaryChecked(child)">
+      </mat-checkbox>
+    </div>
+  </div>
+</div>

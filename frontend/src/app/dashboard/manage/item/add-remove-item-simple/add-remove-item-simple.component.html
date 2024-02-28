@@ -1,0 +1,11 @@
+<app-add-remove-slide-in [headerName]="item.name"
+                         [loading]="loading"
+                         [selected]="item.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-item-details *ngIf="viewingItem != null"
+                    [item]="viewingItem"
+                    [disabled]="true"
+                    [castable]="false">
+  </app-item-details>
+</app-add-remove-slide-in>

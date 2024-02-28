@@ -1,0 +1,8 @@
+<app-list-menu headerName="{{ 'Navigation.Manage.Items.Items' | translate }}"
+               [menuService]="itemService"
+               [filterable]="true"
+               newItemLabel="{{ 'Navigation.Manage.Items.New' | translate }}"
+               (filter)="filter()"
+               baseNavigation="/home/dashboard"
+               subNavigation="items">
+</app-list-menu>

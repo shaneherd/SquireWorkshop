@@ -1,0 +1,227 @@
+<app-details headerName="{{ 'Headers.LevelManagement' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             [primaryDisabled]="disabled"
+             [primaryValidator]="saveValidator"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="level-header-container">
+    <button mat-mini-fab
+            [disabled]="decreaseLevelDisabled || disabled"
+            matTooltip="{{ 'DecreaseLevel' | translate }}"
+            class="level-change-button small squire-button on-dark"
+            (click)="adjustLevel(-1)">
+      -
+    </button>
+
+    <h1 [translate]="'Lvl'"
+        class="level-header"
+        [translateParams]="{level: selectedLevel.name}">
+    </h1>
+
+    <button mat-mini-fab
+            [disabled]="increaseLevelDisabled || disabled"
+            matTooltip="{{ 'IncreaseLevel' | translate }}"
+            class="level-change-button small squire-button on-dark"
+            (click)="adjustLevel(1)">
+      +
+    </button>
+  </div>
+
+  <div class="exp-container form-group">
+    <div class="level-label-container form-group">
+      <div class="level-container">
+        <div class="level-label">{{leftLabel}}</div>
+        <div class="level-exp">({{leftExp}})</div>
+        <button mat-icon-button
+                [disabled]="decreaseExpDisabled || disabled"
+                matTooltip="{{ 'DecreaseExp' | translate }}"
+                class="exp-adjustment-button small squire-button transparent on-dark clickable"
+                (click)="step(-1)">
+          -
+        </button>
+      </div>
+
+      <mat-slider [min]="min"
+                  [max]="max"
+                  [step]="1"
+                  [value]="exp"
+                  [displayWith]="formatLabel"
+                  [disabled]="disabled"
+                  (change)="expSliderChange($event)"
+                  class="on-dark"
+                  thumbLabel>
+      </mat-slider>
+
+      <div class="level-container">
+        <div class="level-label">{{rightLabel}}</div>
+        <div class="level-exp">({{rightExp}})</div>
+        <button mat-icon-button
+                [disabled]="increaseExpDisabled || disabled"
+                matTooltip="{{ 'IncreaseExp' | translate }}"
+                class="exp-adjustment-button small squire-button transparent on-dark clickable"
+                (click)="step(1)">
+          +
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group adjustment-container">
+    <mat-form-field class="adjustment">
+      <mat-label>{{ 'Headers.Exp' | translate }}</mat-label>
+      <input type="number"
+             matInput
+             max="9999999"
+             min="0"
+             appInputNumber
+             [disabled]="disabled"
+             [minValue]="0"
+             [maxValue]="9999999"
+             [allowDecimal]="false"
+             [ngModel]="exp"
+             (valueChange)="expChange($event)"/>
+    </mat-form-field>
+
+    <mat-form-field class="adjustment">
+      <mat-label>{{ 'Headers.Adjustment' | translate }}</mat-label>
+      <input type="number"
+             matInput
+             max="9999999"
+             [disabled]="disabled"
+             [min]="originalExp * -1"
+             appInputNumber
+             [minValue]="originalExp * -1"
+             [maxValue]="9999999"
+             [allowDecimal]="false"
+             [value]="adjustment"
+             (valueChange)="adjustmentChange($event)"/>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="levelsAdjusted !== 0">
+    <h2 class="header">{{ 'Headers.LevelAssignment' | translate }}</h2>
+    <div class="form-group" *ngIf="!singleClass && levelsAdjusted > 0">
+      <label>{{ 'Labels.LevelsAssigned' | translate}}</label>
+      <span>{{levelsAssigned}}</span>
+      <span class="slash">/</span>
+      <span>{{levelsAdjusted}}</span>
+    </div>
+
+    <div class="form-group" *ngIf="!singleClass && levelsAdjusted < 0">
+      <label>{{ 'Labels.LevelsRemoved' | translate}}</label>
+      <span>{{levelsAssigned * -1}}</span>
+      <span class="slash">/</span>
+      <span>{{levelsAdjusted * -1}}</span>
+    </div>
+
+    <div *ngFor="let classLevelAdjustment of classes">
+      <div *ngIf="!classLevelAdjustment.removed" class="chosen-class-container form-group">
+        <div class="class-top-row">
+          <div class="class-name-container">
+            <div class="name">
+              <span>{{classLevelAdjustment.classDisplayName}}</span>
+            </div>
+
+            <div class="level">
+              <span [translate]="'Lvl'"
+                    [translateParams]="{level: classLevelAdjustment.originalLevel + classLevelAdjustment.adjustmentAmount}"></span>
+              <span class="slash" *ngIf="classLevelAdjustment.chosenClass.subclass != null">-</span>
+              <span *ngIf="classLevelAdjustment.chosenClass.subclass != null">{{classLevelAdjustment.chosenClass.subclass.name}}</span>
+            </div>
+          </div>
+
+          <div class="level-adjustment-container" *ngIf="!singleClass">
+            <button mat-mini-fab
+                    matTooltip="{{ 'Navigation.Manage.Classes.Remove' | translate }}"
+                    *ngIf="!classLevelAdjustment.chosenClass.primary"
+                    class="level-adjustment-button squire-button btn-primary"
+                    (click)="removeClass(classLevelAdjustment)">
+              x
+            </button>
+            <button mat-mini-fab
+                    matTooltip="{{ 'UnAssignLevel' | translate }}"
+                    class="level-adjustment-button squire-button on-dark"
+                    [disabled]="classLevelAdjustment.decreaseDisabled"
+                    (click)="adjustClass(classLevelAdjustment, -1)">
+              -
+            </button>
+            <button mat-mini-fab
+                    matTooltip="{{ 'AssignLevel' | translate }}"
+                    class="level-adjustment-button squire-button on-dark"
+                    [disabled]="classLevelAdjustment.increaseDisabled"
+                    (click)="adjustClass(classLevelAdjustment, 1)">
+              +
+            </button>
+          </div>
+        </div>
+
+        <div class="class-selection" *ngIf="classLevelAdjustment.chosenClass.characterClass == null">
+          <mat-form-field>
+            <mat-label>{{ 'Headers.Class' | translate }}</mat-label>
+            <mat-select [ngModel]="classLevelAdjustment.selectedClassOption"
+                        (selectionChange)="classChange(classLevelAdjustment, $event.value)">
+              <mat-option *ngFor="let classOption of classLevelAdjustment.classOptions"
+                          [value]="classOption"
+                          [disabled]="classOption.disabled">
+                {{classOption.option.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="subclass-selection" *ngIf="classLevelAdjustment.chosenClass.subclass == null">
+          <mat-form-field>
+            <mat-label>{{ 'Headers.Subclass' | translate }}</mat-label>
+            <mat-select [ngModel]="classLevelAdjustment.subclass"
+                        (selectionChange)="subclassChange(classLevelAdjustment, $event.value)">
+              <mat-option *ngFor="let subclass of classLevelAdjustment.subclasses" [value]="subclass">
+                {{subclass.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="classLevelAdjustment.adjustmentAmount > 0"
+             class="health-rolls">
+          <label>{{ 'Headers.HealthRolls' | translate }}</label>
+          <div *ngFor="let config of classLevelAdjustment.healthGainResults" class="health-gain-result">
+            <div *ngIf="config.visible">
+              <label [translate]="'Labels.Level'"
+                     [translateParams]="{level: config.healthGainResult.level.name}"></label>
+              <app-roll-input [numDice]="classLevelAdjustment.numHitDicePerLevel"
+                              [diceSize]="classLevelAdjustment.hitDiceSize"
+                              [disabled]="disableHealthInput"
+                              [value]="config.healthGainResult.value"
+                              (valueChange)="gainResultChange(config, $event)">
+              </app-roll-input>
+              <span *ngIf="classLevelAdjustment.hpPerLevelModifier !== 0" class="slash">+</span>
+              <span *ngIf="classLevelAdjustment.hpPerLevelModifier !== 0" [matTooltip]="classLevelAdjustment.hpPerLevelModifierTooltip">{{classLevelAdjustment.hpPerLevelModifier}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="add-class-container">
+      <button *ngIf="levelsAdjusted > 0"
+              type="button"
+              [disabled]="!singleClass && levelsAdjusted === levelsAssigned"
+              (click)="addClassClick()"
+              class="squire-button btn btn-danger add-class">
+        {{ 'Navigation.Manage.Classes.Add' | translate }}
+      </button>
+    </div>
+
+    <div class="reset-health-container">
+      <mat-checkbox class="on-dark"
+                    [checked]="resetHealth"
+                    (change)="resetHealthChange($event)">
+      </mat-checkbox>
+      <span>{{ 'LevelManagement.ResetHealth' | translate }}</span>
+    </div>
+  </div>
+
+</app-details>

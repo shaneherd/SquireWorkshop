@@ -1,0 +1,14 @@
+<mat-card *ngFor="let modifier of collection.damageModifierCollection.damageModifiers"
+          class="clickable"
+          (click)="click(modifier)">
+  <span>{{modifier.damageType.name}}</span>
+  <div class="tags-container" >
+    <span [matTooltip]="getTooltip(modifier)" class="tag">{{ 'DamageModifier.' + getModifierType(modifier) | translate }}</span>
+  </div>
+</mat-card>
+
+<app-damage-modifier-details *ngIf="configuringDamageType != null"
+                             [creature]="creature"
+                             [item]="configuringDamageType"
+                             (close)="configurationClose()">
+</app-damage-modifier-details>

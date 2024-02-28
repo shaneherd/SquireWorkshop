@@ -1,0 +1,20 @@
+.delete-class {
+  float: right;
+  margin-top: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.chosen-class {
+  margin-top: 40px;
+}

@@ -1,0 +1,8 @@
+backend_ip=0.0.0.0
+db_ip=0.0.0.0
+web_ip=0.0.0.0
+username=myusername
+key=~/.ssh/squire_key
+backend_env=stage
+web_env=stage
+repo_directory=/c/squire-workshop

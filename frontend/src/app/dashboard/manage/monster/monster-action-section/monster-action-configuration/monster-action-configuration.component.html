@@ -1,0 +1,360 @@
+<app-details [headerName]="headerName"
+             [fixed]="true"
+             [loading]="loading"
+             (close)="closeClick()"
+             (primary)="primaryClick()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             [primaryDisabled]="!action.author"
+             (secondary)="secondaryClick()"
+             (tertiary)="tertiaryClick()"
+             primaryLabel="{{ (isPublic || isShared) ? '' : (editing ? ('Save' | translate) : ('Edit' | translate)) }}"
+             tertiaryLabel="{{ (isPublic || isShared) ? '' : (editing ? (deletable ? ('Delete' | translate) : '') : ( 'Duplicate' | translate))}}"
+             secondaryLabel="{{ editing ? ('Cancel' | translate) : ('Close' | translate) }}">
+  <div class="details action-configuration">
+    <div class="content-data-full-height page-content">
+      <div *ngIf="step === 0">
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input [(ngModel)]="action.name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.Type' | translate }}</label>
+          <span *ngIf="!editing">{{ 'Action.' + action.actionType | translate }}</span>
+          <mat-form-field *ngIf="editing">
+            <mat-select [(ngModel)]="selectedAction"
+                        (selectionChange)="actionTypeChange($event.value)">
+              <mat-option *ngFor="let actionType of actionTypes" [value]="actionType">
+                {{ 'Action.' + actionType | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!--legendary-->
+        <div *ngIf="isLegendary" class="form-group legendary">
+          <label>{{ 'Labels.LegendaryCost' | translate }}</label>
+          <span *ngIf="!editing">{{action.legendaryCost}}</span>
+          <input type="number" class="form-control"
+                 *ngIf="editing"
+                 min="0" max="9"
+                 appInputNumber minValue="0" maxValue="9"
+                 [ngModel]="action.legendaryCost"
+                 (valueChange)="legendaryCostChange($event)"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || (action?.id !== '0' && action.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing" class="info-description">{{action.description}}</span>
+          <textarea [(ngModel)]="action.description" *ngIf="editing" class="form-control info-description" maxlength="4000"> </textarea>
+        </div>
+      </div>
+
+      <div *ngIf="step === 1" class="on-dark">
+        <div class="form-group attack-type">
+          <label class="attack-type-label">{{ 'Labels.Type' | translate }}</label>
+          <mat-button-toggle-group [disabled]="!editing"
+                                   [ngModel]="damageConfigurationCollection.attackType"
+                                   (change)="attackTypeChange($event.value)">
+            <mat-button-toggle *ngFor="let attackType of attackTypes"
+                               [value]="attackType">
+              {{ 'AttackType.' + attackType | translate }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <ng-container *ngIf="attack">
+          <!--melee/ranged-->
+          <div class="form-group">
+            <mat-button-toggle-group [ngModel]="action.rangeType"
+                                     [disabled]="!editing"
+                                     (change)="rangeTypeChange($event.value)">
+              <mat-button-toggle *ngFor="let rangeType of rangeTypes"
+                                 [value]="rangeType">
+                {{ 'WeaponRangeType.' + rangeType | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <!--reach-->
+          <div *ngIf="!isRanged" class="form-group range">
+            <label>{{ 'Labels.Reach' | translate }}</label>
+            <span *ngIf="!editing">{{action.reach}} {{ 'ft' | translate }}</span>
+            <div *ngIf="editing">
+              <input type="number" class="form-control"
+                     min="0" max="99"
+                     appInputNumber minValue="0" maxValue="99"
+                     [ngModel]="action.reach"
+                     (valueChange)="reachChange($event)"/>
+              <span>{{ 'ft' | translate }}</span>
+            </div>
+          </div>
+
+          <!--range-->
+          <div *ngIf="isRanged" class="form-group range">
+            <label>{{ 'Labels.Range' | translate }}</label>
+            <span *ngIf="!editing">{{action.normalRange}} {{ 'ft' | translate }} / {{action.longRange}} {{ 'ft' | translate }}</span>
+            <div *ngIf="editing">
+              <input type="number" class="form-control"
+                     min="0" max="99"
+                     appInputNumber minValue="0" maxValue="99"
+                     [ngModel]="action.normalRange"
+                     (valueChange)="normalRangeChange($event)"/>
+              <span>{{ 'ft' | translate }}</span>
+              <span>/</span>
+              <input type="number" class="form-control"
+                     min="0" max="99"
+                     appInputNumber minValue="0" maxValue="99"
+                     [ngModel]="action.longRange"
+                     (valueChange)="longRangeChange($event)"/>
+              <span>{{ 'ft' | translate }}</span>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="isRanged">
+            <label>{{ 'Labels.Ammo' | translate }}</label>
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedAmmoType"
+                          (selectionChange)="ammoTypeChange($event.value)">
+                <mat-option *ngFor="let ammoType of ammoTypes" [value]="ammoType">
+                  {{ammoType.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!--Attack Mod-->
+          <div class="form-group attack-mod">
+            <span *ngIf="isAttack">1d20</span>
+            <label *ngIf="isSave">{{ 'Labels.DC' | translate }}</label>
+            <span *ngIf="!editing && !isHeal && isSave">
+              {{damageConfigurationCollection.attackMod}}
+            </span>
+            <ng-container *ngIf="!editing && !isHeal && !isSave">
+              <span *ngIf="isAttack && damageConfigurationCollection.attackAbilityMod !== '0' && selectedAttackAbilityModifier !== ''">
+                + {{selectedAttackAbilityModifier}}
+              </span>
+              <span *ngIf="damageConfigurationCollection.attackMod > 0 && isAttack">
+                + {{damageConfigurationCollection.attackMod}}
+              </span>
+            </ng-container>
+            <span *ngIf="editing && isAttack">+</span>
+
+            <ng-container *ngIf="editing && !isHeal">
+              <ng-container *ngIf="isAttack">
+                <mat-form-field class="feature-save-ability">
+                  <mat-select [(ngModel)]="damageConfigurationCollection.attackAbilityMod">
+                    <mat-option *ngFor="let ability of abilitiesFull" [value]="ability.id">
+                      {{ability.id === '0' ? none : ability.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span>+</span>
+              </ng-container>
+
+
+              <input type="number" class="form-control"
+                     min="0" max="99"
+                     appInputNumber minValue="0" maxValue="99"
+                     [ngModel]="damageConfigurationCollection.attackMod"
+                     (valueChange)="attackModChange($event)"/>
+            </ng-container>
+
+            <div *ngIf="isSave && (editing || damageConfigurationCollection.saveProficiencyModifier)" class="feature-save-dc">
+              <span>+</span>
+              <mat-checkbox
+                *ngIf="editing"
+                (change)="saveProficiencyModifierChange($event)"
+                [checked]="damageConfigurationCollection.saveProficiencyModifier">
+              </mat-checkbox>
+              <span>{{ 'ProficiencyModifier' | translate }}</span>
+            </div>
+
+            <span *ngIf="editing && isSave">+</span>
+            <mat-form-field *ngIf="editing && isSave" class="feature-save-ability">
+              <mat-select [(ngModel)]="damageConfigurationCollection.saveAbilityModifier">
+                <mat-option *ngFor="let ability of abilitiesFull" [value]="ability.id">
+                  {{ability.id === '0' ? none : ability.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="!editing && isSave && damageConfigurationCollection.saveAbilityModifier !== '0' && selectedSaveAbilityModifier !== ''">
+              + {{selectedSaveAbilityModifier}}
+            </span>
+
+            <div class="form-group" *ngIf="isAttack && (editing || damageConfigurationCollection.halfOnSave)">
+              <mat-checkbox
+                (change)="halfOnSaveChange($event)"
+                [disabled]="!editing"
+                [checked]="damageConfigurationCollection.halfOnSave">
+              </mat-checkbox>
+              <span>{{ 'Headers.HalfOnMiss' | translate }}</span>
+            </div>
+
+            <!--Temporary HP-->
+            <div class="form-group" *ngIf="isHeal && (editing || damageConfigurationCollection.temporaryHP)">
+              <mat-checkbox
+                (change)="temporaryHPChange($event)"
+                [disabled]="!editing"
+                [checked]="damageConfigurationCollection.temporaryHP">
+              </mat-checkbox>
+              <span>{{ 'Headers.TemporaryHP' | translate }}</span>
+            </div>
+          </div>
+
+          <!--Save Type-->
+          <div *ngIf="isSave" class="form-group attack-mod">
+            <label>{{ 'Labels.Type' | translate }}</label>
+            <span *ngIf="!editing">{{damageConfigurationCollection.saveType.id === '0' ? none : damageConfigurationCollection.saveType.name}}</span>
+            <mat-form-field *ngIf="editing">
+              <mat-select [(ngModel)]="damageConfigurationCollection.saveType.id"
+                          (selectionChange)="abilityChange($event.value)">
+                <mat-option *ngFor="let ability of abilitiesFull" [value]="ability.id">
+                  {{ability.id === '0' ? none : ability.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="form-group" *ngIf="editing || damageConfigurationCollection.halfOnSave">
+              <mat-checkbox
+                (change)="halfOnSaveChange($event)"
+                [disabled]="!editing"
+                [checked]="damageConfigurationCollection.halfOnSave">
+              </mat-checkbox>
+              <span>{{ 'Headers.HalfOnSave' | translate }}</span>
+            </div>
+          </div>
+
+          <!--Damages-->
+          <div class="damages">
+            <label *ngIf="!isHeal">{{ 'Labels.Damages' | translate }}</label>
+            <label *ngIf="isHeal">{{ 'Labels.Healing' | translate }}</label>
+            <div *ngIf="damageConfigurationCollection.damageConfigurations.length === 0 && !isHeal" class="no-items-label">
+              {{ 'NoDamages' | translate }}
+            </div>
+            <div *ngIf="damageConfigurationCollection.damageConfigurations.length === 0 && isHeal" class="no-items-label">
+              {{ 'NoHealing' | translate }}
+            </div>
+            <div *ngFor="let config of damageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+              <app-damage-configuration-display [config]="config"
+                                                [editing]="editing"
+                                                [disabled]="configuringDamage != null"
+                                                [first]="i === 0"
+                                                (delete)="deleteDamage($event)"
+                                                (configure)="configureDamage($event)">
+              </app-damage-configuration-display>
+            </div>
+
+            <div class="add-damages-container">
+              <button *ngIf="editing && !isHeal" type="button" (click)="addDamage()"
+                      class="squire-button btn btn-danger add-damage"
+                      [ngClass]="{'disabled': configuringDamage != null}">
+                {{ 'Navigation.Manage.Damages.Add' | translate }}
+              </button>
+
+              <button *ngIf="editing && isHeal" type="button" (click)="addDamage()"
+                      class="squire-button btn btn-danger add-damage"
+                      [ngClass]="{'disabled': configuringDamage != null}">
+                {{ 'Navigation.Manage.Healing.Add' | translate }}
+              </button>
+            </div>
+          </div>
+        </ng-container>
+
+        <app-damage-configuration *ngIf="configuringDamage != null && editing"
+                                  [damageConfiguration]="configuringDamage"
+                                  [isSpell]="false"
+                                  (close)="damageConfigurationClose()"
+                                  (continue)="damageConfigurationContinue($event)">
+        </app-damage-configuration>
+      </div>
+
+      <div *ngIf="step === 2" class="on-dark">
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.LimitedUse' | translate }}</label>
+          <mat-checkbox
+            class="on-dark"
+            (change)="limitedUseChange($event)"
+            [disabled]="!editing"
+            [checked]="limitedUse">
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="!editing && (!limitedUse || action.limitedUse == null)" class="no-items-label">
+          {{ 'None' | translate }}
+        </div>
+
+        <div *ngIf="limitedUse" class="form-group limited-use-container">
+          <mat-button-toggle-group
+            [ngModel]="selectedLimitedUseCategory"
+            [ngModelOptions]="{standalone: true}"
+            [disabled]="!editing"
+            (change)="changeLimitedUse($event.value)">
+            <mat-button-toggle *ngFor="let category of limitedUseCategories"
+                               [value]="category">
+              {{ 'LimitedUseType.' + category | translate }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div *ngIf="limitedUse">
+          <div class="form-group" *ngIf="action.limitedUse != null">
+            <label>{{ 'Labels.MaxUses' | translate }}</label>
+            <app-single-limited-use-row [limitedUse]="action.limitedUse"
+                                        [abilities]="abilities"
+                                        [deletable]="false"
+                                        [showLevel]="false"
+                                        [editing]="editing"
+                                        [disabled]="configuring || configuringLimitedUse != null || isRecharge"
+                                        (configure)="configureLimitedUse($event)">
+            </app-single-limited-use-row>
+          </div>
+
+          <ng-container *ngIf="isRecharge">
+            <div class="form-group recharge-range">
+              <label>{{ 'Labels.Min' | translate }}</label>
+              <span *ngIf="!editing">{{action.rechargeMin}}</span>
+              <input type="number" class="form-control"
+                     *ngIf="editing"
+                     min="1" max="100"
+                     appInputNumber minValue="1" maxValue="100"
+                     [ngModel]="action.rechargeMin"
+                     (valueChange)="rechargeMinChange($event)"/>
+            </div>
+
+            <div class="form-group recharge-range">
+              <label>{{ 'Labels.Max' | translate }}</label>
+              <span *ngIf="!editing">{{action.rechargeMax}}</span>
+              <input type="number" class="form-control"
+                     *ngIf="editing"
+                     [min]="action.rechargeMin" max="100"
+                     appInputNumber [minValue]="action.rechargeMin" maxValue="100"
+                     [ngModel]="action.rechargeMax"
+                     (valueChange)="rechargeMaxChange($event)"/>
+            </div>
+          </ng-container>
+
+          <app-limited-use-configuration *ngIf="configuringLimitedUse != null"
+                                         [limitedUse]="configuringLimitedUse"
+                                         [editing]="editing"
+                                         [showLevel]="false"
+                                         [disabled]="configuring"
+                                         (close)="limitedUseConfigurationClose()"
+                                         (continue)="limitedUseConfigurationContinue($event)">
+          </app-limited-use-configuration>
+        </div>
+      </div>
+    </div>
+
+    <div class="pager">
+      <app-pager [pageCount]="3"
+                 [index]="step"
+                 (pageChange)="setStep($event)">
+      </app-pager>
+    </div>
+  </div>
+</app-details>
+
+

@@ -1,0 +1,7 @@
+<app-dialog title="{{ 'Session.Expiring' | translate }}"
+            primaryLabel="{{ 'Session.Extend' | translate }}"
+            (primary)="closeDialog()"
+            secondaryLabel="{{ 'Logout.Logout' | translate }}"
+            (secondary)="logout()">
+  <span translate [translateParams]="{seconds: data.seconds}">Session.ExpiringMessage</span>
+</app-dialog>

@@ -1,0 +1,24 @@
+<mat-expansion-panel class="on-dark">
+  <mat-expansion-panel-header class="center tag-header">
+    <app-tag [tag]="tagCollection.tag" (tagClick)="onTagClick()">
+    </app-tag>
+    <input type="text"
+           [(ngModel)]="tagCollection.tag.title"
+           (click)="inputClick($event)"
+           (keydown.space)="$event.stopPropagation();"
+           class="form-control"/>
+  </mat-expansion-panel-header>
+
+  <div *ngFor="let configuration of tagCollection.configurations;" class="feature" >
+    <mat-checkbox class="on-dark"
+                  [checked]="configuration.checked"
+                  (change)="checkChange($event, configuration)">
+    </mat-checkbox>
+
+    <app-feature-card class="feature-card" [creatureFeature]="configuration.creatureFeature"
+                      [clickDisabled]="false"
+                      [displayTags]="false"
+                      (featureClick)="onFeatureClick($event)">
+    </app-feature-card>
+  </div>
+</mat-expansion-panel>

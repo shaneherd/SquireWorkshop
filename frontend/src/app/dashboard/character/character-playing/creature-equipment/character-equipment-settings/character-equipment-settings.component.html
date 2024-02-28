@@ -1,0 +1,11 @@
+<app-details headerName="{{ 'Headers.Settings' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveSettings()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <app-equipment-settings [playerCharacter]="playerCharacter"
+                          [settings]="settings">
+  </app-equipment-settings>
+</app-details>

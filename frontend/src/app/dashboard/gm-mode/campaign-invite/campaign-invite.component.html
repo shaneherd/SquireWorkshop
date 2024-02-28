@@ -1,0 +1,27 @@
+<app-details headerName="{{ 'Campaign.Invite.Invite' | translate }}"
+             [configurable]="false"
+             (close)="closeDetails()"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}">
+  <div class="form-group token-container">
+    <span #tokenElement>{{campaign.token}}</span>
+  </div>
+
+  <div class="form-group copy-container ">
+    <button (click)="copyToken(tokenElement)"
+            class="squire-button btn btn-primary token-btn">
+      {{ 'Campaign.Invite.CopyToken' | translate }}
+      <i class="far fa-copy"></i>
+    </button>
+
+    <button (click)="refreshToken()"
+            class="squire-button btn btn-secondary token-btn">
+      {{ 'Campaign.Invite.RefreshToken' | translate }}
+      <i class="fa-solid fa-arrow-rotate-right"></i>
+    </button>
+  </div>
+
+  <div class="form-group">
+    <span>{{ 'Campaign.Invite.Message' | translate }}</span>
+  </div>
+</app-details>

@@ -1,0 +1,14 @@
+<div class="home">
+  <div>
+    <h1 class="welcome-to-squire">{{ 'WelcomeToSquire' | translate }}</h1>
+  </div>
+  <div>
+    <button [routerLink]="['/auth/login']" class="squire-button btn btn-primary home-button">{{ 'Auth.Login.Login' | translate }}</button>
+  </div>
+  <div>
+    <button [routerLink]="['/auth/register']" class="squire-button btn home-button btn-danger">{{ 'Auth.Register.SignUp' | translate }}</button>
+  </div>
+
+  <svg-icon class="squire-logo" src="/assets/squire_logo.svg"></svg-icon>
+</div>
+

@@ -1,0 +1,45 @@
+<app-dialog title="{{ 'Filters' | translate }}"
+            primaryLabel="{{ 'Apply' | translate }}"
+            (primary)="apply()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            tertiaryLabel="{{ 'Clear' | translate }}"
+            (tertiary)="clear()"
+            (close)="cancel()">
+  <app-yes-no-filter *ngIf="showPrepared" [filterValue]="prepared"></app-yes-no-filter>
+  <app-yes-no-filter *ngIf="showActive" [filterValue]="active"></app-yes-no-filter>
+  <app-yes-no-filter *ngIf="showConcentrating" [filterValue]="concentrating"></app-yes-no-filter>
+
+  <app-filter [filterValue]="classChoice" [options]="classes"></app-filter>
+  <app-filter [filterValue]="level" [options]="levels"></app-filter>
+  <app-filter [filterValue]="school" [options]="schools"></app-filter>
+  <app-yes-no-filter [filterValue]="ritual"></app-yes-no-filter>
+  <app-yes-no-filter [filterValue]="areaOfEffect"></app-yes-no-filter>
+  <div *ngIf="areaOfEffect.value !== defaultOption">
+    <app-filter [filterValue]="areaOfEffectChoice" [options]="areaOfEffects"></app-filter>
+  </div>
+
+  <h5>{{ 'Labels.Components' | translate }}</h5>
+  <app-yes-no-filter [filterValue]="verbal"></app-yes-no-filter>
+  <app-yes-no-filter [filterValue]="somatic"></app-yes-no-filter>
+  <app-yes-no-filter [filterValue]="material"></app-yes-no-filter>
+
+  <h5>{{ 'Labels.Duration' | translate }}</h5>
+  <app-yes-no-filter [filterValue]="concentration"></app-yes-no-filter>
+  <app-yes-no-filter [filterValue]="instantaneous"></app-yes-no-filter>
+
+  <!--Tags-->
+  <div *ngIf="tagConfigurations.length > 0">
+    <h5>{{ 'Labels.Tags' | translate }}</h5>
+
+    <div *ngFor="let configuration of tagConfigurations" class="form-group tag-row">
+      <mat-checkbox class="no-margin"
+                    [checked]="configuration.checked"
+                    (change)="tagCheckChange($event, configuration)">
+      </mat-checkbox>
+
+      <app-tag-detail class="tag-details"
+                      [tag]="configuration.tag"></app-tag-detail>
+    </div>
+  </div>
+</app-dialog>

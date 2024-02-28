@@ -1,0 +1,32 @@
+<div class="calculator-row row" [ngClass]="{'success': success}">
+  <app-calculator-button class="col-sm-3" [clickable]="false" [ngClass]="{'curved-top-left': success}">
+    {{ (success ? 'Save' : 'Fail') | translate }}
+  </app-calculator-button>
+
+  <app-calculator-button (click)="checkChange1()"
+                         class="col-sm-3"
+                         [ngClass]="{'selected': checked1}"
+                         [disabled]="disable1 || disabled">
+    <i *ngIf="!checked1" class="far fa-square"></i>
+    <i *ngIf="checked1 && !success" class="far fa-window-close"></i>
+    <i *ngIf="checked1 && success" class="far fa-check-square"></i>
+  </app-calculator-button>
+
+  <app-calculator-button (click)="checkChange2()"
+                         class="col-sm-3"
+                         [ngClass]="{'selected': checked2}"
+                         [disabled]="disable2 || disabled">
+    <i *ngIf="!checked2" class="far fa-square"></i>
+    <i *ngIf="checked2 && !success" class="far fa-window-close"></i>
+    <i *ngIf="checked2 && success" class="far fa-check-square"></i>
+  </app-calculator-button>
+
+  <app-calculator-button (click)="checkChange3()"
+                         class="col-sm-3"
+                         [ngClass]="{'selected': checked3, 'curved-top-right': success}"
+                         [disabled]="disable3 || disabled">
+    <i *ngIf="!checked3" class="far fa-square"></i>
+    <i *ngIf="checked3 && !success" class="far fa-window-close"></i>
+    <i *ngIf="checked3 && success" class="far fa-check-square"></i>
+  </app-calculator-button>
+</div>

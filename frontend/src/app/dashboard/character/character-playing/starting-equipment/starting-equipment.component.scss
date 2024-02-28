@@ -1,0 +1,48 @@
+.starting-equipment-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+h1 {
+  color: #ffffff;
+}
+
+.selection-groups {
+  padding-right: 5px;
+}
+
+.details-configuration-action-buttons {
+  padding: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  .action-button {
+    display: table-cell;
+    padding: 5px;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+input {
+  width: 85px;
+  display: inline;
+}
+
+.summary-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .summary-item {
+    flex-grow: 1;
+  }
+
+  .summary-quantity {
+    flex-shrink: 0;
+  }
+}

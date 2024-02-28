@@ -1,0 +1,119 @@
+<div class="calculator-display row" [ngClass]="{
+      'primary': flashPrimary && flashLCD,
+      'secondary': flashSecondary && flashLCD,
+      'tertiary': flashTertiary && flashLCD
+    }">
+  <div class="current-hp">
+    <span [matTooltip]="calculatorState.calculatedCurrentTooltip" [ngClass]="{'positive-modifier': calculatorState.calculatedTemp > 0 && highlightValues}">{{calculatorState.calculatedCurrent + calculatorState.calculatedTemp}}</span>
+    <span class="slash">/</span>
+    <span [matTooltip]="maxHPTooltip" [ngClass]="{
+        'positive-modifier': maxHpModifier > 0 && highlightValues,
+        'negative-modifier': maxHpModifier < 0 && highlightValues
+      }">{{maxHP}}</span>
+    <span class="hp-label">HP</span>
+  </div>
+
+  <div class="health-calculator-value">
+    <span>{{healthCalculatorValue.display}}</span>
+  </div>
+</div>
+
+<div class="calculator-row row">
+  <app-calculator-button (click)="calculatorButtonClick('7')" class="col-sm-3">7</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('8')" class="col-sm-3">8</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('9')" class="col-sm-3">9</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('delete')" class="col-sm-3 squire-button btn-4">
+    <i class="fas fa-backspace"></i>
+  </app-calculator-button>
+</div>
+
+<div class="calculator-row row">
+  <app-calculator-button (click)="calculatorButtonClick('4')" class="col-sm-3">4</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('5')" class="col-sm-3">5</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('6')" class="col-sm-3">6</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('-')" class="col-sm-3 squire-button btn-primary">Damage</app-calculator-button>
+</div>
+
+<div class="calculator-row row">
+  <app-calculator-button (click)="calculatorButtonClick('1')" class="col-sm-3">1</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('2')" class="col-sm-3">2</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('3')" class="col-sm-3">3</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('+')" class="col-sm-3 squire-button btn-secondary">Heal</app-calculator-button>
+</div>
+
+<div class="calculator-row row">
+  <app-calculator-button (click)="calculatorButtonClick('/')" class="col-sm-3 squire-button btn-4 curved-bottom-left">/2</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('0')" class="col-sm-3">0</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('*')" class="col-sm-3 squire-button btn-4">*2</app-calculator-button>
+  <app-calculator-button (click)="calculatorButtonClick('t')" class="col-sm-3 squire-button btn-danger curved-bottom-right">Temp</app-calculator-button>
+</div>
+
+<br/>
+
+<div *ngIf="isDying" class="form-group">
+  <label class="death-saves-label">
+    {{ 'Headers.DeathSaves' | translate}}
+    <span class="dash">-</span>
+    <span class="creature-state" [ngClass]="{
+        'highlight': highlightValues,
+        'stable': isStable
+      }">{{ 'CreatureState.' + calculatorState.calculatedCreatureState | translate }}</span>
+  </label>
+  <div class="death-saves">
+    <app-death-save-results [success]="true"
+                            [disabled]="isStable"
+                            [numberChecked]="calculatorState.calculatedDeathSaveSuccesses"
+                            (onCheckChange)="onSuccessCheckChange($event)">
+    </app-death-save-results>
+    <app-death-save-results [success]="false"
+                            [disabled]="isDead"
+                            [numberChecked]="calculatorState.calculatedDeathSaveFailures"
+                            (onCheckChange)="onFailureCheckChange($event)">
+    </app-death-save-results>
+
+    <div class="calculator-row row">
+      <app-calculator-button class="col-sm-6 curved-bottom-left"
+                             (click)="rollDeathSave()"
+                             [disabled]="isDead || isStable">
+        {{ 'Roll' | translate }}
+      </app-calculator-button>
+
+      <app-calculator-button class="col-sm-6 curved-bottom-right"
+                             (click)="stabilize()"
+                             [disabled]="isDead || isStable">
+        {{ 'Stabilize' | translate }}
+      </app-calculator-button>
+    </div>
+  </div>
+</div>
+
+<mat-expansion-panel class="on-dark" *ngIf="showHistory">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.History' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="form-group">
+    <span *ngIf="calculatorState.healthModificationResults.length === 0">No History</span>
+    <div *ngFor="let result of calculatorState.healthModificationResults.slice().reverse()">
+      <span>{{result.display}}</span>
+    </div>
+  </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel class="on-dark" *ngIf="!isDying && showHitDice && hitDice.length > 0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.HitDice' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="form-group">
+    <app-hit-dice-use-display [creature]="creature"
+                              [conModifier]="conModifier"
+                              [hitDice]="hitDice"
+                              (applyHitDiceResults)="applyHitDiceResults($event)">
+    </app-hit-dice-use-display>
+  </div>
+</mat-expansion-panel>

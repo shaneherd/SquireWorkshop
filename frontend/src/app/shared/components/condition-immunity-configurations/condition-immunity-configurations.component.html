@@ -1,0 +1,43 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.ConditionImmunities' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.ConditionImmunities' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="form-group">
+    <div *ngIf="!editing && conditionImmunities.length === 0 && (inheritedConditionImmunities == null || inheritedConditionImmunities.length === 0)" class="no-items-label">
+      {{ 'NoImmunities' | translate }}
+    </div>
+    <ng-container *ngIf="!editing">
+      <ng-container *ngIf="inheritedConditionImmunities != null">
+        <div *ngFor="let item of inheritedConditionImmunities" class="condition-immunity list-item">
+          <span>{{item.name}}</span>
+        </div>
+      </ng-container>
+
+      <div *ngFor="let item of conditionImmunities" class="condition-immunity list-item">
+        <span>{{item.name}}</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="editing">
+      <div *ngFor="let item of conditionImmunityConfigurationCollection.conditionImmunities" class="condition-immunity">
+        <mat-checkbox
+          (change)="immunityChange($event, item)"
+          [disabled]="item.inheritedImmune"
+          [checked]="item.immune || item.inheritedImmune">
+        </mat-checkbox>
+        <span>{{item.condition.name}}</span>
+      </div>
+    </ng-container>
+
+  </div>
+
+</mat-expansion-panel>

@@ -1,0 +1,73 @@
+<div class="manage-container-desktop">
+  <div class="manage-content">
+    <div class="header-content">
+      <app-slide-in-header [slideInHeader]="slideInHeader"></app-slide-in-header>
+      <div class="menu-divider"></div>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+    </div>
+
+    <div class="slide-in-content-data-full-height">
+      <div class="manage-container col-xl-6 col-lg-12">
+        <div class="search">
+          <mat-checkbox
+            class="select-all"
+            (change)="selectAll($event)"
+            [indeterminate]="someSelected()"
+            [checked]="allSelected">
+          </mat-checkbox>
+
+          <div class="search-container">
+            <input [(ngModel)]="searchValue"
+                   (input)="search()"
+                   placeholder="{{ 'Search' | translate }}"
+                   class="form-control"/>
+          </div>
+          <div class="filter-icon">
+            <i class="fas fa-filter" [ngClass]="{'filter-disabled': !filterable}" (click)="filterClick()"></i>
+          </div>
+        </div>
+
+        <cdk-virtual-scroll-viewport itemSize="63" class="slide-in-content-data-full-height list-menu">
+          <div *cdkVirtualFor="let item of filteredItems; templateCacheSize: 50" class="menu-item-row">
+            <mat-checkbox
+              class="menu-item-box"
+              (change)="optionChange($event, item)"
+              [checked]="item.menuItem.selected">
+            </mat-checkbox>
+            <mat-card class="card clickable ellipsis menu-item-card" (click)="menuItemClick(item)">
+              <div>
+                <span>{{item.menuItem.name}}</span>
+              </div>
+            </mat-card>
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-12 action-buttons-container">
+      <div class="action-buttons">
+        <div class="action-button">
+          <app-button color="PRIMARY"
+                      [disabled]="noneSelected()"
+                      label="{{ 'Share' | translate }}"
+                      (onPrimaryClick)="shareClick()">
+          </app-button>
+        </div>
+        <div class="action-button" *ngIf="exportable">
+          <app-button color="TERTIARY"
+                      [disabled]="noneSelected()"
+                      label="{{ 'Export' | translate }}"
+                      (onPrimaryClick)="exportClick()">
+          </app-button>
+        </div>
+        <div class="action-button">
+          <app-button color="SECONDARY"
+                      [disabled]="noneSelected()"
+                      label="{{ 'Delete' | translate }}"
+                      (onPrimaryClick)="deleteClick()">
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.list-menu-header {
+  color: #ffffff;
+  height: 48px;
+  border-bottom: 1px solid #444444;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+
+  .list-menu-header-icon {
+    flex-shrink: 0;
+
+    &.back-icon {
+      margin-left: 10px;
+    }
+  }
+
+  .list-menu-header-name {
+    flex-grow: 1;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    margin-left: -20px;
+  }
+}

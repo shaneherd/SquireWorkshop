@@ -1,0 +1,123 @@
+<app-details headerName="{{ 'CreatureItemAction.' + creatureItemAction + '.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             [primaryDisabled]="disabled"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+
+  <div>
+    <label>{{ 'Labels.Item' | translate }}</label>
+    <span>{{name}}</span>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Range' | translate }}</label>
+    <span translate="FeetValue"
+          [translateParams]="{feet: range}"></span>
+  </div>
+
+  <div *ngIf="useAmmo" class="form-group">
+    <label>{{ 'Labels.Ammo' | translate }}</label>
+    <span *ngIf="ammos.length === 0">{{ammoType.name}}</span>
+
+    <div *ngIf="ammos.length > 0">
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedAmmo"
+                    (selectionChange)="ammoChange($event.value)">
+          <mat-option *ngFor="let ammo of ammos" [value]="ammo">
+            {{ammo.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div *ngIf="useAmmo && selectedAmmo != null && ammoSources.length > 0" class="form-group">
+    <label>{{ 'Labels.Source' | translate }}</label>
+    <div class="source-row">
+      <mat-form-field class="source-selection">
+        <mat-select [(ngModel)]="selectedAmmoSource"
+                    (selectionChange)="ammoSourceChange($event.value)">
+          <mat-option *ngFor="let source of ammoSources" [value]="source">
+            {{source == null ? 'Carried' : source.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span class="source-count">({{ammoCount}} Remaining)</span>
+    </div>
+  </div>
+
+  <div *ngIf="useThrow && showThrowSource" class="form-group">
+    <div *ngIf="throwSources.length > 0">
+      <label>{{ 'Labels.Source' | translate }}</label>
+      <div class="source-row">
+        <mat-form-field class="source-selection">
+          <mat-select [(ngModel)]="selectedThrowSource"
+                      (selectionChange)="throwSourceChange($event.value)">
+            <mat-option *ngFor="let source of throwSources" [value]="source">
+              {{source == null ? 'Carried' : source.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span class="source-count">({{throwCount}})</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <app-advantage-configuration class="on-dark" [proficiency]="attackProficiency">
+    </app-advantage-configuration>
+  </div>
+
+  <div *ngIf="finesse && abilities.length > 0" class="form-group">
+    <label>{{ 'Labels.Finesse' | translate }}</label>
+    <div>
+      <mat-button-toggle-group [ngModel]="ability"
+                               [vertical]="false"
+                               (change)="abilityChange($event.value)">
+        <mat-button-toggle *ngFor="let ability of abilities"
+                           [value]="ability">
+          {{ability.ability.abbr}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <div *ngIf="versatile" class="form-group">
+    <label>{{ 'Labels.Versatile' | translate }}</label>
+    <div>
+      <mat-button-toggle-group [ngModel]="twoHanded"
+                               [vertical]="false"
+                               (change)="versatileChange($event.value)">
+        <mat-button-toggle [value]="false">{{ 'OneHanded' | translate }}</mat-button-toggle>
+        <mat-button-toggle [value]="true" [disabled]="!hasEmptyHand">{{ 'TwoHanded' | translate }}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <div *ngIf="damageConfigurationCollection.attackMod !== 0 || damageConfigurationCollection.damageConfigurations.length > 0">
+    <!--  Attack-->
+    <div *ngIf="damageConfigurationCollection.attackMod !== 0">
+      <label>{{ 'Labels.Attack' | translate }}</label>
+      <span [matTooltip]="damageConfigurationCollection.attackModTooltip">
+        + {{damageConfigurationCollection.attackMod}}
+      </span>
+    </div>
+
+    <!--Damages-->
+    <div *ngIf="damageConfigurationCollection.damageConfigurations.length > 0">
+      <label>{{ 'Labels.Damages' | translate }}</label>
+      <div *ngFor="let config of damageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+        <app-damage-configuration-display [config]="config"
+                                          [disabled]="true"
+                                          [first]="i === 0">
+        </app-damage-configuration-display>
+      </div>
+    </div>
+  </div>
+
+</app-details>

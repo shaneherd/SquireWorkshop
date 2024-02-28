@@ -1,0 +1,18 @@
+<span *ngIf="config.adjustment && !first">+</span>
+<span *ngIf="config.values.numDice > 0">{{config.values.numDice}}d{{ 'DiceSize.' + config.values.diceSize | translate }}</span>
+<span *ngIf="config.values.numDice > 0 && config.values.miscModifier !== 0" class="spaced">+</span>
+<span *ngIf="config.values.miscModifier !== 0">{{config.values.miscModifier}}</span>
+<span *ngIf="config.values.abilityModifier != null && config.values.abilityModifier.id !== '0'" class="spaced">+ {{config.values.abilityModifier.name}}</span>
+<span *ngIf="config.spellCastingAbilityModifier">+ {{ 'SpellcastingAbilityModifier' | translate }}</span>
+<span *ngIf="!config.healing" class="damage-type">{{config.damageType?.name}}</span>
+
+<i *ngIf="editing"
+   class="delete-config fas fa-trash-alt"
+   [ngClass]="{'disabled': disabled}"
+   (click)="deleteDamage()"
+   matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+<i *ngIf="editing"
+   class="configure-config fas fa-cog"
+   [ngClass]="{'disabled': disabled}"
+   (click)="configureDamage()"
+   matTooltip="{{ 'Tooltips.Configure' | translate }}"></i>

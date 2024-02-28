@@ -1,0 +1,47 @@
+.shopping-cart {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.shopping-cart-page {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.pager {
+  flex-shrink: 0;
+}
+
+.list-menu {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.list-menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .card {
+    width: calc(100% - 35px);
+  }
+
+  .sub-item {
+    margin-left: 5px;
+  }
+
+  .quantity {
+    margin-left: 5px;
+  }
+
+  .ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}

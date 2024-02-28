@@ -1,0 +1,33 @@
+.damages {
+  margin-left: 20px;
+}
+
+.num-levels-above-base {
+  input {
+    width: 70px;
+    display: inline;
+    margin: 0 5px;
+  }
+
+  .damage-per,
+  .healing-per {
+    margin-right: 5px;
+  }
+
+  .levels-above-base {
+    margin-left: 5px;
+  }
+}
+
+.attack-mod {
+  margin-left: 20px;
+
+  input {
+    width: 70px;
+    display: inline;
+  }
+}
+
+.feature-save-dc {
+  display: inline;
+}

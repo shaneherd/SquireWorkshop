@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="toolCategory.name"
+                         [loading]="loading"
+                         [selected]="toolCategory.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-tool-category-details *ngIf="viewingToolCategory != null"
+                             [toolCategory]="viewingToolCategory">
+  </app-tool-category-details>
+</app-add-remove-slide-in>

@@ -1,0 +1,21 @@
+<app-details headerName="{{ 'Headers.AbilityScoreIncreases' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             (secondary)="closeDetails()"
+             [loading]="loading"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="points-spent-container">
+    <label>{{ 'Labels.PointsSpent' | translate }}</label>
+    <span>{{pointsSpent}}</span>
+    <span class="slash">/</span>
+    <span>{{pointsAllowed}}</span>
+  </div>
+  <div *ngFor="let config of asiConfigurations;">
+    <app-ability-score-increase-configuration-single-score [config]="config"
+                                                           (amountChange)="amountChange()">
+    </app-ability-score-increase-configuration-single-score>
+  </div>
+</app-details>
+

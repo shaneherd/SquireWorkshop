@@ -1,0 +1,68 @@
+<div *ngIf="modifierConfigurationCollection.modifierConfigurations.length > 0" class="form-group">
+  <label>{{ 'Headers.Modifiers' | translate }}</label>
+
+  <div class="form-group">
+    <div *ngFor="let config of modifierConfigurationCollection.modifierConfigurations" class="modifiers">
+      <div>
+        <label>{{getName(config)}}:</label>
+        <span *ngIf="config.adjustment && config.value !== 0">+ {{config.value}}</span>
+        <span *ngIf="!config.adjustment && config.value !== 0">{{config.value}}</span>
+      </div>
+
+      <div class="modifier-details" *ngIf="config.abilityModifier != null && config.abilityModifier.id !== '0'">+ {{config.abilityModifier.name}}</div>
+      <div class="modifier-details" *ngIf="config.proficient">+ {{ 'ProfBonus' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.halfProficient && !config.roundUp">+ {{ 'HalfProfBonus' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.halfProficient && config.roundUp">+ {{ 'HalfProfBonusRoundUp' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.useLevel">+ {{ 'Headers.Level' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.useHalfLevel">+ {{ 'HalfLevel' | translate }}</div>
+
+      <div class="modifier-details" *ngIf="config.advantage">{{ 'Advantage' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.disadvantage">{{ 'Disadvantage' | translate }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="characterLevel == null && modifierConfigurationCollection.extraModifiers && modifierConfigurationCollection.extraModifierConfigurations.length > 0">
+    <label>{{ 'Labels.ExtraModifiers' | translate }}</label>
+    <div class="num-levels-above-base form-group" *ngIf="modifierConfigurationCollection.extraModifiers">
+      <span class="extra-per">{{ 'Headers.ExtraModifiersPer' | translate }}</span>
+      <span>{{modifierConfigurationCollection.numLevelsAboveBase}}</span>
+      <span translate="Headers.LevelsAboveBase"
+            [translateParams]="{level: baseLevel}" class="levels-above-base"></span>
+    </div>
+    <div *ngFor="let config of modifierConfigurationCollection.extraModifierConfigurations" class="modifiers form-group">
+      <div>
+        <label>{{config.attribute.name}}:</label>
+        <span *ngIf="config.adjustment && config.value !== 0">+ {{config.value}}</span>
+        <span *ngIf="!config.adjustment && config.value !== 0">{{config.value}}</span>
+      </div>
+      <div class="modifier-details" *ngIf="config.proficient">{{ 'Proficient' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.halfProficient && !config.roundUp">{{ 'HalfProficient' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.halfProficient && config.roundUp">{{ 'HalfProficientRoundUp' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.advantage">{{ 'Advantage' | translate }}</div>
+      <div class="modifier-details" *ngIf="config.disadvantage">{{ 'Disadvantage' | translate }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="characterLevel == null && modifierConfigurationCollection.advancementModifiers && modifierConfigurationCollection.advancementModifierConfigurations.length > 0">
+    <div *ngFor="let level of characterLevels">
+      <div *ngIf="hasLevel(level)" class="form-group">
+        <label [translate]="'Labels.Level'"
+               [translateParams]="{level: level.name}"></label>
+        <div *ngFor="let config of modifierConfigurationCollection.advancementModifierConfigurations" class="damages">
+          <div *ngIf="config.level.id === level.id" class="modifiers form-group">
+            <div>
+              <label>{{config.attribute.name}}:</label>
+              <span *ngIf="config.adjustment && config.value !== 0">+ {{config.value}}</span>
+              <span *ngIf="!config.adjustment && config.value !== 0">{{config.value}}</span>
+            </div>
+            <div class="modifier-details" *ngIf="config.proficient">{{ 'Proficient' | translate }}</div>
+            <div class="modifier-details" *ngIf="config.halfProficient && !config.roundUp">{{ 'HalfProficient' | translate }}</div>
+            <div class="modifier-details" *ngIf="config.halfProficient && config.roundUp">{{ 'HalfProficientRoundUp' | translate }}</div>
+            <div class="modifier-details" *ngIf="config.advantage">{{ 'Advantage' | translate }}</div>
+            <div class="modifier-details" *ngIf="config.disadvantage">{{ 'Disadvantage' | translate }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

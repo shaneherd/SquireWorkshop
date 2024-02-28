@@ -1,0 +1,23 @@
+.quantity-tag {
+  margin-left: 10px;
+}
+
+.pack-item:not(:first-child) {
+  padding-top: 8px;
+}
+
+.pack-item-name {
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.pack-item-name.disabled {
+  text-decoration: none;
+
+  &:hover {
+    cursor: default;
+  }
+}

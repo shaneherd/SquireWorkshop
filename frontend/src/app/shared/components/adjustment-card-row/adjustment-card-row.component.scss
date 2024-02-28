@@ -1,0 +1,30 @@
+@import '../../../sass/variables';
+
+.adjustment-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .currency-card {
+    flex-grow: 1;
+  }
+
+  .help-icon,
+  .adjustment-amount {
+    margin-left: 10px;
+    flex-shrink: 0;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+}
+
+input {
+  width: 88px;
+  display: inline;
+}
+
+.adjustment-amount.flash {
+  background-color: $tertiary_color;
+}

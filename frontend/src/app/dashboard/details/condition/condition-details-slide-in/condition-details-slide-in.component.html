@@ -1,0 +1,30 @@
+<app-details [listObject]="condition"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="saveCondition()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ active ? 'Dismiss' : 'Activate' | translate }}"
+             [primaryDisabled]="disabled || (!active && immune)"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="form-group" *ngIf="immune">
+    <span class="tag">{{ 'Immune' | translate }}</span>
+  </div>
+
+  <span class="info-description form-group">{{condition.description}}</span>
+
+  <div *ngIf="condition.connectingConditions.length > 0">
+    <label>{{ 'ConnectingConditions' | translate }}</label>
+    <div *ngFor="let connecting of condition.connectingConditions" class="nested">
+      <span>• {{connecting.name}}</span>
+    </div>
+  </div>
+</app-details>
+
+<app-condition-configuration *ngIf="configuring"
+                             [creature]="creature"
+                             [condition]="condition"
+                             (save)="saveConfigurations()"
+                             (close)="closeConfigurations()">
+</app-condition-configuration>

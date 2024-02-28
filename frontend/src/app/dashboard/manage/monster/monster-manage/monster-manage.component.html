@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Monsters.Monsters' | translate }}"
+                 [menuService]="monsterService"
+                 [manageService]="monsterService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="Monsters"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-monster *ngIf="selectedItem != null"
+                        [monster]="selectedItem"
+                        (save)="updateSelected($event)"
+                        (cancel)="closeItem()">
+</app-add-remove-monster>

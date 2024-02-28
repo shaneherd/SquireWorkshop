@@ -1,0 +1,13 @@
+<app-add-remove-slide-in [headerName]="spell.spell.name"
+                         [loading]="loading"
+                         [selected]="spell.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-spell-details *ngIf="viewingSpell != null"
+                     [spellListObject]="spell.spell"
+                     [spell]="viewingSpell"
+                     [creature]="creature"
+                     [detailed]="false"
+                     [collection]="collection">
+  </app-spell-details>
+</app-add-remove-slide-in>

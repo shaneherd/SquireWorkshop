@@ -1,0 +1,286 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!spell.author"
+               [itemName]="itemName"
+               [id]="spell.id"
+               [inUseService]="powerService"
+               [showShare]="spell.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'PowerType.SPELL' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="spellForm"
+        (submit)="save()">
+
+    <mat-accordion class="example-headers-align">
+
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.BasicInfo' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!--Name-->
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input formControlName="name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <!--Level-->
+        <div class="form-group">
+          <label>{{ 'Labels.LevelLabel' | translate }}</label>
+          <span *ngIf="!editing">{{selectedLevel.name}}</span>
+          <div *ngIf="editing">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedLevel"
+                          [ngModelOptions]="{standalone: true}"
+                          (selectionChange)="levelChange($event.value)">
+                <mat-option *ngFor="let level of levels" [value]="level">
+                  {{level.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!--School-->
+        <div class="form-group">
+          <label>{{ 'Labels.School' | translate }}</label>
+          <span *ngIf="!editing">{{selectedSchool.name}}</span>
+          <mat-icon *ngIf="!editing && selectedSchool.id !== '0' && selectedSchool.description.length > 0"
+                    matTooltip="{{selectedSchool.description}}"
+                    class="help-icon">
+            info
+          </mat-icon>
+          <div *ngIf="editing">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedSchool"
+                          [ngModelOptions]="{standalone: true}"
+                          (selectionChange)="schoolChange($event.value)">
+                <mat-option *ngFor="let school of schools" [value]="school">
+                  {{school.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-icon *ngIf="selectedSchool.id !== '0' && selectedSchool.description.length > 0"
+                      matTooltip="{{selectedSchool.description}}"
+                      class="help-icon">
+              info
+            </mat-icon>
+          </div>
+        </div>
+
+        <!--ritual-->
+        <div class="form-group" *ngIf="editing || spell.ritual">
+          <label>{{ 'Labels.Ritual' | translate }}</label>
+          <mat-checkbox
+            (change)="ritualChange($event)"
+            [disabled]="!editing"
+            [checked]="spell.ritual">
+          </mat-checkbox>
+        </div>
+
+        <!--Casting Time-->
+        <div class="form-group casting-time">
+          <label>{{ 'Labels.CastingTime' | translate }}</label>
+          <span *ngIf="!editing" [translate]="'CastingTimeUnit.Count.' + selectedCastingTimeUnit"
+                [translateParams]="{count: spell.castingTime}"></span>
+          <div *ngIf="editing">
+            <input type="number" formControlName="castingTime" class="form-control"
+                   min="1" max="99"
+                   appInputNumber minValue="1" maxValue="99"/>
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedCastingTimeUnit"
+                          [ngModelOptions]="{standalone: true}"
+                          (selectionChange)="castingTimeUnitChange($event.value)">
+                <mat-option *ngFor="let castingTimeUnit of castingTimeUnits" [value]="castingTimeUnit">
+                  {{ 'CastingTimeUnit.' + castingTimeUnit | translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!--range-->
+        <div class="form-group" *ngIf="editing || !isOther() || spell.range > 0">
+          <label>{{ 'Labels.Range' | translate }}</label>
+          <span *ngIf="!editing && !isOther()">
+            {{ 'RangeType.' + spell.rangeType?.toString() | translate }}
+          </span>
+          <span *ngIf="!editing && isOther()" [translate]="'RangeValue.' + spell.rangeUnit"
+                [translateParams]="{value: spell.range}"></span>
+
+          <div>
+            <mat-button-toggle-group *ngIf="editing"
+                                     [ngModel]="spell.rangeType"
+                                     [ngModelOptions]="{standalone: true}"
+                                     [disabled]="!editing"
+                                     (change)="rangeTypeChange($event.value)">
+              <mat-button-toggle *ngFor="let rangeType of rangeTypes"
+                                 [value]="rangeType">
+                {{ 'RangeType.' + rangeType | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+
+        <div class="form-group range" *ngIf="editing && isOther()">
+          <input formControlName="range" min="0" max="9999" type="number"
+                 appInputNumber minValue="0" maxValue="9999"
+                 class="form-control"/>
+          <mat-form-field>
+            <mat-select [(ngModel)]="spell.rangeUnit"
+                        [ngModelOptions]="{standalone: true}"
+                        (selectionChange)="rangeUnitChange($event.value)">
+              <mat-option *ngFor="let rangeUnit of rangeUnits" [value]="rangeUnit">
+                {{ 'RangeUnit.' + rangeUnit | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!--Area of Effect-->
+        <app-area-of-effect-selection *ngIf="!loading"
+                                      [editing]="editing"
+                                      [powerAreaOfEffect]="spell.powerAreaOfEffect">
+        </app-area-of-effect-selection>
+
+        <!--components-->
+        <div class="form-group" *ngIf="editing || getComponents().length > 0">
+          <label>{{ 'Labels.Components' | translate }}</label>
+          <span *ngIf="!editing">{{getComponents()}}</span>
+          <div *ngIf="!editing && spell.components.length > 0" class="components">{{spell.components}}</div>
+          <div class="components-container" *ngIf="editing">
+            <div>
+              <mat-checkbox
+                (change)="verbalChange($event)"
+                [disabled]="!editing"
+                [checked]="spell.verbal">
+              </mat-checkbox>
+              <span>{{ 'Verbal' | translate }}</span>
+            </div>
+            <div>
+              <mat-checkbox
+                (change)="somaticChange($event)"
+                [disabled]="!editing"
+                [checked]="spell.somatic">
+              </mat-checkbox>
+              <span>{{ 'Somatic' | translate }}</span>
+            </div>
+            <div>
+              <mat-checkbox
+                (change)="materialChange($event)"
+                [disabled]="!editing"
+                [checked]="spell.material">
+              </mat-checkbox>
+              <span>{{ 'Material' | translate }}</span>
+            </div>
+            <textarea formControlName="components" *ngIf="spell.material" class="form-control info-description" maxlength="500"> </textarea>
+          </div>
+        </div>
+
+        <!--duration-->
+        <div class="form-group" *ngIf="editing || getDuration().length > 0">
+          <label>{{ 'Labels.Duration' | translate }}</label>
+          <span *ngIf="!editing">{{getDuration()}}</span>
+          <div class="duration-container" *ngIf="editing">
+            <div>
+              <mat-checkbox
+                (change)="instantaneousChange($event)"
+                [disabled]="!editing"
+                [checked]="spell.instantaneous">
+              </mat-checkbox>
+              <span>{{ 'Instantaneous' | translate }}</span>
+            </div>
+            <div>
+              <mat-checkbox
+                (change)="concentrationChange($event)"
+                [disabled]="!editing"
+                [checked]="spell.concentration">
+              </mat-checkbox>
+              <span>{{ 'Concentration' | translate }}</span>
+            </div>
+            <input formControlName="duration" maxlength="45" *ngIf="editing && !spell.instantaneous" class="form-control"/>
+          </div>
+        </div>
+
+        <!--Description-->
+        <div class="form-group" *ngIf="editing || (spell?.id !== '0' && spell.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing" class="info-description">{{spell.description}}</span>
+          <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="4000"> </textarea>
+        </div>
+
+        <!--Higher Levels-->
+        <div class="form-group" *ngIf="editing || (spell?.id !== '0' && spell.higherLevels.length > 0)">
+          <label>{{ 'Labels.HigherLevels' | translate }}</label>
+          <span *ngIf="!editing" class="info-description">{{spell.higherLevels}}</span>
+          <textarea formControlName="higherLevels" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Damages' | translate }}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <mat-icon matTooltip="{{ 'Tooltips.Damages' | translate }}">
+              help
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-power-damage-configuration-section [damageConfigurationCollection]="damageConfigurationCollection"
+                                                (configuringChange)="configuringChange($event)"
+                                                [editing]="editing"
+                                                [disabled]="configuring"
+                                                [showExtra]="selectedLevel.id !== '0'"
+                                                [baseLevel]="selectedLevel.id"
+                                                [isSpell]="true"
+                                                [showAdvancement]="selectedLevel.id === '0'">
+        </app-power-damage-configuration-section>
+      </mat-expansion-panel>
+
+      <!--Modifiers-->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Modifiers' | translate }}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <mat-icon matTooltip="{{ 'Tooltips.Modifiers' | translate }}">
+              help
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-power-modifier-configuration-section [modifierConfigurationCollection]="modifierConfigurationCollection"
+                                                  (configuringChange)="configuringChange($event)"
+                                                  [editing]="editing"
+                                                  [disabled]="configuring"
+                                                  [showExtra]="selectedLevel.id !== '0'"
+                                                  [baseLevel]="selectedLevel.id"
+                                                  [showAdvancement]="selectedLevel.id === '0'">
+        </app-power-modifier-configuration-section>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

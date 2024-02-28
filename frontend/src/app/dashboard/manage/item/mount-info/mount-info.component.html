@@ -1,0 +1,40 @@
+<!--speed-->
+<div class="form-group speed">
+  <label>{{ 'Labels.Speed' | translate }}</label>
+  <span *ngIf="!editing" translate="FeetValue"
+        [translateParams]="{feet: mount.speed}"></span>
+  <div *ngIf="editing">
+    <input type="number" class="form-control"
+           min="0" max="99"
+           appInputNumber minValue="0" maxValue="99"
+           [ngModel]="mount.speed"
+           (valueChange)="speedChange($event)"/>
+    {{ 'Feet' | translate }}
+  </div>
+</div>
+
+<!--carrying capacity-->
+<div class="form-group carrying-capacity">
+  <label>{{ 'Labels.CarryingCapacity' | translate }}</label>
+  <span *ngIf="!editing" translate="WeightValue"
+        [translateParams]="{value: mount.carryingCapacity}"></span>
+  <div *ngIf="editing">
+    <input type="number" class="form-control"
+           min="0" max="999"
+           appInputNumber minValue="0" maxValue="999"
+           [ngModel]="mount.carryingCapacity"
+           (valueChange)="carryingCapacityChange($event)"/>
+    {{ 'Lbs' | translate }}
+  </div>
+</div>
+
+<!--Cost-->
+<app-cost-configuration [item]="mount"
+                        [editing]="editing">
+</app-cost-configuration>
+
+<!--Description-->
+<app-description-configuration [item]="mount"
+                               [editing]="editing"
+                               [maxLength]="1000">
+</app-description-configuration>

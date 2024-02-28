@@ -1,0 +1,8 @@
+<app-dialog title="{{ data.title == null || data.title === '' ? ('AreYouSure' | translate) : data.title }}"
+            primaryLabel="{{ 'Confirm' | translate }}"
+            (primary)="confirm()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            (close)="cancel()">
+  <span class="confirmation-message">{{data.message}}</span>
+</app-dialog>

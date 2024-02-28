@@ -1,0 +1,384 @@
+<app-details [headerName]="headerName"
+             [loading]="loading"
+             [slideLeft]="slideLeft"
+             (close)="cancelClick()"
+             (primary)="primaryClick()"
+             [primaryCloseOnClick]="false"
+             [primaryDisabled]="active && characterCount ===  0 && monsterCount === 0"
+             primaryLabel="{{ (active ? (!encounterStarted ? 'Start' : 'Continue') : 'Save') | translate }}"
+             (secondary)="cancelClick()"
+             [secondaryCloseOnClick]="false"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             secondaryConfirmationMessage="{{ 'Encounter.Cancel.Confirmation' | translate }}"
+             (tertiary)="tertiaryClick()"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryDisabled]="characterCount === 0 && characterCount === 0"
+             [tertiaryLabel]="tertiaryLabel"
+             class="details">
+  <div class="content-data-full-height page-content">
+    <div *ngIf="showEdit">
+      <div class="form-group">
+        <label>{{ 'Labels.Name' | translate }}</label>
+        <input [(ngModel)]="editingEncounter.name" maxlength="50" class="form-control"/>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'Labels.Description' | translate }}</label>
+        <textarea [(ngModel)]="editingEncounter.description" class="form-control info-description" maxlength="255"> </textarea>
+      </div>
+    </div>
+
+    <div *ngIf="showSetup" class="on-dark">
+      <div class="form-group" *ngIf="showCharacters && characters.length > 0">
+        <label>{{ 'Headers.Characters' | translate }}</label>
+        <ng-container *ngFor="let encounterCharacter of characters">
+          <div class="character-row-container">
+            <mat-checkbox
+              (change)="characterChange($event, encounterCharacter)"
+              [disabled]="encounterCharacter.disabled"
+              [checked]="encounterCharacter.selected">
+            </mat-checkbox>
+            <div class="character-name-container">
+              <span>{{encounterCharacter.encounterCharacter.character.name}}</span>
+              <span class="character-level" *ngIf="encounterCharacter.level > 0">
+                (Lvl {{encounterCharacter.level}})
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="form-group">
+        <label *ngIf="showCharacters">{{ 'Headers.Monsters' | translate }}</label>
+        <div class="encounter-monster-group-row" *ngFor="let config of groups">
+          <mat-card class="clickable monster-card"
+                    [ngClass]="{'disabled': clickDisabled, 'zero': config.group.quantity === 0, 'active-group': encounterStarted && config.disabled}"
+                    (click)="groupClick(config)">
+            <div class="monster-name-row">
+              <div class="monster-details-container">
+                <div class="monster-name-container">
+                  <span class="monster-name">{{config.group.monster.name}}</span>
+                  <span class="monster-quantity">(x{{config.group.quantity}})</span>
+                </div>
+                <div class="monster-cr">
+                  <span>{{ 'Labels.CR' | translate }} {{ 'ChallengeRating.' + config.group.monster.challengeRating | translate }}</span>
+                </div>
+              </div>
+              <div class="quantity-button-container">
+                <div class="quantity-button add-container"
+                     (click)="increaseGroup($event, config)">
+                  <button mat-mini-fab
+                          [disabled]="quantityChangeDisabled || config.group.quantity === 99"
+                          class="no-focus navigation-button medium btn-primary squire-button">
+                    +
+                  </button>
+                </div>
+                <div class="quantity-button minus-container"
+                     *ngIf="config.group.quantity > 0"
+                     (click)="decreaseGroup($event, config)">
+                  <button mat-mini-fab
+                          [disabled]="quantityChangeDisabled || config.group.quantity === 0 || config.group.quantity <= config.originalQuantity"
+                          class="no-focus navigation-button medium squire-button">
+                    -
+                  </button>
+                </div>
+                <div class="quantity-button minus-container"
+                     *ngIf="config.group.quantity === 0 && !config.disabled"
+                     (click)="removeGroupClick($event, config)">
+                  <button mat-mini-fab
+                          [disabled]="quantityChangeDisabled"
+                          class="no-focus navigation-button medium squire-button">
+                    x
+                  </button>
+                </div>
+
+<!--                <div class="quantity-button minus-container"-->
+<!--                     *ngIf="group.disabled && active"-->
+<!--                     (click)="cloneGroup($event, group)">-->
+<!--                  <button mat-mini-fab-->
+<!--                          [disabled]="quantityChangeDisabled"-->
+<!--                          class="no-focus navigation-button medium squire-button">-->
+<!--                    <i class="fa-solid fa-clone"></i>-->
+<!--                  </button>-->
+<!--                </div>-->
+              </div>
+            </div>
+          </mat-card>
+        </div>
+
+        <mat-card class="add-item-card clickable"
+                  [ngClass]="{'disabled': clickDisabled}"
+                  (click)="addMonsters()">
+          <i class="fas fa-plus add-item-card-icon"></i>
+          <span>{{ 'Encounter.Monster.Add' | translate }}</span>
+        </mat-card>
+
+        <div class="monster-count-container">
+          <span class="monster-count"
+                [ngClass]="{'over-max': monsterCount > maxMonsters}"
+                translate="Encounter.CountMonsters"
+                [translateParams]="{current: monsterCount, max: maxMonsters}"></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <app-encounter-summary [campaignSettings]="campaign.settings"
+                               [encounterSummary]="encounterSummary">
+        </app-encounter-summary>
+      </div>
+    </div>
+
+    <div *ngIf="showInit" class="on-dark encounter-initiative">
+      <div class="form-group" *ngIf="showCharacters && characterCount > 0">
+        <div class="init-roll-header">
+          <label>{{ 'Headers.Characters' | translate }}</label>
+          <span class="total-label">{{ 'Total' | translate }}</span>
+        </div>
+        <ng-container *ngFor="let encounterCharacter of characters">
+          <div *ngIf="encounterCharacter.selected" class="initiative-container">
+            <span class="initiative-creature-name">{{encounterCharacter.encounterCharacter.character.name}}</span>
+            <input type="number"
+                   class="form-control creature-initiative"
+                   max="99" min="-99"
+                   *ngIf="!encounterCharacter.disabled"
+                   appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+                   [matTooltip]="encounterCharacter.initiativeTooltip"
+                   [ngModel]="encounterCharacter.encounterCharacter.initiative"
+                   (valueChange)="initiativeChange($event, encounterCharacter)"/>
+            <span *ngIf="encounterCharacter.disabled"
+                  [matTooltip]="encounterCharacter.initiativeTooltip"
+                  class="creature-initiative-disabled">
+              {{encounterCharacter.encounterCharacter.initiative}}
+            </span>
+          </div>
+        </ng-container>
+
+        <div class="roll-initiative-container">
+          <app-button color="TERTIARY"
+                      label="{{ 'RollInitiative' | translate }}"
+                      (onPrimaryClick)="rollCharacterInitiative()">
+          </app-button>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="monsterCount > 0">
+        <div class="init-roll-header" *ngIf="showCharacters">
+          <label>{{ 'Headers.Monsters' | translate }}</label>
+          <span class="total-label">{{ 'Total' | translate }}</span>
+        </div>
+        <ng-container *ngFor="let config of groups">
+          <div *ngIf="config.group.groupedInitiative && config.group.monsters.length > 0" class="initiative-container">
+            <div class="monster-name-container">
+              <span class="monster-name">{{config.group.monster.name}}</span>
+              <span class="monster-quantity">(x{{config.group.quantity}})</span>
+            </div>
+            <input type="number"
+                   class="form-control creature-initiative"
+                   max="99" min="-99"
+                   *ngIf="!config.disabled"
+                   appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+                   [matTooltip]="config.group.monsters[0].initiativeTooltip"
+                   [ngModel]="config.group.monsters[0].initiative"
+                   (valueChange)="groupInitiativeChange($event, config)"/>
+            <span *ngIf="config.disabled"
+                  [matTooltip]="config.group.monsters[0].initiativeTooltip"
+                  class="creature-initiative-disabled">
+              {{config.group.monsters[0].initiative}}
+            </span>
+          </div>
+
+          <ng-container *ngIf="!config.group.groupedInitiative && config.group.monsters.length > 0">
+            <div *ngFor="let encounterMonster of config.group.monsters" class="initiative-container">
+              <span class="initiative-creature-name">{{config.group.monster.name}} #{{encounterMonster.monsterNumber}}</span>
+              <input type="number"
+                     class="form-control creature-initiative"
+                     max="99" min="-99"
+                     appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+                     *ngIf="encounterMonster.monsterNumber > config.originalQuantity"
+                     [matTooltip]="encounterMonster.initiativeTooltip"
+                     [ngModel]="encounterMonster.initiative"
+                     (valueChange)="monsterInitiativeChange($event, encounterMonster, config)"/>
+              <span *ngIf="encounterMonster.monsterNumber <= config.originalQuantity"
+                    [matTooltip]="encounterMonster.initiativeTooltip"
+                    class="creature-initiative-disabled">
+              {{encounterMonster.initiative}}
+            </span>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <div class="roll-initiative-container">
+          <app-button color="TERTIARY"
+                      label="{{ 'RollInitiative' | translate }}"
+                      (onPrimaryClick)="rollMonsterInitiative()">
+          </app-button>
+        </div>
+      </div>
+
+      <div *ngIf="characterCount === 0 && monsterCount === 0" class="no-initiative-creatures-container">
+        <span class="no-initiative-creatures">{{ 'Encounter.NoCreatures' | translate }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="showConfirmInit" class="on-dark">
+      <div cdkDropList class="drag-list" (cdkDropListDropped)="drop($event)">
+        <ng-container *ngFor="let initiative of initiativeOrder">
+          <div class="drag-box" *ngIf="initiative.display" cdkDrag [cdkDragStartDelay]="100">
+            <div class="initiative-name-container"
+                 [ngClass]="{
+                    'current-turn': initiative.currentTurn,
+                    'not-started': !encounterStarted
+                 }">
+              <div class="initiative-name-first-row">
+                <i class="fa-solid fa-caret-right" *ngIf="initiative.currentTurn"></i>
+                <span class="initiative-name">{{initiative.name}}</span>
+              </div>
+              <span class="initiative-value">Init: {{initiative.initiative}} ({{initiative.initiativeModifierDisplay}})</span>
+            </div>
+
+            <span class="grip-icon" cdkDragHandle>
+              <i class="fas fa-grip-lines"></i>
+            </span>
+          </div>
+        </ng-container>
+      </div>
+
+      <div *ngIf="editingEncounter.customSort && (characterCount > 0 || monsterCount > 0)" class="custom-sort-container">
+        <span>{{ 'Encounter.CustomSort.Label' | translate }}</span>
+        <mat-icon matTooltip="{{ 'Encounter.CustomSort.Tooltip' | translate }}" class="help-icon">
+          help
+        </mat-icon>
+      </div>
+
+      <div *ngIf="characterCount === 0 && monsterCount === 0" class="no-initiative-creatures-container">
+        <span class="no-initiative-creatures">{{ 'Encounter.NoCreatures' | translate }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="showSurprise" class="on-dark">
+      <div class="form-group" *ngIf="showCharacters && characterCount > 0">
+        <div class="creature-surprise-header-row">
+          <label class="name-header">{{ 'Headers.Characters' | translate }}</label>
+          <span class="stealth-header">{{ 'Headers.Stealth' | translate }}</span>
+          <span class="surprised-header">{{ 'Headers.Surprised' | translate }}</span>
+        </div>
+        <ng-container *ngFor="let character of characters">
+          <div class="character-surprise-row" *ngIf="character.selected">
+            <div class="surprise-character-row-container ellipsis">
+              <div class="character-name-container ellipsis">
+                <span>{{character.encounterCharacter.character.name}}</span>
+              </div>
+              <div class="passive-perception">
+                <span>{{ 'Labels.PassivePerception' | translate }} {{character.passivePerception}}</span>
+              </div>
+              <div class="passive-perception">
+                <span>{{ 'Labels.Stealth' | translate }} {{character.stealthModifierDisplay}}</span>
+              </div>
+            </div>
+
+            <input type="number"
+                   class="form-control stealth-row-value"
+                   max="99" min="-99"
+                   *ngIf="!character.disabled"
+                   appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+                   [matTooltip]="character.stealthRollTooltip"
+                   [ngModel]="character.stealthRoll.totalResult"
+                   (valueChange)="characterStealthChange($event, character)"/>
+            <span class="stealth-row-value" *ngIf="character.disabled">{{character.stealthRoll.totalResult}}</span>
+
+            <div class="surprised-checkbox">
+              <mat-checkbox
+                class="no-label"
+                [disabled]="character.disabled"
+                (change)="surpriseCharacterChange($event, character)"
+                [checked]="character.encounterCharacter.surprised">
+              </mat-checkbox>
+            </div>
+          </div>
+        </ng-container>
+
+        <app-button color="TERTIARY"
+                    label="{{ 'RollStealth' | translate }}"
+                    (onPrimaryClick)="rollCharacterStealth()">
+        </app-button>
+      </div>
+
+      <div class="form-group" *ngIf="showCharacters && monsterCount > 0">
+        <div class="creature-surprise-header-row monsters">
+          <label class="name-header">{{ 'Headers.Monsters' | translate }}</label>
+          <span class="name-header"></span>
+          <span class="surprised-header">{{ 'Headers.Surprised' | translate }}</span>
+        </div>
+
+        <ng-container *ngFor="let group of groups">
+          <div class="surprise-monster-group-row" *ngIf="group.group.monsters.length > 0">
+            <mat-card class="clickable monster-card"
+                      [ngClass]="{'disabled': clickDisabled}"
+                      (click)="surpriseGroupClick(group)">
+              <div class="monster-name-row">
+                <div class="monster-details-container">
+                  <div class="monster-name-container">
+                    <span class="monster-name">{{group.group.monster.name}}</span>
+                    <span class="monster-quantity">(x{{group.group.quantity}})</span>
+                  </div>
+                  <div class="passive-perception">
+                    <span>{{ 'Labels.PassivePerception' | translate }} {{group.calculatedPassivePerception}}</span>
+                  </div>
+                  <div class="passive-perception">
+                    <span>{{ 'Labels.Stealth' | translate }} {{group.calculatedStealthDisplay}}</span>
+                    <span class="stealth-roll-display" *ngIf="group.calculatedStealthRollDisplay != null && group.calculatedStealthRollDisplay !== ''">({{group.calculatedStealthRollDisplay}})</span>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+
+            <mat-checkbox
+              class="surprised-checkbox no-label"
+              [disabled]="group.disabled"
+              (change)="surpriseGroupChange($event, group)"
+              [indeterminate]="group.calculatedSomeSurprised"
+              [checked]="group.calculatedSurprised">
+            </mat-checkbox>
+          </div>
+        </ng-container>
+
+        <div class="roll-monster-stealth">
+          <app-button color="TERTIARY"
+                      label="{{ 'RollStealth' | translate }}"
+                      (onPrimaryClick)="rollMonsterStealth()">
+          </app-button>
+        </div>
+      </div>
+
+      <div class="form-group no-surprise-creatures-container" *ngIf="characterCount === 0 && monsterCount === 0">
+        <span class="no-surprise-creatures">{{ 'Encounter.NoCreatures' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pager">
+    <app-pager [pageCount]="pageCount"
+               [index]="step"
+               (pageChange)="setStep($event)">
+    </app-pager>
+  </div>
+</app-details>
+
+<app-add-monsters *ngIf="addingMonsters"
+                  (close)="cancelMonsters()"
+                  (continue)="saveMonsters($event)">
+</app-add-monsters>
+
+<app-encounter-monster-group-configure-slide-in *ngIf="viewingGroup != null"
+                                                [encounter]="editingEncounter"
+                                                [group]="viewingGroup"
+                                                (close)="closeGroup()"
+                                                (save)="saveGroup($event)"
+                                                (remove)="removeGroup($event)">
+</app-encounter-monster-group-configure-slide-in>
+
+<app-encounter-monster-group-surprise-slide-in *ngIf="surpriseGroup != null"
+                                               [group]="surpriseGroup"
+                                               (cancel)="cancelSurpriseGroup()"
+                                               (continue)="saveSurpriseGroup()">
+</app-encounter-monster-group-surprise-slide-in>

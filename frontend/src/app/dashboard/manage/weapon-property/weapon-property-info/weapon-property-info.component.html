@@ -1,0 +1,39 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!weaponProperty.author"
+               [itemName]="itemName"
+               [id]="weaponProperty.id"
+               [inUseService]="attributeService"
+               [showShare]="weaponProperty.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'AttributeType.WEAPON_PROPERTY' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="weaponPropertyForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && weaponProperty?.id !== '0'">{{weaponProperty.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (weaponProperty?.id !== '0' && weaponProperty.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && weaponProperty?.id !== '0'" class="info-description">{{weaponProperty.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

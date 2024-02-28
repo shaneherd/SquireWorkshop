@@ -1,0 +1,55 @@
+<app-details headerName="{{ (magicalItemTable.id === '0' ? 'Headers.AddTable' : 'Headers.EditTable') | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             (tertiary)="removeClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Continue' | translate }}"
+             tertiaryLabel="{{ 'Remove' | translate }}"
+             tertiaryConfirmationMessage="{{ 'MagicalItemTable.RemoveTableConfirmation' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Name' | translate }}</label>
+    <input [(ngModel)]="editingTable.name" maxlength="100" class="form-control"/>
+  </div>
+
+  <div class="instructions form-group">{{ 'MagicalItemTable.Instructions' | translate }}</div>
+
+  <div class="form-group">
+    <app-magic-item-table [table]="editingTable"
+                          [showName]="false"
+                          [clickable]="true"
+                          [fullWidth]="true"
+                          (headerClick)="headerClick($event)"
+                          (cellClick)="cellClick($event)"
+                          class="on-dark">
+    </app-magic-item-table>
+  </div>
+
+  <div class="details-configuration-action-buttons-container form-group">
+    <div class="details-configuration-action-buttons">
+      <div class="action-button">
+        <button type="button" [disabled]="editingTable.columns.length >= 5" (click)="addColumn()" class="squire-button btn btn-primary">
+          {{ 'Headers.AddColumn' | translate }}
+        </button>
+      </div>
+      <div class="action-button">
+        <button type="button" [disabled]="editingTable.columns.length === 0" (click)="addRow()" class="squire-button btn btn-danger">
+          {{ 'Headers.AddRow' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</app-details>
+
+<app-magical-item-table-cell-configuration *ngIf="viewingCell != null"
+                                           [value]="viewingCell"
+                                           [header]="viewingHeader"
+                                           [removable]="viewingHeader ? editingTable.columns.length > 1 : editingTable.rows.length > 1"
+                                           (continue)="saveCell($event)"
+                                           (close)="cancelEditCell()"
+                                           (remove)="removeCell()">
+</app-magical-item-table-cell-configuration>

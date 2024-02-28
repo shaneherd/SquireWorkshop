@@ -1,0 +1,27 @@
+<app-details headerName="{{ 'Navigation.Characters.PageOrder' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div cdkDropList class="drag-list" (cdkDropListDropped)="drop($event)">
+    <div class="drag-box" *ngFor="let page of pages" cdkDrag [cdkDragStartDelay]="100">
+      <mat-checkbox
+        class="on-dark checkbox"
+        (change)="pageChange($event, page)"
+        [checked]="page.visible">
+      </mat-checkbox>
+
+      <span class="page-label">
+          {{ 'CharacterPageType.' + page.characterPageType | translate }}
+        </span>
+
+      <span class="grip-icon" cdkDragHandle>
+          <i class="fas fa-grip-lines"></i>
+        </span>
+    </div>
+  </div>
+</app-details>
+

@@ -1,0 +1,136 @@
+<div class="form-group">
+  <ng-container *ngIf="!isScroll">
+    <div *ngFor="let config of magicalItem.spells">
+      <app-magical-item-spell-card [magicalItem]="magicalItem"
+                                   [config]="config"
+                                   [disabled]="disabled || clickDisabled"
+                                   (click)="spellClick(config)">
+      </app-magical-item-spell-card>
+    </div>
+
+    <mat-card class="add-item-card clickable"
+              *ngIf="editing && (magicalItem.magicalItemType !== POTION || magicalItem.spells.length === 0)"
+              [ngClass]="{'disabled': disabled || clickDisabled}"
+              (click)="addSpells()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+      <span>{{ 'Headers.AddSpells' | translate }}</span>
+    </mat-card>
+
+    <ng-container *ngIf="magicalItem.magicalItemType !== POTION && (editing || magicalItem.additionalSpells)">
+      <div>
+        <mat-checkbox
+          (change)="additionalSpellsChange($event)"
+          [disabled]="!editing"
+          [checked]="magicalItem.additionalSpells">
+        </mat-checkbox>
+        <span>{{ 'AllowAdditionalSpells' | translate }}</span>
+      </div>
+
+      <div *ngIf="magicalItem.additionalSpells && (editing || magicalItem.additionalSpellsRemoveOnCasting)">
+        <mat-checkbox
+          (change)="additionalSpellsRemoveOnCastingChange($event)"
+          [disabled]="!editing"
+          [checked]="magicalItem.additionalSpellsRemoveOnCasting">
+        </mat-checkbox>
+        <span>{{ 'AdditionalSpellsRemoveOnCasting' | translate }}</span>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isScroll || magicalItem.additionalSpells">
+    <label *ngIf="!isScroll">{{ 'MagicalItemTypeLabel.SCROLL.Applicable' | translate }}</label>
+    <div *ngFor="let config of applicableSpells">
+      <mat-card [ngClass]="{'clickable': !disabled}"
+                (click)="applicableSpellClick(config)">
+        <span>{{config.display}}</span>
+      </mat-card>
+    </div>
+
+    <mat-card class="add-item-card clickable"
+              *ngIf="editing"
+              [ngClass]="{'disabled': disabled}"
+              (click)="addApplicableSpell()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+      <span>{{ 'Headers.AddFilter' | translate }}</span>
+    </mat-card>
+  </ng-container>
+
+  <div class="form-group" *ngIf="editing || !isNone">
+    <label>{{ 'Labels.SaveAttack' | translate }}</label>
+    <span *ngIf="!editing">
+        {{ 'MagicalItemSpellAttackCalculationType.' + magicalItem.spellAttackCalculationType | translate }}
+      </span>
+
+    <div>
+      <mat-button-toggle-group *ngIf="editing"
+                               [ngModel]="magicalItem.spellAttackCalculationType"
+                               (change)="spellAttackCalculationTypeChange($event.value)">
+        <mat-button-toggle *ngFor="let calculationType of calculationTypes"
+                           [value]="calculationType">
+          {{ 'MagicalItemSpellAttackCalculationType.' + calculationType | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="isTable">
+    <app-magic-item-table [table]="scrollTable">
+    </app-magic-item-table>
+  </div>
+
+  <div class="form-group" *ngIf="isCaster">
+    <span>{{ 'CasterCalculationTypeMessage' | translate }}</span>
+  </div>
+
+  <div class="form-group" *ngIf="isCustom">
+    <div>
+      <label>{{ 'Labels.SpellAttack' | translate }}</label>
+      <span *ngIf="!editing">+ {{magicalItem.spellAttackModifier}}</span>
+      <span *ngIf="editing">+</span>
+      <input *ngIf="editing" type="number" class="form-control spell-attack"
+             min="-99" max="99"
+             appInputNumber minValue="-99" maxValue="99"
+             [ngModel]="magicalItem.spellAttackModifier"
+             (valueChange)="spellAttackChange($event)"/>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.SpellSaveDC' | translate }}</label>
+      <span *ngIf="!editing">{{magicalItem.spellSaveDC}}</span>
+      <input *ngIf="editing" type="number" class="form-control spell-save"
+             min="0" max="99"
+             appInputNumber minValue="0" maxValue="99"
+             [ngModel]="magicalItem.spellSaveDC"
+             (valueChange)="spellSaveDCChange($event)"/>
+    </div>
+  </div>
+</div>
+
+<app-add-spells *ngIf="addingSpells"
+                [spellsToIgnore]="magicalItem.spells"
+                [multiselect]="magicalItem.magicalItemType !== POTION"
+                (close)="cancelAddSpells()"
+                (continue)="continueAddSpells($event)">
+</app-add-spells>
+
+<app-magical-item-spell-configuration *ngIf="configuringItem != null"
+                                      [magicalItem]="magicalItem"
+                                      [editing]="editing"
+                                      [showCharges]="magicalItem.hasCharges"
+                                      (continue)="updateSpellConfiguration($event)"
+                                      (remove)="deleteSpell($event)"
+                                      (close)="cancelConfiguration()"
+                                      [magicalItemSpellConfiguration]="configuringItem">
+</app-magical-item-spell-configuration>
+
+<app-magical-item-applicable-spell-configuration *ngIf="applicableSpell != null"
+                                                 [newType]="!editingApplicableSpell"
+                                                 [editing]="editing"
+                                                 [deletable]="magicalItem.applicableSpells.length > 1"
+                                                 (continue)="updateApplicableSpell($event)"
+                                                 (remove)="deleteApplicableSpell($event)"
+                                                 (close)="cancelApplicableSpell()"
+                                                 [listSource]="listSource"
+                                                 [magicalItemType]="magicalItem.magicalItemType"
+                                                 [magicalItemApplicability]="applicableSpell.magicalItemApplicability">
+</app-magical-item-applicable-spell-configuration>

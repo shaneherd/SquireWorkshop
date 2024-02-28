@@ -1,0 +1,53 @@
+<app-details [headerName]="header"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div class="details">
+    <div class="form-group" *ngIf="isSave">
+      <label>{{ 'Labels.Base' | translate }}</label>
+      <span>{{8}}</span>
+    </div>
+
+    <div class="form-group" *ngIf="powerModifier.ability != null">
+      <label>{{ 'Labels.Ability' | translate }}</label>
+      <span>{{abilityModifier}}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.Prof' | translate }}</label>
+      <span>{{getProfModifier()}}</span>
+    </div>
+
+    <div class="form-group on-dark">
+      <app-proficiency-configuration [proficiency]="proficiency"
+                                     [proficiencyDisabled]="false">
+      </app-proficiency-configuration>
+    </div>
+
+    <div *ngFor="let modifier of modifiersDisplay;" class="form-group">
+      <app-label-value [labelValue]="modifier"></app-label-value>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Labels.Misc' | translate }}</label>
+      <input type="number"
+             class="form-control dice-collection"
+             max="99" min="-99"
+             appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+             [ngModel]="proficiency.miscModifier"
+             (valueChange)="miscChange($event)"/>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Labels.Total' | translate }}</label>
+      <span>{{getTotal()}}</span>
+    </div>
+
+    <div class="form-group on-dark" *ngIf="!isSave">
+      <app-advantage-configuration [proficiency]="proficiency">
+      </app-advantage-configuration>
+    </div>
+  </div>
+</app-details>

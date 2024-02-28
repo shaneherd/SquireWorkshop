@@ -1,0 +1,119 @@
+<app-details headerName="{{ 'Navigation.Characters.Settings' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <mat-accordion>
+    <mat-expansion-panel class="on-dark" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Spellcasting' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-spellcasting-settings [playerCharacter]="playerCharacter"
+                                 [settings]="settings">
+      </app-spellcasting-settings>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Equipment' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-equipment-settings [playerCharacter]="playerCharacter"
+                              [settings]="settings">
+      </app-equipment-settings>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Speed' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-speed-settings [playerCharacter]="playerCharacter"
+                          [settings]="settings">
+      </app-speed-settings>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Health' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-health-settings [playerCharacter]="playerCharacter"
+                           [settings]="settings">
+      </app-health-settings>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Features' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-feature-settings [playerCharacter]="playerCharacter"
+                            [settings]="settings">
+      </app-feature-settings>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Skills' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-skill-settings [playerCharacter]="playerCharacter"
+                          [settings]="settings">
+      </app-skill-settings>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.CharacterValidation' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-character-validation-settings [playerCharacter]="playerCharacter"
+                                         [settings]="settings">
+      </app-character-validation-settings>
+    </mat-expansion-panel>
+
+<!--    <mat-expansion-panel class="on-dark">-->
+<!--      <mat-expansion-panel-header>-->
+<!--        <mat-panel-title>-->
+<!--          {{ 'Headers.QuickActions' | translate }}-->
+<!--        </mat-panel-title>-->
+<!--      </mat-expansion-panel-header>-->
+
+<!--      <app-quick-action-settings [playerCharacter]="playerCharacter"-->
+<!--                                 [settings]="settings">-->
+<!--      </app-quick-action-settings>-->
+<!--    </mat-expansion-panel>-->
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Misc' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-misc-settings [playerCharacter]="playerCharacter"
+                         [settings]="settings">
+      </app-misc-settings>
+    </mat-expansion-panel>
+  </mat-accordion>
+</app-details>
+

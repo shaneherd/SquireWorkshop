@@ -1,0 +1,21 @@
+.trait {
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-left: 20px;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+.custom-trait {
+  white-space: pre-line;
+}
+
+.characteristic-values {
+  line-height: 20px;
+}
+
+.image-display {
+  width: 100%;
+  display: block;
+}

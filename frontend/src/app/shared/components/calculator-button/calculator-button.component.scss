@@ -1,0 +1,25 @@
+.calculator-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #ffffff;
+
+  &.clickable:hover {
+    cursor: pointer;
+    border: 1px solid #ffffff;
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  &:not(:disabled):not(.disabled):active  {
+    border: 1px solid #ffffff;
+  }
+
+  &.disabled {
+    &.clickable:hover {
+      cursor: not-allowed;
+      border: 1px solid #ffffff;
+    }
+  }
+}

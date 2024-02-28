@@ -1,0 +1,99 @@
+.drag-box {
+  padding: 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  color: white;
+  font-size: 14px;
+
+  .grip-icon {
+    flex-shrink: 0;
+  }
+
+  .grip-icon {
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .initiative-name-container {
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+
+    .initiative-name-first-row {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      font-weight: bold;
+    }
+
+    .initiative-name {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      font-weight: bold;
+      margin-left: 12px;
+    }
+
+    .initiative-value {
+      margin-left: 12px;
+      font-style: italic;
+    }
+
+    &.current-turn {
+      .fa-caret-right {
+        margin-right: 5px;
+      }
+
+      .initiative-name {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  .grip-icon {
+    cursor: grabbing;
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-box:last-child {
+  border: none;
+}
+
+.drag-list.cdk-drop-list-dragging .drag-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.custom-sort-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}

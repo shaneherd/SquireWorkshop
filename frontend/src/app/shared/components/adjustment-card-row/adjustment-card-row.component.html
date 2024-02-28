@@ -1,0 +1,26 @@
+<div *ngIf="adjustment != null && adjustment.creatureWealthAmount.display" class="adjustment-container">
+  <app-adjustment-card class="currency-card"
+                       [quantity]="adjustment.creatureWealthAmount.amount"
+                       [adjustment]="adjustment.totalAdjustment"
+                       [label]="adjustment.creatureWealthAmount.costUnit.name"
+                       [clickDisabled]="clickDisabled"
+                       [showBadge]="showBadge"
+                       (cardClick)="onCardClick()">
+  </app-adjustment-card>
+
+  <input type="number"
+         *ngIf="showInput"
+         class="form-control adjustment-amount"
+         [ngClass]="{'flash': adjustment.flash}"
+         [max]="MAX_ADJUSTMENT_AMOUNT" min="0"
+         appInputNumber [minValue]="0" [maxValue]="MAX_ADJUSTMENT_AMOUNT" [allowDecimal]="false"
+         [ngModel]="adjustment.amount"
+         (valueChange)="amountChange($event)"/>
+
+  <mat-icon *ngIf="showInput"
+            [matTooltip]="adjustment.conversionTooltip"
+            [ngClass]="{'hidden': adjustment.conversionTooltip === ''}"
+            class="help-icon">
+    help
+  </mat-icon>
+</div>

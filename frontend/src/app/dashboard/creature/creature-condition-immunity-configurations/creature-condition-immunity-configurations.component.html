@@ -1,0 +1,29 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.ConditionImmunities' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon matTooltip="{{ 'Tooltips.ConditionImmunities' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="form-group">
+    <div *ngFor="let item of conditionImmunityConfigurationCollection.conditionImmunities" class="condition-immunity">
+      <mat-checkbox
+        (change)="immunityChange($event, item)"
+        [disabled]="item.inheritedFrom.length > 0"
+        [checked]="item.immune || item.inheritedFrom.length > 0">
+      </mat-checkbox>
+      <span>{{item.condition.name}}</span>
+
+      <mat-icon *ngIf="item.inheritedFrom.length > 0" [matTooltip]="getTooltip(item)" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+  </div>
+
+</mat-expansion-panel>

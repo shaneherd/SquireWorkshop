@@ -1,0 +1,44 @@
+<app-details headerName="{{ 'Navigation.Manage.Items.Add' | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="search">
+    <div class="search-container">
+      <input [(ngModel)]="searchValue"
+             (input)="searchChange()"
+             class="form-control"/>
+    </div>
+    <div class="filter-icon">
+      <i class="fas fa-filter" (click)="filter()"></i>
+    </div>
+  </div>
+
+  <div class="details-configuration">
+    <cdk-virtual-scroll-viewport itemSize="63" class="list-menu">
+      <div *cdkVirtualFor="let selectionItem of selectionItems; templateCacheSize: 50" class="list-menu-item">
+        <mat-checkbox class="on-dark" [checked]="selectionItem.selected" (change)="toggleSelected(selectionItem)"></mat-checkbox>
+        <mat-card class="card clickable ellipsis" [ngClass]="selectionItem.selected ? 'selected' : ''"  (click)="itemClick(selectionItem)">
+          <span class="bold">{{selectionItem.item.name}}</span>
+          <span class="sub-item" *ngIf="selectionItem.selectedApplicableItem != null">({{selectionItem.selectedApplicableItem.name}})</span>
+        </mat-card>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+
+  <app-add-remove-item *ngIf="viewingItem != null"
+                       [selectionItem]="viewingItem"
+                       (save)="toggleSelected($event)"
+                       (cancel)="closeDetails()" >
+  </app-add-remove-item>
+
+  <app-magical-item-type-selection *ngIf="magicalItem != null && magicalItem.item.applicableMagicalItems.length > 0"
+                                   [selectedMagicalItem]="magicalItem"
+                                   (continue)="continueMagicalItem($event)"
+                                   (cancel)="cancelMagicalItem()">
+  </app-magical-item-type-selection>
+</app-details>

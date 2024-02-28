@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  traefik:
+    ports:
+      - '80:80'
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    labels:
+      - 'traefik.http.routers.frontend.rule=PathPrefix(`/`)'
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    labels:
+      - 'traefik.http.routers.backend.rule=PathPrefix(`/api`)'
+  database:
+    build:
+      context: ./database
+      dockerfile: Dockerfile

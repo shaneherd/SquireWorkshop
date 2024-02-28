@@ -1,0 +1,36 @@
+<app-details headerName="{{ 'Headers.Health' | translate }}"
+             [configurable]="playerCharacter != null"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             [secondaryCloseOnClick]="false"
+             [closeOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+
+  <div class="full-height-component">
+    <app-health-calculator [creature]="creature"
+                           [collection]="collection"
+                           [calculatorState]="calculatorState"
+                           [showHitDice]="playerCharacter != null && playerCharacter.characterSettings.health.showHitDice"
+                           [hitDice]="hitDice"
+                           [maxHP]="maxHP"
+                           [maxHpModifier]="maxHpModifier"
+                           [maxHPTooltip]="maxHPTooltip"
+                           [flashLCD]="playerCharacter == null || playerCharacter.characterSettings.health.flashLCD"
+                           [highlightValues]="playerCharacter == null || playerCharacter.characterSettings.health.highlightValues"
+                           [dropItemsWhenDying]="playerCharacter != null && playerCharacter.characterSettings.health.dropItemsWhenDying"
+                           [removeProneOnRevive]="playerCharacter != null && playerCharacter.characterSettings.health.removeProneOnRevive"
+                           [quickKill]="quickKill">
+    </app-health-calculator>
+  </div>
+</app-details>
+
+<app-health-configuration-details *ngIf="configuring && playerCharacter != null"
+                                  [playerCharacter]="playerCharacter"
+                                  [collection]="collection"
+                                  (save)="saveConfigurations()"
+                                  (close)="closeConfigurations()">
+</app-health-configuration-details>

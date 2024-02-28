@@ -1,0 +1,119 @@
+<div [ngClass]="{'details': onDark}" *ngIf="feature != null">
+  <div>
+    <label>{{ 'Labels.Category' | translate }}</label>
+    <span>
+      {{ 'CharacteristicType.' + feature.characteristicType?.toString() | translate }}
+    </span>
+  </div>
+
+  <div *ngIf="feature.characteristicType != null && !isFeat">
+    <label>{{ 'CharacteristicType.' + feature.characteristicType.toString() | translate }}:</label>
+    <span>{{feature.characteristic?.name}}</span>
+  </div>
+
+  <div *ngIf="feature.characterLevel != null && feature.characterLevel.id !== '0'">
+    <label>{{ 'Labels.LevelGained' | translate }}</label>
+    <span>{{feature.characterLevel.name}}</span>
+  </div>
+
+  <div *ngIf="!isOther() || feature.range > 0">
+    <label>{{ 'Labels.Range' | translate }}</label>
+    <span *ngIf="!isOther()">
+            {{ 'RangeType.' + feature.rangeType?.toString() | translate }}
+          </span>
+    <span *ngIf="isOther()" [translate]="'RangeValue.' + feature.rangeUnit"
+          [translateParams]="{value: feature.range}"></span>
+  </div>
+
+  <app-area-of-effect-selection [editing]="false"
+                                [showHelp]="showHelp"
+                                [powerAreaOfEffect]="feature.powerAreaOfEffect">
+  </app-area-of-effect-selection>
+
+  <div *ngIf="feature.passive">
+    <label>{{ 'Headers.Passive' | translate }}</label>
+  </div>
+
+  <div *ngIf="feature.prerequisite.length > 0">
+    <label>{{ 'Labels.Prerequisite' | translate }}</label>
+    <span>{{feature.prerequisite}}</span>
+  </div>
+
+  <div class="form-group" *ngIf="feature.description.length > 0">
+    <label>{{ 'Labels.Description' | translate }}</label>
+    <span class="info-description">{{feature.description}}</span>
+  </div>
+
+  <ng-container *ngIf="showAll">
+    <!--  LIMITED USE-->
+    <div *ngIf="feature.limitedUses.length > 0" class="form-group">
+      <label>{{ 'Headers.LimitedUse' | translate }}</label>
+      <div *ngIf="feature.limitedUses.length > 0" class="padded">
+        <label>{{ 'Labels.MaxUses' | translate }}</label>
+        <app-single-limited-use-row *ngIf="playerCharacter == null"
+                                    [limitedUse]="feature.limitedUses[0]"
+                                    [abilities]="abilities"
+                                    [deletable]="false"
+                                    [showLevel]="false"
+                                    [editing]="false"
+                                    [disabled]="true">
+        </app-single-limited-use-row>
+        <span *ngIf="playerCharacter != null">{{getMaxUses()}}</span>
+      </div>
+
+      <div *ngIf="detailed && feature.limitedUses.length > 0 && playerCharacter != null" class="padded">
+        <label>{{ 'Labels.UsesRemaining' | translate }}</label>
+        <span>{{getUsesRemaining()}}</span>
+      </div>
+
+      <div class="form-group padded" *ngIf="playerCharacter == null && feature.limitedUses.length > 1">
+        <div *ngFor="let singleLimitedUse of feature.limitedUses; let i = index;" class="limited-use">
+          <app-single-limited-use-row *ngIf="i > 0"
+                                      [limitedUse]="singleLimitedUse"
+                                      [abilities]="abilities"
+                                      [editing]="false"
+                                      [disabled]="true">
+          </app-single-limited-use-row>
+        </div>
+      </div>
+
+      <div *ngIf="feature.rechargeOnShortRest || feature.rechargeOnLongRest" class="padded">
+        <span *ngIf="feature.rechargeOnShortRest">{{ 'RechargeOnShortRest' | translate }}</span>
+        <span *ngIf="!feature.rechargeOnShortRest && feature.rechargeOnLongRest">{{ 'RechargeOnLongRest' | translate }}</span>
+      </div>
+    </div>
+
+    <!--  Damages-->
+    <app-power-damage-display *ngIf="damageConfigurationCollection != null"
+                              [damageConfigurationCollection]="damageConfigurationCollection"
+                              [isSpell]="false"
+                              [characterLevel]="characterLevel">
+    </app-power-damage-display>
+
+    <!--  Modifiers-->
+    <app-power-modifier-display *ngIf="modifierConfigurationCollection != null"
+                                [modifierConfigurationCollection]="modifierConfigurationCollection"
+                                [isSpell]="false"
+                                [characterLevel]="characterLevel">
+    </app-power-modifier-display>
+
+    <!--  Tags-->
+    <div class="form-group" *ngIf="featureListObject != null">
+      <label>{{ 'Labels.Tags' | translate }}</label>
+      <i class="fas fa-edit" (click)="editTags()"></i>
+      <div class="feature-tags">
+        <app-tag-details [tags]="featureListObject.tags">
+        </app-tag-details>
+      </div>
+    </div>
+  </ng-container>
+
+  <app-power-tagging-configuration-slide-in *ngIf="editingTags"
+                                            [creature]="playerCharacter"
+                                            [powerId]="feature.id"
+                                            [tags]="playerCharacter.creatureFeatures.tags"
+                                            [selectedTags]="featureListObject.tags"
+                                            (save)="saveTags($event)"
+                                            (close)="closeTags()">
+  </app-power-tagging-configuration-slide-in>
+</div>

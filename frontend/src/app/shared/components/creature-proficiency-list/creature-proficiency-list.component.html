@@ -1,0 +1,10 @@
+<div class="form-group">
+  <div *ngFor="let prof of proficiencies;" class="proficiency-list">
+    <app-creature-proficiency *ngIf="parentEnabled" [prof]="prof"></app-creature-proficiency>
+    <span *ngIf="!parentEnabled">{{prof.item.name}}</span>
+
+    <div class="child-prof-container" *ngFor="let child of prof.childrenProficiencies">
+      <app-creature-proficiency [prof]="child"></app-creature-proficiency>
+    </div>
+  </div>
+</div>

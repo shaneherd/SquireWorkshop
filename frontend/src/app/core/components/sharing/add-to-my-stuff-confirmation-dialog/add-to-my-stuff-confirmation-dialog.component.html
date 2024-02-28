@@ -1,0 +1,15 @@
+<app-dialog [title]="data.entity.name"
+            primaryLabel="{{ 'Confirm' | translate }}"
+            (primary)="confirm()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            (close)="cancel()">
+  <ng-container *ngIf="data.versionInfo == null || data.versionInfo.version === 0">
+    <div class="form-group">{{ 'Sharing.MyStuff.Add.Message' | translate }}</div>
+  </ng-container>
+  <ng-container *ngIf="data.versionInfo != null && data.versionInfo.version > 0">
+    <div class="form-group">{{ 'Sharing.MyStuff.Update.Message' | translate }}</div>
+  </ng-container>
+  <div class="form-group">{{ 'Sharing.MyStuff.Dependencies' | translate }}</div>
+  <div class="form-group">{{ 'Sharing.MyStuff.Footer' | translate }}</div>
+</app-dialog>

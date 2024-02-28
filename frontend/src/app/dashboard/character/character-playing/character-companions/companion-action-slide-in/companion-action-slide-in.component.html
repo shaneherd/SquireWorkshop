@@ -1,0 +1,112 @@
+<app-details [headerName]="action.name"
+             (close)="closeClick()"
+             (secondary)="closeClick()"
+             primaryLabel="{{ (isAttack ? 'Attack' : 'Use') | translate }}"
+             [primaryDisabled]="useDisabled"
+             (primary)="useClick()"
+             [tertiaryLabel]="tertiaryLabel"
+             (tertiary)="tertiaryClick()"
+             [tertiaryDisabled]="tertiaryDisabled"
+             [tertiaryCloseOnClick]="false"
+             secondaryLabel="{{ 'Close' | translate }}">
+  <div class="form-group">
+    <div>
+      <label>{{ 'Labels.Type' | translate }}</label>
+      <span>{{ 'Action.' + action.actionType | translate }}</span>
+    </div>
+
+    <div *ngIf="isLegendary">
+      <label>{{ 'Labels.LegendaryCost' | translate }}</label>
+      <span>{{action.legendaryCost}}</span>
+    </div>
+
+    <!-- Attack-->
+    <div>
+      <label class="attack-type-label">{{ 'Labels.AttackType' | translate }}</label>
+      <span>{{ 'AttackType.' + action.attackType | translate }}</span>
+    </div>
+
+    <!--Save Type-->
+    <div *ngIf="isSave">
+      <label>{{ 'Labels.SaveType' | translate }}</label>
+      <span>{{damageConfigurationCollection.saveType.id === '0' ? ( 'None' | translate ) : damageConfigurationCollection.saveType.name}}</span>
+
+      <div>
+        <label>{{ 'Labels.DC' | translate }}</label>
+        <span>{{damageConfigurationCollection.attackMod}}</span>
+      </div>
+
+      <div *ngIf="damageConfigurationCollection.halfOnSave">
+        <span>{{ 'Headers.HalfOnSave' | translate }}</span>
+      </div>
+    </div>
+
+    <ng-container *ngIf="attack">
+      <!--reach-->
+      <div *ngIf="!isRanged">
+        <label>{{ 'Labels.Reach' | translate }}</label>
+        <span>{{action.reach}} {{ 'ft' | translate }}</span>
+      </div>
+
+      <!--range-->
+      <div *ngIf="isRanged">
+        <label>{{ 'Labels.Range' | translate }}</label>
+        <span>{{action.normalRange}} {{ 'ft' | translate }} / {{action.longRange}} {{ 'ft' | translate }}</span>
+      </div>
+
+      <div *ngIf="isRanged && action.ammoType != null">
+        <label>{{ 'Labels.Ammo' | translate }}</label>
+        <span>{{action.ammoType.name}}</span>
+      </div>
+
+      <div *ngIf="isAttack">
+        <label>{{ 'Labels.Attack' | translate }}</label>
+        <span>1d20 + {{damageConfigurationCollection.attackMod}}</span>
+
+        <div *ngIf="damageConfigurationCollection.halfOnSave">
+          <span>{{ 'Headers.HalfOnMiss' | translate }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="isHeal && damageConfigurationCollection.temporaryHP">
+        <span>{{ 'Headers.TemporaryHP' | translate }}</span>
+      </div>
+
+      <!--Damages-->
+      <div *ngIf="damageConfigurationCollection.damageConfigurations.length > 0">
+        <label *ngIf="!isHeal">{{ 'Labels.Damages' | translate }}</label>
+        <label *ngIf="isHeal">{{ 'Labels.Healing' | translate }}</label>
+        <div *ngIf="damageConfigurationCollection.damageConfigurations.length === 0 && !isHeal" class="no-items-label">
+          {{ 'NoDamages' | translate }}
+        </div>
+        <div *ngIf="damageConfigurationCollection.damageConfigurations.length === 0 && isHeal" class="no-items-label">
+          {{ 'NoHealing' | translate }}
+        </div>
+        <div *ngFor="let config of damageConfigurationCollection.damageConfigurations; let i = index;" class="nested">
+          <app-damage-configuration-display [config]="config"
+                                            [editing]="false"
+                                            [disabled]="true"
+                                            [first]="i === 0">
+          </app-damage-configuration-display>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+<!--  Limited Use-->
+  <div class="form-group" *ngIf="action.limitedUse != null">
+    <div>
+      <label>{{ 'Labels.UsesRemaining' | translate }}</label>
+      <span>{{usesRemainingDisplay}} / {{maxUses}}</span>
+    </div>
+
+    <div *ngIf="isRecharge" class="nested">
+      <span>Recharge ({{rechargeDisplay}})</span>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="action.description != null && action.description.length > 0">
+    <label>{{ 'Labels.Description' | translate }}</label>
+    <span class="info-description">{{action.description}}</span>
+  </div>
+</app-details>

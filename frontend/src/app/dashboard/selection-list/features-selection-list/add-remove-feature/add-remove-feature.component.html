@@ -1,0 +1,13 @@
+<app-add-remove-slide-in [headerName]="feature.feature.name"
+                         [loading]="loading"
+                         [selected]="feature.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-feature-details *ngIf="viewingFeature != null"
+                       [featureListObject]="feature.feature"
+                       [playerCharacter]="playerCharacter"
+                       [feature]="viewingFeature"
+                       [detailed]="false"
+                       [collection]="collection">
+  </app-feature-details>
+</app-add-remove-slide-in>

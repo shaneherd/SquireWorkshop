@@ -1,0 +1,33 @@
+<app-details [listObject]="creatureAbilityProficiency.ability"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="roll()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Roll' | translate }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Save' | translate }}</label>
+    <span [matTooltip]="tooltip">{{total}}</span>
+  </div>
+
+  <div class="form-group">
+    <app-advantage-configuration class="on-dark" [proficiency]="proficiency">
+    </app-advantage-configuration>
+  </div>
+
+  <div class="form-group" *ngIf="autoFail">
+    <label [matTooltip]="autoFailTooltip" class="auto-fail">{{ 'AutoFail' | translate }}</label>
+  </div>
+
+  <span class="info-description">{{creatureAbilityProficiency.ability.description}}</span>
+</app-details>
+
+<app-ability-save-configuration-details *ngIf="configuring"
+                                        [creatureAbilityProficiency]="creatureAbilityProficiency"
+                                        [creature]="creature"
+                                        [collection]="collection"
+                                        (save)="saveConfiguration()"
+                                        (close)="closeConfiguration()">
+</app-ability-save-configuration-details>

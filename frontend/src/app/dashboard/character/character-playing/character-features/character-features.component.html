@@ -1,0 +1,68 @@
+<div class="form-group">
+  <app-feature-card *ngFor="let applicableFeature of applicableFeatures"
+                    [playerCharacter]="playerCharacter"
+                    [creatureFeature]="applicableFeature.creatureFeature"
+                    [highlightActive]="playerCharacter.characterSettings.features.highlightActive"
+                    [highlightNonActive]="playerCharacter.characterSettings.features.highlightNonActive"
+                    [canActivate]="applicableFeature.canActivate"
+                    [displayTags]="playerCharacter.characterSettings.features.displayTags"
+                    [clickDisabled]="addingFeature || viewingFeature != null || viewingTags || viewingInfo"
+                    (featureClick)="featureClick($event)">
+  </app-feature-card>
+
+  <mat-card class="add-item-card"
+            *ngIf="!isPublic && !isShared && !fromEncounter"
+            [ngClass]="{'clickable': !clickDisabled}"
+            (click)="addFeature()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'Headers.AddFeatures' | translate }}</span>
+  </mat-card>
+</div>
+
+<app-features-selection-list *ngIf="addingFeature"
+                             [playerCharacter]="playerCharacter"
+                             [collection]="collection"
+                             (save)="addSelectedFeatures()"
+                             (close)="featuresListClose()">
+</app-features-selection-list>
+
+<app-feature-details-slide-in *ngIf="viewingFeature != null"
+                              [creatureFeature]="viewingFeature"
+                              [playerCharacter]="playerCharacter"
+                              [collection]="collection"
+                              (use)="useFeature($event)"
+                              (remove)="removeFeature($event)"
+                              (close)="closeDetails()">
+</app-feature-details-slide-in>
+
+<app-feature-tagging-configuration-slide-in *ngIf="viewingTags"
+                                            [playerCharacter]="playerCharacter"
+                                            [collection]="collection"
+                                            (save)="saveTags()"
+                                            (close)="closeTags()">
+</app-feature-tagging-configuration-slide-in>
+
+<app-character-feature-info-slide-in *ngIf="viewingInfo"
+                                     [playerCharacter]="playerCharacter"
+                                     [collection]="collection"
+                                     (save)="saveInfo()"
+                                     (close)="closeInfo()">
+</app-character-feature-info-slide-in>
+
+<app-filtering-sorting [clickDisabled]="false"
+                       [columnIndex]="columnIndex"
+                       [filterType]="filterType"
+                       [filters]="filters"
+                       [filterOptions]="filterOptions"
+                       [tags]="playerCharacter.creatureFeatures.tags"
+                       (filter)="applyFilters($event)"
+                       [sortType]="sortType"
+                       [sorts]="sorts"
+                       (sort)="applySort($event)">
+</app-filtering-sorting>
+
+<app-feature-settings-slide-in *ngIf="viewingSettings"
+                               [playerCharacter]="playerCharacter"
+                               (close)="closeSettings()"
+                               (continue)="saveSettings()">
+</app-feature-settings-slide-in>

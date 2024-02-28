@@ -1,0 +1,27 @@
+<mat-accordion class="details on-dark">
+  <mat-expansion-panel class="auto-height-header"
+                       [(expanded)]="quickReference.expanded"
+                       (expandedChange)="expandChange($event)"
+                       [id]="quickReference.id">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{quickReference.title}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngIf="quickReference.initialized">
+      <app-quick-reference-table *ngFor="let table of quickReference.tables" [table]="table">
+      </app-quick-reference-table>
+
+      <div class="form-group">
+        <div *ngIf="quickReference.description !== ''" class="form-group quick-reference-description">{{quickReference.description}}</div>
+
+        <div *ngFor="let child of quickReference.children" class="nested">
+          <app-quick-reference-item [quickReference]="child"
+                                    (close)="closeEvent($event)">
+          </app-quick-reference-item>
+        </div>
+      </div>
+    </ng-container>
+  </mat-expansion-panel>
+</mat-accordion>

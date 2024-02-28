@@ -1,0 +1,41 @@
+<app-details headerName="{{ 'Navigation.Encounter.ReorderInitiative' | translate }}"
+             [loading]="loading"
+             [slideLeft]="false"
+             (close)="cancelClick()"
+             (primary)="saveClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             (secondary)="cancelClick()"
+             [secondaryCloseOnClick]="true"
+             (tertiary)="sortClick()"
+             tertiaryLabel="{{ 'Sort' | translate }}"
+             [tertiaryCloseOnClick]="false"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div>
+    <div cdkDropList class="drag-list" (cdkDropListDropped)="drop($event)">
+      <ng-container *ngFor="let initiative of initiativeOrder">
+        <div class="drag-box" *ngIf="initiative.display" cdkDrag [cdkDragStartDelay]="100">
+          <div class="initiative-name-container"
+               [ngClass]="{'current-turn': initiative.currentTurn}">
+            <div class="initiative-name-first-row">
+              <i class="fa-solid fa-caret-right" *ngIf="initiative.currentTurn"></i>
+              <span class="initiative-name">{{initiative.name}}</span>
+            </div>
+            <span class="initiative-value">Init: {{initiative.initiative}} ({{initiative.initiativeModifierDisplay}})</span>
+          </div>
+
+          <span class="grip-icon" cdkDragHandle>
+            <i class="fas fa-grip-lines"></i>
+          </span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div *ngIf="editingEncounter.customSort" class="custom-sort-container">
+      <span>{{ 'Encounter.CustomSort.Label' | translate }}</span>
+      <mat-icon matTooltip="{{ 'Encounter.CustomSort.Tooltip' | translate }}" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+  </div>
+</app-details>

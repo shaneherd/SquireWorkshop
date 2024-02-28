@@ -1,0 +1,31 @@
+<app-details headerName="{{ 'Headers.Carrying' | translate }}"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <app-single-carrying-detail [singleCarryingDetails]="equipment">
+  </app-single-carrying-detail>
+
+  <app-single-carrying-detail [singleCarryingDetails]="carryingCapacity">
+  </app-single-carrying-detail>
+
+  <app-single-carrying-detail [singleCarryingDetails]="pushCapacity">
+  </app-single-carrying-detail>
+
+  <app-single-carrying-detail *ngIf="isEncumbered && !isHeavilyEncumbered && playerCharacter.characterSettings.equipment.useEncumbrance"
+                              [singleCarryingDetails]="encumbered">
+  </app-single-carrying-detail>
+
+  <app-single-carrying-detail *ngIf="isHeavilyEncumbered && playerCharacter.characterSettings.equipment.useEncumbrance"
+                              [singleCarryingDetails]="heavilyEncumbered">
+  </app-single-carrying-detail>
+</app-details>
+
+<app-carrying-configuration *ngIf="configuring"
+                            [playerCharacter]="playerCharacter"
+                            [collection]="collection"
+                            (save)="saveConfigurations()"
+                            (close)="closeConfigurations()">
+</app-carrying-configuration>

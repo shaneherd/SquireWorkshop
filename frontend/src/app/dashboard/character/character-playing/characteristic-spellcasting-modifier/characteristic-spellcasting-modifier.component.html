@@ -1,0 +1,22 @@
+<div class="spellcasting-attributes">
+  <div class="spellcasting-attribute">
+    <mat-card (click)="onAbilityClick()" [ngClass]="{'clickable': !clickDisabled}">
+      <div class="header">{{ 'Headers.Ability' | translate }}</div>
+      <div>{{ability}}</div>
+    </mat-card>
+  </div>
+
+  <div class="spellcasting-attribute">
+    <mat-card (click)="onAttackClick()" [ngClass]="{'clickable': !clickDisabled}">
+      <div class="header">{{ 'Headers.Attack' | translate }}</div>
+      <div [matTooltip]="spellAttackTooltip">{{spellAttack}}</div>
+    </mat-card>
+  </div>
+
+  <div class="spellcasting-attribute">
+    <mat-card (click)="onSaveClick()" [ngClass]="{'clickable': !clickDisabled}">
+      <div class="header">{{ 'Headers.SaveDC' | translate }}</div>
+      <div [matTooltip]="saveDCTooltip">{{saveDC}}</div>
+    </mat-card>
+  </div>
+</div>

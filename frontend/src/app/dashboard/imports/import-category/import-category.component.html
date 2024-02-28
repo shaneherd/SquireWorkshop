@@ -1,0 +1,57 @@
+<div class="form-group category-container" [ngClass]="{'collapsed': !expanded}" *ngIf="configs.length > 0">
+  <div class="header-row">
+    <button mat-icon-button
+            class="no-focus expand-button"
+            (click)="onExpandToggle()">
+      <i *ngIf="!expanded" class="far fa-plus-square"></i>
+      <i *ngIf="expanded" class="far fa-minus-square"></i>
+    </button>
+
+    <div class="import-label-container">
+      <label class="import-label">{{ 'Imports.Category.' + category | translate }}</label>
+
+      <ng-container *ngIf="allComplete">
+        <i class="fas fa-check-circle complete"></i>
+        <span class="status-label">{{ 'Imports.Status.COMPLETE' | translate }}</span>
+      </ng-container>
+
+      <ng-container *ngIf="hasErrors">
+        <i class="fas fa-exclamation-triangle error"></i>
+        <span class="status-label">{{ 'Imports.Status.ERROR' | translate }}</span>
+      </ng-container>
+
+      <span class="item-count" *ngIf="!expanded && configs.length > 1" [translate]="'NestedItems.Count'"
+            [translateParams]="{count: configs.length}"></span>
+      <span class="item-count" *ngIf="!expanded && configs.length === 1">{{ 'NestedItems.Count1' | translate }}</span>
+    </div>
+
+    <button mat-icon-button
+            class="no-focus global-menu"
+            [disabled]="!expanded || allComplete"
+            [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item
+              class="no-focus"
+              [disabled]="menuAction.disabled"
+              *ngFor="let menuAction of globalActions"
+              (click)="globalActionClick(menuAction)">
+        <i [class]="menuAction.icon + ' menu-action-icon'"></i>
+        <span>{{ 'Imports.Action.' + menuAction.event | translate }}</span>
+      </button>
+    </mat-menu>
+  </div>
+  <ng-container *ngIf="expanded">
+    <div *ngFor="let config of configs; let i = index" class="import-item-category-items">
+      <mat-divider *ngIf="i > 0" class="divider"></mat-divider>
+      <app-import-item [config]="config"
+                       (view)="viewConfig($event)"
+                       (linkClick)="onLinkClick($event)"
+                       (selectedActionChange)="onSelectedActionChange($event)"
+                       (toggleExpanded)="onConfigExpandToggle($event)">
+      </app-import-item>
+    </div>
+  </ng-container>
+</div>

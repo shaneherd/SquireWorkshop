@@ -1,0 +1,40 @@
+.starting-equipment-group-items {
+  margin-left: 20px;
+}
+
+.option-container {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.no-items {
+  margin-left: 20px;
+  font-style: italic;
+}
+
+.group-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  label {
+    flex-grow: 1;
+  }
+
+  i {
+    flex-shrink: 0;
+    margin-left: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.disabled {
+      color: #cccccc;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

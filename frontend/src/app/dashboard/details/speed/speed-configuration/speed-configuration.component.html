@@ -1,0 +1,16 @@
+<app-details headerName="{{ 'Headers.Speed' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div *ngFor="let speed of speeds;" class="form-group">
+    <app-single-speed-details [creature]="creature"
+                              [collection]="collection"
+                              [speed]="speed"
+                              [settings]="settings"
+                              [configuring]="true">
+    </app-single-speed-details>
+  </div>
+</app-details>

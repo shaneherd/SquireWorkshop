@@ -1,0 +1,18 @@
+<app-dialog [title]="title"
+            primaryLabel="{{ deletable ? ('Continue' | translate) : '' }}"
+            (primary)="confirm()"
+            secondaryLabel="{{ deletable ? ('Cancel' | translate) : ('Ok' | translate) }}"
+            (secondary)="cancel()"
+            (close)="cancel()">
+  <div class="form-group">{{message}}</div>
+
+  <div class="in-use-list">
+    <div *ngFor="let category of categories" class="form-group">
+      <h4 class="in-use-category">{{category.name}}</h4>
+
+      <div *ngFor="let item of category.items" class="in-use-list-item" (click)="itemClick(item)">
+        {{item.name}}
+      </div>
+    </div>
+  </div>
+</app-dialog>

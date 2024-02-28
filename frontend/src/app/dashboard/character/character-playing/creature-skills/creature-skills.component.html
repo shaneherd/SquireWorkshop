@@ -1,0 +1,35 @@
+<div class="form-group">
+  <div *ngFor="let skill of skills">
+    <app-creature-skill-card [creature]="creature"
+                             [collection]="collection"
+                             [skill]="skill"
+                             [displayPassive]="playerCharacter != null && playerCharacter.characterSettings.skills.displayPassive"
+                             [disabled]="configuringSkill != null"
+                             (skillClick)="skillClick($event)">
+    </app-creature-skill-card>
+  </div>
+</div>
+
+<app-skill-details-slide-in *ngIf="configuringSkill != null"
+                            [skill]="configuringSkill"
+                            [creature]="creature"
+                            [displayPassive]="playerCharacter != null && playerCharacter.characterSettings.skills.displayPassive"
+                            [collection]="collection"
+                            (close)="configurationClose()">
+</app-skill-details-slide-in>
+
+<app-filtering-sorting [clickDisabled]="false"
+                       [columnIndex]="columnIndex"
+                       [filterType]="filterType"
+                       [filters]="filters"
+                       (filter)="applyFilters($event)"
+                       [sortType]="sortType"
+                       [sorts]="sorts"
+                       (sort)="applySort($event)">
+</app-filtering-sorting>
+
+<app-skill-settings-slide-in *ngIf="viewingSettings && playerCharacter != null"
+                             [playerCharacter]="playerCharacter"
+                             (close)="closeSettings()"
+                             (continue)="saveSettings()">
+</app-skill-settings-slide-in>

@@ -1,0 +1,10 @@
+<span class="advantage tag"
+      matTooltip="{{ 'Advantage' | translate }}"
+      *ngIf="proficiency.advantage && !proficiency.disadvantage">
+  <span>{{ 'Adv' | translate }}</span>
+</span>
+<span class="disadvantage tag"
+      matTooltip="{{ 'Disadvantage' | translate }}"
+      *ngIf="proficiency.disadvantage && !proficiency.advantage">
+  <span>{{ 'Disadv' | translate }}</span>
+</span>

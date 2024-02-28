@@ -1,0 +1,82 @@
+<app-details [headerName]="spellConfigurationCollectionItem.spell.name"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             (tertiary)="removeClick()"
+             primaryLabel="{{ editing && allowEditing ? ('Save' | translate) : '' }}"
+             secondaryLabel="{{ (editing ? 'Cancel' : 'Close') | translate }}"
+             tertiaryLabel="{{ editing ? ('Remove' | translate) : '' }}"
+             class="details">
+  <div class="content-data-full-height page-content">
+    <div *ngIf="step === 0">
+      <div class="form-group" *ngIf="(!editing || !allowEditing) && spellConfigurationCollectionItem.slot > 0">
+        <label>{{ 'Labels.Slot' | translate }}</label>
+        <span>{{spellConfigurationCollectionItem.slot}}</span>
+      </div>
+
+      <div class="form-group" *ngIf="editing && slots.length > 0">
+        <label>{{ 'Labels.Slot' | translate }}</label>
+        <div>
+          <mat-form-field>
+            <mat-select [ngModel]="spellConfigurationCollectionItem.slot"
+                        (selectionChange)="slotChange($event.value)">
+              <mat-option *ngFor="let slot of slots" [value]="slot">
+                {{slot}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <app-spell-details *ngIf="viewingSpell != null"
+                         [spell]="viewingSpell"
+                         [detailed]="false">
+      </app-spell-details>
+    </div>
+
+    <div *ngIf="step === 1" class="on-dark">
+      <div class="form-group" *ngIf="editing">
+        <label>{{ 'Labels.LimitedUse' | translate }}</label>
+        <mat-checkbox
+          class="on-dark"
+          (change)="limitedUseChange($event)"
+          [disabled]="!editing"
+          [checked]="limitedUse">
+        </mat-checkbox>
+      </div>
+
+      <div *ngIf="!editing && (!limitedUse || spellConfigurationCollectionItem.limitedUse == null)" class="no-items-label">
+        {{ 'None' | translate }}
+      </div>
+
+      <div *ngIf="limitedUse">
+        <div class="form-group" *ngIf="spellConfigurationCollectionItem.limitedUse != null">
+          <label>{{ 'Labels.MaxUses' | translate }}</label>
+          <span class="tag" *ngIf="!editing && spellConfigurationCollectionItem.limitedUse.quantity > 0"
+                [translate]="'PerDayQuantity'"
+                [translateParams]="{quantity: spellConfigurationCollectionItem.limitedUse.quantity}">
+          </span>
+          <ng-container *ngIf="editing">
+            <input type="number" class="form-control number-inline"
+                   *ngIf="editing"
+                   min="1" max="100"
+                   appInputNumber minValue="1" maxValue="100"
+                   [ngModel]="spellConfigurationCollectionItem.limitedUse.quantity"
+                   (valueChange)="quantityChange($event)"/>
+            <span>{{ 'PerDay' | translate }}</span>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pager">
+    <app-pager [pageCount]="2"
+               [index]="step"
+               (pageChange)="setStep($event)">
+    </app-pager>
+  </div>
+</app-details>
+

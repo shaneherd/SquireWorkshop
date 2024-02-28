@@ -1,0 +1,40 @@
+<app-details headerName="{{ 'Headers.SelectSpell' | translate }}"
+             (close)="onCancel()"
+             (primary)="onContinue()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [primaryDisabled]="selectedItem == null"
+             (secondary)="onCancel()"
+             [loading]="loading"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="shopping-cart">
+    <div class="content-data-full-height shopping-cart-page">
+      <app-searchable-list [searchable]="false"
+                           [filterable]="false">
+        <ng-container *ngIf="spellMenuItems.length > 0">
+          <cdk-virtual-scroll-viewport itemSize="63" class="list-menu">
+            <div *cdkVirtualFor="let spellMenuItem of spellMenuItems; templateCacheSize: 50" class="list-menu-item">
+              <mat-checkbox class="on-dark" [checked]="spellMenuItem.selected" (change)="toggleSelected(spellMenuItem)"></mat-checkbox>
+              <mat-card class="card clickable ellipsis" [ngClass]="spellMenuItem.selected ? 'selected' : ''"  (click)="onItemClick(spellMenuItem)">
+                <span class="bold">{{spellMenuItem.spell.name}}</span>
+              </mat-card>
+            </div>
+          </cdk-virtual-scroll-viewport>
+        </ng-container>
+
+        <div *ngIf="spellMenuItems.length === 0 && !loading" class="details">
+          <span>{{ 'NoSpellsAvailable' | translate }}</span>
+        </div>
+      </app-searchable-list>
+
+      <app-add-remove-spell *ngIf="viewingSpell != null"
+                           [spell]="viewingSpell"
+                           (save)="toggleSelected($event)"
+                           (cancel)="closeItem()" >
+      </app-add-remove-spell>
+    </div>
+  </div>
+</app-details>
+

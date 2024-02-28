@@ -1,0 +1,44 @@
+<div class="form-group">
+
+  <app-setting [checked]="settings.health.showHitDice"
+               label="{{ 'CharacterSettings.Health.ShowHitDice' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Health.ShowHitDice' | translate }}"
+               (change)="showHitDice($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.health.highlightValues"
+               label="{{ 'CharacterSettings.Health.HighlightValues' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Health.HighlightValues' | translate }}"
+               (change)="highlightValues($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.health.flashLCD"
+               label="{{ 'CharacterSettings.Health.FlashLCD' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Health.FlashLCD' | translate }}"
+               (change)="flashLCD($event)">
+  </app-setting>
+
+<!--  <app-setting [checked]="settings.health.autoRollConcentrationChecks"-->
+<!--               label="{{ 'CharacterSettings.Health.AutoRollConcentrationChecks' | translate }}"-->
+<!--               tooltip="{{ 'Tooltips.CharacterSettings.Health.AutoRollConcentrationChecks' | translate }}"-->
+<!--               (change)="autoRollConcentrationChecks($event)">-->
+<!--  </app-setting>-->
+
+  <app-setting [checked]="settings.health.postponeConcentrationChecks"
+               label="{{ 'CharacterSettings.Health.PostponeConcentrationChecks' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Health.PostponeConcentrationChecks' | translate }}"
+               (change)="postponeConcentrationChecks($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.health.removeProneOnRevive"
+               label="{{ 'CharacterSettings.Health.RemoveProneOnRevive' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Health.RemoveProneOnRevive' | translate }}"
+               (change)="removeProneOnRevive($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.health.dropItemsWhenDying"
+               label="{{ 'CharacterSettings.Health.DropItemsWhenDying' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Health.DropItemsWhenDying' | translate }}"
+               (change)="dropItemsWhenDying($event)">
+  </app-setting>
+</div>

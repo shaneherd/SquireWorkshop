@@ -1,0 +1,9 @@
+export enum SortType {
+  ITEM = 'ITEM',
+  SPELL = 'SPELL',
+  FEATURE = 'FEATURE',
+  SKILL = 'SKILL',
+  NOTE = 'NOTE',
+  COMPANION = 'COMPANION',
+  CONDITION = 'CONDITION'
+}

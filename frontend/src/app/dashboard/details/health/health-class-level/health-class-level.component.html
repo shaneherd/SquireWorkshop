@@ -1,0 +1,13 @@
+<label [translate]="'Labels.Level'"
+       [translateParams]="{level: healthGainResult.level.name}"></label>
+
+<div *ngIf="!first || !chosenClass.primary" class="health-gain-result">
+  <app-roll-input [numDice]="numDice"
+                  [diceSize]="diceSize"
+                  [disabled]="disabled"
+                  [value]="healthGainResult.value"
+                  (valueChange)="gainResultChange($event)">
+  </app-roll-input>
+  <span *ngIf="modifier !== 0">+</span>
+</div>
+<span [matTooltip]="tooltip">{{modifier}}</span>

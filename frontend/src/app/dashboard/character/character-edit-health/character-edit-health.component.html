@@ -1,0 +1,46 @@
+<!--calculation type-->
+<div class="form-group">
+  <mat-button-toggle-group [ngModel]="calculationType"
+                           (change)="calculationTypeChange($event.value)">
+    <mat-button-toggle *ngFor="let calculationTypeChoice of calculationTypes"
+                       [value]="calculationTypeChoice">
+      {{ 'HealthCalculationType.' + calculationTypeChoice | translate }}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<!-- hp modifier-->
+<div class="form-group">
+  <label>{{ 'Labels.HpModifier' | translate }}</label>
+  <input type="number"
+         class="form-control"
+         max="99" min="0"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="playerCharacter.hpGainModifier"
+         (valueChange)="hpGainModifierChange($event)"/>
+  <mat-icon matTooltip="{{ 'Tooltips.HpModifier' | translate }}" class="help-icon">
+    help
+  </mat-icon>
+</div>
+
+
+<div *ngFor="let chosenClass of classes;">
+  <app-character-edit-health-class [chosenClass]="chosenClass"
+                                   [healthCalculationType]="calculationType"
+                                   [hpModifier]="playerCharacter.hpGainModifier"
+                                   [conModifier]="conModifier"
+                                   [levels]="levels">
+  </app-character-edit-health-class>
+</div>
+
+<!--max hp-->
+<div class="form-group">
+  <label>{{ 'Labels.MaxHp' | translate }}</label>
+  <span>{{getMaxHp()}} +</span>
+  <input type="number"
+         class="form-control"
+         max="99" min="0"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="playerCharacter.creatureHealth.maxHpMod"
+         (valueChange)="maxHpModifierChange($event)"/>
+</div>

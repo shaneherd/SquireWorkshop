@@ -1,0 +1,14 @@
+.time-unit-container {
+  display: inline-block;
+  width: 100%;
+
+  .form-control {
+    width: calc(50% - 5px);
+    display: inline-block;
+    margin-right: 5px;
+  }
+}
+
+.time-unit {
+  width: 50%;
+}

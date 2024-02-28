@@ -1,0 +1,254 @@
+<app-details [headerName]="headerName"
+             [fixed]="true"
+             [loading]="loading"
+             (close)="closeClick()"
+             (primary)="primaryClick()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             [primaryDisabled]="!feature.author"
+             (secondary)="secondaryClick()"
+             (tertiary)="tertiaryClick()"
+             primaryLabel="{{ (isPublic || isShared) ? '' : (editing ? ('Save' | translate) : ('Edit' | translate)) }}"
+             tertiaryLabel="{{ (isPublic || isShared) ? '' : (editing ? (deletable ? ('Delete' | translate) : '') : ( 'Duplicate' | translate))}}"
+             secondaryLabel="{{ editing ? ('Cancel' | translate) : ('Close' | translate) }}">
+  <div class="details feature-configuration">
+    <div class="content-data-full-height page-content">
+      <div *ngIf="step === 0">
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input [(ngModel)]="feature.name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || selectedLevel.id !== '0'">
+          <label>{{ 'Labels.LevelGained' | translate }}</label>
+          <span *ngIf="!editing">{{selectedLevel.name}}</span>
+          <div *ngIf="editing">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedLevel"
+                          [ngModelOptions]="{standalone: true}"
+                          (selectionChange)="levelChange($event.value)">
+                <mat-option *ngFor="let level of levels" [value]="level">
+                  {{level.id === '0' ? none : level.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="editing || !isOther() || feature.range > 0">
+          <label>{{ 'Labels.Range' | translate }}</label>
+          <span *ngIf="!editing && !isOther()">
+            {{ 'RangeType.' + feature.rangeType?.toString() | translate }}
+          </span>
+          <span *ngIf="!editing && isOther()" [translate]="'RangeValue.' + feature.rangeUnit"
+                [translateParams]="{value: feature.range}"></span>
+
+          <div>
+            <mat-button-toggle-group *ngIf="editing"
+                                     [ngModel]="feature.rangeType"
+                                     [ngModelOptions]="{standalone: true}"
+                                     [disabled]="!editing"
+                                     (change)="rangeTypeChange($event.value)">
+              <mat-button-toggle *ngFor="let rangeType of rangeTypes"
+                                 [value]="rangeType">
+                {{ 'RangeType.' + rangeType | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+
+        <div class="form-group range" *ngIf="editing && isOther()">
+          <input [(ngModel)]="feature.range" min="0" max="9999" type="number"
+                 appInputNumber minValue="0" maxValue="9999"
+                 class="form-control"/>
+          <mat-form-field>
+            <mat-select [(ngModel)]="feature.rangeUnit"
+                        [ngModelOptions]="{standalone: true}"
+                        (selectionChange)="rangeUnitChange($event.value)">
+              <mat-option *ngFor="let rangeUnit of rangeUnits" [value]="rangeUnit">
+                {{ 'RangeUnit.' + rangeUnit | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <app-area-of-effect-selection *ngIf="!loading"
+                                      [editing]="editing"
+                                      [powerAreaOfEffect]="feature.powerAreaOfEffect">
+        </app-area-of-effect-selection>
+
+        <div class="form-group" *ngIf="editing || feature.passive">
+          <label>{{ 'Labels.Passive' | translate }}</label>
+          <mat-checkbox
+            class="on-dark"
+            (change)="passiveChange($event)"
+            [disabled]="!editing"
+            [checked]="feature.passive">
+          </mat-checkbox>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.Action' | translate }}</label>
+          <span *ngIf="!editing && selectedAction != null">{{ 'Action.' + selectedAction | translate }}</span>
+          <span *ngIf="!editing && selectedAction == null">{{ 'None' | translate }}</span>
+          <div *ngIf="editing">
+            <mat-form-field>
+              <mat-select [(ngModel)]="selectedAction"
+                          [ngModelOptions]="{standalone: true}"
+                          (selectionChange)="actionChange($event.value)">
+                <mat-option *ngFor="let action of actions" [value]="action">
+                  {{ 'Action.' + action | translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="editing || feature.prerequisite.length > 0">
+          <label>{{ 'Labels.Prerequisite' | translate }}</label>
+          <span *ngIf="!editing" class="">{{feature.prerequisite}}</span>
+          <input [(ngModel)]="feature.prerequisite" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || (feature?.id !== '0' && feature.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing" class="info-description">{{feature.description}}</span>
+          <textarea [(ngModel)]="feature.description" *ngIf="editing" class="form-control info-description" maxlength="4000"> </textarea>
+        </div>
+      </div>
+
+      <div *ngIf="step === 1" class="on-dark">
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.LimitedUse' | translate }}</label>
+          <mat-checkbox
+            class="on-dark"
+            (change)="limitedUseChange($event)"
+            [disabled]="!editing"
+            [checked]="limitedUse">
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="!editing && (!limitedUse || feature.limitedUses.length === 0)" class="no-items-label">
+          {{ 'None' | translate }}
+        </div>
+
+        <div *ngIf="limitedUse && editing" class="form-group limited-use-container">
+          <mat-button-toggle-group
+            [ngModel]="selectedLimitedUseCategory"
+            [ngModelOptions]="{standalone: true}"
+            [disabled]="!editing"
+            (change)="changeLimitedUse($event.value)">
+            <mat-button-toggle *ngFor="let category of limitedUseCategories"
+                               [value]="category">
+              {{ 'LimitedUseType.' + category | translate }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div *ngIf="limitedUse">
+          <div class="form-group" *ngIf="feature.limitedUses.length > 0">
+            <label>{{ 'Labels.MaxUses' | translate }}</label>
+            <app-single-limited-use-row [limitedUse]="feature.limitedUses[0]"
+                                        [abilities]="abilities"
+                                        [deletable]="false"
+                                        [showLevel]="false"
+                                        [editing]="editing"
+                                        [disabled]="configuring || configuringLimitedUse != null"
+                                        (delete)="deleteLimitedUse($event)"
+                                        (configure)="configureLimitedUse($event)">
+            </app-single-limited-use-row>
+          </div>
+
+          <div class="form-group" *ngIf="editing || feature.rechargeOnShortRest || feature.rechargeOnLongRest">
+            <div *ngIf="editing || feature.rechargeOnShortRest">
+              <mat-checkbox
+                class="on-dark"
+                (change)="rechargeOnShortRestChange($event)"
+                [disabled]="!editing"
+                [checked]="feature.rechargeOnShortRest">
+              </mat-checkbox>
+              <span>{{ 'RechargeOnShortRest' | translate }}</span>
+            </div>
+            <div *ngIf="editing || feature.rechargeOnShortRest || feature.rechargeOnLongRest">
+              <mat-checkbox
+                class="on-dark"
+                (change)="rechargeOnLongRestChange($event)"
+                [disabled]="!editing || feature.rechargeOnShortRest"
+                [checked]="feature.rechargeOnLongRest || feature.rechargeOnShortRest">
+              </mat-checkbox>
+              <span>{{ 'RechargeOnLongRest' | translate }}</span>
+            </div>
+          </div>
+
+          <div *ngIf="editing" class="form-group">
+            <mat-checkbox
+              class="on-dark"
+              (change)="limitedIncreaseAtHigherLevelsChange($event)"
+              [disabled]="!editing"
+              [checked]="limitedIncreaseAtHigherLevels">
+            </mat-checkbox>
+            <span>{{ 'IncreasesAtHigherLevels' | translate }}</span>
+          </div>
+
+          <div class="form-group" *ngIf="limitedIncreaseAtHigherLevels">
+            <div *ngFor="let singleLimitedUse of feature.limitedUses; let i = index;" class="limited-use">
+              <app-single-limited-use-row *ngIf="i > 0"
+                                          [limitedUse]="singleLimitedUse"
+                                          [abilities]="abilities"
+                                          [editing]="editing"
+                                          [disabled]="configuring || configuringLimitedUse != null"
+                                          (delete)="deleteLimitedUse($event)"
+                                          (configure)="configureLimitedUse($event)">
+              </app-single-limited-use-row>
+            </div>
+          </div>
+
+          <div class="add-limited-use-container" *ngIf="editing && limitedIncreaseAtHigherLevels">
+            <button type="button" (click)="addLimitedUse()"
+                    class="squire-button btn btn-danger add-limited-use"
+                    [ngClass]="{'disabled': configuringLimitedUse != null || configuring}">
+              {{ 'Navigation.Manage.Levels.Add' | translate }}
+            </button>
+          </div>
+
+          <app-limited-use-configuration *ngIf="configuringLimitedUse != null"
+                                         [limitedUse]="configuringLimitedUse"
+                                         [limitedUses]="feature.limitedUses"
+                                         [editing]="editing"
+                                         [disabled]="configuring"
+                                         (close)="limitedUseConfigurationClose()"
+                                         (continue)="limitedUseConfigurationContinue($event)">
+          </app-limited-use-configuration>
+        </div>
+      </div>
+
+      <div *ngIf="step === 2" class="on-dark">
+        <app-power-damage-configuration-section [damageConfigurationCollection]="damageConfigurationCollection"
+                                                [editing]="editing"
+                                                [disabled]="configuring"
+                                                [showExtra]="false"
+                                                [showAdvancement]="true">
+        </app-power-damage-configuration-section>
+      </div>
+
+      <div *ngIf="step === 3" class="on-dark">
+        <app-power-modifier-configuration-section [modifierConfigurationCollection]="modifierConfigurationCollection"
+                                                  [editing]="editing"
+                                                  [disabled]="configuring"
+                                                  [showExtra]="false"
+                                                  [showAdvancement]="true">
+        </app-power-modifier-configuration-section>
+      </div>
+    </div>
+
+    <div class="pager">
+      <app-pager [pageCount]="4"
+                 [index]="step"
+                 (pageChange)="setStep($event)">
+      </app-pager>
+    </div>
+  </div>
+</app-details>
+
+

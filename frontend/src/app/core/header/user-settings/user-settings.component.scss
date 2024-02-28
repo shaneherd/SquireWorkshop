@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+@mixin user-settings-theme($theme) {
+  $warn: map-get($theme, warn);
+
+  .danger-button {
+    background: mat-color($warn);
+    color: #ffffff;
+  }
+}
+
+.user-settings {
+  margin: auto;
+  padding: 10px;
+}
+
+.user-settings-label {
+  margin: 0 5px 0 0;
+}

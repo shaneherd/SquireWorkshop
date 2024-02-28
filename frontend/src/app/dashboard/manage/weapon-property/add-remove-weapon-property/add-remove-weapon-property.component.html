@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="weaponProperty.name"
+                         [loading]="loading"
+                         [selected]="weaponProperty.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-weapon-property-details *ngIf="viewingWeaponProperty != null"
+                               [weaponProperty]="viewingWeaponProperty">
+  </app-weapon-property-details>
+</app-add-remove-slide-in>

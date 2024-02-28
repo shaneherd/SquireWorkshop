@@ -1,0 +1,47 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.DamageModifiers' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.DamageModifiers' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="!editing && damageModifiers.length === 0 && (inheritedDamageModifiers == null || inheritedDamageModifiers.length === 0)" class="no-items-label">
+    {{ 'NoModifiers' | translate }}
+  </div>
+  <ng-container *ngIf="!editing">
+    <ng-container *ngIf="inheritedDamageModifiers != null">
+      <div *ngFor="let item of inheritedDamageModifiers" class="damage-modifier list-item">
+        <label>{{item.damageType.name}}:</label>
+        <span>{{ 'DamageModifier.' + item.damageModifierType | translate }}</span>
+      </div>
+    </ng-container>
+
+    <div *ngFor="let item of damageModifiers" class="damage-modifier list-item">
+      <label>{{item.damageType.name}}:</label>
+      <span>{{ 'DamageModifier.' + item.damageModifierType | translate }}</span>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="editing">
+    <div *ngFor="let item of damageModifierCollection.damageModifiers" class="damage-modifier">
+      <label>{{item.damageType.name}}:</label>
+      <div>
+        <mat-button-toggle-group [ngModel]="getModifierType(item)"
+                                 [disabled]="isDisabled(item)"
+                                 (change)="changeDamageModifierType(item, $event.value)">
+          <mat-button-toggle *ngFor="let modifier of damageModifierTypes"
+                             matTooltip="{{ 'Tooltips.DamageModifier.' + modifier | translate }}"
+                             [value]="modifier">
+            {{ 'DamageModifier.' + modifier | translate }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </ng-container>
+
+</mat-expansion-panel>

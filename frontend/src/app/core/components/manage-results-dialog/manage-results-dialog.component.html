@@ -1,0 +1,41 @@
+<app-dialog [title]="title"
+            [primaryLabel]="primaryLabel"
+            [secondaryLabel]="secondaryLabel"
+            (primary)="primaryClick()"
+            (secondary)="secondaryClick()"
+            [secondaryDisabled]="inProgress"
+            (close)="close()">
+  <ng-container *ngIf="confirmation">
+    <div class="form-group confirmation-message"
+          [translate]="'ManageBulk.' + data.manageType + '.Message.Confirmation'"
+          [translateParams]="{count: total}"></div>
+  </ng-container>
+
+  <ng-container *ngIf="showNamePrompt && !inProgress && !complete">
+    <input class="form-control inline" [(ngModel)]="exportFilename" maxLength="45"/>
+
+    <mat-slide-toggle class="export-type" (change)="onProChange($event)" [checked]="proExport" [disabled]="proExportOnly">
+      {{ (proExport ? 'ManageBulk.EXPORT.Pro.Label' : 'ManageBulk.EXPORT.Free.Label') | translate }}
+    </mat-slide-toggle>
+
+    <div class="export-message">
+      {{ (proExport ? 'ManageBulk.EXPORT.Pro.Message' : 'ManageBulk.EXPORT.Free.Message') | translate }}
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="inProgress || complete">
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    <div class="center-content form-group">
+      <span>{{count}}/{{total}} ({{percent}}%)</span>
+    </div>
+    <div class="center-content">
+      <label>{{ 'Labels.Success' | translate }}</label>
+      <span>{{successCount}}</span>
+    </div>
+    <div class="center-content">
+      <label>{{ 'Labels.Error' | translate }}</label>
+      <span>{{errorCount}}</span>
+    </div>
+  </ng-container>
+</app-dialog>

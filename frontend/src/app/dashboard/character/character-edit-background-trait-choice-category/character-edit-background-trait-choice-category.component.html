@@ -1,0 +1,13 @@
+<div *ngFor="let trait of traits;" class="background-choice">
+  <mat-checkbox
+    (change)="traitChange($event, trait)"
+    [checked]="trait.selected">
+  </mat-checkbox>
+  <span *ngIf="trait.backgroundTrait != null">{{trait.backgroundTrait.description}}</span>
+  <span *ngIf="trait.backgroundTrait == null">{{ 'Other' | translate }}</span>
+  <textarea *ngIf="trait.backgroundTrait == null && trait.selected"
+            [ngModel]="customTrait"
+            (input)="onCustomTraitChange($event)"
+            maxlength="1000"
+            class="form-control"></textarea>
+</div>

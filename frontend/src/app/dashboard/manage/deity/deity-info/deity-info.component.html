@@ -1,0 +1,73 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!deity.author"
+               [itemName]="itemName"
+               [id]="deity.id"
+               [inUseService]="attributeService"
+               [showShare]="deity.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               type="{{ 'AttributeType.DEITY' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="deityForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && deity?.id !== '0'">{{deity.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="deityCategories?.length > 0 && (editing || (deity?.id !== '0' && deity.deityCategory))">
+      <label>{{ 'Labels.Category' | translate }}</label>
+      <span *ngIf="!editing && deity?.id !== '0'">{{deity.deityCategory?.name}}</span>
+      <div *ngIf="editing">
+        <mat-form-field>
+          <mat-select [(ngModel)]="selectedDeityCategory"
+                      [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let categoryChoice of deityCategories" [value]="categoryChoice">
+              {{categoryChoice.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="alignments?.length > 0 && (editing || (deity?.id !== '0' && deity.alignment))">
+      <label>{{ 'Labels.Alignment' | translate }}</label>
+      <span *ngIf="!editing && deity?.id !== '0'">{{deity.alignment?.name}}</span>
+      <div *ngIf="editing">
+        <mat-form-field>
+          <mat-select [(ngModel)]="selectedAlignment"
+                      [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let alignment of alignments" [value]="alignment">
+              {{alignment.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (deity?.id !== '0' && deity.symbol.length > 0)">
+      <label>{{ 'Labels.Symbol' | translate }}</label>
+      <span *ngIf="!editing && deity?.id !== '0'">{{deity.symbol}}</span>
+      <input formControlName="symbol" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (deity?.id !== '0' && deity.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && deity?.id !== '0'" class="info-description">{{deity.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

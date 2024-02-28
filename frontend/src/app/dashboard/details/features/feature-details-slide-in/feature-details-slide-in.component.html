@@ -1,0 +1,20 @@
+<app-details [headerName]="creatureFeature.feature.name"
+             [configurable]="false"
+             (close)="closeDetails()"
+             [primaryActions]="primaryActions"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             (tertiary)="tertiaryClick()"
+             [tertiaryLabel]="tertiaryLabel">
+    <app-feature-details *ngIf="viewingFeature != null"
+                         [creatureFeature]="creatureFeature"
+                         [featureListObject]="creatureFeature.feature"
+                         [feature]="viewingFeature"
+                         [playerCharacter]="playerCharacter"
+                         [collection]="collection"
+                         (characterLevelChange)="characterLevelChange($event)"
+                         (damageChange)="damageChange($event)"
+                         (modifierChange)="modifierChange($event)"
+                         (limitedUseChange)="limitedUseChange($event)">
+    </app-feature-details>
+</app-details>

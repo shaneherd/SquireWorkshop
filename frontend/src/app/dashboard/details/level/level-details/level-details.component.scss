@@ -1,0 +1,189 @@
+@import '../../../../sass/variables';
+
+h1,
+h2,
+mat-label,
+.details {
+  color: #ffffff;
+}
+
+.level-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.level-header {
+  text-align: center;
+  display: inline;
+  margin: 0 10px 0 10px;
+}
+
+.mat-input-element {
+  color: #000000;
+}
+
+.exp-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.exp-label {
+  margin-left: 10px;
+}
+
+.slash {
+  margin: 0 5px;
+}
+
+.exp-container {
+  .level-label-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .level-container {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .exp-adjustment-button {
+      &:focus {
+        outline: none;
+      }
+    }
+
+    mat-slider {
+      flex-grow: 1;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin: 0 10px -15px 10px;
+      align-self: flex-end;
+    }
+
+    .level-exp {
+      font-size: 14px;
+      display: block;
+      opacity: 0.5;
+      margin-top: -5px;
+    }
+  }
+}
+
+.level-select {
+  width: 100px;
+}
+
+.total-exp {
+  width: 100px;
+  display: inline;
+}
+
+.adjustment-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 10px;
+
+  .adjustment {
+    width: 50%;
+
+    &:first-child {
+      padding-right: 5px;
+    }
+
+    &:not(:first-child) {
+      padding-left: 5px;
+    }
+  }
+}
+
+.add-class-container {
+  width: 100%;
+  margin-bottom: 10px;
+
+  .add-class {
+    margin: 0 auto;
+    display:block;
+  }
+}
+
+.header {
+  margin-top: 50px;
+}
+
+.chosen-class-container {
+  border: 1px solid #ffffff;
+  border-radius: 5px !important;
+  padding-left: 5px;
+
+  .level {
+    font-size: 12px;
+    font-style: italic;
+    overflow: hidden;
+  }
+
+  .class-top-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .class-name-container {
+    flex-grow: 1;
+    padding-right: 5px;
+    overflow: hidden;
+  }
+
+  .name,
+  .level {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  .level-adjustment-container {
+    flex-shrink: 0;
+  }
+
+  .level-adjustment-button {
+    margin: 5px 5px 5px 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .health-rolls {
+    margin: 20px 0 5px 0;
+  }
+
+  .health-gain-result {
+    margin-left: 20px;
+  }
+}
+
+.class-selection {
+  margin: 10px 5px 20px 0;
+
+  mat-form-field {
+    width: 100%
+  }
+}
+
+.subclass-selection {
+  margin: 10px 5px 5px 0;
+
+  mat-form-field {
+    width: 100%
+  }
+}
+
+.reset-health-container {
+  display: flex;
+}

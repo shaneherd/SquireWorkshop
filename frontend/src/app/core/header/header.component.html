@@ -1,0 +1,24 @@
+<div class="header">
+  <button mat-mini-fab
+          *ngIf="showMenu"
+          class="menu-button squire-button transparent borderless no-focus on-dark"
+          (click)="toggleContextMenu()">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="header-container">
+    <div class="header-name-container">
+      <span [routerLink]="['/']" (click)="headerClick()" class="squire-header-button no-focus">
+      <svg-icon class="squire-logo-header" src="/assets/squire_logo.svg"></svg-icon>
+      <span class="squire-header-title">{{ ('Squire.' + env) | translate }}</span>
+    </span>
+    </div>
+  </div>
+
+  <button mat-mini-fab
+          *ngIf="showMenu"
+          class="squire-button transparent borderless no-focus user-menu-toggle on-dark"
+          (click)="toggleMenu()">
+    <i class="far fa-user-circle user-icon"></i>
+  </button>
+</div>

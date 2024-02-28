@@ -1,0 +1,39 @@
+<app-details headerName="{{ (sanitizedImage == null ? 'CharacterImage.AddImage' : 'CharacterImage.EditImage') | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             [loading]="loading"
+             [primaryDisabled]="selectedImage == null || loading"
+             [primaryCloseOnClick]="false"
+             (tertiary)="deleteClick()"
+             [tertiaryCloseOnClick]="false"
+             (secondary)="closeClick()"
+             [secondaryDisabled]="loading"
+             [tertiaryDisabled]="loading"
+             primaryLabel="{{ 'Save' | translate }}"
+             tertiaryLabel="{{ (sanitizedImage == null ? '' : 'Delete') | translate }}"
+             tertiaryConfirmationMessage="{{ 'CharacterImage.Delete.Confirmation' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div class="image-selector-container">
+    <mat-card class="add-item-card select-image-card clickable"
+              (click)="fileUpload.click()">
+      <span>{{ 'CharacterImage.SelectImage' | translate }}</span>
+    </mat-card>
+
+    <div class="image-container">
+      <img *ngIf="sanitizedImage != null && preview == null"
+           class="image-display"
+           [src]="sanitizedImage"/>
+
+      <img *ngIf="preview != null"
+           class="image-display"
+           [src]="preview"/>
+    </div>
+
+    <input type="file"
+           #fileUpload
+           class="file-input"
+           (change)="handleFileInput($event.target.files)"
+           accept="image/png, image/jpeg">
+  </div>
+
+</app-details>

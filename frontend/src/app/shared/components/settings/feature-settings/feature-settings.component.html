@@ -1,0 +1,19 @@
+<div class="form-group">
+  <app-setting [checked]="settings.features.displayTags"
+               label="{{ 'CharacterSettings.Features.DisplayTags' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Features.DisplayTags' | translate }}"
+               (change)="displayTags($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.features.highlightActive"
+               label="{{ 'CharacterSettings.Features.HighlightActive' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Features.HighlightActive' | translate }}"
+               (change)="highlightActive($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.features.highlightNonActive"
+               label="{{ 'CharacterSettings.Features.HighlightNonActive' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Features.HighlightNonActive' | translate }}"
+               (change)="highlightNonActive($event)">
+  </app-setting>
+</div>

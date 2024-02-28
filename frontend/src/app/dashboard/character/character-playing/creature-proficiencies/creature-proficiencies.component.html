@@ -1,0 +1,41 @@
+<div class="form-group">
+  <label class="bold">{{ 'Headers.ArmorProfs' | translate }}</label>
+  <div class="row prof-details">
+    <div *ngFor="let prof of armorProfs" class="col-md-6 col-sm-12 section form-group">
+      <label class="bold">{{prof.name}}</label>
+      <div *ngFor="let child of prof.children" class="nested">
+        <span>{{child}}</span>
+      </div>
+      <div *ngIf="prof.children.length === 0" class="nested">{{ 'None' | translate }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="bold">{{ 'Headers.WeaponProfs' | translate }}</label>
+  <div class="row prof-details">
+    <div *ngFor="let prof of weaponProfs" class="col-md-6 col-sm-12 section form-group">
+      <label class="bold">{{prof.name}}</label>
+      <div *ngFor="let child of prof.children" class="nested">
+        <span>{{child}}</span>
+      </div>
+      <div *ngIf="prof.children.length === 0" class="nested">{{ 'None' | translate }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="bold">{{ 'Headers.ToolProfs' | translate }}</label>
+  <div *ngFor="let prof of toolProfs" class="nested">
+    <span>{{prof}}</span>
+  </div>
+  <div *ngIf="toolProfs.length === 0" class="nested">{{ 'None' | translate }}</div>
+</div>
+
+<div class="form-group">
+  <label class="bold">{{ 'Headers.LanguageProfs' | translate }}</label>
+  <div *ngFor="let prof of languageProfs" class="nested">
+    <span>{{prof}}</span>
+  </div>
+  <div *ngIf="languageProfs.length === 0" class="nested">{{ 'None' | translate }}</div>
+</div>

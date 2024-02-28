@@ -1,0 +1,25 @@
+<app-details headerName="{{ 'FavoriteActions' | translate }}"
+             (close)="onCancel()"
+             (primary)="onSave()"
+             (secondary)="onCancel()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div *ngIf="favoriteActions.length === 0"
+       class="no-actions-container">
+    <span>{{ 'NoFavoriteActions' | translate }}</span>
+  </div>
+
+  <div cdkDropList class="drag-list" (cdkDropListDropped)="drop($event)">
+    <div class="drag-box" *ngFor="let creatureActionSelection of favoriteActions" cdkDrag [cdkDragStartDelay]="100">
+      <i class="far fa-star" *ngIf="!creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+      <i class="fas fa-star" *ngIf="creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+
+      <span class="action-label">{{creatureActionSelection.creatureAction.item.name}}</span>
+
+      <span class="grip-icon" cdkDragHandle>
+        <i class="fas fa-grip-lines"></i>
+      </span>
+    </div>
+  </div>
+</app-details>

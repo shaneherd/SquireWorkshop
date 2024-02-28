@@ -1,0 +1,27 @@
+<app-details headerName="{{ 'Headers.LimitedUse' | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             (tertiary)="resetClick()"
+             (secondary)="closeClick()"
+             [primaryDisabled]="!hasLimitedUse"
+             [tertiaryDisabled]="!hasLimitedUse"
+             primaryLabel="{{ 'Save' | translate }}"
+             tertiaryLabel="{{ 'Reset' | translate }}"
+             tertiaryConfirmationMessage="{{ 'ResetSpellLimitedUseConfirmation' | translate}}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div *ngIf="!hasLimitedUse" class="no-limited-uses-container">
+    <span>{{ 'NoLimitedUses' | translate }}</span>
+  </div>
+
+  <ng-container *ngFor="let spell of spells">
+    <div class="form-group spell" *ngIf="spell.innateMaxUses > 0">
+      <label>{{spell.spell.name}}</label>
+      <span>{{spell.usesRemaining}}/{{spell.innateMaxUses}}</span>
+
+      <div class="uses-remaining">
+        <app-slider-input [min]="0" [max]="spell.innateMaxUses" [step]="1" [(value)]="spell.usesRemaining" [displayMax]="false">
+        </app-slider-input>
+      </div>
+    </div>
+  </ng-container>
+</app-details>

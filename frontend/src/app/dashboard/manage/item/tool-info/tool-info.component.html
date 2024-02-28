@@ -1,0 +1,57 @@
+<!--Category-->
+<div class="form-group categories">
+  <label>{{ 'Labels.Type' | translate }}</label>
+  <span *ngIf="!editing">{{tool.category.name}}</span>
+  <mat-icon *ngIf="!editing && selectedCategory.id !== '0' && selectedCategory.description.length > 0"
+            matTooltip="{{selectedCategory.description}}"
+            class="help-icon">
+    info
+  </mat-icon>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedCategory"
+                  (selectionChange)="categoryChange($event.value)">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-icon *ngIf="selectedCategory.id !== '0' && selectedCategory.description.length > 0"
+              matTooltip="{{selectedCategory.description}}"
+              class="help-icon">
+      info
+    </mat-icon>
+  </div>
+</div>
+
+<!--Expendable-->
+<app-is-expendable-configuration [item]="tool"
+                                 [editing]="editing">
+</app-is-expendable-configuration>
+
+<!--Equippable-->
+<app-is-equippable-configuration [item]="tool"
+                                 [editing]="editing">
+</app-is-equippable-configuration>
+
+<!--Is Container-->
+<app-is-container-configuration [item]="tool"
+                                [editing]="editing">
+</app-is-container-configuration>
+
+<!--Cost-->
+<app-cost-configuration [item]="tool"
+                        [editing]="editing">
+</app-cost-configuration>
+
+<!--Weight-->
+<app-weight-configuration [item]="tool"
+                          [editing]="editing">
+</app-weight-configuration>
+
+<!--Description-->
+<app-description-configuration [item]="tool"
+                               [editing]="editing"
+                               [maxLength]="1000">
+</app-description-configuration>

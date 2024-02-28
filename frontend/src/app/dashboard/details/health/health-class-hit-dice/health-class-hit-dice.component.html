@@ -1,0 +1,12 @@
+<!--Hit Dice: (3 + #)d12-->
+<div class="form-group">
+  <label>{{ 'Labels.HitDice' | translate }}</label>
+  <span>({{numLevels}} +</span>
+  <input type="number"
+         class="form-control"
+         max="99" min="0"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="healthConfiguration.hitDiceMod"
+         (valueChange)="onHitDiceModChange($event)"/>
+  <span>)d{{ 'DiceSize.' + diceSize | translate }}</span>
+</div>

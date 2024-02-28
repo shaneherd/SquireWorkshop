@@ -1,0 +1,8 @@
+<app-list-menu headerName="{{ 'Navigation.Characters.Characters' | translate}}"
+               [menuService]="characterService"
+               [manageable]="false"
+               newItemLabel="{{ 'Navigation.Manage.Characters.New' | translate }}"
+               (onMenuItemSelected)="onMenuItemSelect($event)"
+               baseNavigation="/home/dashboard"
+               subNavigation="characters">
+</app-list-menu>

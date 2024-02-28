@@ -1,0 +1,33 @@
+<div *ngIf="editing || traits.length > 0 || parentTraits.length > 0" class="background-trait-list">
+  <div class="trait-header">
+    <h5>{{label}}</h5>
+    <i *ngIf="editing"
+       matTooltip="{{ 'Tooltips.Add' | translate }}"
+       class="add-trait fas fa-plus"
+       (click)="addTrait()"></i>
+  </div>
+  <div *ngIf="!hasTraits()" class="no-items-label">
+    {{ 'NoTraits.' + backgroundTraitType | translate }}
+  </div>
+  <ul *ngIf="!editing">
+    <li *ngFor="let trait of parentTraits" class="background-list">
+      <span>{{trait.description}}</span>
+    </li>
+    <li *ngFor="let trait of traits" class="background-list">
+      <span>{{trait.description}}</span>
+    </li>
+  </ul>
+  <div *ngIf="editing">
+    <ul>
+      <li *ngFor="let trait of parentTraits" class="background-list">
+        <span>{{trait.description}}</span>
+      </li>
+    </ul>
+    <div *ngFor="let trait of traits" class="background-trait">
+      <input class="form-control" [(ngModel)]="trait.description" maxlength="1000"/>
+      <i class="delete-trait fas fa-trash-alt"
+         (click)="deleteTrait(trait)"
+         matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+    </div>
+  </div>
+</div>

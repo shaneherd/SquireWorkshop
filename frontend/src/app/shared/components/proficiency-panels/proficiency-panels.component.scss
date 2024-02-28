@@ -1,0 +1,23 @@
+.form-control.inline {
+  display: inline-block;
+  width: 70px;
+  margin: 0 5px;
+}
+
+.proficiency-list {
+  display: inline-grid;
+  margin-bottom: 10px;
+
+  &.col-lg-12 {
+    padding: 0;
+  }
+}
+
+.secondary-num-choices {
+  float: right;
+  margin-right: 60px !important;
+}
+
+input.secondary-num-choices {
+  margin-right: 40px !important;
+}

@@ -1,0 +1,13 @@
+<cdk-virtual-scroll-viewport itemSize="63" class="list-menu" *ngIf="spells.length > 0">
+  <div *cdkVirtualFor="let item of spells; templateCacheSize: 50" class="list-menu-item">
+    <mat-checkbox class="on-dark" [checked]="item.selected" (change)="toggleSelected(item)"></mat-checkbox>
+    <mat-card class="card clickable ellipsis" [ngClass]="item.selected ? 'selected' : ''" (click)="onSpellClick(item)">
+      <span class="bold">{{item.spell.name}}</span>
+      <app-tag-bar class="tag-bar" [collection]="item.tags"></app-tag-bar>
+    </mat-card>
+  </div>
+</cdk-virtual-scroll-viewport>
+
+<div *ngIf="spells.length === 0 && !loading" class="details">
+  <span>{{ 'NoSpellsAvailable' | translate }}</span>
+</div>

@@ -1,0 +1,23 @@
+<div *ngIf="editing || item.equippable">
+  <mat-checkbox
+    (change)="equippableChange($event)"
+    [disabled]="!editing"
+    [checked]="item.equippable">
+  </mat-checkbox>
+  <span>{{ 'Equippable' | translate }}</span>
+</div>
+
+<div *ngIf="item.equippable">
+  <label>{{ 'Labels.Slot' | translate }}</label>
+  <span *ngIf="!editing">{{ 'EquipmentSlotType.' + item.slot | translate }}</span>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="item.slot"
+                  (selectionChange)="slotChange($event.value)">
+        <mat-option *ngFor="let slot of slots" [value]="slot">
+          {{ 'EquipmentSlotType.' + slot | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

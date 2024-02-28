@@ -1,0 +1,9 @@
+<app-list-menu headerName="{{ 'Navigation.Manage.Features.Features' | translate }}"
+               [menuService]="featureService"
+               newItemLabel="{{ 'Navigation.Manage.Features.New' | translate }}"
+               [filterable]="true"
+               (filter)="filter()"
+               [filters]="filters"
+               baseNavigation="/home/dashboard"
+               subNavigation="features">
+</app-list-menu>

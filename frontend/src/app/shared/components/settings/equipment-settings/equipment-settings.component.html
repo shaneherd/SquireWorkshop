@@ -1,0 +1,53 @@
+<div class="form-group">
+<!--  <app-setting *ngIf="showHideEmptySlots"-->
+<!--               [checked]="settings.equipment.hideEmptySlots"-->
+<!--               label="{{ 'CharacterSettings.HideEmptySlots' | translate }}"-->
+<!--               tooltip="{{ 'Tooltips.CharacterSettings.HideEmptySlots' | translate }}"-->
+<!--               (change)="hideEmptySlots($event)">-->
+<!--  </app-setting>-->
+
+  <app-setting *ngIf="showUseEncumbrance"
+               [checked]="settings.equipment.useEncumbrance"
+               label="{{ 'CharacterSettings.Equipment.UseEncumbrance' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Equipment.UseEncumbrance' | translate }}"
+               (change)="useEncumbrance($event)">
+  </app-setting>
+
+  <app-setting *ngIf="showCalculateCurrencyWeight"
+               [checked]="settings.equipment.calculateCurrencyWeight"
+               label="{{ 'CharacterSettings.Equipment.CalculateCurrencyWeight' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Equipment.CalculateCurrencyWeight' | translate }}"
+               (change)="calculateCurrencyWeight($event)">
+  </app-setting>
+
+  <app-setting *ngIf="showAttackWithUnequipped"
+               [checked]="settings.equipment.attackWithUnequipped"
+               label="{{ 'CharacterSettings.Equipment.AttackWithUnequipped' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Equipment.AttackWithUnequipped' | translate }}"
+               (change)="attackWithUnequipped($event)">
+  </app-setting>
+
+  <app-setting *ngIf="showAttuneEnforce"
+               [checked]="settings.equipment.enforceAttunedLimit"
+               label="{{ 'CharacterSettings.Equipment.EnforceAttunedLimit' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Equipment.EnforceAttunedLimit' | translate }}"
+               (change)="enforceAttunedLimit($event)">
+  </app-setting>
+
+  <div class="form-group" *ngIf="showAttuneLimit && settings.equipment.enforceAttunedLimit">
+    <label>{{ 'CharacterSettings.Equipment.MaxAttunedItems' | translate }}</label>
+    <input type="number"
+           class="form-control"
+           max="99" min="0"
+           appInputNumber minValue="0" maxValue="99"
+           [ngModel]="settings.equipment.maxAttunedItems"
+           (valueChange)="maxAttunedItemsChange($event)"/>
+  </div>
+
+<!--  <app-setting *ngIf="showAutoConvertCurrency"-->
+<!--               [checked]="settings.equipment.autoConvertCurrency"-->
+<!--               label="{{ 'CharacterSettings.AutoConvertCurrency' | translate }}"-->
+<!--               tooltip="{{ 'Tooltips.CharacterSettings.AutoConvertCurrency' | translate }}"-->
+<!--               (change)="autoConvertCurrency($event)">-->
+<!--  </app-setting>-->
+</div>

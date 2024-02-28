@@ -1,0 +1,88 @@
+<div class="characteristic-pager" *ngIf="characteristics.length > 1">
+  <button mat-icon-button
+          type="button"
+          class="no-focus navigation-button medium squire-button square clickable"
+          (click)="onPreviousPage()"
+          [disabled]="index === 0">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+
+  <mat-form-field class="characteristic-dropdown">
+    <mat-select [ngModel]="characteristic"
+                (selectionChange)="characteristicChange($event.value)">
+      <mat-option *ngFor="let characteristic of characteristics" [value]="characteristic">
+        {{characteristic.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-icon-button
+          type="button"
+          class="no-focus navigation-button medium squire-button square clickable"
+          (click)="onNextPage()"
+          [disabled]="index === characteristics.length - 1">
+    <i class="fas fa-arrow-right"></i>
+  </button>
+</div>
+
+<app-characteristic-spellcasting-modifier *ngIf="characteristic != null && characteristic.id !== '-1'"
+                                          class="form-group"
+                                          [creature]="creature"
+                                          [collection]="collection"
+                                          [characteristic]="characteristic"
+                                          [attackModifiers]="attackModifiers"
+                                          [saveModifiers]="saveModifiers"
+                                          [clickDisabled]="clickDisabled"
+                                          (abilityClick)="abilityClick($event)"
+                                          (attackClick)="attackClick($event)"
+                                          (saveClick)="saveClick($event)">
+</app-characteristic-spellcasting-modifier>
+
+<div *ngIf="creature.creatureSpellCasting != null && characteristic != null" class="spells-list">
+  <div *ngFor="let creatureSpell of applicableSpells">
+    <app-spell-card [creatureSpellConfiguration]="creatureSpell"
+                    [creature]="creature"
+                    [displayClass]="characteristic.id === '-1'"
+                    [displaySpellTags]="playerCharacter != null && playerCharacter.characterSettings.spellcasting.displayTags"
+                    [highlightActive]="playerCharacter == null || playerCharacter.characterSettings.spellcasting.highlightActive"
+                    [clickDisabled]="clickDisabled"
+                    (spellClick)="onSpellCLick($event)">
+    </app-spell-card>
+  </div>
+
+  <mat-card class="add-item-card"
+            *ngIf="characteristic != null && showAddSpell"
+            [ngClass]="{'clickable': !clickDisabled}"
+            (click)="addSpellClick()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'Headers.AddSpells' | translate }}</span>
+  </mat-card>
+</div>
+
+<app-spell-ability-configuration *ngIf="configuringAbility"
+                                 [creature]="creature"
+                                 [characteristicId]="characteristicId"
+                                 [characteristicType]="characteristicType"
+                                 [attackModifier]="attackModifier"
+                                 [saveModifier]="saveModifier"
+                                 (save)="saveConfiguring()"
+                                 (close)="closeConfiguring()">
+</app-spell-ability-configuration>
+
+<app-spell-modifier-configuration *ngIf="configuringAttack"
+                                  [creature]="creature"
+                                  [characteristicId]="characteristicId"
+                                  [powerModifier]="attackModifier"
+                                  [collection]="collection"
+                                  (save)="saveConfiguring()"
+                                  (close)="closeConfiguring()">
+</app-spell-modifier-configuration>
+
+<app-spell-modifier-configuration *ngIf="configuringSave"
+                                  [creature]="creature"
+                                  [characteristicId]="characteristicId"
+                                  [powerModifier]="saveModifier"
+                                  [collection]="collection"
+                                  (save)="saveConfiguring()"
+                                  (close)="closeConfiguring()">
+</app-spell-modifier-configuration>

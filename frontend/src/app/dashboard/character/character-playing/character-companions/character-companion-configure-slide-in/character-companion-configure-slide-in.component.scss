@@ -1,0 +1,18 @@
+.details {
+  color: #ffffff;
+}
+
+.nested {
+  margin-left: 20px;
+}
+
+.shopping-cart {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.shopping-cart-page {
+  flex-grow: 1;
+  height: 100%;
+}

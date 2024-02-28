@@ -1,0 +1,43 @@
+@import '../../../sass/variables';
+
+.magic-item-table {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  table-layout: fixed;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  .magical-item-table-row {
+    height: 48px;
+  }
+
+  th.magical-item-table-cell,
+  td.magical-item-table-cell {
+    padding: 0 10px;
+    text-align: center;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-bottom-color: rgba(0,0,0,.12);
+    border-right-color: rgba(0,0,0,.12);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  th.magical-item-table-cell {
+    font-weight: bold;
+  }
+
+  .magical-item-table-cell.clickable:hover {
+    background-color: $secondary_button_hover;
+  }
+}
+
+.magic-item-table.on-dark {
+  border-color: #ffffff;
+
+  .magical-item-table-cell {
+    border-bottom-color: #ffffff;
+    border-right-color: #ffffff;
+  }
+}

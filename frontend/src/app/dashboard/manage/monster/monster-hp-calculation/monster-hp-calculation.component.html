@@ -1,0 +1,64 @@
+<ng-container *ngIf="!editing && !loading">
+  <ng-container *ngIf="diceCollection.numDice > 0">
+    <span class="dice-display">
+      {{diceCollection.numDice}}
+    </span>
+    <span *ngIf="diceCollection.diceSize != null" class="dice-display">
+      d{{ 'DiceSize.' + diceCollection.diceSize | translate }}
+    </span>
+  </ng-container>
+
+  <span class="spaced" *ngIf="(diceCollection.numDice > 0 || diceCollection.miscModifier > 0) && (diceCollection.abilityModifier != null && diceCollection.abilityModifier.id !== '0')">+</span>
+  <span *ngIf="diceCollection.abilityModifier != null && diceCollection.abilityModifier.id !== '0'"
+        class="ability-modifier">
+    ({{diceCollection.numDice}} x {{diceCollection.abilityModifier.name}})
+  </span>
+
+  <span class="spaced" *ngIf="diceCollection.numDice > 0 && diceCollection.miscModifier > 0">+</span>
+  <span *ngIf="diceCollection.miscModifier > 0"
+        class="misc-modifier">
+    {{diceCollection.miscModifier}}
+  </span>
+</ng-container>
+
+<div *ngIf="editing">
+  <input type="number"
+         class="form-control number-inline"
+         max="99" min="0"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="diceCollection.numDice"
+         (valueChange)="numDiceChange($event)"/>
+
+  <span *ngIf="diceCollection.diceSize != null">d</span>
+  <mat-form-field class="dice-collection dice-size"
+                  *ngIf="diceCollection.diceSize != null">
+    <mat-select [(ngModel)]="diceCollection.diceSize"
+                (selectionChange)="diceSizeChange($event.value)">
+      <mat-option *ngFor="let diceSize of diceSizes" [value]="diceSize">
+        {{ 'DiceSize.' + diceSize | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <span *ngIf="diceCollection.abilityModifier != null">+</span>
+  <span>({{diceCollection.numDice}} x</span>
+  <mat-form-field class="dice-collection ability-modifier"
+                  *ngIf="diceCollection.abilityModifier != null">
+    <mat-select [(ngModel)]="diceCollection.abilityModifier.id"
+                (selectionChange)="abilityModifierChange($event.value)">
+      <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+        {{ability.id === '0' ? noAbility : ability.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <span>)</span>
+
+  <span *ngIf="diceCollection.diceSize != null">+</span>
+  <input type="number"
+         *ngIf="diceCollection.diceSize != null"
+         class="form-control number-inline"
+         max="999" min="0"
+         appInputNumber minValue="0" maxValue="999"
+         [ngModel]="diceCollection.miscModifier"
+         (valueChange)="miscModifierChange($event)"/>
+</div>

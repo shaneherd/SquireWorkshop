@@ -1,0 +1,23 @@
+<mat-card [ngClass]="{'clickable': !disabled, 'disabled': disabled}"
+          (click)="spellClick()">
+  <span>{{config.spell.name}}</span>
+
+  <div class="tags-container">
+<!--    <span class="tag"-->
+<!--          *ngIf="config.storedLevel > 0"-->
+<!--          [translate]="'Lvl'"-->
+<!--          [translateParams]="{level: config.storedLevel}">-->
+<!--    </span>-->
+    <span class="tag"
+          *ngIf="magicalItem.hasCharges && config.charges > 0"
+          [translate]="'ChargesCost'"
+          [translateParams]="{cost: config.charges}">
+    </span>
+  </div>
+  <div *ngIf="creature != null && config.spell.tags.length > 0">
+    <app-tag-bar class="tag-bar"
+                 [tags]="config.spell.tags"
+                 [allTags]="creature.creatureSpellCasting.tags">
+    </app-tag-bar>
+  </div>
+</mat-card>

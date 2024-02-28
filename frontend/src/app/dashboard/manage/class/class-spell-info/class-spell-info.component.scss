@@ -1,0 +1,20 @@
+.num-to-prepare {
+  margin-left: 20px;
+
+  input {
+    width: 70px;
+    display: inline;
+    margin-top: 2px;
+  }
+}
+
+.preparation-container {
+  margin-bottom: 5px;
+}
+
+.caster-type-container,
+.spellcasting-ability-container {
+  .help-icon {
+    margin-left: 10px;
+  }
+}

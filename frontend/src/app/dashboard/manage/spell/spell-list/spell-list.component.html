@@ -1,0 +1,8 @@
+<app-list-menu headerName="{{ 'Navigation.Manage.Spells.Spells' | translate }}"
+               [menuService]="spellService"
+               [filterable]="true"
+               newItemLabel="{{ 'Navigation.Manage.Spells.New' | translate }}"
+               (filter)="filter()"
+               baseNavigation="/home/dashboard"
+               subNavigation="spells">
+</app-list-menu>

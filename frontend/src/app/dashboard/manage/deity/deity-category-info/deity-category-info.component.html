@@ -1,0 +1,37 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!deityCategory.author"
+               [itemName]="itemName"
+               [id]="deityCategory.id"
+               [inUseService]="attributeService"
+               [showShare]="deityCategory.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               type="{{ 'AttributeType.DEITY_CATEGORY' | translate }}"
+               (save)="save()"
+               (cancel)="cancel()"
+               (delete)="delete()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="deityCategoryForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && deityCategory?.id !== '0'">{{deityCategory.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (deityCategory?.id !== '0' && deityCategory.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && deityCategory?.id !== '0'" class="info-description">{{deityCategory.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.CasterTypes.CasterTypes' | translate }}"
+                 [menuService]="casterTypeService"
+                 [manageService]="attributeService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="CasterTypes"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-caster-type *ngIf="selectedItem != null"
+                            [casterType]="selectedItem"
+                            (save)="updateSelected($event)"
+                            (cancel)="closeItem()">
+</app-add-remove-caster-type>

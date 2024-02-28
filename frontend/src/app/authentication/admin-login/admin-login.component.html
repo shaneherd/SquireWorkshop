@@ -1,0 +1,57 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="col-md-6 col-xs-12 admin-login">
+  <h1>{{ 'Auth.Admin.Login' | translate }}</h1>
+  <form [formGroup]="adminLoginForm" (submit)="login()">
+    <div class="form-group">
+      <label for="adminUsername">{{ 'Auth.Admin.Username' | translate }}</label>
+      <input id="adminUsername" maxlength="20" formControlName="adminUsername" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="adminPassword">{{ 'Auth.Admin.Password' | translate }}</label>
+      <show-hide-password size="lg" icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+        <input id="adminPassword" maxlength="20" formControlName="adminPassword" type="password" class="form-control">
+      </show-hide-password>
+    </div>
+
+    <div class="form-group">
+      <label for="username">{{ 'Auth.Username' | translate }}</label>
+      <input id="username" maxlength="20" formControlName="username" type="text" class="form-control">
+    </div>
+
+    <form [formGroup]="adminLoginForm">
+      <re-captcha formControlName="recaptcha"></re-captcha>
+    </form>
+    <br>
+    <div class="form-group">
+      <button [disabled]="adminLoginForm.invalid || loading" class="squire-button btn btn-primary">{{ 'Auth.Login.Login' | translate }}</button>
+    </div>
+  </form>
+</div>
+
+<!--<div class="col-md-6 col-md-offset-3 admin-login">-->
+  <!--<h2>{{ 'Auth.Admin.Login' | translate }}</h2>-->
+  <!--<form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>-->
+    <!--<div class="form-group">-->
+      <!--<label for="adminUsername">{{'Auth.Admin.Username' | translate}}</label>-->
+      <!--<input id="adminUsername" type="text" class="form-control"-->
+             <!--[ngClass]="{ 'is-invalid': f.submitted && !adminUsername.valid }" name="adminUsername"-->
+             <!--[(ngModel)]="model.adminUsername" #adminUsername="ngModel" required/>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<label for="adminPassword">{{'Auth.Admin.Password' | translate}}</label>-->
+      <!--<input id="adminPassword" type="password" class="form-control"-->
+             <!--[ngClass]="{ 'is-invalid': f.submitted && !adminPassword.valid }" name="adminPassword"-->
+             <!--[(ngModel)]="model.adminPassword" #adminPassword="ngModel" required/>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<label for="username">{{'Auth.Password.Password' | translate}}</label>-->
+      <!--<input id="username" type="text" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && !username.valid }"-->
+             <!--name="username" [(ngModel)]="model.username" #username="ngModel" required/>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<button [disabled]="loading" class="btn btn-primary">{{'Auth.Login.Login' | translate}}</button>-->
+    <!--</div>-->
+  <!--</form>-->
+<!--</div>-->

@@ -1,0 +1,17 @@
+.details {
+  color: #ffffff;
+}
+
+.padded {
+  margin-left: 20px;
+}
+
+.feature-tags {
+  margin-left: 20px;
+}
+
+i {
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,41 @@
+.character-playing-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: visible;
+}
+
+.character-playing-column {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding: 5px;
+  position: relative;
+  display: flex;
+
+  &:not(:first-child) {
+    border-left: 1px solid #000000;
+  }
+}
+
+.mobile-column {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-playing-column {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  overflow-y: auto;
+}
+
+.page-progress {
+  flex-shrink: 0;
+  padding: 0 5px 5px 5px;
+  //padding: 5px;
+
+  mat-slider {
+    width: 100%;
+  }
+}

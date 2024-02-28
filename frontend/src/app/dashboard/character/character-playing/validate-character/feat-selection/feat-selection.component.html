@@ -1,0 +1,25 @@
+<app-details headerName="{{ 'Headers.FeatSelection' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             (secondary)="closeDetails()"
+             [loading]="loading"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="content-data-full-height feats-container">
+    <app-feature-selection-items [features]="feats"
+                                 [playerCharacter]="playerCharacter"
+                                 [allowMultiSelect]="false"
+                                 (featureClick)="featureClick($event)">
+    </app-feature-selection-items>
+  </div>
+
+  <app-add-remove-feature *ngIf="viewingFeature != null"
+                          [feature]="viewingFeature"
+                          [playerCharacter]="playerCharacter"
+                          [collection]="collection"
+                          (save)="toggleSelected($event)"
+                          (cancel)="addFeatureClose()" >
+  </app-add-remove-feature>
+</app-details>
+

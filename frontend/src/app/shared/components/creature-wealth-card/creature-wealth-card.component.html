@@ -1,0 +1,16 @@
+<mat-card [ngClass]="{'clickable': !clickDisabled}"
+          *ngIf="creatureWealthAmount != null"
+          class="wealth-card"
+          (click)="onWealthClick()">
+  <div class="wealth-name-container">
+    <span class="name-span">
+      {{creatureWealthAmount.costUnit.name}}
+    </span>
+  </div>
+
+  <div class="tags-container">
+    <app-quantity-tag [quantity]="creatureWealthAmount.amount"
+                      [alwaysShowQuantity]="true">
+    </app-quantity-tag>
+  </div>
+</mat-card>

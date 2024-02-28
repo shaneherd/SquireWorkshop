@@ -1,0 +1,5 @@
+<div *ngFor="let tag of tags">
+  <app-tag-detail [tag]="tag"></app-tag-detail>
+</div>
+
+<div *ngIf="tags != null && tags.length === 0">{{ 'None' | translate }}</div>

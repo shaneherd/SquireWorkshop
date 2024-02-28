@@ -1,0 +1,5 @@
+<div [class]="class">
+  <label>{{ 'Labels.AC' | translate }}</label>
+  <span *ngIf="!baseAC" class="modifier">+</span>
+  <span [matTooltip]="acTooltip">{{acModifier}}</span>
+</div>

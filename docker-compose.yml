@@ -1,0 +1,83 @@
+version: '3.4'
+services:
+  traefik:
+    image: 'traefik:2.11.0'
+    container_name: 'Squire-Reverse-Proxy'
+    command:
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    networks:
+      - internal
+  frontend:
+    # TODO replace with correct image once it is available
+    image: ghcr.io/maybeanerd/squire-workshop-frontend:1.0.0
+    depends_on:
+      - backend
+    container_name: 'Squire-Frontend'
+    restart: always
+    labels:
+      # Explicitly tell Traefik to expose this container
+      - 'traefik.enable=true'
+      # The port the service will respond on (normally traefik auto detects that, but here it doesnt)
+      - 'traefik.http.services.frontend.loadbalancer.server.port=8080'
+    networks:
+      - internal
+  backend:
+    # TODO replace with correct image once it is available
+    image: ghcr.io/maybeanerd/squire-workshop-backend:1.0.0
+    extends:
+      file: docker-compose.config.yml
+      service: backend
+    depends_on:
+      - database
+    container_name: 'Squire-Backend'
+    restart: always
+    labels:
+      # Explicitly tell Traefik to expose this container
+      - 'traefik.enable=true'
+    environment:
+      # Hardcoded environment variables, which should not be changed.
+      SQUIRE_JDBC_USER: squire
+      SQUIRE_DB_URL: jdbc:mysql://database:3306/squire?autoReconnect=true&&useSSL=false&allowPublicKeyRetrieval=true&tinyInt1isBit=false&sessionVariables=sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+      SQUIRE_LOG_PATH: ./Squire.log
+      SQUIRE_IMAGES_PATH: ./images
+      SQUIRE_USE_SSL: false
+      SQUIRE_ENV: prod
+    volumes:
+      - backend_data:/var/lib/app
+    networks:
+      - internal
+  database:
+    # TODO replace with correct image once it is available
+    image: ghcr.io/maybeanerd/squire-workshop-database:1.0.0
+    extends:
+      file: docker-compose.config.yml
+      service: database
+    container_name: 'Squire-Database'
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    hostname: database
+    environment:
+      # Hardcoded environment variables, which should not be changed.
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+      MYSQL_DATABASE: squire
+      MYSQL_USER: squire
+    volumes:
+      - db_data:/var/lib/mysql/
+    networks:
+      - internal
+volumes:
+  db_data:
+    name: Squire-Database-Volume
+  backend_data:
+    name: Squire-Backend-Volume
+networks:
+  internal:
+    name: Squire-Internal-Network

@@ -1,0 +1,59 @@
+<app-details headerName="{{ 'Headers.ConfigureItem' | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <!--Item Type-->
+  <div class="form-group">
+    <mat-button-toggle-group [(ngModel)]="selectedItemType">
+      <mat-button-toggle *ngFor="let itemType of startingEquipmentTypes"
+                         [value]="itemType">
+        {{ 'StartingEquipmentType.' + itemType | translate }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!--Item-->
+  <div class="form-group" *ngIf="isItem()">
+    <label>{{ 'Labels.Item' | translate }}</label>
+    <div>
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedItem">
+          <mat-option>
+            <ngx-mat-select-search [placeholderLabel]="search"
+                                   [noEntriesFoundLabel]="none"
+                                   [formControl]="itemFilterFormControl"></ngx-mat-select-search>
+          </mat-option>
+
+          <mat-option *ngFor="let itemChoice of filteredItems" [value]="itemChoice">
+            {{itemChoice.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--Filter-->
+  <div class="form-group" *ngIf="!isItem()">
+    <label>{{ 'Labels.Filter' | translate }}</label>
+    <div class="filter-display">
+      <span class="filter-name">{{getFiltersDisplay()}}</span>
+      <span class="filter-icon">
+          <i class="fas fa-filter" (click)="filter()"></i>
+        </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Quantity' | translate }}</label>
+    <input type="number"
+           class="form-control"
+           max="99" min="1"
+           appInputNumber [minValue]="1" [maxValue]="99" [allowDecimal]="false"
+           [(ngModel)]="quantity"/>
+  </div>
+</app-details>

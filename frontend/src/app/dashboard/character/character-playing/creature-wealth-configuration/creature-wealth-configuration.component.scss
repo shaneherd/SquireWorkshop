@@ -1,0 +1,83 @@
+@import '../../../../sass/variables';
+
+.cost-unit-configuration-action-buttons-container {
+  flex-shrink: 0;
+  margin: auto;
+  width: $slide_in_min_width;
+  padding: 0;
+}
+
+.mobile.cost-unit-configuration-action-buttons-container {
+  width: 100%;
+}
+
+.mobile .cost-unit-configuration {
+  max-width: initial;
+}
+
+.cost-unit-configuration {
+  padding: 5px;
+  color: white;
+
+  .help-icon {
+    color: white;
+    margin-left: 10px;
+  }
+}
+
+.drag-box {
+  padding: 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  color: white;
+  font-size: 14px;
+
+  .checkbox,
+  .grip-icon {
+    flex-shrink: 0;
+  }
+
+  .cost-unit-label {
+    flex-grow: 1;
+  }
+
+  .grip-icon {
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  .grip-icon {
+    cursor: grabbing;
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-box:last-child {
+  border: none;
+}
+
+.drag-list.cdk-drop-list-dragging .drag-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

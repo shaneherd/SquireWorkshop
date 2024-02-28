@@ -1,0 +1,57 @@
+<app-details headerName="{{ 'Headers.Wealth' | translate }}"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             (tertiary)="convertClick()"
+             [primaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             tertiaryLabel="{{ 'Convert' | translate }}"
+             class="details">
+
+  <div *ngFor="let adjustment of adjustments">
+    <app-adjustment-card-row [adjustment]="adjustment"
+                             [clickDisabled]="adjustment.totalAdjustment === 0 || adjustment.amount !== 0"
+                             (cardClick)="cardClick(adjustment)">
+    </app-adjustment-card-row>
+  </div>
+
+  <div class="details-configuration-action-buttons-container form-group">
+    <div class="details-configuration-action-buttons">
+      <div class="action-button">
+        <button type="button" (click)="loseClick()" class="squire-button btn btn-primary">
+          {{ 'Lose' | translate }}
+        </button>
+      </div>
+      <div class="action-button">
+        <button type="button" (click)="gainClick()" class="squire-button btn btn-danger">
+          {{ 'Gain' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group currency-weight" *ngIf="calculateCurrencyWeight">
+    <label>{{ 'Labels.Weight' | translate }}</label>
+    <span translate="WeightValue"
+          [translateParams]="{value: currencyWeight}"></span>
+  </div>
+
+</app-details>
+
+<app-creature-wealth-configuration *ngIf="configuring"
+                                   [creature]="creature"
+                                   [collection]="collection"
+                                   (save)="saveConfigurations()"
+                                   (close)="closeConfigurations()">
+</app-creature-wealth-configuration>
+
+<app-creature-wealth-convert *ngIf="converting"
+                             [creature]="creature"
+                             [collection]="collection"
+                             (save)="saveConvert()"
+                             (close)="closeConvert()">
+</app-creature-wealth-convert>

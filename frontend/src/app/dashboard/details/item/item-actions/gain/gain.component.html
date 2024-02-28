@@ -1,0 +1,32 @@
+<app-details headerName="{{ 'CreatureItemAction.GAIN.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Current' | translate }}</label>
+    <span>{{creatureItem.quantity}}</span>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Purchase' | translate }}</label>
+    <input type="number"
+           class="form-control shrink"
+           [min]="0"
+           [max]="9999"
+           appInputNumber [minValue]="0" [maxValue]="9999" [allowDecimal]="false"
+           [ngModel]="itemQuantity.quantity"
+           (valueChange)="quantityChange($event)"/>
+  </div>
+
+  <app-cost-details [creature]="creature"
+                    [items]="items"
+                    [id]="id"
+                    [modifier]="-1"
+                    (continue)="continueGain()">
+  </app-cost-details>
+</app-details>

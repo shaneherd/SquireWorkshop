@@ -1,0 +1,35 @@
+<mat-card [ngClass]="{'clickable': !clickDisabled}"
+          (click)="spellClick()">
+  <div class="verticle-bar" [ngClass]="{
+            'clickable': !clickDisabled,
+            'spell-active': spell.active && highlightActive
+          }"></div>
+  <span>{{spell.spell.name}}</span>
+  <div class="tags-container">
+    <span *ngIf="spell.calculatedMax > 0" class="tag" [ngClass]="{'no-uses-remaining': spell.usesRemaining === 0}">
+      {{spell.usesRemaining}}/{{spell.calculatedMax}}
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'Active' | translate }}"  *ngIf="spell.active">
+      <i class="far fa-clock"></i>
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'Concentrating' | translate }}"  *ngIf="spell.concentrating">
+      <i class="far fa-lightbulb"></i>
+    </span>
+<!--    <span class="tag borderless" matTooltip="{{ 'Prepared' | translate }}" *ngIf="displayPrepared && (creatureSpellConfiguration.creatureSpell.prepared || (creatureSpellConfiguration.configuration != null && creatureSpellConfiguration.configuration.alwaysPrepared))">-->
+<!--      <i class="far fa-check-circle"></i>-->
+<!--    </span>-->
+<!--    <span class="tag borderless" matTooltip="{{ 'AlwaysPrepared' | translate }}" *ngIf="alwaysPrepared">-->
+<!--      <i class="far fa-bookmark"></i>-->
+<!--    </span>-->
+<!--    <span class="tag borderless" matTooltip="{{ 'DoesntCountTowardsPrepared' | translate }}" *ngIf="!countTowardsPrepared">-->
+<!--      <i class="fas fa-ban"></i>-->
+<!--    </span>-->
+    <span class="tag">{{level}}</span>
+  </div>
+<!--  <div *ngIf="displaySpellTags && creatureSpellConfiguration.creatureSpell.spell.tags.length > 0">-->
+<!--    <app-tag-bar class="tag-bar"-->
+<!--                 [tags]="creatureSpellConfiguration.creatureSpell.spell.tags"-->
+<!--                 [allTags]="playerCharacter.creatureSpellCasting.tags">-->
+<!--    </app-tag-bar>-->
+<!--  </div>-->
+</mat-card>

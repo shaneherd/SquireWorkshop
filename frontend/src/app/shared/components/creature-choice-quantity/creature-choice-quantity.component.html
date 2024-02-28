@@ -1,0 +1,9 @@
+<div class="form-group" *ngIf="getTotal() > 0">
+  <span>Choose </span>
+  <span [matTooltip]="getTooltip()">{{getTotal()}}</span>
+  <span class="chosen-count">({{getQuantityChosen()}}/{{getTotal()}})</span>
+  <i class="material-icons"
+     [ngClass]="getQuantityChosen() < getTotal() ? 'text-danger' : 'text-success'">
+    {{ getQuantityChosen() < getTotal() ? 'cancel' : 'check_circle' }}
+  </i>
+</div>

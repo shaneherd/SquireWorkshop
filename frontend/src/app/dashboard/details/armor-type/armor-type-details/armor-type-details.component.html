@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label>{{ 'Labels.Don' | translate }}</label>
+  <span [translate]="'TimeUnit.' + armorType.donTimeUnit"
+        [translateParams]="{count: armorType.don}"></span>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Doff' | translate }}</label>
+  <span [translate]="'TimeUnit.' + armorType.doffTimeUnit"
+        [translateParams]="{count: armorType.doff}"></span>
+</div>
+
+<div class="form-group info-description" *ngIf="armorType.description.length > 0">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span class="info-description">{{armorType.description}}</span>
+</div>

@@ -1,0 +1,19 @@
+.details {
+  color: #ffffff;
+}
+
+input {
+  width: 70px;
+  display: inline;
+}
+
+.ability-config {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .ability-name {
+    margin: 0 5px;
+  }
+}

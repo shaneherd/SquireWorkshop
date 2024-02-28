@@ -1,0 +1,393 @@
+<div class="full-width print-container">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="print-loading"></mat-progress-bar>
+  <div class="print-settings-row">
+    <button class="squire-button btn btn-primary print-button"
+            [disabled]="loading"
+            (click)="downloadAsPDF()">
+      {{ 'Export' | translate }}
+    </button>
+
+    <button class="squire-button btn btn-danger print-button"
+            [disabled]="loading"
+            (click)="cancelClick()">
+      {{ 'Cancel' | translate }}
+    </button>
+
+    <mat-checkbox
+      (change)="includeSpellsChange($event)"
+      [disabled]="loading"
+      [checked]="includeSpells">
+      {{ 'IncludeSpells' | translate }}
+    </mat-checkbox>
+
+    <mat-checkbox
+      *ngIf="includeSpells"
+      (change)="includeSpellDetailsChange($event)"
+      [disabled]="loading"
+      [checked]="includeSpellDetails">
+      {{ 'IncludeSpellDetails' | translate }}
+    </mat-checkbox>
+
+    <mat-checkbox
+      (change)="includeFeatureDetailsChange($event)"
+      [disabled]="loading"
+      [checked]="includeFeatureDetails">
+      {{ 'IncludeFeatureDetails' | translate }}
+    </mat-checkbox>
+
+    <mat-checkbox
+      *ngIf="isPro && sanitizedImage != null"
+      (change)="centerImageChange($event)"
+      [disabled]="loading"
+      [checked]="centerImage">
+      {{ 'CenterImage' | translate }}
+    </mat-checkbox>
+  </div>
+
+  <div id="pdfTable" #pdfTable class="full-width pdf-table">
+    <div class="character-page">
+      <div class="character-header-row">
+        <div class="squire-logo-container col-3">
+          <img src="/assets/squire_logo.png" class="squire-logo-header">
+          <span class="squire-header-title">Squire</span>
+        </div>
+        <app-character-box class="character-box character-name borderless col-6"
+                           label="{{ 'Headers.Name' | translate }}"
+                           [value]="playerCharacter.name">
+        </app-character-box>
+      </div>
+
+      <div class="character-row">
+        <div class="character-column col-4">
+          <div class="character-row">
+            <app-character-box class="character-box col-4"
+                               label="{{ 'Headers.AC' | translate }}"
+                               [value]="ac">
+            </app-character-box>
+
+            <app-character-box class="character-box col-4"
+                               label="{{ 'Headers.Initiative' | translate }}"
+                               [value]="initiative">
+            </app-character-box>
+
+            <app-character-box class="character-box col-4"
+                               label="{{ 'Headers.Speed' | translate }}"
+                               [value]="speed">
+            </app-character-box>
+          </div>
+
+          <div class="character-row">
+            <app-character-box class="character-box col-8"
+                               label="{{ 'Headers.HpMax' | translate }}"
+                               [value]="hp">
+            </app-character-box>
+
+            <app-character-box class="character-box col-4"
+                               label="{{ 'Headers.Temp' | translate }}"
+                               [value]="playerCharacter.creatureHealth.tempHp">
+            </app-character-box>
+          </div>
+
+          <div class="character-row">
+            <app-character-box class="character-box col-4"
+                               label="{{ 'Headers.Prof' | translate }}"
+                               [value]="proficiencyBonus">
+            </app-character-box>
+
+            <app-character-box class="character-box col-4"
+                               label="{{ 'Headers.HitDice' | translate }}"
+                               [value]="hitDice">
+            </app-character-box>
+
+            <div class="character-box col-4">
+              <div class="death-saves-container character-box-custom">
+                <label>{{ 'Headers.DeathSaves' | translate }}</label>
+
+                <div class="death-saves-row success">
+                  <span class="death-save-label">S</span>
+                  <app-print-character-checkbox class="save-checkbox" [checked]="playerCharacter.creatureHealth.numDeathSaveThrowSuccesses >= 1"></app-print-character-checkbox>
+                  <app-print-character-checkbox class="save-checkbox" [checked]="playerCharacter.creatureHealth.numDeathSaveThrowSuccesses >= 2"></app-print-character-checkbox>
+                  <app-print-character-checkbox class="save-checkbox" [checked]="playerCharacter.creatureHealth.numDeathSaveThrowSuccesses >= 3"></app-print-character-checkbox>
+                </div>
+                <div class="death-saves-row failure">
+                  <span class="death-save-label">F</span>
+                  <app-print-character-checkbox class="save-checkbox" [checked]="playerCharacter.creatureHealth.numDeathSaveThrowFailures >= 1"></app-print-character-checkbox>
+                  <app-print-character-checkbox class="save-checkbox" [checked]="playerCharacter.creatureHealth.numDeathSaveThrowFailures >= 2"></app-print-character-checkbox>
+                  <app-print-character-checkbox class="save-checkbox" [checked]="playerCharacter.creatureHealth.numDeathSaveThrowFailures >= 3"></app-print-character-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="character-row">
+            <app-character-box class="character-box col-8"
+                               label="{{ 'Headers.Exp' | translate }}"
+                               [value]="playerCharacter.exp">
+            </app-character-box>
+
+            <div class="character-box col-4">
+              <div class="character-box-custom">
+                <label>{{ 'Headers.Inspiration' | translate }}</label>
+                <app-print-character-checkbox class="inspiration"
+                                              [checked]="playerCharacter.inspiration">
+                </app-print-character-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="character-column col-4">
+          <div class="character-portrait" [ngClass]="{'center-image': centerImage}">
+            <img *ngIf="isPro && sanitizedImage != null"
+                 class="image-display"
+                 [src]="sanitizedImage"/>
+          </div>
+        </div>
+
+        <div class="character-column  col-4">
+          <div class="character-row">
+            <app-character-box class="character-box col-8"
+                               label="{{ 'Headers.Class' | translate }}"
+                               [value]="playerCharacter.classes[0].characterClass.name">
+            </app-character-box>
+
+            <app-character-box class="character-box col-4"
+                               label="{{ 'Headers.Level' | translate }}"
+                               [value]="collection.totalLevel.name">
+            </app-character-box>
+          </div>
+
+          <div class="character-row">
+            <app-character-box class="character-box col-12"
+                               label="{{ 'Headers.Race' | translate }}"
+                               [value]="playerCharacter.characterRace.race.name">
+            </app-character-box>
+          </div>
+
+          <div class="character-row">
+            <app-character-box class="character-box col-12"
+                               *ngIf="playerCharacter.characterBackground.background != null"
+                               label="{{ 'Headers.Background' | translate }}"
+                               [value]="playerCharacter.characterBackground.background.name">
+            </app-character-box>
+
+            <app-character-box class="character-box col-12"
+                               *ngIf="playerCharacter.characterBackground.background == null"
+                               label="{{ 'Headers.Background' | translate }}"
+                               [value]="playerCharacter.characterBackground.customBackgroundName">
+            </app-character-box>
+          </div>
+
+          <div class="character-row">
+            <app-character-box class="character-box col-12"
+                               label="{{ 'Headers.Alignment' | translate }}"
+                               [value]="playerCharacter.alignment?.name">
+            </app-character-box>
+          </div>
+        </div>
+      </div>
+
+      <div class="character-row abilities-row">
+        <div *ngFor="let ability of abilities" class="ability-column-container col-2">
+          <div class="ability-column">
+            <div>
+              <div class="ability-score-box">
+                <label>{{ability.name}}</label>
+                <span>{{ability.value}}</span>
+              </div>
+            </div>
+
+            <div class="skill-column">
+              <app-print-character-prof label="{{ 'Headers.SavingThrow' | translate }}"
+                                        [value]="ability.savingThrow.value"
+                                        [proficient]="ability.savingThrow.proficient">
+              </app-print-character-prof>
+
+              <app-print-character-prof *ngFor="let skill of ability.skills"
+                                        [label]="skill.label"
+                                        [value]="skill.value"
+                                        [proficient]="skill.proficient">
+              </app-print-character-prof>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="character-row padding-top">
+        <div class="character-column centered col-2">
+          <app-character-box class="character-box"
+                             label="PP"
+                             [value]="pp">
+          </app-character-box>
+
+          <app-character-box class="character-box"
+                             label="GP"
+                             [value]="gp">
+          </app-character-box>
+
+          <app-character-box class="character-box"
+                             label="EP"
+                             [value]="ep">
+          </app-character-box>
+
+          <app-character-box class="character-box"
+                             label="SP"
+                             [value]="sp">
+          </app-character-box>
+
+          <app-character-box class="character-box"
+                             label="CP"
+                             [value]="cp">
+          </app-character-box>
+
+          <app-character-box class="character-box"
+                             label="{{ 'Headers.Carrying' | translate }}"
+                             [value]="carrying">
+          </app-character-box>
+        </div>
+
+        <div class="character-column col-5 padding">
+          <h4>{{ 'Headers.Equipment' | translate }}</h4>
+          <div class="character-equipment">
+            <app-print-character-list-item class="list-item-row" *ngFor="let item of equipment" [value]="item">
+            </app-print-character-list-item>
+          </div>
+        </div>
+
+        <div class="character-column col-5 padding">
+          <h4>{{ 'Headers.Features' | translate }}</h4>
+          <div class="character-features">
+            <app-print-character-list-item class="list-item-row" *ngFor="let feature of features" [value]="feature">
+            </app-print-character-list-item>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="includeSpells" class="character-page">
+      <div class="character-header-row">
+        <div class="squire-logo-container col-6">
+          <img src="/assets/squire_logo.png" class="squire-logo-header">
+          <span class="squire-header-title">{{ 'Headers.Spellcasting' | translate }}</span>
+        </div>
+
+        <div class="character-row col-6 spell-modifiers">
+          <app-character-box class="character-box col-4"
+                             label="{{ 'Headers.Ability' | translate }}"
+                             [value]="spellcastingAbility">
+          </app-character-box>
+
+          <app-character-box class="character-box col-4"
+                             label="{{ 'Headers.Attack' | translate }}"
+                             [value]="spellAttack">
+          </app-character-box>
+
+          <app-character-box class="character-box col-4"
+                             label="{{ 'Headers.SaveDC' | translate }}"
+                             [value]="spellSaveDc">
+          </app-character-box>
+        </div>
+      </div>
+
+      <div class="character-row">
+        <div class="character-column spells-column col-4">
+          <app-print-character-spells-section [playerCharacter]="playerCharacter"
+                                              [level]="0"
+                                              [numSpells]="11"
+                                              [showPrepared]="false">
+          </app-print-character-spells-section>
+
+          <app-print-character-spells-section class="padding-top"
+                                              [playerCharacter]="playerCharacter"
+                                              [level]="1"
+                                              [numSpells]="17">
+          </app-print-character-spells-section>
+
+          <app-print-character-spells-section class="padding-top"
+                                              [playerCharacter]="playerCharacter"
+                                              [level]="2"
+                                              [numSpells]="17">
+          </app-print-character-spells-section>
+        </div>
+
+        <div class="character-column spells-column col-4">
+          <app-print-character-spells-section [playerCharacter]="playerCharacter"
+                                              [level]="3"
+                                              [numSpells]="17">
+          </app-print-character-spells-section>
+
+          <app-print-character-spells-section class="padding-top"
+                                              [playerCharacter]="playerCharacter"
+                                              [level]="4"
+                                              [numSpells]="15">
+          </app-print-character-spells-section>
+
+          <app-print-character-spells-section class="padding-top"
+                                              [playerCharacter]="playerCharacter"
+                                              [level]="5"
+                                              [numSpells]="13">
+          </app-print-character-spells-section>
+        </div>
+
+        <div class="character-column spells-column col-4">
+          <app-print-character-spells-section [playerCharacter]="playerCharacter"
+                                              [level]="6"
+                                              [numSpells]="13">
+          </app-print-character-spells-section>
+
+          <app-print-character-spells-section class="padding-top"
+                                              [playerCharacter]="playerCharacter"
+                                              [level]="7"
+                                              [numSpells]="12">
+          </app-print-character-spells-section>
+
+          <app-print-character-spells-section class="padding-top"
+                                              [playerCharacter]="playerCharacter"
+                                              [level]="8"
+                                              [numSpells]="9">
+          </app-print-character-spells-section>
+
+          <app-print-character-spells-section class="padding-top"
+                                              [playerCharacter]="playerCharacter"
+                                              [level]="9"
+                                              [numSpells]="8">
+          </app-print-character-spells-section>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="includeSpells && includeSpellDetails && spellDetails.length > 0" class="spell-details-list">
+      <div class="character-header-row">
+        <img src="/assets/squire_logo.png" class="squire-logo-header">
+        <span class="squire-header-title">{{ 'Headers.Spells' | translate }}</span>
+      </div>
+
+      <div *ngFor="let spell of spellDetails" class="character-column spell-details light-labels">
+        <h4 class="spell-name">{{spell.name}}</h4>
+        <app-spell-details [spell]="spell"
+                           [detailed]="true"
+                           [showSlots]="false"
+                           [showHelp]="false"
+                           [onDark]="false">
+        </app-spell-details>
+      </div>
+    </div>
+
+    <div *ngIf="includeFeatureDetails && featureDetails.length > 0" class="feature-details-list">
+      <div class="character-header-row">
+        <img src="/assets/squire_logo.png" class="squire-logo-header">
+        <span class="squire-header-title">{{ 'Headers.Features' | translate }}</span>
+      </div>
+
+      <div *ngFor="let feature of featureDetails" class="character-column feature-details light-labels">
+        <h4 class="feature-name">{{feature.name}}</h4>
+        <app-feature-details [feature]="feature"
+                             [detailed]="true"
+                             [showHelp]="false"
+                             [onDark]="false"
+                             [showAll]="false">
+        </app-feature-details>
+      </div>
+    </div>
+  </div>
+</div>

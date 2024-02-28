@@ -1,0 +1,49 @@
+.caster-type-spell-slots {
+
+  .caster-type-level-row {
+
+    .caster-type-level {
+      display: inline-block;
+      text-align: center;
+
+      input {
+        text-align: center;
+        width: 65px;
+        margin: 0 5px;
+      }
+
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      label {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.slots-header,
+.spell-slots-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .slot-label,
+  .slot-value {
+    width: 10%;
+  }
+
+  .slot-value {
+    text-align: center;
+  }
+}
+
+.slots-header {
+  .slot-label,
+  .slot-value {
+    font-weight: bold;
+  }
+}

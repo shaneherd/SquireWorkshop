@@ -1,0 +1,57 @@
+<app-details [headerName]="group.group.monster.name"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             (tertiary)="rollClick()"
+             [primaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             primaryLabel="{{ group.disabled ? '' : ('Continue' | translate) }}"
+             secondaryLabel="{{ (group.disabled ? 'Close' : 'Cancel') | translate }}"
+             tertiaryLabel="{{ group.disabled ? '' : ('Roll' | translate) }}"
+             class="details">
+  <div class="content-data-full-height on-dark">
+    <div class="form-group">
+      <div>
+        <label>{{ 'Labels.StealthModifier' | translate }}</label>
+        <span>{{editingGroup.calculatedStealthDisplay}}</span>
+      </div>
+
+      <div>
+        <label>{{ 'Labels.PassivePerception' | translate }}</label>
+        <span>{{editingGroup.calculatedPassivePerception}}</span>
+      </div>
+    </div>
+
+    <div class="setup-row-header" *ngIf="editingGroup.group.monsters.length > 0">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">{{ 'Headers.Stealth' | translate }}</div>
+      <div class="col-sm-4">{{ 'Headers.Surprised' | translate }}</div>
+    </div>
+    <div class="setup-row" *ngFor="let setup of editingGroup.group.monsters; let i = index;">
+      <div class="col-sm-4">
+        <span>{{setup.monsterNumber}}</span>
+      </div>
+      <div class="col-sm-4">
+        <input type="number"
+               class="form-control"
+               [max]="99" min="-99"
+               appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+               *ngIf="!group.disabled"
+               [matTooltip]="setup.stealthRollTooltip"
+               [ngModel]="setup.stealthRoll.totalResult"
+               (valueChange)="stealthChange($event, setup)"/>
+        <span *ngIf="group.disabled">{{setup.stealthRoll.totalResult}}</span>
+      </div>
+      <div class="col-sm-4">
+        <mat-checkbox
+          class="surprised-checkbox"
+          (change)="surpriseChange($event, setup)"
+          [disabled]="group.disabled"
+          [checked]="setup.surprised">
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</app-details>
+

@@ -1,0 +1,182 @@
+<div class="form-group characteristic-values">
+  <div *ngIf="isPro" class="form-group">
+    <mat-card class="add-item-card clickable"
+              *ngIf="!isPublic && !isShared && sanitizedImage == null"
+              (click)="editImage()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+      <span>{{ 'CharacterImage.AddImage' | translate }}</span>
+    </mat-card>
+
+    <img *ngIf="sanitizedImage != null"
+         class="image-display clickable"
+         [ngClass]="{'clickable': !isPublic && !isShared}"
+         (click)="editImage()"
+         [src]="sanitizedImage"/>
+  </div>
+
+  <div>
+    <label class="bold">{{ 'Labels.Race' | translate }}</label>
+    <span>{{playerCharacter.characterRace.race.name}}</span>
+  </div>
+
+  <div *ngFor="let chosenClass of playerCharacter.classes">
+    <label class="bold">{{ 'Labels.Class' | translate }}</label>
+    <span>{{chosenClass.characterClass.name}} - </span>
+    <span *ngIf="chosenClass.subclass != null && chosenClass.subclass.name !== ''">{{chosenClass.subclass.name}} - </span>
+    <span [translate]="'Level'"
+          [translateParams]="{level: chosenClass.characterLevel.name}"></span>
+  </div>
+</div>
+
+<div class="form-group characteristic-values">
+  <div>
+    <label class="bold">{{ 'Labels.Gender' | translate }}</label>
+    <span>{{ 'Gender.' + playerCharacter.characteristics.gender | translate }}</span>
+  </div>
+
+  <div *ngIf="playerCharacter.characteristics.height.length > 0">
+    <label class="bold">{{ 'Labels.Height' | translate }}</label>
+    <span>{{ playerCharacter.characteristics.height}}</span>
+  </div>
+
+  <div *ngIf="playerCharacter.characteristics.weight > 0">
+    <label class="bold">{{ 'Labels.Weight' | translate }}</label>
+    <span>{{ playerCharacter.characteristics.weight}}</span>
+    <span>{{ 'Lbs' | translate }}</span>
+  </div>
+
+  <div *ngIf="playerCharacter.characteristics.age > 0">
+    <label class="bold">{{ 'Labels.Age' | translate }}</label>
+    <span>{{ playerCharacter.characteristics.age}}</span>
+  </div>
+
+  <div *ngIf="playerCharacter.characteristics.eyes.length > 0">
+    <label class="bold">{{ 'Labels.EyeColor' | translate }}</label>
+    <span>{{ playerCharacter.characteristics.eyes}}</span>
+  </div>
+
+  <div *ngIf="playerCharacter.characteristics.hair.length > 0">
+    <label class="bold">{{ 'Labels.HairColor' | translate }}</label>
+    <span>{{ playerCharacter.characteristics.hair}}</span>
+  </div>
+
+  <div *ngIf="playerCharacter.characteristics.skin.length > 0">
+    <label class="bold">{{ 'Labels.SkinColor' | translate }}</label>
+    <span>{{ playerCharacter.characteristics.skin}}</span>
+  </div>
+
+  <div>
+    <label class="bold">{{ 'Labels.Alignment' | translate }}</label>
+    <span *ngIf="playerCharacter.alignment != null">{{ playerCharacter.alignment.name}}</span>
+    <span *ngIf="playerCharacter.alignment == null">{{ 'Unaligned' | translate }}</span>
+  </div>
+
+  <div *ngIf="playerCharacter.characteristics.deity != null">
+    <label class="bold">{{ 'Labels.Deity' | translate }}</label>
+    <span>{{ playerCharacter.characteristics.deity.name}}</span>
+  </div>
+</div>
+
+<div class="form-group characteristic-values">
+  <div *ngIf="playerCharacter.characterBackground.background == null || playerCharacter.characterBackground.background.id === '0'">
+    <div *ngIf="playerCharacter.characterBackground.customBackgroundName.length > 0" class="form-group">
+      <label class="bold">{{ 'Labels.Background' | translate }}</label>
+      <span>{{ playerCharacter.characterBackground.customBackgroundName}}</span>
+    </div>
+
+    <div *ngIf="playerCharacter.characterBackground.customVariation.length > 0" class="form-group">
+      <label class="bold">{{ 'Labels.Variations' | translate }}</label>
+      <div class="trait custom-trait">{{playerCharacter.characterBackground.customVariation}}</div>
+    </div>
+
+    <div *ngIf="playerCharacter.characterBackground.customPersonality.length > 0" class="form-group">
+      <label class="bold">{{ 'Labels.Personalities' | translate }}</label>
+      <div class="trait custom-trait">{{playerCharacter.characterBackground.customPersonality}}</div>
+    </div>
+
+    <div *ngIf="playerCharacter.characterBackground.customIdeal.length > 0" class="form-group">
+      <label class="bold">{{ 'Labels.Ideals' | translate }}</label>
+      <div class="trait custom-trait">{{playerCharacter.characterBackground.customIdeal}}</div>
+    </div>
+
+    <div *ngIf="playerCharacter.characterBackground.customBond.length > 0" class="form-group">
+      <label class="bold">{{ 'Labels.Bonds' | translate }}</label>
+      <div class="trait custom-trait">{{playerCharacter.characterBackground.customBond}}</div>
+    </div>
+
+    <div *ngIf="playerCharacter.characterBackground.customFlaw.length > 0" class="form-group">
+      <label class="bold">{{ 'Labels.Flaws' | translate }}</label>
+      <div class="trait custom-trait">{{playerCharacter.characterBackground.customFlaw}}</div>
+    </div>
+  </div>
+
+  <div *ngIf="playerCharacter.characterBackground.background != null && playerCharacter.characterBackground.background.id !== '0'">
+    <div class="form-group">
+      <label class="bold">{{ 'Labels.Background' | translate }}</label>
+      <span>{{ playerCharacter.characterBackground.background.name}}</span>
+    </div>
+
+    <div *ngIf="hasVariation" class="form-group">
+      <label class="bold">{{ 'Labels.Variations' | translate }}</label>
+      <div *ngFor="let trait of variations" class="trait">
+        <span>{{trait.description}}</span>
+      </div>
+      <div>
+        <span class="trait" *ngIf="playerCharacter.characterBackground.customVariation.length > 0">{{playerCharacter.characterBackground.customVariation}}</span>
+      </div>
+    </div>
+
+    <div *ngIf="hasPersonality" class="form-group">
+      <label class="bold">{{ 'Labels.Personalities' | translate }}</label>
+      <div *ngFor="let trait of personalities" class="trait">
+        <span>{{trait.description}}</span>
+      </div>
+      <div>
+        <span class="trait custom-trait" *ngIf="playerCharacter.characterBackground.customPersonality.length > 0">{{playerCharacter.characterBackground.customPersonality}}</span>
+      </div>
+    </div>
+
+    <div *ngIf="hasIdeal" class="form-group">
+      <label class="bold">{{ 'Labels.Ideals' | translate }}</label>
+      <div *ngFor="let trait of ideals" class="trait">
+        <span>{{trait.description}}</span>
+      </div>
+      <div>
+        <span class="trait custom-trait" *ngIf="playerCharacter.characterBackground.customIdeal.length > 0">{{playerCharacter.characterBackground.customIdeal}}</span>
+      </div>
+    </div>
+
+    <div *ngIf="hasBond" class="form-group">
+      <label class="bold">{{ 'Labels.Bonds' | translate }}</label>
+      <div *ngFor="let trait of bonds" class="trait">
+        <span>{{trait.description}}</span>
+      </div>
+      <div>
+        <span class="trait custom-trait" *ngIf="playerCharacter.characterBackground.customBond.length > 0">{{playerCharacter.characterBackground.customBond}}</span>
+      </div>
+    </div>
+
+    <div *ngIf="hasFlaw" class="form-group">
+      <label class="bold">{{ 'Labels.Flaws' | translate }}</label>
+      <div *ngFor="let trait of flaws" class="trait">
+        <span>{{trait.description}}</span>
+      </div>
+      <div>
+        <span class="trait custom-trait" *ngIf="playerCharacter.characterBackground.customFlaw.length > 0">{{playerCharacter.characterBackground.customFlaw}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="playerCharacter.characterBackground.bio.length > 0">
+    <label class="bold">{{ 'Labels.Bio' | translate }}</label>
+    <span class="info-description">{{playerCharacter.characterBackground.bio}}</span>
+  </div>
+</div>
+
+<app-image-selector-slide-in *ngIf="editingImage"
+                             [playerCharacter]="playerCharacter"
+                             [sanitizedImage]="sanitizedImage"
+                             (save)="saveImage($event)"
+                             (delete)="deleteImage()"
+                             (close)="closeImage()">
+</app-image-selector-slide-in>

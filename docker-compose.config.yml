@@ -1,0 +1,32 @@
+version: '3.4'
+# For ANY values you add here, make sure they do NOT include "$".
+# If you created a random string, just replace it with another character of your choice.
+
+x-common-variables: &common-variables
+  # The password for the MySQL database user. Choose a long random string.
+  MYSQL_PASSWORD: YOUR_SECRET_HERE
+
+services:
+  backend:
+    environment:
+      <<: *common-variables
+      # Choose a long random string for the JWT secret.
+      SQUIRE_JWT_SECRET: YOUR_SECRET_HERE
+      # Choose a random string of the length 16, 24 or 32 for the ID secret.
+      SQUIRE_ID_SECRET: YOUR_SECRET_HERE
+
+      # Whether to allow creation of new user accounts
+      # To disable signups, set this to 'false'
+      SQUIRE_ALLOW_SIGNUP: 'true'
+
+      # Values required for email communication.
+      # TODO: add an email server to the docker compose.
+      # Right now all email related featues wont work.
+      # Therefore you can leave them as-is.
+      SQUIRE_BASE_URL: http://localhost/
+      SQUIRE_EMAIL_ADDRESS: test@gmail.com
+      SQUIRE_EMAIL_PASSWORD: email_password
+      SQUIRE_NOTIFY_EMAIL_ADDRESS: test@gmail.com
+  database:
+    environment:
+      <<: *common-variables

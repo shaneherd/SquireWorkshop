@@ -1,0 +1,29 @@
+<app-details headerName="{{ 'Headers.Tagging' | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             (secondary)="closeClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <mat-accordion>
+    <div *ngFor="let tagCollection of tags;">
+      <app-feature-tagging-configuration [tagCollection]="tagCollection"
+                                         (tagClick)="tagClick($event)"
+                                         (featureClick)="featureClick($event)">
+      </app-feature-tagging-configuration>
+    </div>
+  </mat-accordion>
+
+  <app-feature-details-slide-in *ngIf="viewingFeature != null"
+                                [creatureFeature]="viewingFeature"
+                                [playerCharacter]="playerCharacter"
+                                [collection]="collection"
+                                [useable]="false"
+                                (close)="closeFeatureDetails()">
+  </app-feature-details-slide-in>
+
+  <app-tag-color-configuration-slide-in *ngIf="viewingTag != null"
+                                        [tag]="viewingTag"
+                                        (apply)="applyTag()"
+                                        (close)="closeTag()">
+  </app-tag-color-configuration-slide-in>
+</app-details>

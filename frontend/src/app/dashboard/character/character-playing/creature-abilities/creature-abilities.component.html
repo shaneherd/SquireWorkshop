@@ -1,0 +1,39 @@
+<div class="row abilities-container">
+  <div class="col-xl-6 col-lg-12 ability-card-container form-group">
+    <h4 class="font-weight-bold">{{ 'Headers.AbilityChecks' | translate }}</h4>
+    <div *ngFor="let ability of collection.proficiencyCollection.abilities">
+      <app-creature-ability-card [creature]="creature"
+                                 [collection]="collection"
+                                 [ability]="ability"
+                                 [disabled]="configuringAbility != null || configuringSave != null"
+                                 (abilityClick)="abilityClick($event)">
+      </app-creature-ability-card>
+    </div>
+  </div>
+
+  <div class="col-xl-6 col-lg-12 ability-card-container form-group">
+    <h4 class="font-weight-bold">{{ 'Headers.AbilitySaves' | translate }}</h4>
+    <div *ngFor="let ability of collection.proficiencyCollection.abilities">
+      <app-creature-ability-save-card [creature]="creature"
+                                      [collection]="collection"
+                                      [ability]="ability"
+                                      [disabled]="configuringAbility != null || configuringSave != null"
+                                      (saveClick)="saveClick($event)">
+      </app-creature-ability-save-card>
+    </div>
+  </div>
+</div>
+
+<app-ability-score-details *ngIf="configuringAbility != null"
+                           [creatureAbilityProficiency]="configuringAbility"
+                           [creature]="creature"
+                           [collection]="collection"
+                           (close)="configurationClose()">
+</app-ability-score-details>
+
+<app-ability-save-details *ngIf="configuringSave != null"
+                          [creatureAbilityProficiency]="configuringSave"
+                          [creature]="creature"
+                          [collection]="collection"
+                          (close)="configurationClose()">
+</app-ability-save-details>

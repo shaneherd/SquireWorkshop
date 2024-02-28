@@ -1,0 +1,33 @@
+<app-details headerName="{{ 'Headers.ProficiencyBonus' | translate }}"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div>
+    <label>{{ 'Labels.Base' | translate }}</label>
+    <span>{{base}}</span>
+  </div>
+
+  <div *ngFor="let modifier of modifiersDisplay;">
+    <app-label-value [labelValue]="modifier"></app-label-value>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Misc' | translate }}</label>
+    <span>{{misc}}</span>
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">{{ 'Labels.Total' | translate }}</label>
+    <span>{{total}}</span>
+  </div>
+</app-details>
+
+<app-proficiency-bonus-configuration *ngIf="configuring"
+                                     [creature]="creature"
+                                     [collection]="collection"
+                                     (save)="saveConfigurations()"
+                                     (close)="closeConfigurations()">
+</app-proficiency-bonus-configuration>

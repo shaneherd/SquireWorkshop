@@ -1,0 +1,41 @@
+<div class="encounter-initiative-container">
+  <div class="combat-rows">
+    <div class="round-turn" *ngIf="showRoundTurn">
+      <i class="collapse-icon fa-solid fa-angles-left clickable" *ngIf="isDesktop" (click)="collapseClick()"></i>
+      <span class="round-value with-icon"
+            translate="Encounter.RoundTurn"
+            [translateParams]="{round: round, turn: turn}"></span>
+    </div>
+
+    <ng-container *ngFor="let combatRow of combatRows; let i = index;">
+      <div class="creature-initiative-card" *ngIf="!combatRow.labelRow && combatRow.display">
+        <app-encounter-initiative-card [combatRow]="combatRow"
+                                       [isDesktop]="isDesktop"
+                                       [isFirst]="i === 0"
+                                       (cardClick)="onCardClick($event)"
+                                       (hpClick)="onHpClick($event)"
+                                       (kill)="onKillClick($event)"
+                                       (flee)="onFleeClick($event)"
+                                       (speedType)="onSpeedTypeClick($event)"
+                                       (addCreatures)="addCreaturesClick($event)"
+                                       (splitGroup)="splitGroupClick($event)"
+                                       (refresh)="onRefresh($event)">
+        </app-encounter-initiative-card>
+      </div>
+
+      <div class="round-turn" *ngIf="combatRow.labelRow && combatRow.display">
+        <span class="round-value"
+              translate="Encounter.Round"
+              [translateParams]="{round: combatRow.round}"></span>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="combat-footer on-dark">
+    <mat-slide-toggle class="white-label" (change)="onHideKilledChange($event)" [checked]="hideKilled">
+      {{ 'Encounter.HideKilled' | translate }}
+    </mat-slide-toggle>
+  </div>
+</div>
+
+

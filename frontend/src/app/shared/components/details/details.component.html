@@ -1,0 +1,70 @@
+<app-slide-in [slideInHeader]="slideInHeader"
+              [listObject]="listObject"
+              [loading]="loading"
+              [fixed]="fixed"
+              [slideLeft]="slideLeft"
+              [extraLarge]="extraLarge"
+              [layered]="true">
+  <div class="slide-in-content-data-full-height details-configuration dark-labels"
+       [ngClass]="{
+        'mobile': !isDesktop,
+        'extra-large': extraLarge
+       }">
+    <div class="full-height-component flex-column-component">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <div class="details-configuration-action-buttons-container"
+       [ngClass]="{
+        'mobile': !isDesktop,
+        'extra-large': extraLarge
+       }">
+    <div class="details-configuration-action-buttons">
+      <div class="action-button" *ngIf="primaryLabel !== '' || primaryActions.length > 0 || primaryGroups.length > 0">
+        <app-button color="PRIMARY"
+                    [label]="primaryLabel"
+                    [disabled]="primaryDisabled"
+                    [closeOnClick]="primaryCloseOnClick"
+                    [confirmationTitle]="primaryConfirmationTitle"
+                    [confirmationMessage]="primaryConfirmationMessage"
+                    [actions]="primaryActions"
+                    [groups]="primaryGroups"
+                    [validator]="primaryValidator"
+                    (onPrimaryClick)="primaryClick($event)"
+                    (onSecondaryClick)="primaryExtraClick($event)">
+        </app-button>
+      </div>
+
+      <div class="action-button" *ngIf="tertiaryLabel !== '' || tertiaryActions.length > 0 || tertiaryGroups.length > 0">
+        <app-button color="TERTIARY"
+                    [label]="tertiaryLabel"
+                    [disabled]="tertiaryDisabled"
+                    [closeOnClick]="tertiaryCloseOnClick"
+                    [confirmationTitle]="tertiaryConfirmationTitle"
+                    [confirmationMessage]="tertiaryConfirmationMessage"
+                    [actions]="tertiaryActions"
+                    [groups]="tertiaryGroups"
+                    [validator]="tertiaryValidator"
+                    (onPrimaryClick)="tertiaryClick($event)"
+                    (onSecondaryClick)="tertiaryExtraClick($event)">
+        </app-button>
+      </div>
+
+      <div class="action-button" *ngIf="secondaryLabel !== '' || secondaryActions.length > 0 || secondaryGroups.length > 0">
+        <app-button color="SECONDARY"
+                    [label]="secondaryLabel"
+                    [disabled]="secondaryDisabled"
+                    [closeOnClick]="secondaryCloseOnClick"
+                    [confirmationTitle]="secondaryConfirmationTitle"
+                    [confirmationMessage]="secondaryConfirmationMessage"
+                    [actions]="secondaryActions"
+                    [groups]="secondaryGroups"
+                    [validator]="secondaryValidator"
+                    (onPrimaryClick)="secondaryClick($event)"
+                    (onSecondaryClick)="secondaryExtraClick($event)">
+        </app-button>
+      </div>
+    </div>
+  </div>
+</app-slide-in>

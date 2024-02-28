@@ -1,0 +1,14 @@
+<app-details headerName="{{ 'Headers.SpellSlots' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             (secondary)="closeDetails()"
+             (tertiary)="clearClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             tertiaryLabel="{{ 'Clear' | translate }}"
+             tertiaryConfirmationMessage="{{ 'SpellSlots.ClearConfirmation' | translate }}">
+  <div *ngFor="let slot of slots" class="spell-slot form-group">
+    <app-creature-spell-slot-configure [slot]="slot" [collection]="collection">
+    </app-creature-spell-slot-configure>
+  </div>
+</app-details>

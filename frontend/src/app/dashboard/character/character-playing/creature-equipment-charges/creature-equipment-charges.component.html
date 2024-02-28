@@ -1,0 +1,29 @@
+<app-details headerName="{{ 'Headers.Charges' | translate }}"
+             [loading]="loading"
+             [configurable]="false"
+             (close)="onCancel()"
+             (primary)="onSave()"
+             (secondary)="onCancel()"
+             (tertiary)="onRecharge()"
+             [primaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             tertiaryConfirmationMessage="{{ 'Charges.RechargeConfirmation' | translate }}"
+             primaryLabel="{{ creatureItems.length === 0 ? '' : ('Save' | translate) }}"
+             tertiaryLabel="{{ creatureItems.length === 0 ? '' : ('Recharge' | translate) }}"
+             secondaryLabel="{{ (creatureItems.length === 0 ? 'Close' : 'Cancel') | translate }}"
+             class="details">
+  <div *ngIf="creatureItems.length === 0" class="no-limited-uses-container">
+    <span>{{ 'NoItemsWithCharges' | translate }}</span>
+  </div>
+
+  <div *ngFor="let creatureItem of creatureItems" class="form-group item">
+    <label>{{creatureItem.item.name}}</label>
+    <span *ngIf="creatureItem.magicalItem != null" class="sub-item">({{creatureItem.magicalItem.name}})</span>
+    <span>{{creatureItem.chargesRemaining}}/{{creatureItem.maxCharges}}</span>
+
+    <div class="charges-remaining">
+      <app-slider-input [min]="0" [max]="creatureItem.maxCharges" [step]="1" [(value)]="creatureItem.chargesRemaining" [displayMax]="false">
+      </app-slider-input>
+    </div>
+  </div>
+</app-details>

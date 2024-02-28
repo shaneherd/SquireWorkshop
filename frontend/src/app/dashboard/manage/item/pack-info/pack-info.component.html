@@ -1,0 +1,43 @@
+<!--Description-->
+<app-description-configuration [item]="pack"
+                               [editing]="editing"
+                               [maxLength]="1000">
+</app-description-configuration>
+
+<!--items-->
+<div class="form-group">
+  <label>{{ 'Labels.Items' | translate }}</label>
+  <div *ngIf="pack.items.length === 0" class="no-items-label">
+    {{ 'NoItems' | translate }}
+  </div>
+
+  <div *ngFor="let item of pack.items" class="item-quantity-list">
+    <input *ngIf="editing" type="number" class="form-control"
+           min="1" max="99"
+           appInputNumber minValue="1" maxValue="99"
+           [ngModel]="item.quantity"
+           (valueChange)="quantityChange(item, $event)"/>
+    <span *ngIf="!editing" class="item-quantity">{{item.quantity}} x</span>
+    <span>{{item.item.name}}</span>
+    <span class="sub-item" *ngIf="item.item.subItem != null">({{item.item.subItem.name}})</span>
+    <i *ngIf="editing"
+       class="delete-config fas fa-trash-alt"
+       [ngClass]="{'disabled': addingItems}"
+       (click)="removeItem(item)"
+       matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+  </div>
+
+  <div class="add-items-container">
+    <button *ngIf="editing" type="button" (click)="addItems()"
+            class="squire-button btn btn-danger add-item"
+            [ngClass]="{'disabled': addingItems}">
+      {{ 'Navigation.Manage.Items.Add' | translate }}
+    </button>
+  </div>
+</div>
+
+<app-add-items *ngIf="addingItems"
+               [itemsToRemove]="itemsToRemove"
+               (close)="cancelAddItems()"
+               (continue)="continueAddItems($event)">
+</app-add-items>

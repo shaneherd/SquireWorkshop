@@ -1,0 +1,30 @@
+<div class="form-group">
+  <div class="value-container">
+    <label>{{ 'Labels.Value' | translate }}</label>
+    <span *ngIf="valuesCount === 0">{{ 'None' | translate }}</span>
+    <span *ngIf="singleValue != null && valuesCount === 1"
+          translate="CostValue"
+          [translateParams]="{cost: singleValue.value, unit: singleValue.costUnit.abbreviation}"></span>
+    <button type="button"
+            [disabled]="valuesCount === 0"
+            (click)="match()"
+            class="squire-button btn btn-primary match-button">
+      {{ 'Match' | translate }}
+    </button>
+  </div>
+  <div *ngIf="valuesCount > 1" class="cost-values-container">
+    <div *ngFor="let costValue of costValues">
+      <span *ngIf="costValue.value > 0"
+            translate="CostValue"
+            [translateParams]="{cost: costValue.value, unit: costValue.costUnit.abbreviation}"></span>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let adjustment of adjustments">
+  <app-adjustment-card-row [adjustment]="adjustment"
+                           [clickDisabled]="adjustment.amount !== 0 || valuesCount === 0"
+                           [showBadge]="false"
+                           (cardClick)="cardClick(adjustment)">
+  </app-adjustment-card-row>
+</div>

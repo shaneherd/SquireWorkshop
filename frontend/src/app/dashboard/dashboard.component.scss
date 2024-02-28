@@ -1,0 +1,21 @@
+@import '../sass/variables';
+
+.dashboard-container {
+  height: 100%;
+
+  .side-nav {
+    background-color: $list_background;
+    width: $slide_in_large_min_width;
+
+    &.mobile {
+      width: 100%;
+    }
+  }
+
+  .middle-nav {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    overflow-y: auto;
+  }
+}

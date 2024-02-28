@@ -1,0 +1,44 @@
+<!--Attack Modifier-->
+<div class="form-group attack-mod">
+  <label *ngIf="editing || ammo.attackModifier > 0 || selectedAbility.id !== '0'">{{ 'Labels.AttackModifier' | translate }}</label>
+  <span *ngIf="!editing && ammo.attackModifier > 0 && selectedAbility.id === '0'">{{ammo.attackModifier}}</span>
+  <span *ngIf="!editing && ammo.attackModifier === 0 && selectedAbility.id !== '0'">{{selectedAbility.name}}</span>
+  <span *ngIf="!editing && ammo.attackModifier > 0 && selectedAbility.id !== '0'">{{ammo.attackModifier}}+{{selectedAbility.name}}</span>
+  <input *ngIf="editing" type="number" class="form-control"
+         min="0" max="99"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="ammo.attackModifier"
+         (valueChange)="attackModifierChange($event)"/>
+  <span *ngIf="editing">+</span>
+  <mat-form-field *ngIf="editing">
+    <mat-select [(ngModel)]="selectedAbility"
+                (selectionChange)="abilityChange($event.value)">
+      <mat-option *ngFor="let ability of abilities" [value]="ability">
+        {{ability.id === '0' ? noAbility : ability.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!--damages-->
+<div class="form-group" *ngIf="editing || damageCollection.damageConfigurations.length > 0">
+  <app-damage-configuration-section [damageConfigurations]="damageCollection.damageConfigurations"
+                                    [editing]="editing">
+  </app-damage-configuration-section>
+</div>
+
+<!--Cost-->
+<app-cost-configuration [item]="ammo"
+                        [editing]="editing">
+</app-cost-configuration>
+
+<!--Weight-->
+<app-weight-configuration [item]="ammo"
+                          [editing]="editing">
+</app-weight-configuration>
+
+<!--Description-->
+<app-description-configuration [item]="ammo"
+                               [editing]="editing"
+                               [maxLength]="1000">
+</app-description-configuration>

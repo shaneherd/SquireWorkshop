@@ -1,0 +1,118 @@
+<app-details [headerName]="headerName"
+             [loading]="loading"
+             [configurable]="false"
+             (close)="closeDetails()"
+             (primary)="primaryAction($event)"
+             (secondary)="closeDetails()"
+             [primaryCloseOnClick]="false"
+             [primaryGroups]="buttonActionGroups"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="on-dark item-details-container">
+    <div class="item-details-section">
+      <div class="form-group" *ngIf="actionChoices.length > 1">
+        <mat-form-field class="action-choice">
+          <mat-select [ngModel]="selectedAction"
+                      (selectionChange)="actionChange($event.value)">
+            <mat-option *ngFor="let action of actionChoices" [value]="action">
+              {{action.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <app-item-details *ngIf="item != null"
+                        [item]="item"
+                        [creatureItem]="creatureItem"
+                        [creature]="creature"
+                        [collection]="collection"
+                        (itemClick)="onItemClick($event)">
+      </app-item-details>
+    </div>
+
+    <span *ngIf="notInClassList" class="display-section not-in-class-list">{{ 'MagicalItem.Spell.Scroll.NotInClassList' | translate }}</span>
+  </div>
+
+  <app-item-details-slide-in *ngIf="viewingItem != null"
+                             [creatureItem]="viewingItem"
+                             [creature]="creature"
+                             [collection]="collection"
+                             [attackWithUnequipped]="attackWithUnequipped"
+                             (save)="saveItem()"
+                             (close)="closeItem()">
+  </app-item-details-slide-in>
+
+  <app-attack-action *ngIf="attackAction != null"
+                     [creature]="creature"
+                     [creatureItem]="creatureItem"
+                     [collection]="collection"
+                     [creatureItemAction]="attackAction"
+                     [confirmationMessage]="confirmationMessage"
+                     [containers]="containers"
+                     [showThrowSource]="showThrowSource"
+                     [attackWithUnequipped]="attackWithUnequipped"
+                     (continue)="attackActionContinue()"
+                     (cancel)="attackActionCancel()">
+  </app-attack-action>
+
+  <app-common-action *ngIf="commonAction != null"
+                     [creature]="creature"
+                     [creatureItem]="creatureItem"
+                     [creatureItemAction]="commonAction"
+                     [confirmationMessage]="confirmationMessage"
+                     [containers]="containers"
+                     (continue)="commonActionContinue()"
+                     (cancel)="commonActionCancel()">
+  </app-common-action>
+
+  <app-equip *ngIf="equipping"
+             [creature]="creature"
+             [collection]="collection"
+             [creatureItem]="creatureItem"
+             [item]="item"
+             (continue)="continueEquip()"
+             (cancel)="cancelEquip()">
+  </app-equip>
+
+  <app-gain *ngIf="gaining"
+            [creature]="creature"
+            [creatureItem]="creatureItem"
+            [item]="item"
+            (continue)="continueGain()"
+            (cancel)="cancelGain()">
+  </app-gain>
+
+  <app-sell *ngIf="selling"
+            [creature]="creature"
+            [creatureItem]="creatureItem"
+            [item]="item"
+            (continue)="continueSell()"
+            (cancel)="cancelSell()">
+  </app-sell>
+
+  <app-charges *ngIf="editingCharges"
+               [creature]="creature"
+               [creatureItem]="creatureItem"
+               [containers]="containers"
+               (continue)="chargesContinue()"
+               (recharge)="chargesRecharge()"
+               (cancel)="chargesCancel()">
+  </app-charges>
+
+  <app-spells *ngIf="editingSpells"
+              [creature]="creature"
+              [collection]="collection"
+              [creatureItem]="creatureItem"
+              [containers]="containers"
+              (continue)="spellsContinue()"
+              (cancel)="spellsCancel()">
+  </app-spells>
+
+  <app-tool-check *ngIf="usingTool"
+                  [creature]="creature"
+                  [creatureItem]="creatureItem"
+                  [collection]="collection"
+                  (continue)="toolContinue()"
+                  (cancel)="toolCancel()">
+  </app-tool-check>
+</app-details>

@@ -1,0 +1,64 @@
+@import '~@angular/material/theming';
+
+@mixin slide-in-header-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  .slide-in-header {
+    background-color: #303030;
+  }
+}
+
+.slide-in-header {
+  position: relative;
+  height: 48px;
+  padding: 5px;
+  border-bottom: 1px solid #444444;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .header-icon {
+    flex-shrink: 0;
+    margin: 0 10px;
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
+
+    i {
+      width: 16px;
+    }
+
+    &:disabled {
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.hidden {
+      visibility: hidden;
+
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+
+  .header-name {
+    flex-grow: 1;
+    text-align: center;
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+}
+
+.menu-action-icon {
+  margin-right: 5px;
+}

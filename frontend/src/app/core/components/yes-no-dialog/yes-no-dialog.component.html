@@ -1,0 +1,10 @@
+<app-dialog [title]="data.title"
+            primaryLabel="{{ 'Yes' | translate }}"
+            (primary)="yes()"
+            secondaryLabel="{{ 'No' | translate }}"
+            (secondary)="no()"
+            tertiaryLabel="{{ data.cancelable ? 'Cancel' : '' | translate }}"
+            (tertiary)="cancel()"
+            (close)="no()">
+  <span class="allow-line-break">{{data.message}}</span>
+</app-dialog>

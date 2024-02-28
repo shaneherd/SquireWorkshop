@@ -1,0 +1,15 @@
+.add-items-container {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+
+  .add-item,
+  .add-group {
+    margin: 0 5px;
+  }
+}
+
+.no-items {
+  margin-left: 20px;
+  font-style: italic;
+}

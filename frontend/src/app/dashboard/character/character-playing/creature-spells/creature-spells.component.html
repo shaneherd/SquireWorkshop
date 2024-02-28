@@ -1,0 +1,91 @@
+<app-creature-spell-slots *ngIf="showSpellSlots"
+                          [creature]="creature"
+                          [collection]="collection"
+                          [clickDisabled]="clickDisabled"
+                          (configuringClick)="configuringClick()"
+                          (configuringClose)="closeDetails()">
+</app-creature-spell-slots>
+
+<app-creature-spells-combined-display [creature]="creature"
+                                      [collection]="collection"
+                                      [attackModifiers]="attackModifiers"
+                                      [saveModifiers]="saveModifiers"
+                                      [clickDisabled]="clickDisabled"
+                                      (spellClick)="spellClick($event)"
+                                      (addSpells)="addSpell($event)"
+                                      [showAddSpell]="!isPublic && !isShared && (playerCharacter != null || !fromEncounter)"
+                                      (close)="closeDetails()"
+                                      (configuringClick)="configuringClick()"
+                                      (configuringClose)="closeDetails()">
+</app-creature-spells-combined-display>
+
+<app-spell-selection-list *ngIf="addingSpell && viewingSpell == null"
+                          [creature]="creature"
+                          [characteristicId]="characteristicId"
+                          [collection]="collection"
+                          (save)="addSelectedSpells()"
+                          (close)="spellsListClose()">
+</app-spell-selection-list>
+
+<app-spell-details-slide-in *ngIf="viewingSpell != null"
+                            [creatureSpell]="viewingSpell"
+                            [requiresPreparation]="requiresPreparation"
+                            [attackModifier]="attackModifier"
+                            [saveModifier]="saveModifier"
+                            [creature]="creature"
+                            [collection]="collection"
+                            (cast)="castSpell($event)"
+                            (remove)="removeSpell($event)"
+                            (close)="closeDetails()"
+                            (prepare)="prepare()">
+</app-spell-details-slide-in>
+
+<!--spell preparation-->
+<app-character-spell-info-slide-in *ngIf="viewingInfo && playerCharacter != null"
+                                   [playerCharacter]="playerCharacter"
+                                   [collection]="collection"
+                                   [attackModifiers]="attackModifiers"
+                                   [saveModifiers]="saveModifiers"
+                                   (save)="saveInfo()"
+                                   (close)="closeInfo()">
+</app-character-spell-info-slide-in>
+
+<app-spell-tagging-configuration-slide-in *ngIf="viewingTags"
+                                          [creature]="creature"
+                                          [collection]="collection"
+                                          [attackModifiers]="attackModifiers"
+                                          [saveModifiers]="saveModifiers"
+                                          (save)="saveTags()"
+                                          (close)="closeTags()">
+</app-spell-tagging-configuration-slide-in>
+
+<app-concentration-check-slide-in *ngIf="viewingConcentration"
+                                  [creature]="creature"
+                                  [collection]="collection"
+                                  (roll)="rollConcentration()"
+                                  (close)="closeConcentration()">
+</app-concentration-check-slide-in>
+
+<app-filtering-sorting [clickDisabled]="false"
+                       [columnIndex]="columnIndex"
+                       [filterType]="filterType"
+                       [filters]="filters"
+                       [filterOptions]="filterOptions"
+                       [tags]="creature.creatureSpellCasting.tags"
+                       (filter)="applyFilters($event)"
+                       [sortType]="sortType"
+                       [sorts]="sorts"
+                       (sort)="applySort($event)">
+</app-filtering-sorting>
+
+<app-spellcasting-settings-slide-in *ngIf="viewingSettings && playerCharacter != null"
+                                    [playerCharacter]="playerCharacter"
+                                    (close)="closeSettings()"
+                                    (continue)="saveSettings()">
+</app-spellcasting-settings-slide-in>
+
+<app-creature-spell-limited-use-slide-in *ngIf="viewingLimitedUse"
+                                         [creature]="creature"
+                                         (save)="saveLimitedUse()"
+                                         (close)="closeLimitedUse()">
+</app-creature-spell-limited-use-slide-in>

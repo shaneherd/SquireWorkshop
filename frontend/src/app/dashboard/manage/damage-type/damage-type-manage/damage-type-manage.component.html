@@ -1,0 +1,11 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.DamageTypes.DamageTypes' | translate }}"
+                 [menuService]="damageTypeService"
+                 [manageService]="attributeService"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-damage-type *ngIf="selectedItem != null"
+                            [damageType]="selectedItem"
+                            (save)="updateSelected($event)"
+                            (cancel)="closeItem()">
+</app-add-remove-damage-type>

@@ -1,0 +1,35 @@
+<app-details [headerName]="roundTurn"
+             customHeaderColor="#00529B"
+             (close)="closeClick()"
+             (primary)="previousClick()"
+             (secondary)="nextClick()"
+             (tertiary)="closeClick()"
+             [slideLeft]="false"
+             primaryLabel="{{ 'Previous' | translate }}"
+             secondaryLabel="{{ 'Next' | translate }}"
+             tertiaryLabel="{{ 'Hide' | translate }}"
+             [primaryDisabled]="noCreaturesVisible || !previousEnabled"
+             [secondaryDisabled]="noCreaturesVisible"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             class="details">
+  <div class="mobile-initiative-container">
+    <app-encounter-initiative [encounter]="encounter"
+                              [combatRows]="combatRows"
+                              [round]="round"
+                              [turn]="turn"
+                              [isDesktop]="false"
+                              [showRoundTurn]="false"
+                              [hideKilled]="hideKilled"
+                              (hideKilledChange)="onHideKilledChange($event)"
+                              (cardClick)="onCardClick($event)"
+                              (hpClick)="onHpClick($event)"
+                              (kill)="onKillClick($event)"
+                              (flee)="onFleeClick($event)"
+                              (speedType)="onSpeedTypeClick($event)"
+                              (addCreatures)="addCreaturesClick($event)"
+                              (splitGroup)="splitGroupClick($event)"
+                              (refresh)="onRefresh($event)">
+    </app-encounter-initiative>
+  </div>
+</app-details>

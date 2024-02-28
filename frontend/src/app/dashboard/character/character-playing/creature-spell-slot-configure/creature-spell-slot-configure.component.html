@@ -1,0 +1,22 @@
+<div>
+  <h4 [translate]="'Labels.Level'"
+      [translateParams]="{level: slot.level}"></h4>
+</div>
+<div class="spell-slot-container">
+  <div>
+    <label>{{ 'Labels.Max' | translate }}</label>
+    <span [matTooltip]="tooltip">{{max}} + </span>
+    <input type="number"
+           class="form-control"
+           max="99" min="-99"
+           appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+           [ngModel]="slot.maxModifier"
+           (valueChange)="miscChange($event)"/>
+    <span class="total">= {{max + slot.maxModifier}}</span>
+    <mat-icon *ngIf="slot.remaining > slot.calculatedMax + slot.maxModifier"
+              matTooltip="{{ 'Tooltips.SpellSlotOverflow' | translate }}"
+              class="help-icon">
+      info
+    </mat-icon>
+  </div>
+</div>

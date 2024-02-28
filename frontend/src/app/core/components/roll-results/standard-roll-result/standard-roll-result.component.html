@@ -1,0 +1,35 @@
+<div *ngIf="(roll.advantage || roll.disadvantage) && !(roll.advantage && roll.disadvantage)">
+  <div>
+    <label class="roll-label" [ngClass]="showDetails ? 'bold' : ''">{{ 'Labels.Roll1' | translate }}</label>
+    <span>{{roll.results[0].totalResult}}</span>
+    <app-critical-display [critical]="roll.results[0].results[0].critical"></app-critical-display>
+    <div *ngIf="showDetails" class="details">
+      <app-roll-result-details [diceResult]="roll.results[0].results[0]"></app-roll-result-details>
+    </div>
+  </div>
+  <div>
+    <label class="roll-label" [ngClass]="showDetails ? 'bold' : ''">{{ 'Labels.Roll2' | translate }}</label>
+    <span>{{roll.results[1].totalResult}}</span>
+    <app-critical-display [critical]="roll.results[1].results[0].critical"></app-critical-display>
+    <div *ngIf="showDetails" class="details">
+      <app-roll-result-details [diceResult]="roll.results[1].results[0]"></app-roll-result-details>
+    </div>
+  </div>
+  <div>
+    <label class="result">{{ 'Labels.Result' | translate }}</label>
+    <span [matTooltip]="getResultTooltip()">{{roll.totalResult}}</span>
+    <app-advantage-display [advantage]="roll.advantage" [disadvantage]="roll.disadvantage"></app-advantage-display>
+    <app-critical-display [critical]="roll.critical"></app-critical-display>
+  </div>
+</div>
+
+<div *ngIf="(roll.advantage && roll.disadvantage) || (!roll.advantage && !roll.disadvantage)">
+  <div>
+    <label class="result" [ngClass]="showDetails ? 'bold' : ''">{{ 'Labels.Result' | translate }}</label>
+    <span>{{roll.results[0].totalResult}}</span>
+    <app-critical-display [critical]="roll.critical"></app-critical-display>
+    <div *ngIf="showDetails" class="details">
+      <app-roll-result-details [diceResult]="roll.results[0].results[0]"></app-roll-result-details>
+    </div>
+  </div>
+</div>

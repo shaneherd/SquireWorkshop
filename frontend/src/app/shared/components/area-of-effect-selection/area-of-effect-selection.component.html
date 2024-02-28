@@ -1,0 +1,100 @@
+<div *ngIf="editing || (powerAreaOfEffect.areaOfEffect != null && powerAreaOfEffect.areaOfEffect.id !== '0')">
+  <label>{{ 'Labels.AreaOfEffect' | translate }}</label>
+  <span *ngIf="!editing">{{powerAreaOfEffect.areaOfEffect.name}}</span>
+  <mat-icon *ngIf="showHelp && !editing && powerAreaOfEffect.areaOfEffect.id !== '0' && powerAreaOfEffect.areaOfEffect.description.length > 0"
+            matTooltip="{{powerAreaOfEffect.areaOfEffect.description}}"
+            [ngClass]="{'light': lightIcon}"
+            class="help-icon">
+    info
+  </mat-icon>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedAreaOfEffectListObject"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="aoeChange($event.value)">
+        <mat-option *ngFor="let aoe of areaOfEffects" [value]="aoe">
+          {{aoe.id === '0' ? none : aoe.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-icon *ngIf="showHelp && selectedAreaOfEffectListObject.id !== '0' && selectedAreaOfEffectListObject.description.length > 0"
+              matTooltip="{{selectedAreaOfEffectListObject.description}}"
+              class="help-icon">
+      info
+    </mat-icon>
+  </div>
+</div>
+
+<div *ngIf="!editing && powerAreaOfEffect.areaOfEffect != null && powerAreaOfEffect.areaOfEffect.id !== '0'" class="area-of-effect-dimensions">
+  <div class="radius" *ngIf="powerAreaOfEffect.areaOfEffect.radius">
+    <label>{{ 'Labels.Radius' | translate }}</label>
+    <span translate="Headers.FeetValue"
+          [translateParams]="{feet: powerAreaOfEffect.radius}"></span>
+  </div>
+
+  <div class="width" *ngIf="powerAreaOfEffect.areaOfEffect.width">
+    <label>{{ 'Labels.Width' | translate }}</label>
+    <span translate="Headers.FeetValue"
+          [translateParams]="{feet: powerAreaOfEffect.width}"></span>
+  </div>
+
+  <div class="height" *ngIf="powerAreaOfEffect.areaOfEffect.height">
+    <label>{{ 'Labels.Height' | translate }}</label>
+    <span translate="Headers.FeetValue"
+          [translateParams]="{feet: powerAreaOfEffect.height}"></span>
+  </div>
+
+  <div class="length" *ngIf="powerAreaOfEffect.areaOfEffect.length">
+    <label>{{ 'Labels.Length' | translate }}</label>
+    <span translate="Headers.FeetValue"
+          [translateParams]="{feet: powerAreaOfEffect.length}"></span>
+  </div>
+</div>
+
+<div *ngIf="editing && selectedAreaOfEffect.id !== '0'" class="area-of-effect-dimensions">
+  <div class="form-group radius" *ngIf="selectedAreaOfEffect.radius">
+    <label>{{ 'Labels.Radius' | translate }}</label>
+    <input type="number" class="form-control"
+           min="0" max="9999"
+           appInputNumber minValue="0" maxValue="9999"
+           [ngModelOptions]="{standalone: true}"
+           [ngModel]="powerAreaOfEffect.radius"
+           (valueChange)="radiusChange($event)"/>
+    <span>{{ 'Headers.Feet' | translate }}</span>
+  </div>
+
+  <div class="form-group width" *ngIf="selectedAreaOfEffect.width">
+    <label>{{ 'Labels.Width' | translate }}</label>
+    <input type="number" class="form-control"
+           min="0" max="9999"
+           appInputNumber minValue="0" maxValue="9999"
+           [ngModelOptions]="{standalone: true}"
+           [ngModel]="powerAreaOfEffect.width"
+           (valueChange)="widthChange($event)"/>
+    <span>{{ 'Headers.Feet' | translate }}</span>
+  </div>
+
+  <div class="form-group height" *ngIf="selectedAreaOfEffect.height">
+    <label>{{ 'Labels.Height' | translate }}</label>
+    <input type="number" class="form-control"
+           min="0" max="9999"
+           appInputNumber minValue="0" maxValue="9999"
+           [ngModelOptions]="{standalone: true}"
+           [ngModel]="powerAreaOfEffect.height"
+           (valueChange)="heightChange($event)"/>
+    <span>{{ 'Headers.Feet' | translate }}</span>
+  </div>
+
+  <div class="form-group length" *ngIf="selectedAreaOfEffect.length">
+    <label>{{ 'Labels.Length' | translate }}</label>
+    <input type="number" class="form-control"
+           min="0" max="9999"
+           appInputNumber minValue="0" maxValue="9999"
+           [ngModelOptions]="{standalone: true}"
+           [ngModel]="powerAreaOfEffect.length"
+           (valueChange)="lengthChange($event)"/>
+    <span>{{ 'Headers.Feet' | translate }}</span>
+  </div>
+</div>
+

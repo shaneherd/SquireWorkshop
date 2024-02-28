@@ -1,0 +1,48 @@
+<app-character-companion-list-section *ngIf="beasts.length > 0"
+                                      [companionType]="beast"
+                                      [companions]="beasts"
+                                      [showHeader]="showHeaders"
+                                      [clickDisabled]="clickDisabled"
+                                      (companionClick)="companionClick($event)">
+</app-character-companion-list-section>
+
+<app-character-companion-list-section *ngIf="wildShapes.length > 0"
+                                      [companionType]="wildShape"
+                                      [companions]="wildShapes"
+                                      [showHeader]="showHeaders"
+                                      [clickDisabled]="clickDisabled"
+                                      (companionClick)="companionClick($event)">
+</app-character-companion-list-section>
+
+<app-character-companion-list-section *ngIf="summons.length > 0"
+                                      [companionType]="summon"
+                                      [companions]="summons"
+                                      [showHeader]="showHeaders"
+                                      [clickDisabled]="clickDisabled"
+                                      (companionClick)="companionClick($event)">
+</app-character-companion-list-section>
+
+<mat-card class="add-item-card"
+          *ngIf="!isPublic && !isShared"
+          [ngClass]="{'clickable': !clickDisabled}"
+          (click)="addCompanion()">
+  <i class="fas fa-plus add-item-card-icon"></i>
+  <span>{{ 'Headers.AddCompanion' | translate }}</span>
+</mat-card>
+
+<app-character-companion-slide-in *ngIf="viewingCompanion != null"
+                                  [playerCharacter]="playerCharacter"
+                                  [characterCollection]="collection"
+                                  [companionListObject]="viewingCompanion"
+                                  (save)="editCompanion($event)"
+                                  (delete)="deleteCompanion($event)"
+                                  (close)="closeCompanion()">
+</app-character-companion-slide-in>
+
+<app-character-companion-configure-slide-in *ngIf="newCompanion != null"
+                                            [playerCharacter]="playerCharacter"
+                                            [companion]="newCompanion"
+                                            [characterCollection]="collection"
+                                            (save)="saveCompanion($event)"
+                                            (cancel)="cancelCompanion()">
+</app-character-companion-configure-slide-in>

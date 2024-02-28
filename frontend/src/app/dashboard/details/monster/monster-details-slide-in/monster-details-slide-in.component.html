@@ -1,0 +1,12 @@
+<app-details [headerName]="monster.name"
+             [loading]="loading"
+             [configurable]="false"
+             (close)="closeClick()"
+             (secondary)="closeClick()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="content-data-full-height page-content">
+    <app-monster-details [monster]="monster">
+    </app-monster-details>
+  </div>
+</app-details>

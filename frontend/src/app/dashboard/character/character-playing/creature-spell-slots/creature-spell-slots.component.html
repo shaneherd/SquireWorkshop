@@ -1,0 +1,22 @@
+<mat-card class="spell-slots form-group"
+          [ngClass]="{'clickable': !clickDisabled}"
+          (click)="spellSlotsClick()">
+  <div class="spell-slots-header">
+    <span>{{ 'Headers.SpellSlots' | translate }}</span>
+  </div>
+
+  <div class="spell-slot-items-container">
+    <div *ngFor="let slot of creature.creatureSpellCasting.spellSlots" class="spell-slot">
+      <div>{{slot.remaining}}</div>
+      <div>{{ 'SpellSlotsLevel.' + slot.level | translate }}</div>
+    </div>
+  </div>
+
+</mat-card>
+
+<app-creature-spell-slots-slide-in *ngIf="viewingSpellSlots"
+                                   [creature]="creature"
+                                   [collection]="collection"
+                                   (close)="closeSpellSlots()"
+                                   (save)="saveSpellSlots()">
+</app-creature-spell-slots-slide-in>

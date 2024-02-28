@@ -1,0 +1,23 @@
+<app-details [headerName]="itemQuantity.item.name"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             (tertiary)="removeClick()"
+             primaryLabel="{{ editing ? ('Save' | translate) : '' }}"
+             secondaryLabel="{{ (editing ? 'Cancel' : 'Close') | translate }}"
+             tertiaryLabel="{{ editing ? ('Remove' | translate) : '' }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Quantity' | translate }}</label>
+    <span *ngIf="!editing">{{itemQuantity.quantity}}</span>
+    <input type="number" class="form-control number-inline"
+           *ngIf="editing"
+           min="1" max="100"
+           appInputNumber minValue="1" maxValue="100"
+           [ngModel]="itemQuantity.quantity"
+           (valueChange)="quantityChange($event)"/>
+  </div>
+</app-details>
+

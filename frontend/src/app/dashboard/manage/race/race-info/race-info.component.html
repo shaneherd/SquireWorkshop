@@ -1,0 +1,187 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!race.author"
+               [duplicateDisabled]="isSubRace && race.sid !== 0"
+               [itemName]="itemName"
+               [id]="race.id"
+               [inUseService]="characteristicService"
+               [showShare]="race.author && !isSubRace"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'CharacteristicType.RACE' | translate }}"
+               [nested]="isSubRace && !editing"
+               (save)="save()"
+               (delete)="delete()"
+               (close)="close(false)"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="raceForm"
+        (submit)="save()">
+    <mat-accordion class="example-headers-align">
+
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.BasicInfo' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input formControlName="name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+          <label for="size">{{ 'Labels.Size' | translate }}</label>
+          <span *ngIf="!editing && race?.id !== '0'">{{ 'Size.' + race.size | translate }}</span>
+          <div *ngIf="editing">
+            <mat-form-field id="size" class="">
+              <mat-select [formControl]="raceForm.controls['size']" (selectionChange)="sizeChange($event.value)">
+                <mat-option *ngFor="let size of sizes" [value]="size">
+                  {{ 'Size.' + size | translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="editing || (race?.id !== '0' && race.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing && race?.id !== '0'" class="info-description">{{race.description}}</span>
+          <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Speeds' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngFor="let speed of race?.speeds">
+          <div class="form-group race-speeds" *ngIf="editing || speed.value > 0 || getParentSpeed(speed.speedType) > 0">
+            <label>{{ 'SpeedType.' + speed.speedType | translate }}:</label>
+            <span *ngIf="!editing">{{speed.value + getParentSpeed(speed.speedType)}}</span>
+            <span *ngIf="editing && getParentSpeed(speed.speedType) > 0">{{getParentSpeed(speed.speedType)}} +</span>
+            <input *ngIf="editing" type="number" class="form-control inline" max="999" min="0"
+                   appInputNumber minValue="0" maxValue="999"
+                   [(ngModel)]="speed.value" [ngModelOptions]="{standalone: true}"
+                   (valueChange)="speedChange(speed, $event)"/>
+
+            <div *ngIf="speed.speedType === flySpeedType" class="hover">
+              <mat-checkbox
+                (change)="hoverChange($event)"
+                [disabled]="!editing"
+                [checked]="race?.hover">
+              </mat-checkbox>
+              <span>{{ 'Hover' | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="starting-equipment">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.StartingEquipment' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <h5>{{ 'Labels.StartingGold' | translate }}</h5>
+        <div class="form-group">
+          <span *ngIf="!editing">{{race.startingGold}} GP</span>
+          <div *ngIf="editing">
+            <input type="number"
+                   class="form-control dice-collection"
+                   max="9999" min="0"
+                   appInputNumber minValue="0" maxValue="99"
+                   [(ngModel)]="race.startingGold"
+                   [ngModelOptions]="{standalone: true}"/>
+            <span>GP</span>
+          </div>
+        </div>
+
+        <h5>{{ 'Labels.StartingEquipment' | translate }}</h5>
+        <app-starting-equipment-configuration-section [editing]="editing"
+                                                      [loading]="loading"
+                                                      [collection]="characteristicConfigurationCollection.startingEquipmentCollection">
+        </app-starting-equipment-configuration-section>
+      </mat-expansion-panel>
+
+      <app-proficiency-panels [editing]="editing"
+                              [loading]="loading"
+                              [proficiencyCollection]="characteristicConfigurationCollection.proficiencyCollection">
+      </app-proficiency-panels>
+
+      <app-spell-configuration [editing]="editing"
+                               [loading]="loading"
+                               [characteristic]="race"
+                               [spellConfigurationCollection]="characteristicConfigurationCollection.spellConfigurationCollection"
+                               (configListUpdated)="handleConfigListUpdated()">
+      </app-spell-configuration>
+
+      <app-damage-modifier-configurations [editing]="editing"
+                                          [loading]="loading"
+                                          [damageModifiers]="race.damageModifiers"
+                                          [inheritedDamageModifiers]="race.parent?.damageModifiers"
+                                          [damageModifierCollection]="characteristicConfigurationCollection.damageModifierCollection">
+      </app-damage-modifier-configurations>
+
+      <app-senses-configuration [editing]="editing"
+                                [loading]="loading"
+                                [senseConfigurationCollection]="characteristicConfigurationCollection.senseConfigurationCollection">
+      </app-senses-configuration>
+
+      <app-condition-immunity-configurations [editing]="editing"
+                                             [loading]="loading"
+                                             [conditionImmunities]="race.conditionImmunities"
+                                             [inheritedConditionImmunities]="race.parent?.conditionImmunities"
+                                             [conditionImmunityConfigurationCollection]="characteristicConfigurationCollection.conditionImmunityConfigurationCollection">
+      </app-condition-immunity-configurations>
+
+      <mat-expansion-panel *ngIf="!isSubRace">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.SubRaces' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <mat-card *ngFor="let subRace of race.subRaces"
+                    class="clickable"
+                    [ngClass]="{'disabled': editing}"
+                    (click)="subRaceClick(subRace)">
+            <span>{{subRace.name}}</span>
+          </mat-card>
+
+          <mat-card class="add-item-card clickable"
+                    *ngIf="!editing && !isPublic && !isShared"
+                    (click)="addSubRace()">
+            <i class="fas fa-plus add-item-card-icon"></i>
+            <span>{{ 'AddSubRace' | translate }}</span>
+          </mat-card>
+        </div>
+      </mat-expansion-panel>
+
+      <app-characteristic-features-section *ngIf="!loading"
+                                           [editing]="editing"
+                                           [characteristic]="race"
+                                           [isPublic]="isPublic"
+                                           [isShared]="isShared"
+                                           [includeChildren]="false">
+      </app-characteristic-features-section>
+
+    </mat-accordion>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

@@ -1,0 +1,22 @@
+<mat-sidenav-container [hasBackdrop]="isDesktop"
+                       class="side-nav-container"
+                       [ngClass]="{
+                         'fixed': fixed || !isDesktop,
+                         'mobile': !isDesktop
+                       }">
+  <mat-sidenav mode="over"
+               [position]="slideLeft ? 'end' : 'start'"
+               class="slide-in-container flex-nav"
+               [ngClass]="{'extra-large': extraLarge}"
+               [fixedInViewport]="false"
+               [disableClose]="true"
+               fixedTopGap="55"
+               fixedBottomGap="20">
+    <app-slide-in-header [slideInHeader]="slideInHeader" [listObject]="listObject"></app-slide-in-header>
+    <div class="menu-divider"></div>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+    <div class="slide-in-content" [ngClass]="{'large': large && !extraLarge, 'extra-large': extraLarge}">
+      <ng-content></ng-content>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

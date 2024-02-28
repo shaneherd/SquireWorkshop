@@ -1,0 +1,6 @@
+<div *ngFor="let choice of choices;" class="proficiency-list">
+  <app-creature-choice-prompt [profs]="profs"
+                              [choiceOptions]="choice"
+                              [checkParent]="checkParent">
+  </app-creature-choice-prompt>
+</div>

@@ -1,0 +1,27 @@
+.image-display {
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin-top: 5px;
+}
+
+.file-input {
+  display: none;
+}
+
+.image-button {
+  margin-right: 5px;
+}
+
+.image-selector-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-container {
+  flex-grow: 1;
+}
+
+.select-image-card {
+  flex-shrink: 0;
+}

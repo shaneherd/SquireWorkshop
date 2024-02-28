@@ -1,0 +1,22 @@
+<div [ngClass]="{'hidden': !visible}">
+  <app-cost-details [creature]="creature"
+                    [items]="items"
+                    [id]="id"
+                    [modifier]="-1"
+                    (continue)="onContinuePurchase()">
+  </app-cost-details>
+
+  <div class="form-group container-list" *ngIf="containers.length > 0">
+    <label class="selection-label">{{ 'Labels.Container' | translate }}</label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="container"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="containerChange($event.value)">
+        <mat-option *ngFor="let containerChoice of containers" [value]="containerChoice">
+          {{containerChoice.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>

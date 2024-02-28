@@ -1,0 +1,15 @@
+<app-details headerName="{{ 'Headers.Tagging' | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             (secondary)="closeClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div *ngFor="let configuration of tagConfigurations" class="form-group">
+    <mat-checkbox class="on-dark"
+                  [checked]="configuration.checked"
+                  (change)="checkChange($event, configuration)">
+    </mat-checkbox>
+
+    <app-tag-detail [tag]="configuration.tag"></app-tag-detail>
+  </div>
+</app-details>

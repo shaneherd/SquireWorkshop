@@ -1,0 +1,55 @@
+.list-menu {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.list-menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .card {
+    width: calc(100% - 35px);
+  }
+
+  .ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+}
+
+.spell-selection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.selection-list-container {
+  height: 100%;
+}
+
+.characteristic-selection-container {
+  padding-bottom: 5px;
+  width: 100%;
+  border-bottom: 1px solid #444444;
+  display: table;
+
+  .characteristic-selection {
+    display: table-cell;
+  }
+
+  .help-icon {
+    display: table-cell;
+    color: #ffffff;
+    padding-left: 5px
+  }
+}
+
+.spell-tag {
+  margin-right: 2px;
+}

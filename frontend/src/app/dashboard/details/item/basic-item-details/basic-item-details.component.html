@@ -1,0 +1,38 @@
+<app-item-type-display [item]="item">
+</app-item-type-display>
+
+<app-quantity-display *ngIf="creatureItem != null"
+                      [quantity]="creatureItem.quantity"
+                      [expendable]="item.expendable">
+</app-quantity-display>
+
+<app-equippable-display [item]="item">
+</app-equippable-display>
+
+<app-cost-display [item]="item">
+</app-cost-display>
+
+<app-weight-display [creatureItem]="creatureItem"
+                    [item]="item">
+</app-weight-display>
+
+<app-properties-display [item]="item"
+                        [collection]="collection"
+                        [creatureItem]="creatureItem"
+                        class="display-section">
+</app-properties-display>
+
+<app-category-display [type]="type"
+                      [description]="typeDescription"
+                      class="display-section">
+</app-category-display>
+
+<app-description-display [item]="item"
+                         class="display-section">
+</app-description-display>
+
+<app-container-display [item]="item"
+                       [creatureItem]="creatureItem"
+                       (itemClick)="onItemClick($event)"
+                       class="display-section">
+</app-container-display>

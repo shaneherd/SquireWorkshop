@@ -1,0 +1,17 @@
+<span>{{chosenClass.characterClass?.name}}:</span>
+<div class="health-gain-result">
+  <div *ngFor="let level of levels; let i = index">
+    <app-character-edit-health-class-level *ngIf="showLevel(level)"
+                                           [chosenClass]="chosenClass"
+                                           [healthCalculationType]="healthCalculationType"
+                                           [hpModifier]="hpModifier"
+                                           [conModifier]="conModifier"
+                                           [healthGainResult]="getHealthGainResult(level)"
+                                           [first]="i === 0">
+    </app-character-edit-health-class-level>
+  </div>
+
+  <app-character-edit-health-hit-dice [chosenClass]="chosenClass" [numLevels]="getNumLevels()">
+  </app-character-edit-health-hit-dice>
+</div>
+

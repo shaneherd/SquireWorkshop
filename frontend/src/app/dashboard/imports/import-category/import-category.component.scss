@@ -1,0 +1,76 @@
+@import '../../../sass/variables';
+
+.category-container {
+  border: 1px solid #aaaaaa;
+  border-top: 0;
+  padding-bottom: 5px;
+
+  &.collapsed {
+    padding-bottom: 0;
+  }
+}
+
+.item-count,
+.status-label {
+  margin-left: 5px;
+  font-size: 10px;
+}
+
+.header-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #eeeeee;
+  padding: 5px 0;
+  border-bottom: 1px solid #aaaaaa
+}
+
+.import-label-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.import-label {
+  font-weight: bold;
+}
+
+.global-menu {
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.import-item-category-items {
+  margin: 0 10px 0 20px;
+}
+
+.complete {
+  color: $secondary_color;
+}
+
+.error {
+  color: $primary_color;
+}
+
+.menu-action-icon {
+  margin: 0 5px;
+  width: 14px;
+
+  &.fa-minus-circle {
+    color: $primary_color;
+  }
+
+  &.fa-plus-circle {
+    color: $info-color;
+  }
+
+  &.fa-check-circle,
+  &.fa-dot-circle {
+    color: $secondary_color;
+  }
+
+  &.fa-sync-alt {
+    color: #000000;
+  }
+}

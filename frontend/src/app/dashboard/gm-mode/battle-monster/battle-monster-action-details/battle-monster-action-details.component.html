@@ -1,0 +1,152 @@
+<div class="details action-configuration">
+  <div class="content-data-full-height page-content">
+    <div class="form-group">
+      <div>
+        <label>{{ 'Labels.Action' | translate }}</label>
+        <span>{{ 'Action.' + action.actionType | translate }}</span>
+      </div>
+
+      <!--legendary-->
+      <div *ngIf="isLegendary" class="legendary">
+        <label>{{ 'Labels.LegendaryCost' | translate }}</label>
+        <span>{{action.legendaryCost}}</span>
+      </div>
+
+      <div *ngIf="isLegendary && battleMonster != null" class="legendary">
+        <label>{{ 'Labels.LegendaryPointsRemaining' | translate }}</label>
+        <span>{{battleMonster.legendaryPoints}}</span>
+      </div>
+
+      <div *ngIf="action.description.length > 0">
+        <label>{{ 'Labels.Description' | translate }}</label>
+        <span class="info-description">{{action.description}}</span>
+      </div>
+    </div>
+
+    <div class="attack-type">
+      <label class="attack-type-label">{{ 'Labels.AttackType' | translate }}</label>
+      <span>{{ 'AttackType.' + damageConfigurationCollection.attackType | translate }}</span>
+    </div>
+
+    <ng-container *ngIf="attack">
+      <div class="form-group">
+        <!--melee/ranged-->
+        <div>
+          <label class="attack-type-label">{{ 'Labels.Type' | translate }}</label>
+          <span>{{ 'WeaponRangeType.' + action.rangeType | translate }}</span>
+        </div>
+
+        <!--reach-->
+        <div *ngIf="!isRanged" class="range">
+          <label>{{ 'Labels.Reach' | translate }}</label>
+          <span>{{action.reach}} {{ 'ft' | translate }}</span>
+        </div>
+
+        <!--range-->
+        <div *ngIf="isRanged" class="range">
+          <label>{{ 'Labels.Range' | translate }}</label>
+          <span>{{action.normalRange}} {{ 'ft' | translate }} / {{action.longRange}} {{ 'ft' | translate }}</span>
+        </div>
+
+        <div *ngIf="isRanged && action.ammoType != null">
+          <label>{{ 'Labels.Ammo' | translate }}</label>
+          <span>{{action.ammoType.name}}</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <!--Attack Mod-->
+        <div class="attack-mod">
+          <label *ngIf="isAttack">{{ 'Labels.Attack' | translate }}</label>
+          <span *ngIf="isAttack">1d20</span>
+          <label *ngIf="isSave">{{ 'Labels.SaveDC' | translate }}</label>
+          <span *ngIf="!isHeal && isSave">
+            {{damageConfigurationCollection.attackMod}}
+          </span>
+          <ng-container *ngIf="!isHeal && !isSave">
+          <span *ngIf="isAttack && damageConfigurationCollection.attackAbilityMod !== '0' && selectedAttackAbilityModifier !== ''">
+            + {{selectedAttackAbilityModifier}}
+          </span>
+          <span *ngIf="damageConfigurationCollection.attackMod > 0 && isAttack">
+            + {{damageConfigurationCollection.attackMod}}
+          </span>
+          </ng-container>
+
+          <div *ngIf="isSave && damageConfigurationCollection.saveProficiencyModifier"
+               class="feature-save-dc">
+            <span>+</span>
+            <span>{{ 'ProficiencyModifier' | translate }}</span>
+          </div>
+
+          <span *ngIf="isSave && damageConfigurationCollection.saveAbilityModifier !== '0' && selectedSaveAbilityModifier !== ''">
+            + {{selectedSaveAbilityModifier}}
+          </span>
+
+          <div *ngIf="isAttack && damageConfigurationCollection.halfOnSave">
+            <span class="padded">{{ 'Headers.HalfOnMiss' | translate }}</span>
+          </div>
+        </div>
+
+        <!--Save Type-->
+        <div *ngIf="isSave" class="attack-mod">
+          <label>{{ 'Labels.SaveType' | translate }}</label>
+          <span>{{damageConfigurationCollection.saveType.id === '0' ? none : damageConfigurationCollection.saveType.name}}</span>
+
+          <div *ngIf="damageConfigurationCollection.halfOnSave">
+            <span class="padded">{{ 'Headers.HalfOnSave' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!--Damages-->
+      <div class="damages" *ngIf="damageConfigurationCollection.damageConfigurations.length > 0">
+        <label *ngIf="!isHeal">{{ 'Labels.Damages' | translate }}</label>
+        <label *ngIf="isHeal">{{ 'Labels.Healing' | translate }}</label>
+        <div *ngFor="let config of damageConfigurationCollection.damageConfigurations; let i = index;" class="damages padded">
+          <app-damage-configuration-display [config]="config"
+                                            [editing]="false"
+                                            [disabled]="true"
+                                            [first]="i === 0">
+          </app-damage-configuration-display>
+        </div>
+
+        <!--Temporary HP-->
+        <div *ngIf="isHeal && damageConfigurationCollection.temporaryHP">
+          <span class="padded">{{ 'Headers.TemporaryHP' | translate }}</span>
+        </div>
+      </div>
+    </ng-container>
+
+    <!--  LIMITED USE-->
+    <div *ngIf="action.limitedUse != null" class="form-group">
+      <label>{{ 'Headers.LimitedUse' | translate }}</label>
+      <div class="padded">
+        <label>{{ 'Labels.MaxUses' | translate }}</label>
+        <app-single-limited-use-row [limitedUse]="action.limitedUse"
+                                    [abilities]="abilities"
+                                    [deletable]="false"
+                                    [showLevel]="false"
+                                    [editing]="false"
+                                    [disabled]="true">
+        </app-single-limited-use-row>
+      </div>
+
+      <div class="padded">
+        <label>{{ 'Labels.UsesRemaining' | translate }}</label>
+        <span>{{battleMonsterAction.usesRemaining}}</span>
+      </div>
+
+      <div *ngIf="isRecharge" class="padded form-group">
+        <div class="recharge-range">
+          <label>{{ 'Labels.RechargeMin' | translate }}</label>
+          <span>{{action.rechargeMin}}</span>
+        </div>
+
+        <div class="recharge-range">
+          <label>{{ 'Labels.RechargeMax' | translate }}</label>
+          <span>{{action.rechargeMax}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

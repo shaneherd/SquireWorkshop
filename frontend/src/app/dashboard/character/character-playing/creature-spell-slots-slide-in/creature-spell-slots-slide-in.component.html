@@ -1,0 +1,24 @@
+<app-details headerName="{{ 'Headers.SpellSlots' | translate }}"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             (secondary)="closeDetails()"
+             (tertiary)="resetClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             tertiaryLabel="{{ 'Reset' | translate }}"
+             tertiaryConfirmationMessage="{{ 'SpellSlots.ResetConfirmation' | translate }}">
+  <div *ngFor="let slot of slots" class="spell-slot">
+    <app-creature-spell-slot-use-regain [slot]="slot"
+                                        [collection]="collection">
+    </app-creature-spell-slot-use-regain>
+  </div>
+</app-details>
+
+<app-creature-spell-slots-configuration *ngIf="configuring"
+                                        [creature]="creature"
+                                        [collection]="collection"
+                                        (close)="closeConfiguration()"
+                                        (save)="saveConfiguration()">
+</app-creature-spell-slots-configuration>

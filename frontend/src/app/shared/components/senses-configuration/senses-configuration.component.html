@@ -1,0 +1,28 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.Senses' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.Senses' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div *ngIf="!editing && !hasSenses()" class="no-items-label">
+    {{ 'NoSenses' | translate }}
+  </div>
+  <div *ngFor="let item of senseConfigurationCollection.senses" class="sense form-group">
+    <div *ngIf="editing || item.range > 0 || item.inheritedRange > 0">
+      <label>{{ 'Sense.' + item.sense | translate }}:</label>
+      <span *ngIf="!editing">{{item.range + item.inheritedRange}}</span>
+      <span *ngIf="editing && item.inheritedRange > 0">{{item.inheritedRange}} +</span>
+      <input *ngIf="editing" type="number" class="form-control inline" max="99" min="0"
+             appInputNumber minValue="0" maxValue="999"
+             [(ngModel)]="item.range"/>
+    </div>
+  </div>
+
+</mat-expansion-panel>

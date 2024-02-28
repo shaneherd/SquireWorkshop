@@ -1,0 +1,10 @@
+<div class="form-group feature" *ngIf="creatureFeature.calculatedMax > 0">
+  <label>{{creatureFeature.feature.name}}</label>
+  <span>{{creatureFeature.usesRemaining}}/{{creatureFeature.calculatedMax}}</span>
+
+  <div class="uses-remaining">
+    <app-slider-input [min]="0" [max]="creatureFeature.calculatedMax" [step]="1" [(value)]="creatureFeature.usesRemaining" [displayMax]="false">
+    </app-slider-input>
+  </div>
+</div>
+

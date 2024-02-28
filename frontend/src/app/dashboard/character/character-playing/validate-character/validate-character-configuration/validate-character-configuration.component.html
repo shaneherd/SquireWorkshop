@@ -1,0 +1,37 @@
+<app-details headerName="{{ 'Headers.Settings' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="true"
+             (secondary)="closeDetails()"
+             [tertiaryCloseOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             primaryConfirmationMessage="{{ (resetIgnoredFeatures ? 'CharacterValidation.ResetIgnoredFeatures.Confirmation' : '') | translate}}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <mat-expansion-panel class="on-dark" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'Headers.CharacterValidation' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <app-character-validation-settings [playerCharacter]="playerCharacter"
+                                       [settings]="settings">
+    </app-character-validation-settings>
+  </mat-expansion-panel>
+
+  <div class="reset-container">
+    <mat-checkbox class="on-dark"
+                  [checked]="resetIgnoredFeatures"
+                  (change)="resetChange($event)">
+    </mat-checkbox>
+    <span>{{ 'CharacterValidation.ResetIgnoredFeatures.Label' | translate }}</span>
+  </div>
+
+  <div class="reset-message-container">
+    <span>{{ 'CharacterValidation.ResetIgnoredFeatures.Message' | translate }}</span>
+  </div>
+
+</app-details>
+

@@ -1,0 +1,22 @@
+<app-details headerName="{{ 'Headers.LimitedUse' | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             (tertiary)="resetClick()"
+             [tertiaryCloseOnClick]="false"
+             [primaryCloseOnClick]="false"
+             (secondary)="closeClick()"
+             [primaryDisabled]="!hasLimitedUse"
+             [tertiaryDisabled]="!hasLimitedUse"
+             primaryLabel="{{ 'Save' | translate }}"
+             tertiaryLabel="{{ 'Reset' | translate }}"
+             tertiaryConfirmationMessage="{{ 'ResetLimitedUseConfirmation' | translate}}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div *ngIf="!hasLimitedUse" class="no-limited-uses-container">
+    <span>{{ 'NoLimitedUses' | translate }}</span>
+  </div>
+
+  <div *ngFor="let action of actions">
+    <app-battle-monster-action-use-regain [battleMonsterAction]="action">
+    </app-battle-monster-action-use-regain>
+  </div>
+</app-details>

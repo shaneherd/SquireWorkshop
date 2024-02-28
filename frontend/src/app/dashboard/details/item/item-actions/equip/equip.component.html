@@ -1,0 +1,63 @@
+<app-details headerName="{{ 'CreatureItemAction.EQUIP.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details"
+             *ngIf="!loading">
+  <div class="form-group">
+    <label>{{ 'Labels.Slot' | translate }}</label>
+    <span *ngIf="slot != null && slots.length === 1">{{slot.name}}</span>
+    <mat-form-field *ngIf="slots.length > 1">
+      <mat-select [(ngModel)]="slot"
+                  (selectionChange)="slotChange($event.value)">
+        <mat-option *ngFor="let slotChoice of slots" [value]="slotChoice">
+          {{slotChoice.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.ItemToEquip' | translate }}</label>
+    <app-creature-item-card [creatureItem]="creatureItem"
+                            [creature]="creature"
+                            [displayTags]="true"
+                            [displaySlot]="false"
+                            (itemClick)="itemClick(creatureItem)">
+    </app-creature-item-card>
+  </div>
+
+  <div class="form-group" *ngIf="equippedItems.length > 0">
+    <label>{{ 'Labels.CurrentlyEquipped' | translate }}</label>
+    <app-creature-item-card *ngFor="let item of equippedItems"
+                            [creature]="creature"
+                            [creatureItem]="item"
+                            [displayTags]="true"
+                            [displaySlot]="false"
+                            (itemClick)="itemClick(item)">
+    </app-creature-item-card>
+  </div>
+
+  <div class="form-group" *ngIf="containers.length > 0 && equippedItems.length > 0">
+    <label>{{ 'Labels.MoveEquippedTo' | translate }}</label>
+    <mat-form-field class="container-selector">
+      <mat-select [(ngModel)]="selectedContainer"
+                  (selectionChange)="containerChange($event.value)">
+        <mat-option *ngFor="let container of containers" [value]="container">
+          {{container.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <app-item-details-slide-in *ngIf="viewingItem != null"
+                             [creatureItem]="viewingItem"
+                             [creature]="creature"
+                             [collection]="collection"
+                             [allowActions]="false"
+                             (close)="closeItem()">
+  </app-item-details-slide-in>
+</app-details>

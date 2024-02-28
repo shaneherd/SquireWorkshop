@@ -1,0 +1,11 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.ToolCategories.ToolCategories' | translate }}"
+                 [menuService]="toolCategoryService"
+                 [manageService]="attributeService"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-tool-category *ngIf="selectedItem != null"
+                              [toolCategory]="selectedItem"
+                              (save)="updateSelected($event)"
+                              (cancel)="closeItem()">
+</app-add-remove-tool-category>

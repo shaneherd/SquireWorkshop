@@ -1,0 +1,10 @@
+<mat-checkbox
+  (change)="profChange($event)"
+  [disabled]="isDisabled()"
+  [checked]="prof.proficient || isChecked(prof)">
+</mat-checkbox>
+<span>{{prof.item.name}}</span>
+
+<mat-icon *ngIf="prof.inheritedFrom.length > 0" [matTooltip]="getTooltip()" class="help-icon">
+  help
+</mat-icon>

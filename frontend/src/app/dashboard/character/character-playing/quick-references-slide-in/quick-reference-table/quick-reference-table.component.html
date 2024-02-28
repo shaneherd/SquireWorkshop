@@ -1,0 +1,25 @@
+<div *ngIf="table.title !== ''" class="quick-reference-table-name">{{table.title}}</div>
+
+<table class="quick-reference-table full-width form-group">
+  <thead>
+  <tr class="quick-reference-table-row">
+    <th *ngFor="let column of table.columns; let i = index"
+        class="quick-reference-table-cell">
+      {{column}}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of table.rows" class="quick-reference-table-row">
+    <td *ngFor="let value of row.values; let j = index"
+        class="quick-reference-table-cell">
+      {{value}}
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="table.description !== ''" class="quick-reference-table-description form-group">
+  {{table.description}}
+</div>
+

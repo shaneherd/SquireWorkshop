@@ -1,0 +1,227 @@
+<mat-expansion-panel *ngIf="showAbilitySection">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.Abilities' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.SavingThrows' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="proficiency-list col-xl-6 col-lg-12">
+    <h5>
+      {{ 'Labels.AbilityScoreModifiers' | translate }}
+    </h5>
+    <app-modifier-list
+      [modifiers]="proficiencyCollection.abilityModifiers"
+      [editing]="editing">
+    </app-modifier-list>
+
+    <div class="form-group amount-to-choose" *ngIf="(editing && showChoose) || (proficiencyCollection.numAbilities + proficiencyCollection.parentNumAbilities) > 0">
+      <label>{{ 'Labels.AmountToIncreaseByOne' | translate }}</label>
+      <span *ngIf="!editing && !loading">{{proficiencyCollection.numAbilities + proficiencyCollection.parentNumAbilities}}</span>
+      <span *ngIf="editing && proficiencyCollection.parentNumAbilities > 0">{{proficiencyCollection.parentNumAbilities}} +</span>
+      <input *ngIf="editing" type="number" class="form-control inline" max="9" min="0"
+             appInputNumber minValue="0" maxValue="9"
+             [(ngModel)]="proficiencyCollection.numAbilities"/>
+    </div>
+  </div>
+
+  <div class="proficiency-list col-xl-6 col-lg-12">
+    <h5>
+      {{ 'Labels.SavingThrows' | translate }}
+    </h5>
+    <app-proficiency-list
+      [showSecondary]="showSecondary"
+      [proficiencies]="proficiencyCollection.savingThrowProficiencies"
+      [editing]="editing">
+    </app-proficiency-list>
+
+    <div class="form-group amount-to-choose" *ngIf="(editing && showChoose) || (proficiencyCollection.numSavingThrows + proficiencyCollection.parentNumSavingThrows) > 0">
+      <label>{{ 'Labels.AdditionalSavingThrows' | translate }}</label>
+      <span *ngIf="!editing && !loading">{{proficiencyCollection.numSavingThrows + proficiencyCollection.parentNumSavingThrows}}</span>
+      <span *ngIf="editing && proficiencyCollection.parentNumSavingThrows > 0">{{proficiencyCollection.parentNumSavingThrows}} +</span>
+      <input *ngIf="editing" type="number" class="form-control inline" max="9" min="0"
+             appInputNumber minValue="0" maxValue="9"
+             [(ngModel)]="proficiencyCollection.numSavingThrows"/>
+    </div>
+  </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.ArmorProfs' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.ArmorProfs' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <app-proficiency-list
+    [showSecondary]="showSecondary"
+    [proficiencies]="proficiencyCollection.armorProficiencies"
+    [editing]="editing">
+  </app-proficiency-list>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.WeaponProfs' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.WeaponProfs' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <app-proficiency-list
+    [showSecondary]="showSecondary"
+    [proficiencies]="proficiencyCollection.weaponProficiencies"
+    [editing]="editing">
+  </app-proficiency-list>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.SkillProfs' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.SkillProfs' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="proficiency-list col-xl-6 col-lg-12">
+    <h5 *ngIf="showChoose">
+      {{ 'Labels.PermanentProfs' | translate }}
+    </h5>
+    <app-proficiency-list
+      [showSecondary]="showSecondary"
+      [proficiencies]="proficiencyCollection.skillProficiencies"
+      [editing]="editing">
+    </app-proficiency-list>
+  </div>
+
+  <div class="proficiency-list col-xl-6 col-lg-12">
+    <ng-container *ngIf="showChoose && proficiencyCollection.skillChoiceProficiencies.length > 0">
+      <h5>
+        {{ 'Labels.ChooseFromTheFollowing' | translate }}
+      </h5>
+      <app-proficiency-list
+        [showSecondary]="showSecondary"
+        [proficiencies]="proficiencyCollection.skillChoiceProficiencies"
+        [editing]="editing">
+      </app-proficiency-list>
+    </ng-container>
+
+    <div class="form-group amount-to-choose" *ngIf="(editing && showChoose) || (proficiencyCollection.numSkills + proficiencyCollection.parentNumSkills) > 0 || (showSecondary && (proficiencyCollection.numSecondarySkills + proficiencyCollection.parentNumSecondarySkills) > 0)">
+      <label>{{ 'Labels.AmountToChoose' | translate }}</label>
+      <span *ngIf="!editing && !loading">{{proficiencyCollection.numSkills + proficiencyCollection.parentNumSkills}}</span>
+      <span *ngIf="editing && proficiencyCollection.parentNumSkills > 0">{{proficiencyCollection.parentNumSkills}} +</span>
+      <input *ngIf="editing" type="number" class="form-control inline" max="99" min="0"
+             appInputNumber minValue="0" maxValue="99"
+             [(ngModel)]="proficiencyCollection.numSkills"/>
+
+      <span *ngIf="!editing && !loading && showSecondary" class="secondary-num-choices">{{proficiencyCollection.parentNumSecondarySkills + proficiencyCollection.numSecondarySkills}}</span>
+      <span *ngIf="editing && showSecondary && proficiencyCollection.parentNumSecondarySkills > 0" class="secondary-num-choices">{{proficiencyCollection.parentNumSecondarySkills}} +</span>
+      <input *ngIf="editing && showSecondary" type="number" class="form-control inline secondary-num-choices" max="99" min="0"
+             appInputNumber minValue="0" maxValue="99"
+             [(ngModel)]="proficiencyCollection.numSecondarySkills"/>
+    </div>
+  </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.LanguageProfs' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.LanguageProfs' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <app-proficiency-list
+    [showSecondary]="showSecondary"
+    [proficiencies]="proficiencyCollection.languageProficiencies"
+    [editing]="editing">
+  </app-proficiency-list>
+
+  <div class="form-group amount-to-choose" *ngIf="(editing && showChoose) || (proficiencyCollection.numLanguages + proficiencyCollection.parentNumLanguages) > 0">
+    <label>{{ 'Labels.AdditionalLanguages' | translate }}</label>
+    <span *ngIf="!editing && !loading">{{proficiencyCollection.numLanguages + proficiencyCollection.parentNumLanguages}}</span>
+    <span *ngIf="editing && proficiencyCollection.parentNumLanguages > 0">{{proficiencyCollection.parentNumLanguages}} +</span>
+    <input *ngIf="editing" type="number" class="form-control inline" max="99" min="0"
+           appInputNumber minValue="0" maxValue="99"
+           [(ngModel)]="proficiencyCollection.numLanguages"/>
+  </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.ToolProfs' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon *ngIf="showTooltips" matTooltip="{{ 'Tooltips.ToolProfs' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="proficiency-list col-xl-6 col-lg-12">
+    <h5 *ngIf="showChoose">
+      {{ 'Labels.PermanentProfs' | translate }}
+    </h5>
+    <app-proficiency-list
+      [showSecondary]="showSecondary"
+      [proficiencies]="proficiencyCollection.toolProficiencies"
+      [editing]="editing">
+    </app-proficiency-list>
+  </div>
+
+  <div class="proficiency-list col-xl-6 col-lg-12">
+    <ng-container *ngIf="showChoose && proficiencyCollection.toolChoiceProficiencies.length > 0">
+      <h5>
+        {{ 'Labels.ChooseFromTheFollowing' | translate }}
+      </h5>
+      <app-proficiency-list
+        [showSecondary]="showSecondary"
+        [proficiencies]="proficiencyCollection.toolChoiceProficiencies"
+        [editing]="editing">
+      </app-proficiency-list>
+    </ng-container>
+
+    <div class="form-group amount-to-choose" *ngIf="(editing && showChoose) || (proficiencyCollection.numTools + proficiencyCollection.parentNumTools) > 0 || (showSecondary && (proficiencyCollection.numSecondaryTools + proficiencyCollection.parentNumSecondaryTools) > 0)">
+      <label>{{ 'Labels.AmountToChoose' | translate }}</label>
+      <span *ngIf="!editing && !loading">{{proficiencyCollection.numTools + proficiencyCollection.parentNumTools}}</span>
+      <span *ngIf="editing && proficiencyCollection.parentNumTools > 0">{{proficiencyCollection.parentNumTools}} +</span>
+      <input *ngIf="editing" type="number" class="form-control inline" max="99" min="0"
+             appInputNumber minValue="0" maxValue="99"
+             [(ngModel)]="proficiencyCollection.numTools"/>
+
+      <span *ngIf="!editing && !loading && showSecondary" class="secondary-num-choices">{{proficiencyCollection.parentNumSecondaryTools + proficiencyCollection.numSecondaryTools}}</span>
+      <span *ngIf="editing && showSecondary && proficiencyCollection.parentNumSecondaryTools > 0" class="secondary-num-choices">{{proficiencyCollection.parentNumSecondaryTools}} +</span>
+      <input *ngIf="editing && showSecondary" type="number" class="form-control inline secondary-num-choices" max="99" min="0"
+             appInputNumber minValue="0" maxValue="99"
+             [(ngModel)]="proficiencyCollection.numSecondaryTools"/>
+    </div>
+  </div>
+</mat-expansion-panel>

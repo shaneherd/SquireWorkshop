@@ -1,0 +1,17 @@
+<div *ngFor="let group of groups;">
+  <span [ngClass]="showDetails ? 'bold' : ''">
+    {{group.totalResult}} {{healing ? '' : group.damageType?.name}}
+  </span>
+
+  <div *ngIf="showDetails" class="details">
+    <app-roll-result-details *ngFor="let result of group.results"
+                             [diceResult]="result"
+                             [healing]="healing">
+    </app-roll-result-details>
+  </div>
+</div>
+
+<div *ngIf="rollResult.results.length > 1">
+  <label class="total">{{ 'Labels.Total' | translate }}</label>
+  <span>{{total}}</span>
+</div>

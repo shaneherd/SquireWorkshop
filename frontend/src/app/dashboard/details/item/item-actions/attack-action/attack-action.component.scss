@@ -1,0 +1,26 @@
+.damages {
+  margin-left: 20px;
+}
+
+.versatile-damages {
+  margin-top: 10px;
+}
+
+.padded-select {
+  margin-bottom: 10px;
+}
+
+.block {
+  display: block;
+}
+
+.source-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .source-count {
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+}

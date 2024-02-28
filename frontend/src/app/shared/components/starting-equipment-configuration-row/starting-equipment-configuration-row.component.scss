@@ -1,0 +1,26 @@
+.item-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  span {
+    flex-grow: 1;
+  }
+
+  i {
+    flex-shrink: 0;
+    margin-left: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.disabled {
+      color: #cccccc;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

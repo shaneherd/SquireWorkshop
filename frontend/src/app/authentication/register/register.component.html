@@ -1,0 +1,72 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="col-md-6 col-xs-12 register">
+  <h2>{{ 'Auth.Register.Register' | translate }}</h2>
+  <form [formGroup]="formRegister" (submit)="register()">
+    <div class="form-group">
+      <label for="email">{{ 'Auth.Email' | translate }}</label>
+      <input id="email" autofocus formControlName="email" type="email" class="form-control">
+      <label class="text-danger" *ngIf="formRegister.controls['email'].hasError('email')">
+        {{ 'Auth.EnterValidEmail' | translate }}
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="username">{{ 'Auth.Username' | translate }}</label>
+      <input id="username" maxlength="20" formControlName="username" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="password">{{ 'Auth.Password.Password' | translate }}</label>
+      <show-hide-password size="lg" icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+        <input id="password" maxlength="20" formControlName="password" type="password" class="form-control">
+      </show-hide-password>
+      <label class="col first-requirement"
+             [ngClass]="formRegister.controls['password'].hasError('required') || formRegister.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegister.controls['password'].hasError('required') ||
+          formRegister.controls['password'].hasError('minlength') ? 'cancel' :
+          'check_circle' }}</i>
+        {{ 'Auth.Password.Requirements.Length' | translate }}
+      </label>
+      <label class="col"
+             [ngClass]="formRegister.controls['password'].hasError('required') || formRegister.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegister.controls['password'].hasError('required') ||
+          formRegister.controls['password'].hasError('hasNumber') ? 'cancel' :
+          'check_circle' }}</i>
+        {{ 'Auth.Password.Requirements.Number' | translate }}
+      </label>
+      <label class="col"
+             [ngClass]="formRegister.controls['password'].hasError('required') || formRegister.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegister.controls['password'].hasError('required') ||
+          formRegister.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+          'check_circle' }}</i>
+        {{ 'Auth.Password.Requirements.Capital' | translate }}
+      </label>
+      <label class="col"
+             [ngClass]="formRegister.controls['password'].hasError('required') || formRegister.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegister.controls['password'].hasError('required') ||
+          formRegister.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+          'check_circle' }}</i>
+        {{ 'Auth.Password.Requirements.Lower' | translate }}
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">{{ 'Auth.Password.Confirm' | translate }}</label>
+      <show-hide-password size="lg" icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+        <input id="confirmPassword" maxlength="20" formControlName="confirmPassword" type="password" class="form-control">
+      </show-hide-password>
+      <label class="text-danger" *ngIf="formRegister.controls['confirmPassword'].hasError('NoPasswordMatch')">
+        {{ 'Auth.Password.Requirements.Match' | translate }}
+      </label>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <button [disabled]="formRegister.invalid || loading" class="squire-button btn btn-primary">{{ 'Auth.Register.Register' | translate }}</button>
+      <a [routerLink]="['/auth']" class="btn btn-link">{{ 'Cancel' | translate }}</a>
+    </div>
+    <span [innerHTML]="'Auth.Register.RegisterMessage' | translate"></span>
+  </form>
+</div>

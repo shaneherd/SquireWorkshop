@@ -1,0 +1,36 @@
+<app-details headerName="{{ 'Navigation.Characters.QuickReferences' | translate }}"
+             [extraLarge]="true"
+             [loading]="loading"
+             (close)="closeClick()"
+             (secondary)="closeClick()"
+             secondaryLabel="{{ 'Close' | translate }}">
+  <div class="quick-references">
+    <div class="form-group">
+      <mat-form-field class="header-select" appearance="standard">
+        <mat-select #select
+                    placeholder="{{ 'Search' | translate }}"
+                    (opened)="selectOpen(select)"
+                    (closed)="selectClose(select)"
+                    [(ngModel)]="selectedItem"
+                    (selectionChange)="scrollToHeader($event.value)">
+          <mat-option>
+            <ngx-mat-select-search placeholderLabel="{{ 'Search' | translate }}"
+                                   noEntriesFoundLabel="{{ 'None' | translate }}"
+                                   [formControl]="headerFilterFormControl"></ngx-mat-select-search>
+          </mat-option>
+
+          <mat-option *ngFor="let header of filteredHeaders" [value]="header">
+            {{header.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="content-data-full-height quick-references-page">
+      <app-quick-reference-item *ngFor="let quickReference of quickReferences"
+                                [quickReference]="quickReference"
+                                (close)="closeSection($event)">
+      </app-quick-reference-item>
+    </div>
+  </div>
+</app-details>

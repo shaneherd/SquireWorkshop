@@ -1,0 +1,15 @@
+<app-details headerName="{{ 'Navigation.Characters.JoinCampaign' | translate }}"
+             (close)="closeClick()"
+             (primary)="joinClick()"
+             primaryLabel="{{ 'Campaign.Join' | translate }}"
+             (secondary)="closeClick()"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div class="details">
+    <div class="form-group">
+      <label>{{ 'Campaign.EnterToken' | translate }}</label>
+      <input type="text"
+             [(ngModel)]="token"
+             class="form-control"/>
+    </div>
+  </div>
+</app-details>

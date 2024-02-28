@@ -1,0 +1,112 @@
+<app-creature-equipment-group [items]="equippedItems"
+                              [creature]="creature"
+                              itemGrouping="EQUIPPED"
+                              (itemClick)="itemClick($event)"
+                              (spellClick)="spellClick($event)"
+                              [clickDisabled]="clickDisabled"
+                              [showEmpty]="true">
+</app-creature-equipment-group>
+
+<app-creature-equipment-group [items]="carriedItems"
+                              [creature]="creature"
+                              itemGrouping="CARRIED"
+                              (itemClick)="itemClick($event)"
+                              (spellClick)="spellClick($event)"
+                              [clickDisabled]="clickDisabled"
+                              [showEmpty]="true">
+</app-creature-equipment-group>
+
+<app-creature-equipment-group [items]="mountItems"
+                              [creature]="creature"
+                              itemGrouping="MOUNTS"
+                              (itemClick)="itemClick($event)"
+                              (spellClick)="spellClick($event)"
+                              [clickDisabled]="clickDisabled">
+</app-creature-equipment-group>
+
+<app-creature-equipment-group [items]="stabledMountItems"
+                              [creature]="creature"
+                              itemGrouping="STABLED_MOUNTS"
+                              (itemClick)="itemClick($event)"
+                              (spellClick)="spellClick($event)"
+                              [clickDisabled]="clickDisabled">
+</app-creature-equipment-group>
+
+<app-creature-equipment-group [items]="vehicleItems"
+                              [creature]="creature"
+                              itemGrouping="VEHICLES"
+                              (itemClick)="itemClick($event)"
+                              (spellClick)="spellClick($event)"
+                              [clickDisabled]="clickDisabled">
+</app-creature-equipment-group>
+
+<app-creature-equipment-group [items]="droppedItems"
+                              [creature]="creature"
+                              itemGrouping="DROPPED"
+                              (itemClick)="itemClick($event)"
+                              (spellClick)="spellClick($event)"
+                              [clickDisabled]="clickDisabled">
+</app-creature-equipment-group>
+
+<app-creature-equipment-group [items]="expendedAmmoItems"
+                              [creature]="creature"
+                              itemGrouping="EXPENDED_AMMO"
+                              (itemClick)="itemClick($event)"
+                              (spellClick)="spellClick($event)"
+                              [clickDisabled]="clickDisabled">
+</app-creature-equipment-group>
+
+<h4 class="bold currency-label">Currency</h4>
+<div *ngFor="let amount of creature.creatureWealth.amounts">
+  <app-creature-wealth-card *ngIf="amount.display"
+                            [creatureWealthAmount]="amount"
+                            [clickDisabled]="clickDisabled"
+                            (wealthClick)="wealthClick()">
+  </app-creature-wealth-card>
+</div>
+
+<app-item-details-slide-in *ngIf="viewingItem != null"
+                           [creatureItem]="viewingItem"
+                           [creature]="creature"
+                           [collection]="collection"
+                           [attackWithUnequipped]="playerCharacter != null && playerCharacter.characterSettings.equipment.attackWithUnequipped"
+                           (save)="saveItem()"
+                           (close)="closeItem()">
+</app-item-details-slide-in>
+
+<app-shopping-cart-slide-in *ngIf="addingItem"
+                            [creature]="creature"
+                            (cancel)="itemListClose()"
+                            (continue)="addSelectedItems()">
+</app-shopping-cart-slide-in>
+
+<app-creature-wealth *ngIf="viewingWealth"
+                     [creature]="creature"
+                     [collection]="collection"
+                     [calculateCurrencyWeight]="playerCharacter != null && playerCharacter.characterSettings.equipment.calculateCurrencyWeight"
+                     (save)="saveWealth()"
+                     (close)="closeWealth()">
+</app-creature-wealth>
+
+<app-character-equipment-settings *ngIf="viewingSettings && playerCharacter != null"
+                                  [playerCharacter]="playerCharacter"
+                                  [collection]="collection"
+                                  (save)="saveSettings()"
+                                  (close)="closeSettings()">
+</app-character-equipment-settings>
+
+<app-character-equipment-attunement *ngIf="viewingAttunement && playerCharacter != null"
+                                    [playerCharacter]="playerCharacter"
+                                    [collection]="collection"
+                                    (save)="saveAttunement()"
+                                    (reset)="resetAttunement()"
+                                    (cancel)="cancelAttunement()">
+</app-character-equipment-attunement>
+
+<app-creature-equipment-charges *ngIf="viewingCharges"
+                                [creature]="creature"
+                                [collection]="collection"
+                                (save)="saveCharges()"
+                                (recharge)="rechargeCharges()"
+                                (cancel)="cancelCharges()">
+</app-creature-equipment-charges>

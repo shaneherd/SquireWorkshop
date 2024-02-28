@@ -1,0 +1,11 @@
+<app-details [headerName]="alignment.name"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ editing ? ('Remove' | translate) : '' }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <span class="form-group">{{ 'MagicalItemAttunementAlignment.Message' | translate }}</span>
+</app-details>
+

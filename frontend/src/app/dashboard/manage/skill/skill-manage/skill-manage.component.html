@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Skills.Skills' | translate }}"
+                 [menuService]="skillService"
+                 [manageService]="attributeService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="Skills"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-skill *ngIf="selectedItem != null"
+                      [skill]="selectedItem"
+                      (save)="updateSelected($event)"
+                      (cancel)="closeItem()">
+</app-add-remove-skill>

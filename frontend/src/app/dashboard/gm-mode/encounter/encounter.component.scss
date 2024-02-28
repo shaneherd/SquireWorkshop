@@ -1,0 +1,150 @@
+@import '../../../sass/variables';
+
+.header-content {
+  flex-shrink: 0;
+}
+
+.encounter-container-desktop {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.encounter-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.encounter-columns-containers {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.initiative-column {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: $list_background;
+  color: #ffffff;
+
+  &.collapsed {
+    width: 32px;
+
+    .initiative-action-button {
+      border-bottom: 1px solid #ffffff;
+      flex-shrink: 0;
+
+      .square {
+        border-radius: 0 !important;
+      }
+    }
+
+    .round-turn-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-bottom: 1px solid #ffffff;
+
+      .round-turn-label {
+        margin-right: 0;
+        color: $tertiary_color;
+      }
+    }
+
+    .initiative-creature-name-container {
+      padding-top: 10px;
+      font-size: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      align-items: center;
+
+      &:hover {
+        background-color: $secondary_button_hover;
+        cursor: pointer;
+      }
+
+      .initiative-creature-name {
+        flex-grow: 1;
+
+        .name-value {
+          writing-mode: vertical-rl;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        .creature-statuses {
+          margin-top: 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.encounter-playing-column {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding: 5px;
+  position: relative;
+  display: flex;
+  border-left: 1px solid #000000;
+  height: 100%;
+}
+
+.initiative-container,
+.mobile-container {
+  flex-grow: 1;
+  overflow: auto;
+
+  .encounter-playing-column {
+    border-left: 0;
+  }
+}
+
+.mobile-container {
+  height: 100%;
+}
+
+.details-configuration-action-buttons-container {
+  width: 100%;
+  flex-shrink: 0;
+  margin: auto;
+  padding: 0;
+
+  .details-configuration-action-buttons {
+    padding: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+
+    .action-button {
+      display: table-cell;
+      padding: 5px;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.content-container {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin: 0 10px 0 0;
+  }
+}

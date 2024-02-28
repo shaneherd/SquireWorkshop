@@ -1,0 +1,10 @@
+<app-dialog title="{{ 'Filters' | translate }}"
+            primaryLabel="{{ 'Apply' | translate }}"
+            (primary)="apply()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            tertiaryLabel="{{ 'Clear' | translate }}"
+            (tertiary)="clear()"
+            (close)="cancel()">
+  <p>condition-filter-dialog works!</p>
+</app-dialog>

@@ -1,0 +1,307 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!monster.author"
+               [itemName]="itemName"
+               [id]="monster.id"
+               [inUseService]="monsterService"
+               [showShare]="monster.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'AttributeType.MONSTER' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="monsterForm"
+        (submit)="save()">
+    <mat-accordion class="example-headers-align">
+
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.BasicInfo' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input formControlName="name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.Type' | translate }}</label>
+          <span *ngIf="!editing">{{ 'MonsterType.' + monster.monsterType | translate }}</span>
+          <mat-form-field *ngIf="editing">
+            <mat-select [(ngModel)]="monster.monsterType"
+                        [ngModelOptions]="{standalone: true}">
+              <mat-option *ngFor="let monsterType of monsterTypes" [value]="monsterType">
+                {{ 'MonsterType.' + monsterType | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group" *ngIf="editing || monster.typeVariation.length > 0">
+          <label>{{ 'Labels.Variation' | translate }}</label>
+          <span *ngIf="!editing">{{monster.typeVariation}}</span>
+          <input maxlength="45"
+                 *ngIf="editing"
+                 [(ngModel)]="monster.typeVariation"
+                 [ngModelOptions]="{standalone: true}"
+                 class="form-control text-inline"/>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.AC' | translate }}</label>
+          <span *ngIf="!editing">{{monster.ac}}</span>
+          <input *ngIf="editing" type="number" class="form-control inline number-inline" max="99" min="0"
+                 appInputNumber minValue="0" maxValue="99"
+                 [(ngModel)]="monster.ac"
+                 [ngModelOptions]="{standalone: true}"
+                 (valueChange)="acChange($event)"/>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.HP' | translate }}</label>
+          <app-monster-hp-calculation class="hit-dice"
+                                      [editing]="editing"
+                                      [loading]="loading"
+                                      [diceCollection]="monster.hitDice"
+                                      [diceSizes]="diceSizes"
+                                      [abilities]="abilities">
+          </app-monster-hp-calculation>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.Size' | translate }}</label>
+          <span *ngIf="!editing">{{ 'Size.' + monster.size | translate }}</span>
+          <mat-form-field *ngIf="editing">
+            <mat-select [(ngModel)]="monster.size"
+                        [ngModelOptions]="{standalone: true}"
+                        (selectionChange)="sizeChange($event.value)">
+              <mat-option *ngFor="let size of sizes" [value]="size">
+                {{ 'Size.' + size | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group" *ngIf="alignments?.length > 0 && (editing || (monster?.id !== '0' && monster.alignment))">
+          <label>{{ 'Labels.Alignment' | translate }}</label>
+          <span *ngIf="!editing && monster?.id !== '0'">{{monster.alignment?.name}}</span>
+          <mat-form-field *ngIf="editing">
+            <mat-select [(ngModel)]="selectedAlignment"
+                        [ngModelOptions]="{standalone: true}">
+              <mat-option *ngFor="let alignment of alignments" [value]="alignment">
+                {{alignment.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.ChallengeRating' | translate }}</label>
+          <span *ngIf="!editing">{{ 'ChallengeRating.' + monster.challengeRating | translate }}</span>
+          <mat-form-field *ngIf="editing">
+            <mat-select [(ngModel)]="monster.challengeRating"
+                        [ngModelOptions]="{standalone: true}"
+                        (selectionChange)="challengeRatingChange($event.value)">
+              <mat-option *ngFor="let challengeRating of challengeRatings" [value]="challengeRating">
+                {{ 'ChallengeRating.' + challengeRating | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.Exp' | translate }}</label>
+          <span *ngIf="!editing">{{monster.experience | number}}</span>
+          <input *ngIf="editing" type="number" class="form-control inline number-inline large" max="999999" min="0"
+                 appInputNumber minValue="0" maxValue="999999"
+                 [(ngModel)]="monster.experience"
+                 [ngModelOptions]="{standalone: true}"
+                 (valueChange)="expChange($event)"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || monster.legendaryPoints > 0">
+          <label>{{ 'Labels.LegendaryPoints' | translate }}</label>
+          <span *ngIf="!editing">{{monster.legendaryPoints}}</span>
+          <input *ngIf="editing" type="number" class="form-control inline number-inline" max="99" min="0"
+                 appInputNumber minValue="0" maxValue="99"
+                 [(ngModel)]="monster.legendaryPoints"
+                 [ngModelOptions]="{standalone: true}"
+                 (valueChange)="legendaryChange($event)"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || (monster?.id !== '0' && monster.description != null && monster.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing && monster?.id !== '0'" class="info-description">{{monster.description}}</span>
+          <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="2000"> </textarea>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Speeds' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngFor="let speed of monster?.speeds">
+          <div class="form-group race-speeds" *ngIf="editing || speed.value > 0">
+            <label>{{ 'SpeedType.' + speed.speedType | translate }}:</label>
+            <span *ngIf="!editing">{{speed.value}}</span>
+            <input *ngIf="editing" type="number" class="form-control inline number-inline" max="999" min="0"
+                   appInputNumber minValue="0" maxValue="999"
+                   [(ngModel)]="speed.value" [ngModelOptions]="{standalone: true}"/>
+
+            <div *ngIf="speed.speedType === flySpeedType" class="hover">
+              <mat-checkbox
+                (change)="hoverChange($event)"
+                [disabled]="!editing"
+                [checked]="monster?.hover">
+              </mat-checkbox>
+              <span>{{ 'Hover' | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Abilities' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="proficiency-list col-xl-6 col-lg-12 form-group">
+          <h5>
+            {{ 'Labels.AbilityScores' | translate }}
+          </h5>
+          <div *ngFor="let abilityScore of monster.abilityScores;" class="modifier-list">
+            <div>
+              <label class="modifier-label">{{abilityScore.ability.name}}:</label>
+              <span *ngIf="!editing">{{abilityScore.value}}</span>
+              <input *ngIf="editing" type="number" class="form-control inline number-inline" max="99" min="0"
+                     appInputNumber minValue="0" maxValue="99"
+                     [ngModelOptions]="{standalone: true}"
+                     [(ngModel)]="abilityScore.value"
+                     (valueChange)="abilityScoreChange($event)"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="proficiency-list col-xl-6 col-lg-12">
+          <h5>
+            {{ 'Labels.SavingThrows' | translate }}
+          </h5>
+          <app-proficiency-list
+            [showSecondary]="false"
+            [proficiencies]="monsterConfigurationCollection.proficiencyCollection.savingThrowProficiencies"
+            [editing]="editing">
+          </app-proficiency-list>
+        </div>
+      </mat-expansion-panel>
+
+      <app-proficiency-panels [editing]="editing"
+                              [loading]="loading"
+                              [showSecondary]="false"
+                              [showChoose]="false"
+                              [showAbilitySection]="false"
+                              [showTooltips]="false"
+                              [proficiencyCollection]="monsterConfigurationCollection.proficiencyCollection">
+      </app-proficiency-panels>
+
+      <!--Spellcasting-->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Spellcasting' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-monster-spell-info *ngIf="!loading"
+                                [monster]="monster"
+                                [editing]="editing"
+                                [loading]="loading"
+                                [monsterConfigurationCollection]="monsterConfigurationCollection"
+                                [abilities]="abilities"
+                                [isPublic]="isPublic"
+                                [isShared]="isShared"
+                                (configListUpdated)="handleConfigListUpdated()">
+        </app-monster-spell-info>
+      </mat-expansion-panel>
+
+      <!--Innate Spellcasting-->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.InnateSpellcasting' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <app-monster-innate-spell-info *ngIf="!loading"
+                                       [monster]="monster"
+                                       [editing]="editing"
+                                       [loading]="loading"
+                                       [monsterConfigurationCollection]="monsterConfigurationCollection"
+                                       [abilities]="abilities"
+                                       [isPublic]="isPublic"
+                                       [isShared]="isShared"
+                                       (configListUpdated)="handleConfigListUpdated()">
+        </app-monster-innate-spell-info>
+      </mat-expansion-panel>
+
+      <app-damage-modifier-configurations [editing]="editing"
+                                          [loading]="loading"
+                                          [showTooltips]="false"
+                                          [damageModifiers]="monster.damageModifiers"
+                                          [damageModifierCollection]="monsterConfigurationCollection.damageModifierCollection">
+      </app-damage-modifier-configurations>
+
+      <app-senses-configuration [editing]="editing"
+                                [loading]="loading"
+                                [showTooltips]="false"
+                                [senseConfigurationCollection]="monsterConfigurationCollection.senseConfigurationCollection">
+      </app-senses-configuration>
+
+      <app-condition-immunity-configurations [editing]="editing"
+                                             [loading]="loading"
+                                             [showTooltips]="false"
+                                             [conditionImmunities]="monster.conditionImmunities"
+                                             [conditionImmunityConfigurationCollection]="monsterConfigurationCollection.conditionImmunityConfigurationCollection">
+      </app-condition-immunity-configurations>
+
+      <app-monster-action-section *ngIf="!loading"
+                                  [monster]="monster"
+                                  [editing]="editing"
+                                  [isPublic]="isPublic"
+                                  [isShared]="isShared">
+      </app-monster-action-section>
+
+      <app-monster-feature-section *ngIf="!loading"
+                                   [monster]="monster"
+                                   [editing]="editing"
+                                   [isPublic]="isPublic"
+                                   [isShared]="isShared">
+      </app-monster-feature-section>
+
+      <app-monster-items-section [monster]="monster"
+                                 [editing]="editing"
+                                 [isPublic]="isPublic"
+                                 [isShared]="isShared">
+      </app-monster-items-section>
+
+    </mat-accordion>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

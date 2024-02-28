@@ -1,0 +1,20 @@
+<app-details headerName="{{ 'Navigation.Manage.Spells.ConfigureAbility' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div class="details">
+    <mat-form-field class="form-group">
+      <mat-select [(ngModel)]="ability"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="spellcastingAbilityChange($event.value)">
+        <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+          {{ability.id === '0' ? noAbility : ability.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div>{{ 'Tooltips.SpellcastingAbility' | translate }}</div>
+  </div>
+</app-details>

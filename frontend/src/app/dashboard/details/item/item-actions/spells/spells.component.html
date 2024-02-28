@@ -1,0 +1,47 @@
+<app-details headerName="{{ 'CreatureItemAction.SPELLS.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (tertiary)="clearClick()"
+             (secondary)="cancelClick()"
+             [primaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             tertiaryLabel="{{ 'Clear' | translate }}"
+             tertiaryConfirmationMessage="{{ 'CreatureItemAction.SPELLS.ClearConfirmation' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <ng-container *ngFor="let config of spells">
+    <div *ngIf="config.additional">
+      <app-magical-item-spell-card [magicalItem]="magicalItem"
+                                   [creature]="creature"
+                                   [disabled]="disabled"
+                                   [config]="config"
+                                   (click)="spellClick($event)">
+      </app-magical-item-spell-card>
+    </div>
+  </ng-container>
+  <mat-card class="add-item-card"
+            [ngClass]="{'clickable': !disabled}"
+            (click)="addSpells()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'Headers.AddSpells' | translate }}</span>
+  </mat-card>
+</app-details>
+
+<app-add-spells *ngIf="addingSpells"
+                (close)="cancelAddSpells()"
+                (continue)="continueAddSpells($event)">
+</app-add-spells>
+
+<app-magical-item-spell-configuration *ngIf="configuringItem != null"
+                                      [editing]="true"
+                                      [showCharges]="magicalItem.hasCharges"
+                                      (continue)="updateSpellConfiguration($event)"
+                                      (remove)="deleteSpell($event)"
+                                      (close)="cancelConfiguration()"
+                                      [creature]="creature"
+                                      [collection]="collection"
+                                      [magicalItem]="magicalItem"
+                                      [magicalItemSpellConfiguration]="configuringItem">
+</app-magical-item-spell-configuration>

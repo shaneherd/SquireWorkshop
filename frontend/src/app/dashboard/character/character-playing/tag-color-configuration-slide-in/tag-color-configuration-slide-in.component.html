@@ -1,0 +1,14 @@
+<app-details headerName="{{ 'Headers.Configuration' | translate }}"
+             (close)="closeClick()"
+             (primary)="applyClick()"
+             primaryLabel="{{'Apply' | translate }}"
+             (secondary)="closeClick()"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div class="details">
+    <color-sketch [color]="editingTag.color"
+                  [disableAlpha]="true"
+                  [presetColors]="presetColors"
+                  (onChangeComplete)="changeComplete($event)">
+    </color-sketch>
+  </div>
+</app-details>

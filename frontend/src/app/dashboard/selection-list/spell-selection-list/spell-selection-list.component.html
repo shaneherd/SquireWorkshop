@@ -1,0 +1,45 @@
+<app-selection-list-slide-in [headerName]="headerName"
+                             [loading]="loading"
+                             [searchable]="true"
+                             [filterable]="true"
+                             [allowSelectAll]="true"
+                             (close)="closeClick()"
+                             (add)="addSelected()"
+                             (selectAll)="selectAll()"
+                             [selectedCount]="selectedCount"
+                             [availableCount]="searchedFilteredSpells.length"
+                             (filter)="filter()"
+                             (search)="search($event)">
+  <div class="spell-selection">
+    <div *ngIf="showDropdown && characteristics.length > 1" class="characteristic-selection-container">
+      <mat-select class="form-control characteristic-selection"
+                  [(ngModel)]="characteristicId"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="characteristicChange($event.value)">
+        <mat-option *ngFor="let characteristic of characteristics" [value]="characteristic.id">
+          {{characteristic.name}}
+        </mat-option>
+      </mat-select>
+
+      <mat-icon matTooltip="{{ 'Tooltips.SpellSelectionCharacteristic' | translate }}" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+
+    <div class="selection-list-container">
+      <app-spell-selection-items [spells]="searchedFilteredSpells"
+                                 [loading]="loading"
+                                 (checkChange)="checkChange($event)"
+                                 (spellClick)="spellClick($event)">
+      </app-spell-selection-items>
+    </div>
+  </div>
+
+  <app-add-remove-spell *ngIf="viewingSpell != null"
+                        [spell]="viewingSpell"
+                        [creature]="creature"
+                        [collection]="collection"
+                        (save)="toggleSelected($event)"
+                        (cancel)="closeDetails()" >
+  </app-add-remove-spell>
+</app-selection-list-slide-in>

@@ -1,0 +1,45 @@
+<app-details headerName="{{ 'Headers.ArmorClass' | translate }}"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div *ngIf="useBase">
+    <label>{{ 'Labels.Base' | translate }}</label>
+    <span>{{base}}</span>
+  </div>
+
+  <ng-container *ngIf="useBase">
+    <div *ngFor="let item of abilityDisplays;">
+      <app-label-value [labelValue]="item"></app-label-value>
+    </div>
+  </ng-container>
+
+  <div *ngFor="let item of itemsDisplay;">
+    <app-label-value [labelValue]="item"></app-label-value>
+  </div>
+
+  <div *ngFor="let modifier of modifiersDisplay;">
+    <app-label-value [labelValue]="modifier"></app-label-value>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.Misc' | translate }}</label>
+    <span>{{misc}}</span>
+  </div>
+
+  <br />
+
+  <div class="form-group">
+    <label class="font-weight-bold">{{ 'Labels.Total' | translate }}</label>
+    <span>{{total}}</span>
+  </div>
+</app-details>
+
+<app-ac-configuration *ngIf="configuring"
+                      [creature]="creature"
+                      [collection]="collection"
+                      (save)="saveConfigurations()"
+                      (close)="closeConfigurations()">
+</app-ac-configuration>

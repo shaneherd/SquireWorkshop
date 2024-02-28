@@ -1,0 +1,37 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!toolCategory.author"
+               [itemName]="itemName"
+               [id]="toolCategory.id"
+               [inUseService]="attributeService"
+               [showShare]="toolCategory.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               type="{{ 'AttributeType.TOOL_CATEGORY' | translate }}"
+               (save)="save()"
+               (cancel)="cancel()"
+               (delete)="delete()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="toolCategoryForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && toolCategory?.id !== '0'">{{toolCategory.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (toolCategory?.id !== '0' && toolCategory.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && toolCategory?.id !== '0'" class="info-description">{{toolCategory.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

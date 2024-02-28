@@ -1,0 +1,81 @@
+@import '../../sass/variables';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.header-container {
+  flex-grow: 1;
+
+  .header-name-container {
+    display: inline-block;
+  }
+
+  .squire-header-button {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.header-button {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.squire-logo-header {
+  width: 50px;
+  margin-left: 5px;
+}
+
+.menu-button {
+  margin-right: -5px;
+}
+
+.squire-header-title {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  margin-left: 6px;
+}
+
+.user-menu-toggle {
+  flex-shrink: 0;
+}
+
+.context-menu {
+  color: #fff;
+  position: fixed;
+  right: auto;
+  top: 55px;
+  left: 0;
+  bottom: 20px;
+  min-width: 200px;
+  z-index: 9999;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  overflow-y: auto;
+
+  &.mobile {
+    width: 100%;
+    background-color: $list_background;
+  }
+}
+
+.user-icon {
+  font-size: 24px;
+}

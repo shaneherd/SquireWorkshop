@@ -1,0 +1,21 @@
+.details {
+  color: #ffffff;
+}
+
+.spell {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+
+  .spell-card {
+    flex-grow: 1;
+  }
+}
+
+.tabbed {
+  margin-left: 10px;
+}
+
+.prepared-count {
+  margin-bottom: 5px;
+}

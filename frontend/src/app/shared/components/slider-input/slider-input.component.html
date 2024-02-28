@@ -1,0 +1,24 @@
+<div class="slider-input-container">
+  <mat-slider [min]="min"
+              [max]="max"
+              [step]="step"
+              [value]="value"
+              [disabled]="max === 0 || max === min"
+              [displayWith]="formatLabel"
+              (change)="sliderChange($event)"
+              class="on-dark grow"
+              thumbLabel>
+  </mat-slider>
+
+  <span *ngIf="displayMax" class="shrink">
+    {{max}}
+  </span>
+
+  <input type="number"
+         class="form-control shrink"
+         [min]="min"
+         [max]="max"
+         appInputNumber [minValue]="min" [maxValue]="max" [allowDecimal]="false"
+         [ngModel]="value"
+         (valueChange)="onValueChange($event)"/>
+</div>

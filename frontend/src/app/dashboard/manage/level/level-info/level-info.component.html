@@ -1,0 +1,41 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!characterLevel.author"
+               [itemName]="itemName"
+               (save)="save()"
+               (cancel)="cancel()"
+               (delete)="delete()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="characterLevelForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && characterLevel?.id !== '0'">{{characterLevel.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group min-exp">
+      <label>{{ 'Labels.MinExp' | translate }}</label>
+      <span *ngIf="!editing">{{characterLevel.minExp}}</span>
+      <input type="number" class="form-control"
+             *ngIf="editing"
+             min="0" max="999999"
+             appInputNumber minValue="0" maxValue="999999"
+             [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="characterLevel.minExp"/>
+    </div>
+
+    <div class="form-group prof-bonus">
+      <label>{{ 'Labels.ProfBonus' | translate }}</label>
+      <span *ngIf="!editing">{{characterLevel.profBonus}}</span>
+      <input type="number" class="form-control"
+             *ngIf="editing"
+             min="0" max="99"
+             appInputNumber minValue="0" maxValue="99"
+             [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="characterLevel.profBonus"/>
+    </div>
+
+  </form>
+</app-view-edit>

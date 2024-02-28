@@ -1,0 +1,22 @@
+<div class="name-container" [ngClass]="{'nested': nested}">
+  <span (click)="onItemClick()" [ngClass]="{'nested-name-display': nested && !clickDisabled}">{{creatureItem.name}}</span>
+  <span class="sub-name" *ngIf="creatureItem.magicalItem != null">({{creatureItem.magicalItem.name}})</span>
+  <span class="sub-name" *ngIf="scrollSpellName !== ''">({{scrollSpellName}})</span>
+  <app-quantity-tag class="quantity-tag" *ngIf="nested" [quantity]="creatureItem.quantity"></app-quantity-tag>
+  <span class="info" *ngIf="nested && container && creatureItem.items.length > 1" [translate]="'NestedItems.Count'"
+        [translateParams]="{count: creatureItem.items.length}"></span>
+  <span class="info" *ngIf="nested && container && creatureItem.items.length === 1">{{ 'NestedItems.Count1' | translate }}</span>
+  <span class="info" *ngIf="nested && container && creatureItem.items.length === 0 && !creatureItem.full">{{ 'NestedItems.Empty' | translate }}</span>
+  <span class="info" *ngIf="creatureItem.full">{{ 'NestedItems.Full' | translate }}</span>
+
+  <div class="tags-container">
+    <app-attuned-tag *ngIf="nested && creatureItem.attuned"></app-attuned-tag>
+    <app-cursed-tag *ngIf="nested && creatureItem.cursed"></app-cursed-tag>
+    <app-silvered-tag *ngIf="nested && creatureItem.silvered"></app-silvered-tag>
+    <app-poisoned-tag *ngIf="nested && creatureItem.poisoned"></app-poisoned-tag>
+    <span *ngIf="nested && creatureItem.maxCharges > 0" class="tag" [ngClass]="{'no-uses-remaining': creatureItem.chargesRemaining === 0}">
+        {{creatureItem.chargesRemaining}}/{{creatureItem.maxCharges}}
+      </span>
+  </div>
+
+</div>

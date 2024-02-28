@@ -1,0 +1,17 @@
+.characteristic-pager {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .characteristic-dropdown {
+    flex-grow: 1;
+  }
+
+  .navigation-button {
+    flex-shrink: 0;
+  }
+}
+
+.spells-list {
+  margin-top: 16px;
+}

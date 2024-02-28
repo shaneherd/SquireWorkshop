@@ -1,0 +1,9 @@
+<div class="list-spell">
+  <app-print-character-checkbox *ngIf="showPrepared"
+                                class="list-spell-prepared"
+                                [checked]="prepared">
+  </app-print-character-checkbox>
+
+  <app-print-character-list-item class="list-spell-name" [value]="spellName">
+  </app-print-character-list-item>
+</div>

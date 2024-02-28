@@ -1,0 +1,39 @@
+<div class="form-group">
+  <app-setting [checked]="settings.validation.allowFeatSelection"
+               label="{{ 'CharacterSettings.CharacterValidation.AllowFeatSelection' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.CharacterValidation.AllowFeatSelection' | translate }}"
+               (change)="allowFeatSelection($event)">
+  </app-setting>
+
+  <app-setting *ngIf="settings.validation.allowFeatSelection"
+               [checked]="settings.validation.asiFeatOneOnly"
+               label="{{ 'CharacterSettings.CharacterValidation.AsiFeatOneOnly' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.CharacterValidation.AsiFeatOneOnly' | translate }}"
+               (change)="asiFeatOneOnly($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.validation.autoIgnoreUnselectedFeatures"
+               label="{{ 'CharacterSettings.CharacterValidation.AutoIgnoreUnselectedFeatures' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.CharacterValidation.AutoIgnoreUnselectedFeatures' | translate }}"
+               (change)="autoIgnoreUnselectedFeatures($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.validation.autoIgnoreUnselectedSpells"
+               label="{{ 'CharacterSettings.CharacterValidation.AutoIgnoreUnselectedSpells' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.CharacterValidation.AutoIgnoreUnselectedSpells' | translate }}"
+               (change)="autoIgnoreUnselectedSpells($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.validation.autoIgnoreUnselectedAsi"
+               label="{{ 'CharacterSettings.CharacterValidation.AutoIgnoreUnselectedAsi' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.CharacterValidation.AutoIgnoreUnselectedAsi' | translate }}"
+               (change)="autoIgnoreUnselectedAsi($event)">
+  </app-setting>
+
+<!--  todo - settings.validation.asiPoints-->
+<!--  <app-setting [checked]="settings.validation.autoIgnoreUnselectedAsi"-->
+<!--               label="{{ 'CharacterSettings.CharacterValidation.AutoIgnoreUnselectedAsi' | translate }}"-->
+<!--               tooltip="{{ 'Tooltips.CharacterSettings.CharacterValidation.AutoIgnoreUnselectedAsi' | translate }}"-->
+<!--               (change)="autoIgnoreUnselectedAsi($event)">-->
+<!--  </app-setting>-->
+</div>

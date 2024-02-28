@@ -1,0 +1,7 @@
+<div class="form-group">
+  <app-setting [checked]="settings.quickActions.hideUnpreparedSpells"
+               label="{{ 'CharacterSettings.QuickActions.HideUnpreparedSpells' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.QuickActions.HideUnpreparedSpells' | translate }}"
+               (change)="hideUnpreparedSpellsQuickAttacks($event)">
+  </app-setting>
+</div>

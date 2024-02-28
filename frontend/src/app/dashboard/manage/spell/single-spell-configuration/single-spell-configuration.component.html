@@ -1,0 +1,60 @@
+<app-details [headerName]="spellConfigurationCollectionItem.spell.name"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             (tertiary)="removeClick()"
+             primaryLabel="{{ editing && allowEditing ? ('Save' | translate) : '' }}"
+             secondaryLabel="{{ (editing ? 'Cancel' : 'Close') | translate }}"
+             tertiaryLabel="{{ editing ? ('Remove' | translate) : '' }}"
+             class="details">
+  <div class="spell-config-details">
+    <div class="form-group" *ngIf="allowEditing">
+      <div>
+        <mat-checkbox
+          class="on-dark"
+          (change)="alwaysPreparedChange($event)"
+          [disabled]="disabled || !editing"
+          [checked]="spellConfigurationCollectionItem.alwaysPrepared || spellConfigurationCollectionItem.parent?.alwaysPrepared">
+        </mat-checkbox>
+        <span>{{ 'Navigation.Manage.Spells.AlwaysPrepared' | translate }}</span>
+      </div>
+
+      <div>
+        <mat-checkbox
+          class="on-dark"
+          (change)="countTowardsNumberPreparedChange($event)"
+          [disabled]="disabled || !editing"
+          [checked]="spellConfigurationCollectionItem.countTowardsPrepared || spellConfigurationCollectionItem.parent?.countTowardsPrepared">
+        </mat-checkbox>
+        <span>{{ 'Navigation.Manage.Spells.CountTowardsNumberPrepared' | translate }}</span>
+      </div>
+    </div>
+
+    <div class="spell-config-level-gained form-group" *ngIf="allowEditing">
+      <label>{{ 'Navigation.Manage.Spells.LevelGained' | translate }}</label>
+      <div>
+        <mat-form-field id="parentBackground" class="">
+          <mat-select [disabled]="disabled || !editing"
+                      [(ngModel)]="selectedLevel"
+                      (selectionChange)="levelChange($event.value)">
+            <mat-option *ngFor="let level of levels" [value]="level">
+              {{level.id === '0' ? dontAutoGain : level.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-icon matTooltip="{{ 'Tooltips.LevelGained' | translate }}" class="help-icon">
+          help
+        </mat-icon>
+      </div>
+    </div>
+
+    <app-spell-details *ngIf="viewingSpell != null"
+                       [spell]="viewingSpell"
+                       [detailed]="false">
+    </app-spell-details>
+  </div>
+</app-details>
+

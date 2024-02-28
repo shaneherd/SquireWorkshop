@@ -1,0 +1,22 @@
+<app-details headerName="{{ 'Headers.Sharing' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [loading]="loading"
+             primaryLabel="{{ (publishDetails != null && publishDetails.published ? 'Sharing.Remove.Button' : 'Sharing.Share.Button') | translate }}"
+             primaryConfirmationMessage="{{ (publishDetails != null && publishDetails.published ? 'Sharing.Remove.Confirmation' : 'Sharing.Share.Confirmation') | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <ng-container *ngIf="publishDetails.published">
+    <div class="form-group">{{ 'Sharing.Remove.Header' | translate }}</div>
+    <div class="form-group">{{ 'Sharing.Remove.Message' | translate }}</div>
+  </ng-container>
+  <ng-container *ngIf="!publishDetails.published">
+    <div class="form-group">{{ 'Sharing.Share.Message' | translate }}</div>
+  </ng-container>
+
+  <div class="form-group">{{ 'Sharing.Dependencies' | translate }}</div>
+  <div class="disclaimer">{{ 'Sharing.Disclaimer' | translate }}</div>
+</app-details>

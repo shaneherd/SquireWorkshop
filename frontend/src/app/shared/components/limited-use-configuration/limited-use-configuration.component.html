@@ -1,0 +1,59 @@
+<app-details headerName="{{ 'Headers.ConfigureLimitedUse' | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <!--Character Level-->
+  <div class="form-group" *ngIf="showLevel">
+    <label>{{ 'Labels.LevelLabel' | translate }}</label>
+    <div>
+      <mat-form-field>
+        <mat-select [(ngModel)]="configuringLimitedUse.characterLevel">
+          <mat-option *ngFor="let level of levels" [value]="level">
+            {{level.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--Quantity-->
+  <div class="form-group">
+    <label>{{ 'Labels.Quantity' | translate }}</label>
+    <div>
+      <input type="number"
+             class="form-control dice-collection"
+             max="999" min="0"
+             appInputNumber [minValue]="0" [maxValue]="999"
+             [ngModel]="configuringLimitedUse.quantity"
+             (valueChange)="quantityChange($event)"/>
+      <span>+</span>
+      <mat-form-field>
+        <mat-select [(ngModel)]="configuringLimitedUse.abilityModifier">
+          <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+            {{ability.id === '0' ? none : ability.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span *ngIf="isLevel()">{{ 'TimesLevel' | translate }}</span>
+    </div>
+  </div>
+
+  <!--DiceSize-->
+  <div class="form-group" *ngIf="isDice()">
+    <label>{{ 'Labels.DiceSize' | translate }}</label>
+    <div>
+      <mat-form-field>
+        <mat-select [(ngModel)]="configuringLimitedUse.diceSize">
+          <mat-option *ngFor="let diceSize of diceSizes" [value]="diceSize">
+            {{ 'DiceSize.' + diceSize | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</app-details>

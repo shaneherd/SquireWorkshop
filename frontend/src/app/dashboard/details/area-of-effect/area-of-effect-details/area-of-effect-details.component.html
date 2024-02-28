@@ -1,0 +1,39 @@
+<div class="form-group" *ngIf="areaOfEffect.radius">
+  <mat-checkbox
+    [disabled]="true"
+    [checked]="areaOfEffect.radius">
+  </mat-checkbox>
+  <span>{{ 'Radius' | translate }}</span>
+</div>
+
+<div class="form-group" *ngIf="areaOfEffect.width">
+  <mat-checkbox
+    [disabled]="true"
+    [checked]="areaOfEffect.width">
+  </mat-checkbox>
+  <span>{{ 'Width' | translate }}</span>
+</div>
+
+<div class="form-group" *ngIf="areaOfEffect.height">
+  <mat-checkbox
+    [disabled]="true"
+    [checked]="areaOfEffect.height">
+  </mat-checkbox>
+  <span>{{ 'Height' | translate }}</span>
+</div>
+
+<div class="form-group" *ngIf="areaOfEffect.length">
+  <mat-checkbox
+    [disabled]="true"
+    [checked]="areaOfEffect.length">
+  </mat-checkbox>
+  <span>{{ 'Length' | translate }}</span>
+</div>
+
+<span *ngIf="areaOfEffect.description.length > 0" class="info-description">
+  {{areaOfEffect.description}}
+</span>
+
+<span *ngIf="areaOfEffect.description.length === 0">
+  {{ 'NoDescription' | translate }}
+</span>

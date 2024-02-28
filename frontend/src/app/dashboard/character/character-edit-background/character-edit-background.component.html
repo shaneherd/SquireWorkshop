@@ -1,0 +1,96 @@
+<div class="form-group">
+  <mat-form-field>
+    <mat-select [ngModel]="parentBackground?.id"
+                [disabled]="changingBackground"
+                (selectionChange)="backgroundChange($event.value)">
+      <mat-option *ngFor="let backgroundChoice of backgrounds" [value]="backgroundChoice.id">
+        {{backgroundChoice.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form-group" *ngIf="subBackgrounds.length > 0">
+  <label class="sub-background-label">{{ 'Labels.SubBackground' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="subBackground?.id"
+                [disabled]="changingBackground"
+                (selectionChange)="subBackgroundChange($event.value)">
+      <mat-option *ngFor="let backgroundChoice of subBackgrounds" [value]="backgroundChoice.id">
+        {{backgroundChoice.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!--Other-->
+<div *ngIf="background?.id === '0'">
+  <div class="form-group">
+    <label>{{ 'Labels.Name' | translate }}</label>
+    <input [(ngModel)]="characterBackground.customBackgroundName" maxlength="1000" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label>{{ 'Labels.Variations' | translate }}</label>
+    <textarea [(ngModel)]="characterBackground.customVariation" maxlength="1000" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label>{{ 'Labels.Personalities' | translate }}</label>
+    <textarea [(ngModel)]="characterBackground.customPersonality" maxlength="1000" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label>{{ 'Labels.Ideals' | translate }}</label>
+    <textarea [(ngModel)]="characterBackground.customIdeal" maxlength="1000" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label>{{ 'Labels.Bonds' | translate }}</label>
+    <textarea [(ngModel)]="characterBackground.customBond" maxlength="1000" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label>{{ 'Labels.Flaws' | translate }}</label>
+    <textarea [(ngModel)]="characterBackground.customFlaw" maxlength="1000" class="form-control"></textarea>
+  </div>
+</div>
+
+<!--Non-Other-->
+<div *ngIf="background?.id !== '0'">
+  <div class="form-group">
+    <label>{{ 'Labels.Variations' | translate }}</label>
+    <app-character-edit-background-trait-choice-category [traits]="backgroundCollection.variations"
+                                                         [(customTrait)]="characterBackground.customVariation">
+    </app-character-edit-background-trait-choice-category>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Personalities' | translate }}</label>
+    <app-character-edit-background-trait-choice-category [traits]="backgroundCollection.personalities"
+                                                         [(customTrait)]="characterBackground.customPersonality">
+    </app-character-edit-background-trait-choice-category>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Ideals' | translate }}</label>
+    <app-character-edit-background-trait-choice-category [traits]="backgroundCollection.ideals"
+                                                         [(customTrait)]="characterBackground.customIdeal">
+    </app-character-edit-background-trait-choice-category>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Bonds' | translate }}</label>
+    <app-character-edit-background-trait-choice-category [traits]="backgroundCollection.bonds"
+                                                         [(customTrait)]="characterBackground.customBond">
+    </app-character-edit-background-trait-choice-category>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Flaws' | translate }}</label>
+    <app-character-edit-background-trait-choice-category [traits]="backgroundCollection.flaws"
+                                                         [(customTrait)]="characterBackground.customFlaw">
+    </app-character-edit-background-trait-choice-category>
+  </div>
+</div>
+
+<!--bio-->
+<div class="form-group">
+  <label>{{ 'Labels.Bio' | translate }}</label>
+  <textarea [(ngModel)]="characterBackground.bio" class="form-control info-description" maxlength="5000"> </textarea>
+</div>

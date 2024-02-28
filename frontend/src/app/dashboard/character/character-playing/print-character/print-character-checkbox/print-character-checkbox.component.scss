@@ -1,0 +1,13 @@
+.checkbox-container {
+  height: 15px;
+  width: 15px;
+  border: 1px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-size: 10px;
+    line-height: 10px;
+  }
+}

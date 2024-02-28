@@ -1,0 +1,18 @@
+<app-dialog [title]="data.title"
+            primaryLabel="{{ 'Confirm' | translate }}"
+            (primary)="confirm()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            (close)="cancel()">
+  <span><b>{{data.message}}</b></span>
+  <br>
+  <br>
+  <form [formGroup]="dangerZoneForm" (submit)="confirm()">
+    <div class="form-group">
+      <label for="password">{{ 'Auth.Password.Password' | translate }}</label>
+      <show-hide-password size="lg" icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+        <input id="password" maxlength="20" formControlName="password" type="password" class="form-control">
+      </show-hide-password>
+    </div>
+  </form>
+</app-dialog>

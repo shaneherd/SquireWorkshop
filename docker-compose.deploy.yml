@@ -1,0 +1,29 @@
+version: '3.4'
+services:
+  traefik:
+    command:
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.websecure.address=:443'
+      - '--certificatesresolvers.squire.acme.tlschallenge=true'
+      - '--certificatesresolvers.squire.acme.storage=/letsencrypt/acme.json'
+      # change the email address to your own
+      - '--certificatesresolvers.squire.acme.email=owner@your-domain.com'
+    ports:
+      - '443:443'
+    volumes:
+      - 'letsencrypt:/letsencrypt'
+  frontend:
+    labels:
+      # The domain and path the service will respond on, change this to your domain
+      - 'traefik.http.routers.frontend.rule=Host(`your-domain.com`) && PathPrefix(`/`)'
+      - 'traefik.http.routers.frontend.entrypoints=websecure'
+      - 'traefik.http.routers.frontend.tls.certresolver=squire'
+  backend:
+    labels:
+      # The domain and path the service will respond on, change this to your domain
+      - 'traefik.http.routers.backend.rule=Host(`your-domain.com`) && PathPrefix(`/api`)'
+      - 'traefik.http.routers.backend.entrypoints=websecure'
+      - 'traefik.http.routers.backend.tls.certresolver=squire'
+volumes:
+  letsencrypt:

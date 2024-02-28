@@ -1,0 +1,245 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!characterClass.author"
+               [duplicateDisabled]="isSubclass && characterClass.sid !== 0"
+               [itemName]="itemName"
+               [id]="characterClass.id"
+               [inUseService]="characteristicService"
+               [showShare]="characterClass.author && !isSubclass"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'CharacteristicType.CLASS' | translate }}"
+               [nested]="isSubclass && !editing"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (close)="close(false)"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="classForm"
+        (submit)="save()">
+    <mat-accordion class="example-headers-align">
+
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.BasicInfo' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group" *ngIf="editing">
+          <label>{{ 'Labels.Name' | translate }}</label>
+          <input formControlName="name" maxlength="45" *ngIf="editing" class="form-control"/>
+        </div>
+
+        <div class="form-group" *ngIf="editing || (characterClass?.id !== '0' && characterClass.description.length > 0)">
+          <label>{{ 'Labels.Description' | translate }}</label>
+          <span *ngIf="!editing && characterClass?.id !== '0'" class="info-description">{{characterClass.description}}</span>
+          <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="2000"> </textarea>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="starting-equipment" *ngIf="!isSubclass">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.StartingEquipment' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <h5>{{ 'Labels.StartingGold' | translate }}</h5>
+        <div class="form-group">
+          <span *ngIf="!editing">{{characterClass.startingGold.numDice}}d{{ 'DiceSize.' + characterClass.startingGold.diceSize | translate }} x {{characterClass.startingGold.miscModifier}} GP</span>
+          <div *ngIf="editing">
+            <input type="number"
+                   class="form-control dice-collection"
+                   max="99" min="0"
+                   appInputNumber minValue="0" maxValue="99"
+                   [ngModel]="characterClass.startingGold.numDice"
+                   [ngModelOptions]="{standalone: true}"
+                   (valueChange)="startingGoldNumDiceChange($event)"/>
+            <span>d</span>
+            <mat-form-field class="dice-collection dice-size"
+                            *ngIf="characterClass.startingGold.diceSize != null">
+              <mat-select [(ngModel)]="characterClass.startingGold.diceSize"
+                          [ngModelOptions]="{standalone: true}"
+                          (selectionChange)="startingGoldDiceSizeChange($event.value)">
+                <mat-option *ngFor="let diceSize of diceSizes" [value]="diceSize">
+                  {{ 'DiceSize.' + diceSize | translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span>x</span>
+            <input type="number"
+                   class="form-control dice-collection"
+                   max="99" min="0"
+                   appInputNumber minValue="0" maxValue="99"
+                   [ngModelOptions]="{standalone: true}"
+                   [ngModel]="characterClass.startingGold.miscModifier"
+                   (valueChange)="startingGoldMiscModifierChange($event)"/>
+            <span>GP</span>
+          </div>
+        </div>
+
+        <h5>{{ 'Labels.StartingEquipment' | translate }}</h5>
+        <app-starting-equipment-configuration-section *ngIf="!loading"
+                                                      [editing]="editing"
+                                                      [loading]="loading"
+                                                      [collection]="characteristicConfigurationCollection.startingEquipmentCollection">
+        </app-starting-equipment-configuration-section>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="class-health" *ngIf="!isSubclass">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Health' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <label>{{ 'Labels.HitDicePerLevel' | translate }}</label>
+          <app-dice-collection [editing]="editing"
+                               [loading]="loading"
+                               [diceCollection]="characterClass.hitDice"
+                               [showAbility]="false"
+                               [diceSizes]="diceSizes"
+                               [abilities]="abilities">
+          </app-dice-collection>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.HpAtFirstLevel' | translate }}</label>
+          <app-dice-collection [editing]="editing"
+                               [loading]="loading"
+                               [diceCollection]="characterClass.hpAtFirst"
+                               [showDice]="false"
+                               [diceSizes]="diceSizes"
+                               [abilities]="abilities">
+          </app-dice-collection>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Labels.HpGainPerLevel' | translate }}</label>
+          <app-dice-collection [editing]="editing"
+                               [loading]="loading"
+                               [diceCollection]="characterClass.hpGain"
+                               [diceSizes]="diceSizes"
+                               [abilities]="abilities">
+          </app-dice-collection>
+        </div>
+      </mat-expansion-panel>
+
+      <app-proficiency-panels [editing]="editing"
+                              [loading]="loading"
+                              [showSecondary]="true"
+                              [proficiencyCollection]="characteristicConfigurationCollection.proficiencyCollection">
+      </app-proficiency-panels>
+
+      <!--Spellcasting-->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Spellcasting' | translate }}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <mat-icon matTooltip="{{ 'Tooltips.Spellcasting' | translate }}">
+              help
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-class-spell-info [characterClass]="characterClass"
+                              [editing]="editing"
+                              [loading]="loading"
+                              [characteristicConfigurationCollection]="characteristicConfigurationCollection"
+                              [casterTypes]="casterTypes"
+                              [abilities]="abilities"
+                              [numToPrepareAbility]="numToPrepareAbility"
+                              [isPublic]="isPublic"
+                              [isShared]="isShared"
+                              (configListUpdated)="handleConfigListUpdated()">
+        </app-class-spell-info>
+      </mat-expansion-panel>
+
+      <app-damage-modifier-configurations [editing]="editing"
+                                          [loading]="loading"
+                                          [damageModifiers]="characterClass.damageModifiers"
+                                          [inheritedDamageModifiers]="characterClass.parent?.damageModifiers"
+                                          [damageModifierCollection]="characteristicConfigurationCollection.damageModifierCollection">
+      </app-damage-modifier-configurations>
+
+      <app-senses-configuration [editing]="editing"
+                                [loading]="loading"
+                                [senseConfigurationCollection]="characteristicConfigurationCollection.senseConfigurationCollection">
+      </app-senses-configuration>
+
+      <app-condition-immunity-configurations [editing]="editing"
+                                             [loading]="loading"
+                                             [conditionImmunities]="characterClass.conditionImmunities"
+                                             [inheritedConditionImmunities]="characterClass.parent?.conditionImmunities"
+                                             [conditionImmunityConfigurationCollection]="characteristicConfigurationCollection.conditionImmunityConfigurationCollection">
+      </app-condition-immunity-configurations>
+
+      <mat-expansion-panel class="class-health" *ngIf="!isSubclass">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.AbilityScoreIncreases' | translate }}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <mat-icon matTooltip="{{ 'Tooltips.AbilityScoreIncreases' | translate }}">
+              help
+            </mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-ability-score-increases [editing]="editing"
+                                     [loading]="loading"
+                                     [abilityScoreIncreaseCollection]="abilityScoreIncreaseCollection">
+        </app-ability-score-increases>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="!isSubclass">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'Headers.Subclasses' | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="form-group">
+          <mat-card *ngFor="let subclass of characterClass?.subclasses"
+                    class="clickable"
+                    [ngClass]="{'disabled': editing}"
+                    (click)="subclassClick(subclass)">
+            <span>{{subclass.name}}</span>
+          </mat-card>
+
+          <mat-card class="add-item-card clickable"
+                    *ngIf="!editing && !isPublic && !isShared"
+                    (click)="addSubclass()">
+            <i class="fas fa-plus add-item-card-icon"></i>
+            <span>{{ 'AddSubclass' | translate }}</span>
+          </mat-card>
+        </div>
+      </mat-expansion-panel>
+
+      <app-characteristic-features-section *ngIf="!loading"
+                                           [editing]="editing"
+                                           [characteristic]="characterClass"
+                                           [isPublic]="isPublic"
+                                           [isShared]="isShared"
+                                           [includeChildren]="false">
+      </app-characteristic-features-section>
+
+    </mat-accordion>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

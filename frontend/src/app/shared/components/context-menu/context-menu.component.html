@@ -1,0 +1,13 @@
+<div class="list-menu-container">
+  <div class="list-menu-header">
+    <div class="list-menu-header-name"><h4>{{ 'Navigation.Menu' | translate }}</h4></div>
+  </div>
+
+  <div class="menu-divider"></div>
+
+  <div *ngFor="let menuItem of menuItems"
+       (click)="onSelect(menuItem)">
+    <app-menu-item [menuItem]="menuItem"></app-menu-item>
+  </div>
+</div>
+

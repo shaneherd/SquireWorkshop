@@ -1,0 +1,32 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.Actions' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="form-group">
+    <app-monster-action-card *ngFor="let action of actions"
+                             [action]="action"
+                             [clickDisabled]="disabled || editing"
+                             (actionClick)="actionClick($event)">
+    </app-monster-action-card>
+
+    <mat-card class="add-item-card clickable"
+              *ngIf="!editing && !isPublic && !isShared"
+              [ngClass]="{'disabled': disabled}"
+              (click)="addAction()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+      <span>{{ 'AddAction' | translate }}</span>
+    </mat-card>
+  </div>
+</mat-expansion-panel>
+
+<app-monster-action-configuration *ngIf="viewingAction != null"
+                                  [monster]="monster"
+                                  [action]="viewingAction"
+                                  [isPublic]="isPublic"
+                                  [isShared]="isShared"
+                                  (close)="closeAction()"
+                                  (continue)="saveAction()">
+</app-monster-action-configuration>

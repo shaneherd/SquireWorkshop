@@ -1,0 +1,11 @@
+<span class="ability-name">{{creatureAbilityProficiency.ability.name}}:</span>
+<span class="inherited-value" [matTooltip]="getTooltip()">{{getInherited()}}</span>
+<span class="operator">+</span>
+<input type="number"
+       class="form-control"
+       max="99" min="0"
+       appInputNumber minValue="0" maxValue="99"
+       [ngModel]="creatureAbilityProficiency.abilityScore.value"
+       (valueChange)="valueChange($event)"/>
+<span class="operator">=</span>
+<span class="total">{{getTotal()}}</span>

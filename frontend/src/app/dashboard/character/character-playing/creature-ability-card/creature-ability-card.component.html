@@ -1,0 +1,8 @@
+<mat-card [ngClass]="{'clickable': !disabled}" (click)="onAbilityClick()">
+  <span>{{ability.ability.name}}:</span>
+  <span [matTooltip]="tooltip">{{score}}</span>
+
+  <div class="tags-container">
+    <app-advantage-display [proficiency]="proficiency"></app-advantage-display>
+  </div>
+</mat-card>

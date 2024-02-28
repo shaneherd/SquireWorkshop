@@ -1,0 +1,26 @@
+@import '../../../sass/variables';
+
+input {
+  width: 70px;
+  display: inline;
+}
+
+.filter-display {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .filter-name {
+    flex-grow: 1;
+  }
+
+  .filter-icon {
+    flex-shrink: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

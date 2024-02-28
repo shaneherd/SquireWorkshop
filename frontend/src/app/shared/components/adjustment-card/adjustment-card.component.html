@@ -1,0 +1,24 @@
+<mat-card [ngClass]="{'clickable': !clickDisabled}"
+          class="allow-badges adjustment-card"
+          (click)="onClick()">
+  <div class="adjustment-name-container">
+    <span class="name-span">
+      {{label}}
+    </span>
+  </div>
+
+  <div class="tags-container">
+    <app-quantity-tag [quantity]="quantity"
+                      [alwaysShowQuantity]="true">
+    </app-quantity-tag>
+  </div>
+
+  <span class="adjustment-badge badge"
+        *ngIf="adjustment !== 0 && showBadge"
+        [ngClass]="{
+          'positive': adjustment > 0,
+          'negative': adjustment < 0
+        }">
+    {{adjustment > 0 ? '+' + adjustment : adjustment}}
+  </span>
+</mat-card>

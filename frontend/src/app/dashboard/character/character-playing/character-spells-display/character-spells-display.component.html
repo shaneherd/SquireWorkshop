@@ -1,0 +1,50 @@
+<app-characteristic-spellcasting-modifier [creature]="playerCharacter"
+                                          [collection]="collection"
+                                          [characteristic]="characteristic"
+                                          [attackModifiers]="attackModifiers"
+                                          [saveModifiers]="saveModifiers"
+                                          [clickDisabled]="clickDisabled"
+                                          (abilityClick)="abilityClick()"
+                                          (attackClick)="attackClick()"
+                                          (saveClick)="saveClick()">
+</app-characteristic-spellcasting-modifier>
+
+<div *ngIf="playerCharacter.creatureSpellCasting != null">
+  <div *ngFor="let creatureSpell of creatureSpellConfigurations">
+    <app-spell-card [creatureSpellConfiguration]="creatureSpell"
+                    [creature]="playerCharacter"
+                    [highlightActive]="playerCharacter.characterSettings.spellcasting.highlightActive"
+                    [clickDisabled]="clickDisabled"
+                    [displaySpellTags]="true"
+                    (spellClick)="onSpellCLick($event)">
+    </app-spell-card>
+  </div>
+</div>
+
+<app-spell-ability-configuration *ngIf="configuringAbility"
+                                 [creature]="playerCharacter"
+                                 [characteristicId]="characteristicId"
+                                 [characteristicType]="characteristicType"
+                                 [attackModifier]="attackModifier"
+                                 [saveModifier]="saveModifier"
+                                 (save)="saveConfiguring()"
+                                 (close)="closeConfiguring()">
+</app-spell-ability-configuration>
+
+<app-spell-modifier-configuration *ngIf="configuringAttack"
+                                  [creature]="playerCharacter"
+                                  [characteristicId]="characteristicId"
+                                  [powerModifier]="attackModifier"
+                                  [collection]="collection"
+                                  (save)="saveConfiguring()"
+                                  (close)="closeConfiguring()">
+</app-spell-modifier-configuration>
+
+<app-spell-modifier-configuration *ngIf="configuringSave"
+                                  [creature]="playerCharacter"
+                                  [characteristicId]="characteristicId"
+                                  [powerModifier]="saveModifier"
+                                  [collection]="collection"
+                                  (save)="saveConfiguring()"
+                                  (close)="closeConfiguring()">
+</app-spell-modifier-configuration>

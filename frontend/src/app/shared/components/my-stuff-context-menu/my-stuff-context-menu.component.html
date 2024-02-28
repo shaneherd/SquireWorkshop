@@ -1,0 +1,26 @@
+<div class="list-menu-container">
+  <div class="list-menu-header">
+    <button mat-mini-fab
+            class="squire-button small transparent borderless no-focus list-menu-header-icon on-dark back-icon"
+            (click)="onBack()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="list-menu-header-name"><h4>{{ 'Navigation.MyStuff' | translate }}</h4></div>
+  </div>
+
+  <div class="menu-divider"></div>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+
+  <div *ngFor="let menuItem of topItems"
+       (click)="onSelect(menuItem)">
+    <app-menu-item [menuItem]="menuItem"></app-menu-item>
+  </div>
+
+  <div class="menu-divider secondary" *ngIf="topItems.length > 0 && bottomItems.length > 0"></div>
+
+  <div *ngFor="let menuItem of bottomItems"
+       (click)="onSelect(menuItem)">
+    <app-menu-item [menuItem]="menuItem"></app-menu-item>
+  </div>
+</div>
+

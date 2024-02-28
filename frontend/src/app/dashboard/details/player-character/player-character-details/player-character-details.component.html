@@ -1,0 +1,41 @@
+<div class="form-group">
+  <label *ngIf="playerCharacter.classes.length > 1">{{ 'Labels.Classes' | translate }}</label>
+  <label *ngIf="playerCharacter.classes.length === 1">{{ 'Labels.Class' | translate }}</label>
+  <div class="detail-value" *ngFor="let chosenClass of playerCharacter.classes">
+    <span *ngIf="chosenClass.characterClass != null">{{chosenClass.characterClass.name}}</span>
+    <span *ngIf="chosenClass.subclass != null && chosenClass.subclass.name !== '' && chosenClass.subclass.name.toLowerCase() !== 'none'">: {{chosenClass.subclass.name}}</span>
+  </div>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Race' | translate }}</label>
+  <div class="detail-value">{{playerCharacter.characterRace.race.name}}</div>
+</div>
+
+<div class="form-group" *ngIf="playerCharacter.characterBackground.background != null || playerCharacter.characterBackground.customBackgroundName !== ''">
+  <label>{{ 'Labels.Background' | translate }}</label>
+  <div class="detail-value" *ngIf="playerCharacter.characterBackground.background != null">{{playerCharacter.characterBackground.background.name}}</div>
+  <div class="detail-value" *ngIf="playerCharacter.characterBackground.customBackgroundName !== ''">{{playerCharacter.characterBackground.customBackgroundName}}</div>
+</div>
+
+<div class="form-group" *ngIf="spells.length > 0">
+  <label>{{ 'Labels.Spells' | translate }}</label>
+  <div class="detail-value" *ngFor="let creatureSpell of spells">
+    {{creatureSpell.spell.name}}
+  </div>
+</div>
+
+<div class="form-group" *ngIf="playerCharacter.creatureFeatures.features.length > 0">
+  <label>{{ 'Labels.Features' | translate }}</label>
+  <div class="detail-value" *ngFor="let creatureFeature of playerCharacter.creatureFeatures.features">
+    {{creatureFeature.feature.name}}
+    <span class="feature-characteristic" *ngIf="creatureFeature.feature.characteristic != null">({{creatureFeature.feature.characteristic.name}})</span>
+  </div>
+</div>
+
+<div class="form-group" *ngIf="equipment.length > 0">
+  <label>{{ 'Labels.Equipment' | translate }}</label>
+  <div class="detail-value" *ngFor="let creatureItem of equipment">
+    {{creatureItem.item.name}}
+  </div>
+</div>

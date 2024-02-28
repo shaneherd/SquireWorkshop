@@ -1,0 +1,79 @@
+<app-details [headerName]="headerName"
+             [closeOnClick]="false"
+             (close)="closeDetails()"
+             (primary)="purchaseClick()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [primaryDisabled]="step !== 2"
+             (secondary)="closeDetails()"
+             [loading]="loading"
+             primaryLabel="{{ 'Purchase' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="shopping-cart">
+    <div class="content-data-full-height shopping-cart-page">
+      <app-searchable-list *ngIf="step === 0"
+                           [searchable]="true"
+                           [filterable]="true"
+                           [(searchValue)]="searchValue"
+                           (searchClick)="search()"
+                           (filterClick)="filter()">
+        <ng-container *ngIf="selectionItems.length > 0">
+          <cdk-virtual-scroll-viewport itemSize="63" class="list-menu" (scrolledIndexChange)="scrolledIndexChange()">
+            <div *cdkVirtualFor="let selectionItem of selectionItems; templateCacheSize: 50" class="list-menu-item">
+              <mat-checkbox class="on-dark" [checked]="selectionItem.selected" (change)="toggleSelected(selectionItem)"></mat-checkbox>
+              <mat-card class="card clickable ellipsis" [ngClass]="selectionItem.selected ? 'selected' : ''"  (click)="onItemClick(selectionItem)">
+                <span class="bold">{{selectionItem.item.name}}</span>
+                <span class="sub-item" *ngIf="selectionItem.selectedApplicableItem != null">({{selectionItem.selectedApplicableItem.name}})</span>
+                <span class="sub-item" *ngIf="selectionItem.selectedSpell != null">({{selectionItem.selectedSpell.name}})</span>
+                <span class="quantity" *ngIf="selectionItem.selected && selectionItem.quantity > 0">x {{selectionItem.quantity}}</span>
+              </mat-card>
+            </div>
+          </cdk-virtual-scroll-viewport>
+
+          <div *ngIf="selectionItems.length === 0 && !loading" class="details">
+            <span>{{ 'NoItemsAvailable' | translate }}</span>
+          </div>
+        </ng-container>
+      </app-searchable-list>
+
+      <app-shopping-cart-cart-page [visible]="step === 1"
+                                   [items]="selectedItems"
+                                   (removeItem)="onRemoveItem($event)">
+      </app-shopping-cart-cart-page>
+
+      <app-shopping-cart-checkout-page [visible]="step === 2"
+                                       [creature]="creature"
+                                       [id]="id"
+                                       [items]="selectedItems"
+                                       (continue)="finishPurchase($event)">
+      </app-shopping-cart-checkout-page>
+
+      <app-add-remove-item *ngIf="viewingItem != null"
+                           [selectionItem]="viewingItem"
+                           (save)="toggleSelected($event)"
+                           (cancel)="closeItem()" >
+      </app-add-remove-item>
+
+      <app-magical-item-type-selection *ngIf="magicalItem != null && magicalItem.item.applicableMagicalItems.length > 0"
+                                       [selectedMagicalItem]="magicalItem"
+                                       (continue)="continueMagicalItem($event)"
+                                       (cancel)="cancelMagicalItem()">
+      </app-magical-item-type-selection>
+
+      <app-magical-item-spell-selection *ngIf="magicalItem != null && magicalItem.item.applicableSpells.length > 0"
+                                        [selectedMagicalItem]="magicalItem"
+                                        (continue)="continueSpellSelection($event)"
+                                        (cancel)="cancelMagicalItem()">
+      </app-magical-item-spell-selection>
+    </div>
+
+    <div class="pager">
+      <app-pager [pageCount]="3"
+                 [index]="step"
+                 (pageChange)="setStep($event)">
+      </app-pager>
+    </div>
+  </div>
+</app-details>
+

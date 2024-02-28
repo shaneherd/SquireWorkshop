@@ -1,0 +1,12 @@
+export enum ItemType {
+  WEAPON = 'WEAPON',
+  ARMOR = 'ARMOR',
+  GEAR = 'GEAR',
+  TOOL = 'TOOL',
+  AMMO = 'AMMO',
+  MOUNT = 'MOUNT',
+  TREASURE = 'TREASURE',
+  PACK = 'PACK',
+  MAGICAL_ITEM = 'MAGICAL_ITEM',
+  VEHICLE = 'VEHICLE'
+}

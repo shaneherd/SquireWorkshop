@@ -1,0 +1,5 @@
+<div *ngIf="quantity > 1 || expendable || alwaysDisplay">
+  <label>{{ 'Labels.Quantity' | translate }}</label>
+  <span>{{quantity}}</span>
+  <span class="expendable" *ngIf="expendable">- {{ 'Expendable' | translate }}</span>
+</div>

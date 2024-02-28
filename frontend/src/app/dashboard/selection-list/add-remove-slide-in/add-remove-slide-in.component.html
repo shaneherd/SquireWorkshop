@@ -1,0 +1,9 @@
+<app-details [headerName]="headerName"
+             (close)="close()"
+             (primary)="continue()"
+             (secondary)="close()"
+             primaryLabel="{{ selectable ? ((selected ? 'Remove' : 'Add') | translate) : '' }}"
+             secondaryLabel="{{ (selectable ? 'Cancel' : 'Close') | translate }}"
+             class="details">
+  <ng-content></ng-content>
+</app-details>

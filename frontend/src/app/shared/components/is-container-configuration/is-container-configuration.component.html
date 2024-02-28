@@ -1,0 +1,17 @@
+<div *ngIf="editing || item.container">
+  <mat-checkbox
+    (change)="containerChange($event)"
+    [disabled]="!editing"
+    [checked]="item.container">
+  </mat-checkbox>
+  <span>{{ 'IsContainer' | translate }}</span>
+</div>
+
+<div *ngIf="item.container && (editing || item.ignoreWeight)">
+  <mat-checkbox
+    (change)="ignoreWeightChange($event)"
+    [disabled]="!editing"
+    [checked]="item.ignoreWeight">
+  </mat-checkbox>
+  <span>{{ 'IgnoreWeight' | translate }}</span>
+</div>

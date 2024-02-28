@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Classes.Classes' | translate }}"
+                 [menuService]="characterClassService"
+                 [manageService]="characteristicService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="Classes"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-class *ngIf="selectedItem != null"
+                      [characterClass]="selectedItem"
+                      (save)="updateSelected($event)"
+                      (cancel)="closeItem()">
+</app-add-remove-class>

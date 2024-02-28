@@ -1,0 +1,21 @@
+<app-details [headerName]="action.powerName"
+             [configurable]="false"
+             [loading]="loading"
+             (close)="closeDetails()"
+             [primaryActions]="primaryActions"
+             [primaryCloseOnClick]="false"
+             [primaryExtraCloseOnClick]="false"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             (tertiary)="tertiaryClick()"
+             [tertiaryDisabled]="action.usesRemaining === action.calculatedMax"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryLabel]="tertiaryLabel">
+  <app-battle-monster-action-details *ngIf="monsterAction != null"
+                                     [battleMonster]="battleMonster"
+                                     [battleMonsterAction]="action"
+                                     [collection]="collection"
+                                     [action]="monsterAction"
+                                     (damageChange)="damageChange($event)">
+  </app-battle-monster-action-details>
+</app-details>

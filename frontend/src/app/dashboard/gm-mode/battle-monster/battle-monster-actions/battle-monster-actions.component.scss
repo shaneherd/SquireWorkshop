@@ -1,0 +1,23 @@
+@import '../../../../sass/variables';
+
+.legendary-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 63px;
+
+  .header-label {
+    flex-grow: 1;
+  }
+
+  .legendary-cost {
+    flex-shrink: 0;
+    //margin-right: 20px;
+  }
+}
+
+.no-uses-remaining {
+  background-color: $skill_with_disadvantage_background;
+  color: white;
+  border-color: #000000;
+}

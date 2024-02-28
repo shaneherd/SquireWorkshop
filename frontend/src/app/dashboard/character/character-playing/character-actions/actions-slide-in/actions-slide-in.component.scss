@@ -1,0 +1,30 @@
+@import '../../../../../sass/variables';
+
+.fa-star {
+  color: $tertiary_color;
+  margin-left: 10px;
+  flex-shrink: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.action-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.action-card {
+  flex-grow: 1;
+}
+
+.no-actions-container {
+  text-align: center;
+  font-style: italic;
+}
+
+.sub-item {
+  margin-left: 5px;
+}

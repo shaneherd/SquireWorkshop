@@ -1,0 +1,14 @@
+.setup-row-header,
+.setup-row {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  height: 48px;
+  border-top: 1px solid #ffffff;
+}
+
+.setup-row-header {
+  height: 30px;
+  border: 0;
+}

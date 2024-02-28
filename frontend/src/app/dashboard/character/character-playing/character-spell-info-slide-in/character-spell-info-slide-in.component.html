@@ -1,0 +1,61 @@
+<app-details headerName="{{ 'Headers.Preparation' | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             (secondary)="closeClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <div *ngIf="playerCharacter.characterSettings.spellcasting.displayClassSpellcasting">
+    <ng-container *ngFor="let chosenClass of playerCharacter.classes">
+      <div class="form-group" *ngIf="chosenClass.displaySpellcasting">
+        <app-character-spell-info-single-characteristic [playerCharacter]="playerCharacter"
+                                                        [collection]="collection"
+                                                        [spells]="spells"
+                                                        [label]="chosenClass.characterClass.name"
+                                                        [characteristicId]="chosenClass.characterClass.id"
+                                                        [classSpellPreparation]="chosenClass.characterClass.classSpellPreparation"
+                                                        (spellClick)="spellClick($event)">
+        </app-character-spell-info-single-characteristic>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="form-group" *ngIf="playerCharacter.characterSettings.spellcasting.displayRaceSpellcasting">
+    <app-character-spell-info-single-characteristic [playerCharacter]="playerCharacter"
+                                                    [collection]="collection"
+                                                    [spells]="spells"
+                                                    [label]="playerCharacter.characterRace.race.name"
+                                                    [characteristicId]="playerCharacter.characterRace.race.id"
+                                                    (spellClick)="spellClick($event)">
+    </app-character-spell-info-single-characteristic>
+  </div>
+
+  <div class="form-group" *ngIf="playerCharacter.characterSettings.spellcasting.displayBackgroundSpellcasting && playerCharacter.characterBackground.background != null">
+    <app-character-spell-info-single-characteristic [playerCharacter]="playerCharacter"
+                                                    [collection]="collection"
+                                                    [spells]="spells"
+                                                    [label]="playerCharacter.characterBackground.background.name"
+                                                    [characteristicId]="playerCharacter.characterBackground.background.id"
+                                                    (spellClick)="spellClick($event)">
+    </app-character-spell-info-single-characteristic>
+  </div>
+
+  <div class="form-group" *ngIf="playerCharacter.characterSettings.spellcasting.displayOtherSpellcasting">
+    <app-character-spell-info-single-characteristic [playerCharacter]="playerCharacter"
+                                                    [collection]="collection"
+                                                    [spells]="spells"
+                                                    label="{{ 'Other' | translate }}"
+                                                    characteristicId="0"
+                                                    (spellClick)="spellClick($event)">
+    </app-character-spell-info-single-characteristic>
+  </div>
+
+  <app-spell-details-slide-in *ngIf="viewingSpell != null"
+                              [creatureSpell]="viewingSpell"
+                              [attackModifier]="attackModifier"
+                              [saveModifier]="saveModifier"
+                              [creature]="playerCharacter"
+                              [collection]="collection"
+                              [castable]="false"
+                              (close)="closeDetails()">
+  </app-spell-details-slide-in>
+</app-details>

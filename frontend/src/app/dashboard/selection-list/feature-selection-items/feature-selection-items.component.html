@@ -1,0 +1,15 @@
+<cdk-virtual-scroll-viewport itemSize="87" class="list-menu" *ngIf="features.length > 0">
+  <div *cdkVirtualFor="let item of features; templateCacheSize: 50" class="list-menu-item">
+    <mat-checkbox class="on-dark" [checked]="item.selected" (change)="toggleSelected(item)"></mat-checkbox>
+    <mat-card class="card clickable ellipsis" [ngClass]="item.selected ? 'selected' : ''" (click)="onFeatureClick(item)">
+      <span class="bold">{{item.feature.name}}</span>
+      <div class="ellipsis"><span *ngIf="item.feature.characteristic != null">{{ 'CharacteristicType.' + item.feature.characteristicType | translate }}: {{item.feature.characteristic.name}}</span></div>
+      <div class="ellipsis"><span *ngIf="item.feature.characteristic == null">{{ 'CharacteristicType.FEAT' | translate }}</span></div>
+      <app-tag-bar class="tag-bar" [collection]="item.tags"></app-tag-bar>
+    </mat-card>
+  </div>
+</cdk-virtual-scroll-viewport>
+
+<div *ngIf="features.length === 0 && !loading" class="details">
+  <span>{{ 'NoFeaturesAvailable' | translate }}</span>
+</div>

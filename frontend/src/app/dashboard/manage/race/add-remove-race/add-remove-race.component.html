@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="race.name"
+                         [loading]="loading"
+                         [selected]="race.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-race-details *ngIf="viewingRace != null"
+                         [race]="viewingRace">
+  </app-race-details>
+</app-add-remove-slide-in>

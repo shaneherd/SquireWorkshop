@@ -1,0 +1,78 @@
+<div class="form-group">
+  <ng-container *ngIf="!innate">
+    <ng-container *ngFor="let config of spellConfigurationCollection.spellConfigurations">
+      <mat-card class="clickable"
+                [ngClass]="{'disabled': configuringItem != null || addingSpells}"
+                (click)="spellClick(config)">
+        <span>{{config.parent == null ? config.spell.name : config.parent.spell.name}}</span>
+        <div class="tags-container">
+
+        <span class="tag borderless" matTooltip="{{ 'AlwaysPrepared' | translate }}" *ngIf="config.alwaysPrepared">
+          <i class="far fa-bookmark"></i>
+        </span>
+          <span class="tag borderless" matTooltip="{{ 'DoesntCountTowardsPrepared' | translate }}" *ngIf="!config.countTowardsPrepared">
+          <i class="fas fa-ban"></i>
+        </span>
+          <span class="tag" *ngIf="config.levelGained != null && config.levelGained.id !== '0'">
+          {{config.levelGained.name}}
+        </span>
+        </div>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="innate">
+    <ng-container *ngFor="let config of spellConfigurationCollection.innateSpellConfigurations">
+      <mat-card class="clickable"
+                [ngClass]="{'disabled': configuringItem != null || addingSpells}"
+                (click)="innateSpellClick(config)">
+        <span>{{config.parent == null ? config.spell.name : config.parent.spell.name}}</span>
+        <div class="tags-container">
+          <span class="tag" *ngIf="config.limitedUse != null && config.limitedUse.quantity > 0"
+                [translate]="'PerDayQuantity'"
+                [translateParams]="{quantity: config.limitedUse.quantity}">
+          </span>
+        </div>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+
+  <div *ngIf="editing && ((innate && spellConfigurationCollection.innateSpellConfigurations.length === 0) || (!innate && spellConfigurationCollection.spellConfigurations.length === 0))" class="no-items-label">
+    {{ 'None' | translate }}
+  </div>
+
+  <mat-card class="add-item-card clickable"
+            *ngIf="!editing && !isPublic && !isShared"
+            [ngClass]="{'disabled': configuringItem != null || addingSpells}"
+            (click)="addSpells()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'Headers.AddSpells' | translate }}</span>
+  </mat-card>
+</div>
+
+<app-single-spell-configuration *ngIf="configuringItem != null && !innate"
+                                [allowEditing]="false"
+                                [editing]="configuringItem.author && !editing"
+                                (continue)="updateSpellConfiguration($event)"
+                                (remove)="deleteSpell($event)"
+                                (close)="cancelConfiguration()"
+                                [spellConfigurationCollectionItem]="configuringItem"
+                                [levels]="spellConfigurationCollection.levels">
+</app-single-spell-configuration>
+
+<app-single-innate-spell-configuration *ngIf="configuringInnateItem != null && innate"
+                                       [allowEditing]="true"
+                                       [editing]="configuringInnateItem.author && !editing"
+                                       (continue)="updateInnateSpellConfiguration($event)"
+                                       (remove)="deleteInnateSpell($event)"
+                                       (close)="cancelConfiguration()"
+                                       [spellConfigurationCollectionItem]="configuringInnateItem"
+                                       [levels]="spellConfigurationCollection.levels">
+</app-single-innate-spell-configuration>
+
+<app-add-spells *ngIf="addingSpells"
+                [spellConfigurationCollection]="spellConfigurationCollection"
+                [innate]="innate"
+                (close)="cancelAddSpells()"
+                (continue)="continueAddSpells($event)">
+</app-add-spells>

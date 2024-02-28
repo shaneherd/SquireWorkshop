@@ -1,0 +1,23 @@
+<div class="form-group">
+  <app-battle-monster-feature-card *ngFor="let feature of battleMonster.features"
+                                   [feature]="feature"
+                                   [clickDisabled]="clickDisabled"
+                                   [highlightActive]="true"
+                                   [highlightNonActive]="false"
+                                   [canActivate]="feature.calculatedMax > 0"
+                                   (featureClick)="onFeatureClick($event)">
+  </app-battle-monster-feature-card>
+</div>
+
+<app-battle-monster-feature-details-slide-in *ngIf="viewingFeature != null"
+                                             [battleMonster]="battleMonster"
+                                             [feature]="viewingFeature"
+                                             (use)="useFeature($event)"
+                                             (close)="closeFeature()">
+</app-battle-monster-feature-details-slide-in>
+
+<app-battle-monster-feature-limited-use-slide-in *ngIf="viewingInfo"
+                                                 [battleMonster]="battleMonster"
+                                                 (save)="saveInfo()"
+                                                 (close)="closeInfo()">
+</app-battle-monster-feature-limited-use-slide-in>

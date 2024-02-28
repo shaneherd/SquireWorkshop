@@ -1,0 +1,11 @@
+<span>{{getDisplayMessage()}}</span>
+<i *ngIf="editing && deletable"
+   class="delete-config fas fa-trash-alt"
+   [ngClass]="{'disabled': disabled}"
+   (click)="deleteItem()"
+   matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+<i *ngIf="editing"
+   class="configure-config fas fa-cog"
+   [ngClass]="{'disabled': disabled}"
+   (click)="configureItem()"
+   matTooltip="{{ 'Tooltips.Configure' | translate }}"></i>

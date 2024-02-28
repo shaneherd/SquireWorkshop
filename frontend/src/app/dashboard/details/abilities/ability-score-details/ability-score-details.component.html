@@ -1,0 +1,39 @@
+<app-details [listObject]="creatureAbilityProficiency.ability"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="roll()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Roll' | translate }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Score' | translate }}</label>
+    <span [matTooltip]="scoreTooltip">{{abilityScore}}</span>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Modifier' | translate }}</label>
+    <span [matTooltip]="modifierTooltip">{{abilityModifier}}</span>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.AbilityCheck' | translate }}</label>
+    <span [matTooltip]="checkModifierTooltip">{{checkModifier}}</span>
+  </div>
+
+  <div class="form-group">
+    <app-advantage-configuration class="on-dark" [proficiency]="check">
+    </app-advantage-configuration>
+  </div>
+
+  <span class="info-description">{{creatureAbilityProficiency.ability.description}}</span>
+</app-details>
+
+<app-ability-score-configuration-details *ngIf="configuring"
+                                         [creatureAbilityProficiency]="creatureAbilityProficiency"
+                                         [creature]="creature"
+                                         [collection]="collection"
+                                         (save)="saveConfiguration()"
+                                         (close)="closeConfiguration()">
+</app-ability-score-configuration-details>

@@ -1,0 +1,26 @@
+<ng-container *ngIf="visible">
+  <div *ngFor="let item of items" class="item-container">
+    <div class="ellipsis item-card">
+      <span class="bold">{{item.item.name}}</span>
+      <span class="sub-item" *ngIf="item.selectedApplicableItem != null">({{item.selectedApplicableItem.name}})</span>
+      <span class="sub-item" *ngIf="item.selectedSpell != null">({{item.selectedSpell.name}})</span>
+    </div>
+
+    <input type="number"
+           class="form-control item-quantity"
+           [max]="9999" min="0"
+           appInputNumber [minValue]="0" [maxValue]="9999" [allowDecimal]="false"
+           [ngModel]="item.quantity"
+           (valueChange)="quantityChange($event, item)"/>
+
+    <button mat-mini-fab
+            class="squire-button small btn-primary delete-icon"
+            (click)="onRemoveItem(item)">
+      x
+    </button>
+  </div>
+
+  <div class="empty-cart" *ngIf="items.length === 0">
+    <span>{{ 'ShoppingCart.Empty' | translate }}</span>
+  </div>
+</ng-container>

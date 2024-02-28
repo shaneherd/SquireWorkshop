@@ -1,0 +1,43 @@
+<mat-card [ngClass]="{'clickable': !clickDisabled}"
+          (click)="onSpellCLick(creatureSpellConfiguration.creatureSpell)">
+  <div class="verticle-bar" [ngClass]="{
+            'clickable': !clickDisabled,
+            'spell-active': creatureSpellConfiguration.creatureSpell.active && highlightActive
+          }"></div>
+  <span>{{creatureSpellConfiguration.creatureSpell.spell.name}}</span>
+  <div class="tags-container">
+    <span class="tag borderless" matTooltip="{{ 'Active' | translate }}"  *ngIf="creatureSpellConfiguration.creatureSpell.active">
+      <i class="far fa-clock"></i>
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'Concentrating' | translate }}"  *ngIf="creatureSpellConfiguration.creatureSpell.concentrating">
+      <i class="far fa-lightbulb"></i>
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'Prepared' | translate }}" *ngIf="displayPrepared && (creatureSpellConfiguration.creatureSpell.prepared || (creatureSpellConfiguration.configuration != null && creatureSpellConfiguration.configuration.alwaysPrepared))">
+      <i class="far fa-check-circle"></i>
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'AlwaysPrepared' | translate }}" *ngIf="alwaysPrepared">
+      <i class="far fa-bookmark"></i>
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'DoesntCountTowardsPrepared' | translate }}" *ngIf="!countTowardsPrepared">
+      <i class="fas fa-ban"></i>
+    </span>
+    <span class="tag"
+          [ngClass]="{'no-uses-remaining': creatureSpellConfiguration.creatureSpell.usesRemaining === 0}"
+          *ngIf="creatureSpellConfiguration.creatureSpell.innate && creatureSpellConfiguration.creatureSpell.innateMaxUses > 0">
+      {{creatureSpellConfiguration.creatureSpell.usesRemaining}}/{{creatureSpellConfiguration.creatureSpell.innateMaxUses}}
+    </span>
+<!--    <span class="tag"-->
+<!--          *ngIf="creatureSpellConfiguration.creatureSpell.innate && creatureSpellConfiguration.creatureSpell.innateSlot > 0">-->
+<!--      Slot: {{creatureSpellConfiguration.creatureSpell.innateSlot}}-->
+<!--    </span>-->
+
+    <span class="tag" *ngIf="displayClass && characteristic != null">{{characteristic.name}}</span>
+    <span class="tag">{{level}}</span>
+  </div>
+  <div *ngIf="displaySpellTags && creatureSpellConfiguration.creatureSpell.spell.tags.length > 0">
+    <app-tag-bar class="tag-bar"
+                 [tags]="creatureSpellConfiguration.creatureSpell.spell.tags"
+                 [allTags]="creature.creatureSpellCasting.tags">
+    </app-tag-bar>
+  </div>
+</mat-card>

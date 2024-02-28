@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="armorType.name"
+                         [loading]="loading"
+                         [selected]="armorType.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-armor-type-details *ngIf="viewingArmorType != null"
+                          [armorType]="viewingArmorType">
+  </app-armor-type-details>
+</app-add-remove-slide-in>

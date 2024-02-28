@@ -1,0 +1,17 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Items.Items' | translate }}"
+                 [menuService]="itemService"
+                 [manageService]="itemService"
+                 [exportService]="exportService"
+                 [filterable]="true"
+                 [exportable]="true"
+                 exportType="Items"
+                 [filters]="filters"
+                 (filter)="filter($event)"
+                 (itemClick)="onItemClick($event)">
+</app-manage-list>
+
+<app-add-remove-item-simple *ngIf="selectedItem != null"
+                            [item]="selectedItem.menuItem"
+                            (save)="updateSelected($event)"
+                            (cancel)="closeItem()">
+</app-add-remove-item-simple>

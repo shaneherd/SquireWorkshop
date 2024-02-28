@@ -1,0 +1,19 @@
+.cost-unit-selection-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .adjustment {
+    flex-grow: 1;
+  }
+
+  .menu-button {
+    flex-shrink: 0;
+  }
+}
+
+.apply-conversion-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

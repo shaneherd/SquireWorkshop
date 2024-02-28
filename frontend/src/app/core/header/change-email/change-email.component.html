@@ -1,0 +1,26 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="col-md-6 col-xs-12 change-email">
+  <h2>{{ 'Auth.ChangeEmail' | translate }}</h2>
+  <form [formGroup]="formChangeEmail" (submit)="changeEmail()">
+    <div class="form-group">
+      <label for="password">{{ 'Auth.Password.Password' | translate }}</label>
+      <show-hide-password size="lg" icon="fontawesome" btnStyle="primary" [btnOutline]="false">
+        <input id="password" formControlName="password" type="password" class="form-control">
+      </show-hide-password>
+    </div>
+
+    <div class="form-group">
+      <label for="email">{{ 'Auth.Email' | translate }}</label>
+      <input id="email" formControlName="email" type="email" class="form-control">
+      <label class="text-danger" *ngIf="formChangeEmail.controls['email'].hasError('email')">
+        {{ 'Auth.EnterValidEmail' | translate }}
+      </label>
+    </div>
+
+    <div class="form-group">
+      <button [disabled]="formChangeEmail.invalid || loading" class="squire-button btn btn-primary">{{ 'Submit' | translate }}</button>
+      <a [routerLink]="['/']" class="btn btn-link">{{ 'Cancel' | translate }}</a>
+    </div>
+  </form>
+</div>

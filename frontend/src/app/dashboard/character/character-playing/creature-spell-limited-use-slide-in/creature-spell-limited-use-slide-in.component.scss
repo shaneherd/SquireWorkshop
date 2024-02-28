@@ -1,0 +1,19 @@
+.no-limited-uses-container {
+  text-align: center;
+  font-style: italic;
+}
+
+.spell {
+  color: #ffffff;
+}
+
+.uses-remaining {
+  width: 100%;
+  padding-right: 5px;
+
+  mat-slider {
+    width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

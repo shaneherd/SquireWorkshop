@@ -1,0 +1,151 @@
+<app-details [headerName]="magicalItemSpellConfiguration.spell.name"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             (tertiary)="removeClick()"
+             primaryLabel="{{ editing ? ('Save' | translate) : '' }}"
+             tertiaryLabel="{{ editing ? ('Remove' | translate) : '' }}"
+             secondaryLabel="{{ (editing ? 'Cancel' : 'Close') | translate }}"
+             class="details on-dark">
+  <div class="spell-config-details">
+    <ng-container *ngIf="magicalItemSpellConfiguration.spell.level > 0">
+      <div class="form-group">
+        <label>{{ 'Labels.StoredLevel' | translate }}</label>
+        <span *ngIf="!editing">
+          {{magicalItemSpellConfiguration.storedLevel}}
+        </span>
+        <mat-form-field *ngIf="editing">
+          <mat-select [(ngModel)]="storedLevel"
+                      (selectionChange)="levelChange($event.value)">
+            <mat-option *ngFor="let level of levels"
+                        [disabled]="level < magicalItemSpellConfiguration.spell.level"
+                        [value]="level">
+              {{level}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="magicalItemSpellConfiguration.spell.level === 0">
+      <div class="form-group">
+        <label>{{ 'Labels.CasterLevel' | translate }}</label>
+        <span *ngIf="!editing && magicalItemSpellConfiguration.casterLevel != null">
+          {{magicalItemSpellConfiguration.casterLevel.name}}
+        </span>
+        <mat-form-field *ngIf="editing">
+          <mat-select [(ngModel)]="casterLevel"
+                      (selectionChange)="casterLevelChange($event.value)">
+            <mat-option *ngFor="let level of casterLevels"
+                        [disabled]="level < magicalItemSpellConfiguration.spell.level"
+                        [value]="level">
+              {{level.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="showCharges && (editing || magicalItemSpellConfiguration.charges > 0)">
+      <div class="form-group">
+        <label>{{ 'Labels.ChargeCost' | translate }}</label>
+        <span *ngIf="!editing">{{charges}}</span>
+        <input *ngIf="editing" type="number" class="form-control charges"
+               min="0" max="99"
+               appInputNumber minValue="0" maxValue="99"
+               [ngModel]="charges"
+               (valueChange)="chargesChange($event)"/>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="magicalItemSpellConfiguration.spell.level > 0 && (editing || magicalItemSpellConfiguration.allowCastingAtHigherLevel)">
+      <div class="form-group">
+        <mat-checkbox
+          (change)="allowCastingAtHigherLevelChange($event)"
+          [disabled]="!editing"
+          [checked]="allowCastingAtHigherLevel">
+        </mat-checkbox>
+        <span>{{ 'AllowCastingAtHigherLevel' | translate }}</span>
+      </div>
+
+      <div class="form-group" *ngIf="allowCastingAtHigherLevel">
+        <label>{{ 'Labels.MaxLevel' | translate }}</label>
+        <span *ngIf="!editing">{{maxLevel}}</span>
+        <mat-form-field *ngIf="editing">
+          <mat-select [(ngModel)]="maxLevel"
+                      (selectionChange)="maxLevelChange($event.value)">
+            <mat-option *ngFor="let level of levels"
+                        [disabled]="level < magicalItemSpellConfiguration.spell.level || level < storedLevel"
+                        [value]="level">
+              {{level}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="showCharges && (editing || magicalItemSpellConfiguration.charges > 0)">
+      <div class="form-group" *ngIf="charges > 0 && allowCastingAtHigherLevel">
+        <label translate="Labels.ChargesPerLevelAboveStoredLevel"
+               [translateParams]="{level: storedLevel}"></label>
+        <span *ngIf="!editing">{{chargesPerLevelAboveStoredLevel}}</span>
+        <input *ngIf="editing" type="number" class="form-control charges"
+               min="0" max="99"
+               appInputNumber minValue="0" maxValue="99"
+               [ngModel]="chargesPerLevelAboveStoredLevel"
+               (valueChange)="chargesPerLevelAboveStoredLevelChange($event)"/>
+      </div>
+    </ng-container>
+
+    <div class="form-group" *ngIf="magicalItemSpellConfiguration.additional && (editing || removeOnCasting)">
+      <mat-checkbox
+        (change)="removeOnCastingChange($event)"
+        [disabled]="!editing"
+        [checked]="removeOnCasting">
+      </mat-checkbox>
+      <span>{{ 'RemoveOnCasting' | translate }}</span>
+    </div>
+
+    <div class="form-group" *ngIf="(editing || overrideSpellAttackCalculation) && (isAttack || isSave)">
+      <mat-checkbox
+        (change)="overrideSpellAttackCalculationChange($event)"
+        [disabled]="!editing"
+        [checked]="overrideSpellAttackCalculation">
+      </mat-checkbox>
+      <span>{{ 'OverrideSpellAttackCalculation' | translate }}</span>
+    </div>
+
+    <ng-container *ngIf="overrideSpellAttackCalculation && (isAttack || isSave)">
+      <div *ngIf="isAttack">
+        <label>{{ 'Labels.SpellAttack' | translate }}</label>
+        <span *ngIf="!editing">{{spellAttackModifierDisplay}}</span>
+        <span *ngIf="editing">+</span>
+        <input *ngIf="editing" type="number" class="form-control spell-attack"
+               min="-99" max="99"
+               appInputNumber minValue="-99" maxValue="99"
+               [ngModel]="spellAttackModifier"
+               (valueChange)="spellAttackChange($event)"/>
+      </div>
+
+      <div *ngIf="isSave">
+        <label>{{ 'Labels.SpellSave' | translate }}</label>
+        <span *ngIf="!editing">+ {{spellSaveDC}}</span>
+        <input *ngIf="editing" type="number" class="form-control spell-save"
+               min="0" max="99"
+               appInputNumber minValue="0" maxValue="99"
+               [ngModel]="spellSaveDC"
+               (valueChange)="spellSaveDCChange($event)"/>
+      </div>
+    </ng-container>
+
+    <mat-divider class="details-divider"></mat-divider>
+
+    <app-spell-details *ngIf="viewingSpell != null"
+                       [spell]="viewingSpell"
+                       [detailed]="false">
+    </app-spell-details>
+  </div>
+</app-details>
+

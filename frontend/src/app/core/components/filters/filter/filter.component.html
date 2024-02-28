@@ -1,0 +1,10 @@
+<div class="form-group" *ngIf="options.length > 0 && filterValue != null">
+  <label>{{ 'FilterKey.' + filterValue.key | translate }}:</label>
+  <mat-form-field class="filter-dropdown">
+    <mat-select [(ngModel)]="filterValue.value">
+      <mat-option *ngFor="let option of options" [value]="option.value">
+        {{option.display}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

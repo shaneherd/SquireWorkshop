@@ -1,0 +1,16 @@
+<div *ngIf="!editing && !hasModifiers()" class="no-items-label">
+  {{ 'NoModifiers' | translate }}
+</div>
+<div class="ability-score-increase">
+  <div *ngFor="let level of abilityScoreIncreaseCollection.levels">
+    <div *ngIf="level.level.id !== '0' && (editing || isChecked(level))">
+      <mat-checkbox
+        (change)="levelChange($event, level)"
+        [disabled]="!editing || isDisabled(level)"
+        [checked]="isChecked(level)">
+      </mat-checkbox>
+      <span translate="Level" [translateParams]="{level: level.level.name}">
+  </span>
+    </div>
+  </div>
+</div>

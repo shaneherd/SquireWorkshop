@@ -1,0 +1,11 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Alignments.Alignments' | translate }}"
+                 [menuService]="alignmentService"
+                 [manageService]="attributeService"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-alignment *ngIf="alignment != null"
+                          [alignment]="alignment"
+                          (save)="updateSelected($event)"
+                          (cancel)="closeItem()">
+</app-add-remove-alignment>

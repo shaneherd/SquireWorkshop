@@ -1,0 +1,81 @@
+<app-details headerName="{{ 'Convert' | translate }}"
+             [configurable]="false"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+
+  <div class="form-group">
+    <label>{{ 'Labels.From' | translate }}</label>
+    <div class="cost-unit-selection-container">
+      <div class="adjustment">
+        <app-adjustment-card-row [adjustment]="fromWealth"
+                                 [showInput]="false">
+        </app-adjustment-card-row>
+      </div>
+      <button mat-icon-button
+              class="no-focus menu-button"
+              [disabled]="costUnits.length === 0"
+              [matMenuTriggerFor]="fromMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #fromMenu="matMenu" xPosition="before">
+        <button mat-menu-item
+                class="no-focus"
+                *ngFor="let fromUnit of costUnits"
+                (click)="fromCostUnitChange(fromUnit)">
+          <span>{{fromUnit.name}}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.To' | translate }}</label>
+    <div class="cost-unit-selection-container">
+      <div class="adjustment">
+        <app-adjustment-card-row [adjustment]="toWealth"
+                                 [showInput]="false">
+        </app-adjustment-card-row>
+      </div>
+      <button mat-icon-button
+              class="no-focus menu-button"
+              [disabled]="toUnits.length === 0"
+              [matMenuTriggerFor]="toMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #toMenu="matMenu" xPosition="before">
+        <button mat-menu-item
+                class="no-focus"
+                *ngFor="let toUnit of toUnits"
+                (click)="toCostUnitChange(toUnit)">
+          <span>{{toUnit.name}}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Convert' | translate }}</label>
+    <app-slider-input [min]="0"
+                      [max]="max"
+                      [step]="conversion.fromAmount"
+                      [(value)]="amount"
+                      (valueChange)="amountChange()"
+                      [displayMax]="false">
+    </app-slider-input>
+  </div>
+
+  <div class="apply-conversion-button-container">
+    <button type="button"
+            [disabled]="amount === 0"
+            (click)="applyConversion()"
+            class="squire-button btn btn-danger">
+      {{ 'Apply' | translate }}
+    </button>
+  </div>
+
+</app-details>

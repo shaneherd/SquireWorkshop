@@ -1,0 +1,45 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.Equipment' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="form-group">
+    <div *ngIf="editing && monster.items.length === 0" class="no-items-label">
+      {{ 'NoItems' | translate }}
+    </div>
+
+    <mat-card *ngFor="let itemQuantity of monster.items" class="clickable"
+              [ngClass]="{'disabled': disabled}"
+              (click)="editItem(itemQuantity)">
+      <span>{{itemQuantity.item.name}}</span>
+      <span class="sub-item" *ngIf="itemQuantity.item.subItem != null">({{itemQuantity.item.subItem.name}})</span>
+      <div class="tags-container">
+        <app-quantity-tag [alwaysShowQuantity]="true" [quantity]="itemQuantity.quantity">
+        </app-quantity-tag>
+      </div>
+    </mat-card>
+
+    <mat-card class="add-item-card clickable"
+              *ngIf="!editing && !isPublic && !isShared"
+              [ngClass]="{'disabled': disabled}"
+              (click)="addItems()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+      <span>{{ 'AddItems' | translate }}</span>
+    </mat-card>
+  </div>
+
+  <app-add-items *ngIf="addingItems"
+                 (close)="cancelItems()"
+                 (continue)="saveItems($event)">
+  </app-add-items>
+</mat-expansion-panel>
+
+<app-monster-item-configuration *ngIf="viewingItem != null"
+                                [editing]="!editing && viewingItem.author"
+                                [itemQuantity]="viewingItem"
+                                (close)="cancelItem($event)"
+                                (remove)="removeItem($event)"
+                                (continue)="saveItem($event)">
+</app-monster-item-configuration>

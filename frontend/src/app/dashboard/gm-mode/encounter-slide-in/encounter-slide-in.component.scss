@@ -1,0 +1,18 @@
+.encounter-monster-group {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  margin-left: 20px;
+
+  .group-quantity {
+    margin-right: 5px;
+  }
+
+  .group-name {
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

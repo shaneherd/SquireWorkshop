@@ -1,0 +1,29 @@
+@import '../../../../sass/variables';
+
+.header-content {
+  flex-shrink: 0;
+}
+
+.character-container-desktop {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.character-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content-container {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+
+  label {
+    margin: 0 10px 0 0;
+  }
+}

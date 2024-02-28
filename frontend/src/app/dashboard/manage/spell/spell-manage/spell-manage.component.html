@@ -1,0 +1,17 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Spells.Spells' | translate }}"
+                 [menuService]="spellService"
+                 [manageService]="powerService"
+                 [exportService]="exportService"
+                 [filterable]="true"
+                 [exportable]="true"
+                 exportType="Spells"
+                 [filters]="filters"
+                 (filter)="filter($event)"
+                 (itemClick)="onItemClick($event)">
+</app-manage-list>
+
+<app-add-remove-spell *ngIf="menuItem != null"
+                      [spell]="menuItem"
+                      (save)="updateSelected($event)"
+                      (cancel)="closeItem()">
+</app-add-remove-spell>

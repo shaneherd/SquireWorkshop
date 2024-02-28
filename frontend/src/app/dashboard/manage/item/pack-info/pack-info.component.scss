@@ -1,0 +1,42 @@
+.delete-config {
+  float: right;
+  margin: 10px 0 0 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.item-quantity {
+  margin-right: 5px;
+}
+
+.item-quantity-list {
+  input {
+    width: 70px;
+    display: inline;
+    margin-right: 10px;
+  }
+}
+
+.add-items-container {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.add-item {
+  margin: 0 auto;
+  display:block;
+}
+
+.sub-item {
+  margin-left: 5px;
+}

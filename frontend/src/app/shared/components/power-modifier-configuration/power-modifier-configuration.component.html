@@ -1,0 +1,156 @@
+<app-details headerName="{{ 'Navigation.Manage.Modifier.Configure' | translate }}"
+             [loading]="loading"
+             [fixed]="true"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <!--Character Level-->
+  <div class="form-group" *ngIf="modifierConfiguration.characterAdvancement">
+    <label>{{ 'Labels.LevelLabel' | translate }}</label>
+    <div>
+      <mat-form-field>
+        <mat-select [(ngModel)]="selectedLevel"
+                    (selectionChange)="levelChange($event.value)">
+          <mat-option *ngFor="let level of levels" [value]="level">
+            {{level.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Type' | translate }}</label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedModifierCategory"
+                  (selectionChange)="modifierCategoryChange($event.value)">
+        <mat-option *ngFor="let modifierCategory of modifierCategories" [value]="modifierCategory">
+          {{ 'ModifierCategory.' + modifierCategory | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group" *ngIf="modifierSubCategories.length > 0">
+    <label>{{ 'Labels.Category' | translate }}</label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedModifierSubCategory"
+                  (selectionChange)="modifierSubCategoryChange($event.value)">
+        <mat-option *ngFor="let modifierSubCategory of modifierSubCategories" [value]="modifierSubCategory">
+          {{ 'ModifierSubCategory.' + modifierSubCategory | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Modifier' | translate }}</label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="modifierType"
+                  (selectionChange)="modifierTypeChange($event.value)">
+        <mat-option *ngFor="let modifierType of modifierTypes" [value]="modifierType">
+          {{modifierType.attribute.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-divider class="divider"></mat-divider>
+
+  <div class="modifier-value form-group">
+    <label>{{ 'Labels.Value' | translate }}</label>
+    <input type="number" class="form-control"
+           min="-99" max="99"
+           appInputNumber minValue="-99" maxValue="99"
+           [ngModel]="value"
+           (valueChange)="valueChange($event)"/>
+  </div>
+
+  <div class="form-group modifier-values-container">
+    <div class="form-group" *ngIf="!isAbility && !isProficiency && abilities.length > 0">
+      <span class="plus">+</span>
+      <mat-form-field>
+        <mat-select [ngModel]="abilityModifier"
+                    (selectionChange)="abilityModifierChange($event.value)">
+          <mat-option *ngFor="let ability of abilities" [value]="ability">
+            {{ability.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group" *ngIf="!isProficiency && !isAbility">
+      <div>
+        <span class="plus">+</span>
+        <mat-checkbox class="on-dark"
+                      (change)="profChange($event)"
+                      [checked]="proficient">
+        </mat-checkbox>
+        <span>{{ 'Prof' | translate }}</span>
+      </div>
+
+      <div>
+        <span class="plus">+</span>
+        <mat-checkbox class="on-dark"
+                      (change)="halfProfChange($event)"
+                      [checked]="halfProficient">
+        </mat-checkbox>
+        <span>{{ 'HalfProf' | translate }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div>
+        <span class="plus">+</span>
+        <mat-checkbox class="on-dark"
+                      (change)="useLevelChange($event)"
+                      [checked]="useLevel">
+        </mat-checkbox>
+        <span>{{ 'Headers.Level' | translate }}</span>
+      </div>
+
+      <div>
+        <span class="plus">+</span>
+        <mat-checkbox class="on-dark"
+                      (change)="useHalfLevelChange($event)"
+                      [checked]="useHalfLevel">
+        </mat-checkbox>
+        <span>{{ 'HalfLevel' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+<!--  <div class="form-group modifier-values-container">-->
+<!--    <div>-->
+<!--      <mat-checkbox-->
+<!--        class="on-dark"-->
+<!--        (change)="advantageChange($event)"-->
+<!--        [checked]="advantage">-->
+<!--      </mat-checkbox>-->
+<!--      <span>{{ 'Advantage' | translate }}</span>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--      <mat-checkbox-->
+<!--        class="on-dark"-->
+<!--        (change)="disadvantageChange($event)"-->
+<!--        [checked]="disadvantage">-->
+<!--      </mat-checkbox>-->
+<!--      <span>{{ 'Disadvantage' | translate }}</span>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div>
+    <mat-checkbox class="on-dark"
+                  (change)="adjustmentChange($event)"
+                  [checked]="adjustment">
+    </mat-checkbox>
+    <span>{{ 'Adjustment' | translate }}</span>
+    <mat-icon matTooltip="{{ 'Tooltips.Modifier.Adjustment' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+</app-details>

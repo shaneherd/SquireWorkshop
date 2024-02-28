@@ -1,0 +1,52 @@
+<div class="group-container">
+  <button type="button"
+          [disabled]="primaryAction?.disabled"
+          (click)="primaryClick()"
+          class="default-button squire-button btn"
+          [ngClass]="{
+            'has-menu': actions.length > 1 || groups.length > 0,
+            'btn-primary': color === 'PRIMARY',
+            'btn-secondary': color === 'TERTIARY',
+            'btn-danger': color === 'SECONDARY',
+            'btn-4': color === 'FOURTH',
+            'btn-5': color === 'FIFTH',
+            'transparent': color === 'TRANSPARENT'
+          }">
+    <i [class]="primaryAction?.icon" *ngIf="primaryAction?.icon !== ''"></i>
+    {{primaryAction?.label}}
+  </button>
+  <button type="button"
+          *ngIf="actions.length > 1 || groups.length > 0"
+          [matMenuTriggerFor]="actionsMenu"
+          class="menu-toggle drop-down-button squire-button btn"
+          [ngClass]="{
+            'btn-primary': color === 'PRIMARY',
+            'btn-secondary': color === 'TERTIARY',
+            'btn-danger': color === 'SECONDARY',
+            'btn-4': color === 'FOURTH',
+            'btn-5': color === 'FIFTH',
+            'transparent': color === 'TRANSPARENT'
+          }">
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+</div>
+
+<mat-menu #actionsMenu="matMenu" class="split-button-menu">
+  <app-button-action *ngFor="let action of actions"
+                     [action]="action"
+                     (onClick)="secondaryClick($event)">
+  </app-button-action>
+
+  <div *ngIf="groups.length > 1">
+    <app-button-action-group *ngFor="let group of groups"
+                             [group]="group"
+                             (onClick)="secondaryClick($event)">
+    </app-button-action-group>
+  </div>
+  <div *ngIf="groups.length === 1">
+    <app-button-action *ngFor="let action of groups[0].actions"
+                       [action]="action"
+                       (onClick)="secondaryClick($event)">
+    </app-button-action>
+  </div>
+</mat-menu>

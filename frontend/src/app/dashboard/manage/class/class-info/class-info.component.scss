@@ -1,0 +1,20 @@
+.parent-class .help-icon {
+  margin-left: 10px;
+}
+
+.starting-equipment {
+  input {
+    width: 70px;
+    display: inline;
+  }
+
+  mat-form-field {
+    &.dice-size {
+      width: 70px;
+    }
+
+    &.ability-modifier {
+      width: 125px;
+    }
+  }
+}

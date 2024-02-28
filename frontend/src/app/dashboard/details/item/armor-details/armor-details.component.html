@@ -1,0 +1,49 @@
+<app-item-type-display [item]="armor">
+</app-item-type-display>
+
+<app-quantity-display *ngIf="creatureItem != null"
+                      [quantity]="creatureItem.quantity">
+</app-quantity-display>
+
+<app-equippable-display [item]="armor">
+</app-equippable-display>
+
+<app-category-display [type]="armor.armorType.name"
+                      [description]="armor.armorType.description"
+                      class="display-section">
+</app-category-display>
+
+<app-ac-display [creature]="creature"
+                [collection]="collection"
+                [creatureItem]="creatureItem"
+                [armor]="armor"
+                class="display-section">
+</app-ac-display>
+
+<app-basic-display label="{{ 'Labels.MinStrengthRequired' | translate }}"
+                   [value]="armor.minStrength">
+</app-basic-display>
+
+<app-cost-display [item]="armor">
+</app-cost-display>
+
+<app-weight-display [creatureItem]="creatureItem"
+                    [item]="armor">
+</app-weight-display>
+
+<app-properties-display [collection]="collection"
+                        [item]="armor"
+                        [creatureItem]="creatureItem"
+                        [additionalProperties]="additionalProperties"
+                        class="display-section">
+</app-properties-display>
+
+<app-description-display [item]="armor"
+                         class="display-section">
+</app-description-display>
+
+<app-container-display [item]="armor"
+                       [creatureItem]="creatureItem"
+                       (itemClick)="onItemClick($event)"
+                       class="display-section">
+</app-container-display>

@@ -1,0 +1,26 @@
+@import '~@angular/material/theming';
+@import '../../sass/variables';
+
+.home {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  overflow: hidden;
+
+  .home-button {
+    margin-bottom: 10px;
+    border-radius: 30px;
+    padding: 6px 12px;
+  }
+
+  .squire-logo {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+.welcome-to-squire {
+  margin-top: 10px;
+  font-family: 'berry', 'arial', sans-serif;
+}

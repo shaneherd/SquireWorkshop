@@ -1,0 +1,24 @@
+<app-details [listObject]="condition"
+             (close)="closeDetails()"
+             (primary)="saveCondition()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <div class="form-group">
+    <mat-checkbox class="on-dark"
+                  [checked]="immune"
+                  (change)="conditionChange($event)">
+      {{ 'Immune' | translate }}
+    </mat-checkbox>
+  </div>
+
+  <span class="info-description form-group">{{condition.description}}</span>
+
+  <div *ngIf="condition.connectingConditions.length > 0">
+    <label>{{ 'ConnectingConditions' | translate }}</label>
+    <div *ngFor="let connecting of condition.connectingConditions" class="nested">
+      <span>• {{connecting.name}}</span>
+    </div>
+  </div>
+</app-details>

@@ -1,0 +1,13 @@
+<app-details headerName="{{ 'Imports.Links.Header' | translate }}"
+             (close)="closeDetails()"
+             (primary)="onToggleLink()"
+             primaryLabel="{{ (config.importItem.linked ? 'Imports.Links.Unlink' : 'Imports.Links.Link') | translate }}"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}">
+  <span translate="Imports.Links.Count"
+        class="form-group"
+        *ngIf="config.links.length > 1"
+        [translateParams]="{count: config.links.length}"></span>
+  <span class="form-group" *ngIf="config.links.length === 1">{{ 'Imports.Links.Count1' | translate }}</span>
+  <span class="link-message">{{ 'Imports.Links.Message' | translate }}</span>
+</app-details>

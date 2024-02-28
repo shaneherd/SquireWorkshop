@@ -1,0 +1,37 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [editDisabled]="!alignment.author"
+               [loading]="loading"
+               [itemName]="itemName"
+               [id]="alignment.id"
+               [inUseService]="attributeService"
+               [showShare]="alignment.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               type="{{ 'AttributeType.ALIGNMENT' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="alignmentForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && alignment?.id !== '0'">{{alignment.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (alignment?.id !== '0' && alignment.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && alignment?.id !== '0'" class="info-description">{{alignment.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

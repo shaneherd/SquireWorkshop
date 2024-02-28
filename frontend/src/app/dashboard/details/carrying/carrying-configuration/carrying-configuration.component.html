@@ -1,0 +1,46 @@
+<app-details headerName="{{ 'Headers.Carrying' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="configuration-details">
+    <app-single-carrying-detail [singleCarryingDetails]="equipment"
+                                [configuring]="true">
+    </app-single-carrying-detail>
+
+    <app-single-carrying-detail [singleCarryingDetails]="carryingCapacity"
+                                [configuring]="true">
+    </app-single-carrying-detail>
+
+    <app-single-carrying-detail [singleCarryingDetails]="pushCapacity"
+                                [configuring]="true">
+    </app-single-carrying-detail>
+
+    <app-single-carrying-detail *ngIf="settings.equipment.useEncumbrance"
+                                [singleCarryingDetails]="encumbered"
+                                [configuring]="true">
+    </app-single-carrying-detail>
+
+    <app-single-carrying-detail *ngIf="settings.equipment.useEncumbrance"
+                                [singleCarryingDetails]="heavilyEncumbered"
+                                [configuring]="true">
+    </app-single-carrying-detail>
+
+    <mat-expansion-panel class="on-dark">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Headers.Settings' | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-equipment-settings [playerCharacter]="playerCharacter"
+                              [settings]="settings"
+                              [showAutoConvertCurrency]="false"
+                              [showHideEmptySlots]="false">
+      </app-equipment-settings>
+    </mat-expansion-panel>
+  </div>
+
+</app-details>

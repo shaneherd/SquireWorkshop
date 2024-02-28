@@ -1,0 +1,14 @@
+@import '../../../sass/variables';
+
+.choice-options {
+  margin-left: 20px;
+
+  .chosen {
+    color: $skill_with_advantage_background;
+  }
+}
+
+.chosen-count,
+.material-icons {
+  margin-left: 10px;
+}

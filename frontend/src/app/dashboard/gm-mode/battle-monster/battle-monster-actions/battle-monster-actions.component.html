@@ -1,0 +1,65 @@
+<div class="form-group">
+  <app-battle-monster-action-card *ngFor="let action of actions"
+                                  [action]="action"
+                                  [clickDisabled]="clickDisabled"
+                                  [highlightActive]="true"
+                                  [highlightNonActive]="false"
+                                  [canActivate]="action.calculatedMax > 0"
+                                  (actionClick)="onActionClick($event)">
+  </app-battle-monster-action-card>
+
+  <div *ngIf="legendaryActions.length > 0" class="legendary-header">
+    <h4 class="header-label">{{ 'Headers.LegendaryActions' | translate }}</h4>
+    <mat-card class="legendary-cost clickable"
+              [ngClass]="{'no-uses-remaining': battleMonster.legendaryPoints === 0}"
+              (click)="legendaryPointsClick()"
+              matTooltip="{{ 'LegendaryPoints' | translate }}">
+      {{battleMonster.legendaryPoints}} / {{battleMonster.monster.legendaryPoints}}
+    </mat-card>
+<!--    <span class="legendary-cost tag"-->
+<!--          [ngClass]="{'no-uses-remaining': battleMonster.legendaryPoints === 0}"-->
+<!--          matTooltip="{{ 'LegendaryPoints' | translate }}">-->
+<!--      {{battleMonster.legendaryPoints}} / {{battleMonster.monster.legendaryPoints}}-->
+<!--    </span>-->
+  </div>
+  <app-battle-monster-action-card *ngFor="let action of legendaryActions"
+                                  [action]="action"
+                                  [clickDisabled]="clickDisabled"
+                                  [highlightActive]="true"
+                                  [highlightNonActive]="false"
+                                  [canActivate]="action.calculatedMax > 0"
+                                  (actionClick)="onActionClick($event)">
+  </app-battle-monster-action-card>
+
+  <div class="legendary-header">
+    <h4 *ngIf="lairActions.length > 0">{{ 'Headers.LairActions' | translate }}</h4>
+  </div>
+  <app-battle-monster-action-card *ngFor="let action of lairActions"
+                                  [action]="action"
+                                  [clickDisabled]="clickDisabled"
+                                  [highlightActive]="true"
+                                  [highlightNonActive]="false"
+                                  [canActivate]="action.calculatedMax > 0"
+                                  (actionClick)="onActionClick($event)">
+  </app-battle-monster-action-card>
+</div>
+
+<app-battle-monster-action-details-slide-in *ngIf="viewingAction != null"
+                                            [battleMonster]="battleMonster"
+                                            [collection]="collection"
+                                            [action]="viewingAction"
+                                            (use)="useAction($event)"
+                                            (close)="closeAction()">
+</app-battle-monster-action-details-slide-in>
+
+<app-battle-monster-action-limited-use-slide-in *ngIf="viewingInfo"
+                                                [battleMonster]="battleMonster"
+                                                (save)="saveInfo()"
+                                                (close)="closeInfo()">
+</app-battle-monster-action-limited-use-slide-in>
+
+<app-battle-monster-legendary-points-slide-in *ngIf="viewingLegendaryPoints"
+                                              [battleMonster]="battleMonster"
+                                              (save)="saveLegendaryPoints()"
+                                              (close)="closeLegendaryPoints()">
+</app-battle-monster-legendary-points-slide-in>

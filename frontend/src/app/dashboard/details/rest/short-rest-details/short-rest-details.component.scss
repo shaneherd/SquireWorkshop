@@ -1,0 +1,37 @@
+@import '../../../../sass/variables';
+
+.details {
+  color: #ffffff;
+}
+
+.current-hp {
+  font-size: 40px;
+  line-height: 40px;
+  display: block;
+  width: 100%;
+
+  .slash {
+    margin: 0 5px;
+  }
+
+  .hp-label {
+    font-size: 20px;
+    margin-left: 5px;
+  }
+}
+
+.positive-modifier {
+  color: $skill_with_advantage_background;
+}
+
+.negative-modifier {
+  color: $danger_text;
+}
+
+.info {
+  margin-top: 20px;
+}
+
+.hit-dice-label {
+  color: #ffffff;
+}

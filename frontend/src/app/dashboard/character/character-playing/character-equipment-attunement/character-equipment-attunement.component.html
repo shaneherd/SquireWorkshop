@@ -1,0 +1,35 @@
+<app-details headerName="{{ 'Headers.Attunement' | translate }}"
+             [loading]="loading"
+             [configurable]="false"
+             (close)="onCancel()"
+             (primary)="onSave()"
+             (secondary)="onCancel()"
+             (tertiary)="onReset()"
+             [primaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             tertiaryConfirmationMessage="{{ 'Attunement.ResetConfirmation' | translate }}"
+             primaryLabel="{{ creatureItems.length === 0 ? '' : ('Save' | translate) }}"
+             tertiaryLabel="{{ creatureItems.length === 0 ? '' : ('Reset' | translate) }}"
+             secondaryLabel="{{ (creatureItems.length === 0 ? 'Close' : 'Cancel') | translate }}"
+             class="details on-dark">
+  <div *ngIf="creatureItems.length === 0" class="no-limited-uses-container">
+    <span>{{ 'NoItemsWithAttunement' | translate }}</span>
+  </div>
+
+  <div *ngIf="creatureItems.length > 0 && playerCharacter.characterSettings.equipment.enforceAttunedLimit" class="form-group">
+    <label>{{ 'Labels.Count' | translate }}</label>
+    <span [ngClass]="{ 'over-attuned' : total > max}">{{total}}</span>
+    <span class="slash">/</span>
+    <span>{{max}}</span>
+  </div>
+
+  <div *ngFor="let creatureItem of creatureItems" class="form-group item">
+    <mat-checkbox
+      (change)="attunementChange($event, creatureItem)"
+      [disabled]="!creatureItem.attuned && enforceMax && total >= max"
+      [checked]="creatureItem.attuned">
+    </mat-checkbox>
+    <span>{{creatureItem.item.name}}</span>
+    <span *ngIf="creatureItem.magicalItem != null" class="sub-item">({{creatureItem.magicalItem.name}})</span>
+  </div>
+</app-details>

@@ -1,0 +1,21 @@
+<div *ngIf="editing">
+  <h5>{{ 'Headers.ConnectingConditions' | translate }}</h5>
+  <div class="form-group">
+    <div *ngFor="let item of connectingConditionsCollection.connectingConditions">
+      <mat-checkbox
+        (change)="connectingChange($event, item)"
+        [checked]="item.checked">
+      </mat-checkbox>
+      <span>{{item.condition.name}}</span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!editing && connectingConditions.length > 0">
+  <h5>{{ 'Headers.ConnectingConditions' | translate }}</h5>
+  <div class="form-group">
+    <div class="connecting-condition" *ngFor="let item of connectingConditions">
+      <span>{{item.name}}</span>
+    </div>
+  </div>
+</div>

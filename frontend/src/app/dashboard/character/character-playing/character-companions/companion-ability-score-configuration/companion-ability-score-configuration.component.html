@@ -1,0 +1,51 @@
+<label class="ability-name">{{abilityScore.ability?.name}}</label>
+
+<div class="nested form-group">
+  <div *ngIf="companionScoreModifier.useCharactersScore">
+    <label>{{ 'Labels.CharactersScore' | translate }}</label>
+    <span>{{characterScore}}</span>
+  </div>
+
+  <ng-container *ngIf="!companionScoreModifier.useCharactersScore">
+    <div>
+      <label>{{ 'Labels.Base' | translate }}</label>
+      <span>{{base}}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.Prof' | translate }}</label>
+      <span>{{profValue}}</span>
+
+      <div class="nested">
+        <mat-checkbox
+          (change)="useCharactersProfChange($event)"
+          [checked]="companionScoreModifier.includeCharactersProf">
+        </mat-checkbox>
+        <span>+ {{ 'CompanionConfiguration.CharactersProf' | translate }}</span>
+      </div>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.Misc' | translate }}</label>
+      <input type="number"
+             class="form-control number-inline"
+             max="99" min="-99"
+             appInputNumber [minValue]="-99" [maxValue]="99" [allowDecimal]="false"
+             [ngModel]="companionScoreModifier.misc"
+             (valueChange)="miscChange($event)"/>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Labels.Total' | translate }}</label>
+      <span>{{total}}</span>
+    </div>
+  </ng-container>
+
+  <div>
+    <mat-checkbox
+      (change)="useCharactersScoreChange($event)"
+      [checked]="companionScoreModifier.useCharactersScore">
+    </mat-checkbox>
+    <span>{{ 'CompanionConfiguration.UseCharactersScore' | translate }}</span>
+  </div>
+</div>

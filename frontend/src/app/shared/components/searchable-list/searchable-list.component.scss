@@ -1,0 +1,30 @@
+.search-filter-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  flex-shrink: 0;
+  padding: 5px;
+  width: 100%;
+  border-bottom: 1px solid #444444;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .search-container {
+    flex-grow: 1;
+  }
+
+  .filter-icon {
+    flex-shrink: 0;
+    margin-left: 5px;
+
+    i {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

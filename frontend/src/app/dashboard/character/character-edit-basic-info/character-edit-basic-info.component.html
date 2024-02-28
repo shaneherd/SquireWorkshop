@@ -1,0 +1,58 @@
+<div class="form-group">
+  <label>{{ 'Labels.Race' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="parentRace?.id"
+                [disabled]="changingRace"
+                (selectionChange)="raceChange($event.value)">
+      <mat-option *ngFor="let raceChoice of races" [value]="raceChoice.id">
+        {{raceChoice.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form-group" *ngIf="subRaces.length > 0">
+  <label>{{ 'Labels.SubRace' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="subRace?.id"
+                [disabled]="changingRace"
+                (selectionChange)="subRaceChange($event.value)">
+      <mat-option *ngFor="let raceChoice of subRaces" [value]="raceChoice.id">
+        {{raceChoice.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Exp' | translate}}</label>
+  <input type="number"
+         class="form-control total-exp"
+         max="9999999"
+         min="0"
+         appInputNumber
+         [minValue]="0"
+         [maxValue]="9999999"
+         [allowDecimal]="false"
+         [ngModel]="playerCharacter.exp"
+         (valueChange)="expChange($event)"/>
+  <span class="dash">-</span>
+  <span [translate]="'Lvl'"
+        [translateParams]="{level: collection.totalLevel.name}">
+  </span>
+</div>
+
+<div *ngFor="let chosenClass of playerCharacter.classes">
+  <app-character-edit-chosen-class [playerCharacter]="playerCharacter"
+                                   [chosenClass]="chosenClass"
+                                   (delete)="removeClass($event)"
+                                   [collection]="collection">
+  </app-character-edit-chosen-class>
+</div>
+
+<div class="add-class-container">
+  <button type="button" (click)="addClass()"
+          class="squire-button btn btn-danger add-class">
+    {{ 'Navigation.Manage.Classes.Add' | translate }}
+  </button>
+</div>

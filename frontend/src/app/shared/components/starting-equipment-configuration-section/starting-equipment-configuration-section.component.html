@@ -1,0 +1,28 @@
+<div *ngIf="collection.groups.length === 0" class="no-items">
+  {{ 'NoItems' | translate }}
+</div>
+
+<div *ngFor="let group of collection.groups" class="starting-equipment-group">
+  <app-starting-equipment-group [group]="group"
+                                [editing]="editing"
+                                [loading]="loading"
+                                [disabled]="disabled || configuringItem != null"
+                                (deleteGroup)="deleteGroup($event)"
+                                (configureItem)="configureItem($event)"
+                                (addItem)="addItem($event)">
+  </app-starting-equipment-group>
+</div>
+
+<div class="add-items-container">
+  <button *ngIf="editing" type="button" (click)="addGroup()"
+          class="squire-button btn btn-danger add-group"
+          [ngClass]="{'disabled': disabled || configuringItem != null}">
+    {{ 'AddGroup' | translate }}
+  </button>
+</div>
+
+<app-starting-equipment-configuration *ngIf="configuringItem != null && editing"
+                                      [item]="configuringItem"
+                                      (close)="itemConfigurationClose()"
+                                      (continue)="itemConfigurationContinue($event)">
+</app-starting-equipment-configuration>

@@ -1,0 +1,263 @@
+<app-item-type-display [item]="magicalItem">
+</app-item-type-display>
+
+<div>
+  <label>{{ 'Labels.Type' | translate }}</label>
+  <span>{{ 'MagicalItemType.' + magicalItem.magicalItemType | translate}}</span>
+</div>
+
+<div *ngIf="creatureItem != null && creatureItem.magicalItem != null">
+  <label>{{ 'Labels.Item' | translate }}</label>
+  <span>{{creatureItem.magicalItem.name}}</span>
+</div>
+
+<div>
+  <label>{{ 'Labels.Rarity' | translate }}</label>
+  <span>{{ 'Rarity.' + magicalItem.rarity | translate}}</span>
+</div>
+
+<app-quantity-display *ngIf="creatureItem != null"
+                      [quantity]="creatureItem.quantity"
+                      [expendable]="magicalItem.expendable">
+</app-quantity-display>
+
+<app-equippable-display [item]="magicalItem" [slot]="slot">
+</app-equippable-display>
+
+<ng-container *ngIf="isArmor && baseArmor == null">
+  <div>
+    <label>{{ 'Labels.AC' | translate }}</label>
+    <span class="modifier">+</span>
+    <span>{{magicalItem.acMod}}</span>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="baseArmor != null">
+  <app-category-display [type]="baseArmor.armorType.name"
+                        [description]="baseArmor.armorType.description">
+  </app-category-display>
+
+  <app-ac-display [creature]="creature"
+                  [collection]="collection"
+                  [creatureItem]="creatureItem"
+                  [armor]="baseArmor">
+  </app-ac-display>
+
+  <app-basic-display label="{{ 'Labels.MinStrengthRequired' | translate }}"
+                     [value]="baseArmor.minStrength">
+  </app-basic-display>
+
+  <app-properties-display [collection]="collection"
+                          [item]="baseArmor"
+                          [creatureItem]="creatureItem"
+                          [additionalProperties]="additionalArmorProperties"
+                          class="display-section">
+  </app-properties-display>
+</ng-container>
+
+<app-cost-display [item]="magicalItem">
+</app-cost-display>
+
+<app-weight-display [creatureItem]="creatureItem"
+                    [item]="magicalItem">
+</app-weight-display>
+
+<ng-container *ngIf="isAmmo">
+  <app-properties-display [creatureItem]="creatureItem"
+                          class="display-section">
+  </app-properties-display>
+</ng-container>
+
+<div class="display-section" *ngIf="magicalItem.requiresAttunement">
+  <span>{{ 'RequiresAttunement' | translate }}</span>
+  <span *ngIf="creatureItem != null && creatureItem.attuned" class="attuned">- {{ 'Attuned' | translate }}</span>
+
+  <div class="form-group">
+    <label>{{ 'Labels.By' | translate }}</label>
+    <span *ngIf="attunementAny || attunementSpellcaster">{{ 'MagicalItemAttunementType.' + magicalItem.attunementType | translate }}</span>
+    <ng-container *ngIf="attunementClasses">
+      <div *ngFor="let attunementClass of magicalItem.attunementClasses" class="attunement-class" [ngClass]="{ 'single-attunement-class' : magicalItem.attunementClasses.length === 1}">
+        {{attunementClass.name}}
+      </div>
+    </ng-container>
+    <ng-container *ngIf="attunementAlignments">
+      <div *ngFor="let attunementAlignment of magicalItem.attunementAlignments" class="attunement-class" [ngClass]="{ 'single-attunement-class' : magicalItem.attunementAlignments.length === 1}">
+        {{attunementAlignment.name}}
+      </div>
+    </ng-container>
+    <ng-container *ngIf="attunementRaces">
+      <div *ngFor="let attunementRace of magicalItem.attunementRaces" class="attunement-class" [ngClass]="{ 'single-attunement-class' : magicalItem.attunementRaces.length === 1}">
+        {{attunementRace.name}}
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-container *ngIf="magicalItem.hasCharges">
+  <div class="display-section">
+    <label>{{ 'Labels.Charges' | translate }}</label>
+    <span *ngIf="creatureItem == null">{{magicalItem.maxCharges}}</span>
+    <span *ngIf="creatureItem != null">{{creatureItem.chargesRemaining}} / {{magicalItem.maxCharges}}</span>
+  </div>
+
+  <ng-container *ngIf="magicalItem.rechargeable">
+    <div>
+      <label>{{ 'Labels.RechargeRate' | translate }}</label>
+      <app-dice-collection [editing]="false"
+                           [diceCollection]="magicalItem.rechargeRate"
+                           [showAbility]="false"
+                           [diceSizes]="diceSizes">
+      </app-dice-collection>
+    </div>
+
+    <div class="sub-details" *ngIf="magicalItem.rechargeOnLongRest">
+      <span>{{ 'RechargeOnLongRest' | translate }}</span>
+    </div>
+
+    <div class="sub-details chance-of-destruction" *ngIf="magicalItem.chanceOfDestruction">
+      <span>{{ 'ChanceOfDestruction' | translate }}</span>
+      <mat-icon matTooltip="{{ 'Tooltips.ChanceOfDestruction' | translate }}" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+  </ng-container>
+</ng-container>
+
+<!--spells-->
+<div class="display-section" *ngIf="spells.length > 0">
+  <label>{{ 'Headers.Spells' | translate }}</label>
+  <ng-container *ngFor="let config of spells">
+    <app-magical-item-spell-card [magicalItem]="magicalItem"
+                                 [creature]="creature"
+                                 [config]="config"
+                                 [disabled]="disabled || config.spell.id === '0'"
+                                 (click)="spellClick($event)">
+    </app-magical-item-spell-card>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="baseWeapon != null">
+  <div>
+    <label>{{ 'Labels.Type' | translate }}</label>
+    <span>{{baseWeapon.weaponType?.name}} {{ 'WeaponRangeType.' + baseWeapon.rangeType | translate }}</span>
+    <div *ngIf="ranged" class="range-container">
+      <span>(</span>
+      <span translate="FeetValue"
+            [translateParams]="{feet: baseWeapon.normalRange}"></span>
+      <span class="slash">/</span>
+      <span translate="FeetValue"
+            [translateParams]="{feet: baseWeapon.longRange}"></span>
+      <span>)</span>
+    </div>
+  </div>
+
+
+  <app-weapon-properties-display [collection]="collection"
+                                 [creatureItem]="creatureItem"
+                                 [weapon]="baseWeapon"
+                                 class="display-section">
+  </app-weapon-properties-display>
+</ng-container>
+
+<!--  Weapon / Ammo Damages-->
+<ng-container *ngIf="isWeapon || isAmmo">
+  <div class="display-section"
+       *ngIf="baseItemDamageConfigurationCollection != null && (baseItemDamageConfigurationCollection.attackMod !== 0 || baseItemDamageConfigurationCollection.damageConfigurations.length > 0)">
+    <!--  Attack-->
+    <div *ngIf="baseItemDamageConfigurationCollection.attackMod !== 0">
+      <label>{{ 'Labels.Attack' | translate }}</label>
+      <span [matTooltip]="baseItemDamageConfigurationCollection.attackModTooltip">
+        + {{baseItemDamageConfigurationCollection.attackMod}}
+      </span>
+    </div>
+
+    <!--Damages-->
+    <div *ngIf="baseItemDamageConfigurationCollection.damageConfigurations.length > 0">
+      <label>{{ 'Labels.Damages' | translate }}</label>
+      <div *ngFor="let config of baseItemDamageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+        <app-damage-configuration-display [config]="config"
+                                          [disabled]="true"
+                                          [first]="i === 0 && isWeapon">
+        </app-damage-configuration-display>
+      </div>
+    </div>
+
+    <!--Versatile Damages-->
+    <div *ngIf="versatileDamageConfigurationCollection != null && versatileDamageConfigurationCollection.damageConfigurations.length > 0" class="versatile-damages">
+      <label>{{ 'Labels.VersatileDamages' | translate }}</label>
+      <div *ngFor="let config of versatileDamageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+        <app-damage-configuration-display [config]="config"
+                                          [disabled]="true"
+                                          [first]="i === 0">
+        </app-damage-configuration-display>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!--Other Damages-->
+<ng-container *ngIf="!isWeapon && !isAmmo">
+  <div class="display-section">
+    <app-power-damage-display *ngIf="baseItemDamageConfigurationCollection != null"
+                              [damageConfigurationCollection]="baseItemDamageConfigurationCollection">
+    </app-power-damage-display>
+  </div>
+</ng-container>
+
+<app-power-modifier-display *ngIf="modifierConfigurationCollection != null"
+                            [modifierConfigurationCollection]="modifierConfigurationCollection">
+</app-power-modifier-display>
+
+<app-description-display [item]="magicalItem"
+                         [creatureItem]="creatureItem"
+                         class="display-section">
+</app-description-display>
+
+<ng-container *ngIf="magicalItem.tables.length > 0">
+  <div *ngFor="let table of magicalItem.tables" class="display-section">
+    <app-magic-item-table [table]="table"
+                          class="on-dark"
+                          [fullWidth]="true">
+    </app-magic-item-table>
+  </div>
+</ng-container>
+
+<div class="display-section" *ngIf="magicalItem.cursed && magicalItem.curseEffect.length > 0 && (creatureItem == null || creatureItem.cursed)">
+  <label>{{ 'Labels.Curse' | translate }}</label>
+  <span class="info-description">
+    {{magicalItem.curseEffect}}
+  </span>
+</div>
+
+<div class="display-section" *ngIf="creatureItem == null && applicableTypes.length > 0">
+  <label *ngIf="magicalItem.applicableWeapons.length > 0">{{ 'Labels.ApplicableWeapons' | translate }}</label>
+  <label *ngIf="magicalItem.applicableArmors.length > 0">{{ 'Labels.ApplicableArmors' | translate }}</label>
+  <label *ngIf="magicalItem.applicableAmmos.length > 0">{{ 'Labels.ApplicableAmmos' | translate }}</label>
+  <div class="sub-details" *ngFor="let config of applicableTypes">
+    <span>{{config.display}}</span>
+  </div>
+</div>
+
+<div class="display-section" *ngIf="creatureItem == null && applicableSpells.length > 0">
+  <label>{{ 'Labels.ApplicableSpells' | translate }}</label>
+  <div class="sub-details" *ngFor="let config of applicableSpells">
+    <span>{{config.display}}</span>
+  </div>
+</div>
+
+<app-container-display [item]="magicalItem"
+                       [creatureItem]="creatureItem"
+                       (itemClick)="onItemClick($event)"
+                       class="display-section">
+</app-container-display>
+
+<app-magical-item-spell-slide-in *ngIf="viewingSpell != null && viewingSpell.spell.id !== '0'"
+                                 [creatureItem]="creatureItem"
+                                 [magicalItem]="magicalItem"
+                                 [magicalItemSpellConfiguration]="viewingSpell"
+                                 [creature]="creature"
+                                 [collection]="collection"
+                                 [castable]="castable"
+                                 (cast)="castSpell($event)"
+                                 (close)="closeSpell()">
+</app-magical-item-spell-slide-in>

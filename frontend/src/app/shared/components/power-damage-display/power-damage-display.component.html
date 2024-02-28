@@ -1,0 +1,123 @@
+<div *ngIf="!isNone()">
+  <div class="form-group">
+    <!--Attack Type-->
+    <div>
+      <label>{{ 'Labels.AttackType' | translate }}</label>
+      <span>{{ 'AttackType.' + damageConfigurationCollection.attackType | translate }}</span>
+    </div>
+
+    <!--Save Type-->
+    <div *ngIf="isSave()" class="attack-mod">
+      <label>{{ 'Labels.Type' | translate }}</label>
+      <span>{{damageConfigurationCollection.saveType.id === '0' ? none : damageConfigurationCollection.saveType.name}}</span>
+    </div>
+
+    <!--Attack Mod-->
+    <div class="attack-mod" *ngIf="characterLevel != null">
+      <label *ngIf="attackDisplayLabel !== ''">{{attackDisplayLabel}}</label>
+      <span>{{attackDisplay}}</span>
+      <span *ngIf="(attackDisplay !== '' || this.attackDisplayLabel !== '') && (damageConfigurationCollection.attackMod !== 0 || isSave())" [matTooltip]="damageConfigurationCollection.attackModTooltip">{{damageConfigurationCollection.attackMod}}</span>
+      <div *ngIf="isAttack() && damageConfigurationCollection.halfOnSave">
+        <span>{{ 'Headers.HalfOnMiss' | translate }}</span>
+      </div>
+      <div *ngIf="isSave() && damageConfigurationCollection.halfOnSave">
+        <span>{{ 'Headers.HalfOnSave' | translate }}</span>
+      </div>
+      <div *ngIf="isHealing() && damageConfigurationCollection.temporaryHP">
+        <span>{{ 'Headers.TemporaryHP' | translate }}</span>
+      </div>
+    </div>
+
+    <div class="attack-mod" *ngIf="characterLevel == null">
+      <span *ngIf="isAttack() && !isSpell">1d20</span>
+      <span *ngIf="isAttack() && isSpell">1d20 + {{ 'Headers.SpellAttack' | translate }}</span>
+      <span *ngIf="isSave() && !isSpell">{{ 'Labels.DC' | translate }}</span>
+      <span *ngIf="isSave() && isSpell">{{ 'Labels.DC' | translate }} {{ 'Headers.SpellSave' | translate }}</span>
+
+      <span *ngIf="isAttack() && !isSpell && damageConfigurationCollection.attackAbilityMod !== '0'">
+        + {{getSelectedAttackAbilityModifier()}}
+      </span>
+      <span *ngIf="!isHealing() && !isSpell && isSave()">
+        {{damageConfigurationCollection.attackMod}}
+      </span>
+      <span *ngIf="!isHealing() && damageConfigurationCollection.attackMod > 0 && (isSpell || isAttack())">
+        + {{damageConfigurationCollection.attackMod}}
+      </span>
+      <div *ngIf="isSave() && !isSpell && damageConfigurationCollection.saveProficiencyModifier" class="feature-save-dc">
+        <span>+</span>
+        <span>{{ 'ProficiencyModifier' | translate }}</span>
+      </div>
+
+      <span *ngIf="isSave() && !isSpell && damageConfigurationCollection.saveAbilityModifier !== '0'">+ {{getSelectedSaveAbilityModifier()}}</span>
+
+      <div *ngIf="isAttack() && damageConfigurationCollection.halfOnSave">
+        <span>{{ 'Headers.HalfOnMiss' | translate }}</span>
+      </div>
+
+      <div *ngIf="isSave() && damageConfigurationCollection.halfOnSave">
+        <span>{{ 'Headers.HalfOnSave' | translate }}</span>
+      </div>
+
+      <!--Temporary HP-->
+      <div *ngIf="isHealing() && damageConfigurationCollection.temporaryHP">
+        <span>{{ 'Headers.TemporaryHP' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!--Damages-->
+  <div *ngIf="damageConfigurationCollection.damageConfigurations.length > 0" class="form-group">
+    <label *ngIf="!isHealing()">{{ 'Labels.Damages' | translate }}</label>
+    <label *ngIf="isHealing()">{{ 'Labels.Healing' | translate }}</label>
+    <div *ngFor="let config of damageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+      <app-damage-configuration-display [config]="config"
+                                        [editing]="false"
+                                        [disabled]="true"
+                                        [first]="i === 0">
+      </app-damage-configuration-display>
+    </div>
+  </div>
+
+  <!--Extra Damages-->
+  <div *ngIf="damageConfigurationCollection.extraDamage && damageConfigurationCollection.extraDamageConfigurations.length > 0" class="form-group">
+    <label *ngIf="!isHealing()">{{ 'Labels.ExtraDamages' | translate }}</label>
+    <label *ngIf="isHealing()">{{ 'Labels.ExtraHealing' | translate }}</label>
+
+    <div class="num-levels-above-base form-group">
+      <span *ngIf="!isHealing()" class="damage-per">{{ 'Headers.ExtraDamagePer' | translate }}</span>
+      <span *ngIf="isHealing()" class="healing-per">{{ 'Headers.ExtraHealingPer' | translate }}</span>
+      <span>{{damageConfigurationCollection.numLevelsAboveBase}}</span>
+      <span translate="Headers.LevelsAboveBase"
+            [translateParams]="{level: baseLevel}" class="levels-above-base"></span>
+    </div>
+
+    <div *ngIf="damageConfigurationCollection.extraDamage">
+      <div *ngFor="let config of damageConfigurationCollection.extraDamageConfigurations" class="damages">
+        <app-damage-configuration-display [config]="config"
+                                          [editing]="false"
+                                          [disabled]="true"
+                                          [first]="false">
+        </app-damage-configuration-display>
+      </div>
+    </div>
+  </div>
+
+  <!--Character Advancement-->
+  <div *ngIf="characterLevel == null && damageConfigurationCollection.advancement && damageConfigurationCollection.advancementDamageConfigurations.length > 0">
+    <div *ngFor="let level of characterLevels">
+      <div *ngIf="hasLevel(level)" class="form-group">
+        <label [translate]="'Labels.Level'"
+               [translateParams]="{level: level.name}"></label>
+        <div *ngFor="let config of damageConfigurationCollection.advancementDamageConfigurations" class="damages">
+          <div *ngIf="config.level.id === level.id">
+            <app-damage-configuration-display [config]="config"
+                                              [editing]="false"
+                                              [disabled]="true"
+                                              [first]="false">
+            </app-damage-configuration-display>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

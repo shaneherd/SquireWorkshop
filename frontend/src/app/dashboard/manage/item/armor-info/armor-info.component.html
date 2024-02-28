@@ -1,0 +1,111 @@
+<!--type-->
+<div class="form-group">
+  <label>{{ 'Labels.Type' | translate }}</label>
+  <span *ngIf="!editing">{{armor.armorType.name}}</span>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedArmorType"
+                  (selectionChange)="armorTypeChange($event.value)">
+        <mat-option *ngFor="let armorType of armorTypes" [value]="armorType">
+          {{armorType.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<!--slot-->
+<div class="form-group">
+  <label>{{ 'Labels.Slot' | translate }}</label>
+  <span *ngIf="!editing">{{ 'EquipmentSlotType.' + armor.slot | translate }}</span>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="armor.slot"
+                  (selectionChange)="slotChange($event.value)">
+        <mat-option *ngFor="let slot of slots" [value]="slot">
+          {{ 'EquipmentSlotType.' + slot | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<!--ac-->
+<div class="form-group ac-mod">
+  <label>{{ 'Labels.AC' | translate }}</label>
+  <span *ngIf="!editing && selectedAbility.id === '0'">{{armor.ac}}</span>
+  <span *ngIf="!editing && selectedAbility.id !== '0'">{{armor.ac}}+{{selectedAbility.name}}</span>
+  <input *ngIf="editing" type="number" class="form-control"
+         min="0" max="99"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="armor.ac"
+         (valueChange)="acChange($event)"/>
+  <span *ngIf="editing">+</span>
+  <mat-form-field *ngIf="editing">
+    <mat-select [(ngModel)]="selectedAbility"
+                (selectionChange)="abilityChange($event.value)">
+      <mat-option *ngFor="let ability of abilities" [value]="ability">
+        {{ability.id === '0' ? noAbility : ability.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!--max mod-->
+<div class="form-group ac-mod" *ngIf="selectedAbility.id !== '0' && (editing || armor.maxAbilityModifier > 0)">
+  <label>{{ 'Labels.MaxAbilityModifier' | translate }}</label>
+  <span *ngIf="!editing">{{armor.maxAbilityModifier}}</span>
+  <input *ngIf="editing" type="number" class="form-control"
+         min="0" max="99"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="armor.maxAbilityModifier"
+         (valueChange)="maxAbilityModifierChange($event)"/>
+  <mat-icon matTooltip="{{ 'Tooltips.MaxAbilityModifier' | translate }}" class="help-icon">
+    help
+  </mat-icon>
+</div>
+
+<!--min strength-->
+<div class="form-group ac-mod" *ngIf="editing || armor.minStrength > 0">
+  <label>{{ 'Labels.MinStrengthRequired' | translate }}</label>
+  <span *ngIf="!editing">{{armor.minStrength}}</span>
+  <input *ngIf="editing" type="number" class="form-control"
+         min="0" max="99"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="armor.minStrength"
+         (valueChange)="minStrengthChange($event)"/>
+  <mat-icon matTooltip="{{ 'Tooltips.MinStrength' | translate }}" class="help-icon">
+    help
+  </mat-icon>
+</div>
+
+<!--stealth disadvantage-->
+<div class="form-group" *ngIf="editing || armor.stealthDisadvantage">
+  <mat-checkbox
+    (change)="stealthDisadvantageChange($event)"
+    [disabled]="!editing"
+    [checked]="armor.stealthDisadvantage">
+  </mat-checkbox>
+  <span>{{ 'StealthDisadvantage' | translate }}</span>
+</div>
+
+<!--Is Container-->
+<app-is-container-configuration [item]="armor"
+                                [editing]="editing">
+</app-is-container-configuration>
+
+<!--Cost-->
+<app-cost-configuration [item]="armor"
+                        [editing]="editing">
+</app-cost-configuration>
+
+<!--Weight-->
+<app-weight-configuration [item]="armor"
+                          [editing]="editing">
+</app-weight-configuration>
+
+<!--Description-->
+<app-description-configuration [item]="armor"
+                               [editing]="editing"
+                               [maxLength]="1000">
+</app-description-configuration>

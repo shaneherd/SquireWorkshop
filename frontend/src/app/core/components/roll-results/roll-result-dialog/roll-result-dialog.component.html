@@ -1,0 +1,36 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{roll.reason}}</h2>
+  </div>
+
+  <mat-dialog-content>
+    <div *ngIf="standard">
+      <app-standard-roll-result [showDetails]="showDetails" [roll]="roll"></app-standard-roll-result>
+    </div>
+    <div *ngIf="!standard">
+      <app-attack-roll-result [showDetails]="showDetails" [roll]="roll"></app-attack-roll-result>
+    </div>
+
+    <br>
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions class="action-buttons">
+    <div class="action-button">
+      <button type="button" class="squire-button btn btn-primary" (click)="archive()">
+        {{ 'Archive' | translate }}
+      </button>
+    </div>
+
+    <div class="action-button">
+      <button type="button" class="squire-button btn btn-secondary" (click)="toggleDetails()">
+        {{ 'Details' | translate }}
+      </button>
+    </div>
+
+    <div class="action-button">
+      <button type="button" class="squire-button btn btn-danger" (click)="close()">
+        {{ 'Close' | translate }}
+      </button>
+    </div>
+  </mat-dialog-actions>
+</div>

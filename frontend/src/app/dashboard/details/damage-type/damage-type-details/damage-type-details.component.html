@@ -1,0 +1,7 @@
+<span *ngIf="damageType.description.length > 0" class="info-description">
+  {{damageType.description}}
+</span>
+
+<span *ngIf="damageType.description.length === 0">
+  {{ 'NoDescription' | translate }}
+</span>

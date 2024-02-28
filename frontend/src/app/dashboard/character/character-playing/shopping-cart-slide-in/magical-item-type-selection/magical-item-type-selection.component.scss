@@ -1,0 +1,31 @@
+.shopping-cart {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.shopping-cart-page {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.list-menu {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.list-menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .card {
+    width: calc(100% - 35px);
+  }
+
+  .ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+}

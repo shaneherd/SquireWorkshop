@@ -1,0 +1,39 @@
+<app-details headerName="{{ 'Headers.EditConcentration' | translate }}"
+             (close)="closeConfiguration()"
+             (primary)="saveConfiguration()"
+             (secondary)="closeConfiguration()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+
+  <div class="form-group">
+      <div class="form-group">
+        <label>{{ 'Labels.ConstitutionSave' | translate }}</label>
+        <span>{{conSave}}</span>
+      </div>
+
+      <div *ngFor="let modifier of modifierDisplays;">
+        <app-label-value [labelValue]="modifier"></app-label-value>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'Labels.Modifier' | translate }}</label>
+        <input type="number"
+               class="form-control"
+               min="-99" max="99"
+               appInputNumber minValue="-99" maxValue="99"
+               [ngModel]="concentrationMisc"
+               (valueChange)="concentrationModifierChange($event)"/>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'Labels.Total' | translate }}</label>
+        <span>{{total}}</span>
+      </div>
+
+      <div class="on-dark">
+        <app-advantage-configuration [proficiency]="proficiency">
+        </app-advantage-configuration>
+      </div>
+  </div>
+</app-details>

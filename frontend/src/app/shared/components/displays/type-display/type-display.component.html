@@ -1,0 +1,8 @@
+<div *ngIf="type !== ''" [class]="class">
+  <label>{{ 'Labels.Type' | translate }}</label>
+  <span>{{type}}</span>
+</div>
+
+<div *ngIf="type !== '' && description !== ''">
+  <span class="info-description">{{description}}</span>
+</div>

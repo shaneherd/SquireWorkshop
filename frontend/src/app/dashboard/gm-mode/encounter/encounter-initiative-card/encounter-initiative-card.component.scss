@@ -1,0 +1,106 @@
+.creature-initiative-card {
+  position: relative;
+  border-bottom: 1px solid #ffffff;
+
+  &.active {
+    background-color: #ffffff;
+    color: #000000;
+
+    .battle-creature-name {
+      font-weight: bold;
+    }
+  }
+
+  .basic-details {
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+    .battle-creature-name {
+      padding-left: 20px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      flex-grow: 1;
+    }
+
+    .tags-container {
+      flex-shrink: 0;
+      padding-right: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .tag {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      &.active {
+        padding-right: 0;
+      }
+    }
+
+    .buttons-container {
+      flex-shrink: 0;
+      padding-right: 10px;
+    }
+  }
+
+  &.first-card {
+    .fa-caret-right {
+      padding-left: 5px;
+    }
+
+    .battle-creature-name {
+      padding-left: 7px !important;
+    }
+  }
+
+  .battle-creature-details {
+    padding: 0 20px 16px 40px;
+    margin-top: -8px;
+  }
+
+  .hp-row {
+    .monster-number {
+      margin-right: 5px;
+    }
+
+    .creature-hp {
+      text-decoration: underline;
+    }
+  }
+
+  .hp-progress-container {
+    margin: -12px 20px 8px 20px;
+  }
+}
+
+.label {
+  margin-right: 10px;
+}
+
+.hp-row-grouped-initiative {
+  margin-left: -28px;
+  display: flex;
+  flex-direction: row;
+
+  .hp-row {
+    flex-grow: 1;
+  }
+}
+
+.menu-action-icon {
+  margin-right: 10px;
+}
+
+.creature-speed-type {
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.more-vert {
+  color: #000000;
+}

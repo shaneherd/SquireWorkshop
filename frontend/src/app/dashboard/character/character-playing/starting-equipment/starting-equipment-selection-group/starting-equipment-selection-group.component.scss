@@ -1,0 +1,35 @@
+.starting-equipment-selection-group {
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+
+  .header {
+    display: flex;
+
+    .group-label {
+      flex-grow: 1;
+    }
+
+    .expansion-icon {
+      margin-left: 20px;
+      flex-shrink: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .items-container {
+    margin-left: 26px;
+  }
+
+  .option-container {
+    margin-top: 5px;
+  }
+}
+
+.secondary-display-name {
+  font-size: 12px;
+  font-style: italic;
+}

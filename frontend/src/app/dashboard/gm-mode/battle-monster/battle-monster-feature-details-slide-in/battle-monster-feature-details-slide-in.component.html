@@ -1,0 +1,17 @@
+<app-details [headerName]="feature.powerName"
+             [configurable]="false"
+             [loading]="loading"
+             (close)="closeDetails()"
+             [primaryActions]="primaryActions"
+             [primaryCloseOnClick]="false"
+             [primaryExtraCloseOnClick]="false"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             (tertiary)="tertiaryClick()"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryLabel]="tertiaryLabel">
+  <app-battle-monster-feature-details *ngIf="monsterFeature != null"
+                                      [battleMonsterFeature]="feature"
+                                      [feature]="monsterFeature">
+  </app-battle-monster-feature-details>
+</app-details>

@@ -1,0 +1,39 @@
+<span>{{ 'SpeedType.' + speed.speedType | translate }}</span>
+
+<div class="calculations">
+  <div>
+    <label>{{ 'Labels.Base' | translate }}</label>
+    <span [matTooltip]="baseTooltip">{{base}}</span>
+  </div>
+
+  <div *ngFor="let modifier of speed.modifiersDisplay;">
+    <app-label-value [labelValue]="modifier"></app-label-value>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.Misc' | translate }}</label>
+    <span *ngIf="!configuring">{{speed.misc}}</span>
+    <input *ngIf="configuring"
+           type="number"
+           class="form-control"
+           min="0" max="99"
+           appInputNumber minValue="0" maxValue="99"
+           [ngModel]="speed.misc"
+           (valueChange)="miscChange($event)"/>
+  </div>
+
+  <div *ngFor="let penalty of speed.penaltyDisplays;">
+    <span>{{penalty}}</span>
+  </div>
+
+  <div class="form-group">
+    <label class="font-weight-bold">{{ 'Labels.Total' | translate }}</label>
+    <span>{{total}}</span>
+  </div>
+
+  <app-speed-setting *ngIf="configuring && characterSpeedSetting != null"
+                     [characterSpeedSetting]="characterSpeedSetting"
+                     (halfChange)="useHalfChange()"
+                     (roundUpChange)="roundUpChange()">
+  </app-speed-setting>
+</div>

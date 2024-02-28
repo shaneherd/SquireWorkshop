@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="condition.name"
+                         [loading]="loading"
+                         [selected]="condition.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-condition-details *ngIf="viewingCondition != null"
+                         [condition]="viewingCondition">
+  </app-condition-details>
+</app-add-remove-slide-in>

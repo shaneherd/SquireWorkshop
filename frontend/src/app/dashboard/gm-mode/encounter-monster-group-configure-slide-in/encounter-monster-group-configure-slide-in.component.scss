@@ -1,0 +1,38 @@
+input {
+  width: 70px;
+  display: inline;
+}
+
+.delete-icon {
+  margin-left: 10px;
+}
+
+.setup-row-header,
+.setup-row {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  height: 48px;
+  border-top: 1px solid #ffffff;
+
+  .monster-number {
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .input-column {
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+}
+
+.setup-row-header {
+  height: 30px;
+  border: 0;
+}
+
+.monster-container {
+  border-top: 1px solid #ffffff;
+  padding-top: 10px;
+}

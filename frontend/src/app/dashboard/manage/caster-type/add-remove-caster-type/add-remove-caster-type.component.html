@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="casterType.name"
+                         [loading]="loading"
+                         [selected]="casterType.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-caster-type-details *ngIf="viewingCasterType != null"
+                           [casterType]="viewingCasterType">
+  </app-caster-type-details>
+</app-add-remove-slide-in>

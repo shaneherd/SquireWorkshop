@@ -1,0 +1,11 @@
+<app-add-remove-slide-in [headerName]="monster.name"
+                         [loading]="loading"
+                         [selected]="monster.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-monster-details *ngIf="viewingMonster != null"
+                       [monster]="viewingMonster"
+                       [features]="monsterFeatures"
+                       [actions]="monsterActions">
+  </app-monster-details>
+</app-add-remove-slide-in>

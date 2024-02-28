@@ -1,0 +1,85 @@
+<div class="import-container">
+  <div class="import-content">
+    <div class="header-content">
+      <app-slide-in-header headerName="{{ 'Import' | translate }}"></app-slide-in-header>
+      <div class="menu-divider"></div>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+    </div>
+
+    <div class="slide-in-content-data-full-height">
+      <div class="content-container col-xl-6 col-lg-12">
+        <div class="form-group choose-file-container" *ngIf="filename === '' || filename == null">
+          <div>
+            <div class="form-group">{{ 'Imports.Message.Instructions' | translate }}</div>
+            <div *ngIf="!this.isDesktop" class="form-group">{{ 'Imports.Message.Mobile' | translate }}</div>
+            <div>
+              <button type="button"
+                      #fileInput
+                      (click)="hiddenFileInput.click()"
+                      class="squire-button btn btn-secondary">
+                {{ 'Imports.ChooseFile' | translate }}
+              </button>
+            </div>
+          </div>
+          <input type="file"
+                 style="display: none"
+                 #hiddenFileInput
+                 (change)="handleFileInput($event.target.files)">
+        </div>
+
+        <h4 *ngIf="filename != null && filename !== ''" class="filename">{{filename}}</h4>
+
+        <app-import-category *ngFor="let group of groups"
+                             [category]="group.category"
+                             [configs]="group.configs"
+                             [parent]="group.parent"
+                             (view)="viewConfig($event)"
+                             (linkClick)="onLinkClick($event)"
+                             (selectedActionChange)="selectedActionChange()"
+                             (actionClick)="selectedActionChange()"
+                             (toggleExpanded)="toggleExpand($event)">
+        </app-import-category>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-12 action-buttons-container" *ngIf="filename != null && filename !== ''">
+      <div class="action-buttons">
+        <div class="action-button" *ngIf="!allComplete">
+          <button *ngIf="!hasErrors" type="button" (click)="continue()" class="squire-button btn btn-primary">
+            {{ 'Continue' | translate }}
+          </button>
+          <button *ngIf="hasErrors" type="button" (click)="continue()" class="squire-button btn btn-primary">
+            {{ 'Retry' | translate }}
+          </button>
+        </div>
+
+        <div class="action-button" *ngIf="allComplete">
+          <button type="button" (click)="newImport()" class="squire-button btn btn-secondary">
+            {{ 'NewImport' | translate }}
+          </button>
+        </div>
+
+        <div class="action-button" *ngIf="!allComplete">
+          <button *ngIf="!hasComplete" type="button" (click)="cancel()" class="squire-button btn btn-danger">
+            {{ 'Cancel' | translate }}
+          </button>
+          <button *ngIf="hasComplete" type="button" (click)="cancel()" class="squire-button btn btn-danger">
+            {{ 'CancelRemaining' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-compare-import *ngIf="viewingConfig != null"
+                    [config]="viewingConfig"
+                    (save)="saveConfig()"
+                    (close)="closeConfig()">
+</app-compare-import>
+
+<app-link-import *ngIf="viewingLink != null"
+                 [config]="viewingLink"
+                 (saveLink)="saveLink()"
+                 (close)="closeLink()">
+</app-link-import>

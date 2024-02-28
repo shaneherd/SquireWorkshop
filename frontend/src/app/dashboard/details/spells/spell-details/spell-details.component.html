@@ -1,0 +1,150 @@
+<div [ngClass]="{'details': onDark}" *ngIf="spell != null">
+  <div>
+    <label>{{ 'Labels.LevelLabel' | translate }}</label>
+    <span>{{selectedLevel}}</span>
+  </div>
+
+  <!--School-->
+  <div>
+    <label>{{ 'Labels.School' | translate }}</label>
+    <span>{{spell.spellSchool.name}}</span>
+    <mat-icon *ngIf="showHelp && spell.spellSchool.id !== '0' && spell.spellSchool.description.length > 0"
+              matTooltip="{{spell.spellSchool.description}}"
+              class="help-icon">
+      info
+    </mat-icon>
+  </div>
+
+  <!--ritual-->
+  <div *ngIf="spell.ritual">
+    <span>{{ 'Headers.Ritual' | translate }}</span>
+  </div>
+
+  <!--Casting Time-->
+  <div class="casting-time">
+    <label>{{ 'Labels.CastingTime' | translate }}</label>
+    <span [translate]="'CastingTimeUnit.Count.' + spell.castingTimeUnit"
+          [translateParams]="{count: spell.castingTime}"></span>
+  </div>
+
+  <!--range-->
+  <div *ngIf="!isOther() || spell.range > 0">
+    <label>{{ 'Labels.Range' | translate }}</label>
+    <span *ngIf="!isOther()">
+            {{ 'RangeType.' + spell.rangeType?.toString() | translate }}
+          </span>
+    <span *ngIf="isOther()" [translate]="'RangeValue.' + spell.rangeUnit"
+          [translateParams]="{value: spell.range}"></span>
+  </div>
+
+  <!--Area of Effect-->
+  <app-area-of-effect-selection [editing]="false"
+                                [lightIcon]="true"
+                                [showHelp]="showHelp"
+                                [powerAreaOfEffect]="spell.powerAreaOfEffect">
+  </app-area-of-effect-selection>
+
+  <!--components-->
+  <div *ngIf="components.length > 0">
+    <label>{{ 'Labels.Components' | translate }}</label>
+    <span>{{components}}</span>
+    <div *ngIf="spell.components.length > 0" class="components">{{spell.components}}</div>
+  </div>
+
+  <!--duration-->
+  <div class="form-group" *ngIf="duration.length > 0">
+    <label>{{ 'Labels.Duration' | translate }}</label>
+    <span>{{duration}}</span>
+  </div>
+
+  <div class="form-group" *ngIf="showSlots">
+    <label>{{ 'Labels.ChooseSlot' | translate }}</label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedSlot"
+                  (selectionChange)="selectedSlotChange($event.value)"
+                  [disabled]="slotDisabled">
+        <mat-option *ngFor="let slot of slots" [value]="slot" [disabled]="slot > 0 && slot < creatureSpell.spell.level">
+          {{slot == 0 ? dontUse : slot}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="showSlotsRemaining && selectedSlot > 0 && !slotDisabled" class="slots-remaining">
+      <label>{{ 'Labels.SlotsRemaining' | translate }}</label>
+      <span>{{slotsRemaining}}</span>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="!showSlots && magicalItemSpellConfiguration != null && magicalItemSpellConfiguration.allowCastingAtHigherLevel">
+    <label *ngIf="magicalItemSpellConfiguration.allowCastingAtHigherLevel">
+      {{ 'Labels.ChooseLevel' | translate }}
+    </label>
+    <mat-form-field *ngIf="magicalItemSpellConfiguration.allowCastingAtHigherLevel">
+      <mat-select [(ngModel)]="selectedSlot"
+                  (selectionChange)="selectedSlotChange($event.value)"
+                  [disabled]="slotDisabled">
+        <mat-option *ngFor="let slot of slots" [value]="slot">
+          {{slot == 0 ? dontUse : slot}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <ng-container *ngIf="showCharges">
+      <div *ngIf="selectedSlot > 0 && !slotDisabled">
+        <label>{{ 'Labels.ChargeCost' | translate }}</label>
+        <span>{{chargeCost}}</span>
+      </div>
+
+      <div *ngIf="selectedSlot > 0 && !slotDisabled">
+        <label>{{ 'Labels.ChargesRemaining' | translate }}</label>
+        <span>{{creatureItem.chargesRemaining}}/{{creatureItem.maxCharges}}</span>
+      </div>
+    </ng-container>
+  </div>
+
+  <!--  Damages-->
+  <app-power-damage-display *ngIf="slotDamageConfigurationCollection != null"
+                            [damageConfigurationCollection]="slotDamageConfigurationCollection"
+                            [isSpell]="true"
+                            [baseLevel]="spell.level"
+                            [characterLevel]="characterLevel">
+  </app-power-damage-display>
+
+  <!--  Modifiers-->
+  <app-power-modifier-display *ngIf="slotModifierConfigurationCollection != null"
+                              [modifierConfigurationCollection]="slotModifierConfigurationCollection"
+                              [isSpell]="true"
+                              [characterLevel]="characterLevel">
+  </app-power-modifier-display>
+
+  <!--Description-->
+  <div class="form-group" *ngIf="spell.description.length > 0">
+    <label>{{ 'Labels.Description' | translate }}</label>
+    <span class="info-description">{{spell.description}}</span>
+  </div>
+
+  <!--Higher Levels-->
+  <div class="form-group" *ngIf="spell.higherLevels.length > 0">
+    <label>{{ 'Labels.HigherLevels' | translate }}</label>
+    <span class="info-description">{{spell.higherLevels}}</span>
+  </div>
+
+  <!--  Tags-->
+  <div class="form-group" *ngIf="spellListObject != null && creature != null">
+    <label>{{ 'Labels.Tags' | translate }}</label>
+    <i class="fas fa-edit" (click)="editTags()"></i>
+    <div class="spell-tags">
+      <app-tag-details [tags]="spellListObject.tags">
+      </app-tag-details>
+    </div>
+  </div>
+
+  <app-power-tagging-configuration-slide-in *ngIf="editingTags"
+                                            [creature]="creature"
+                                            [powerId]="spell.id"
+                                            [tags]="creature.creatureSpellCasting.tags"
+                                            [selectedTags]="spellListObject.tags"
+                                            (save)="saveTags($event)"
+                                            (close)="closeTags()">
+  </app-power-tagging-configuration-slide-in>
+</div>

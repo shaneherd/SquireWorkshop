@@ -1,0 +1,45 @@
+<div class="form-group">
+  <ng-container *ngFor="let config of spellConfigurationCollection.spellConfigurations">
+    <mat-card *ngIf="displayParentSpells || config.parent == null"
+              class="clickable"
+              [ngClass]="{'disabled': configuringItem != null || addingSpells}"
+              (click)="spellClick(config)">
+      <span>{{config.parent == null ? config.spell.name : config.parent.spell.name}}</span>
+      <div class="tags-container">
+
+        <span class="tag borderless" matTooltip="{{ 'AlwaysPrepared' | translate }}" *ngIf="config.alwaysPrepared">
+          <i class="far fa-bookmark"></i>
+        </span>
+        <span class="tag borderless" matTooltip="{{ 'DoesntCountTowardsPrepared' | translate }}" *ngIf="!config.countTowardsPrepared">
+          <i class="fas fa-ban"></i>
+        </span>
+        <span class="tag" *ngIf="config.levelGained != null && config.levelGained.id !== '0'">
+          {{config.levelGained.name}}
+        </span>
+      </div>
+    </mat-card>
+  </ng-container>
+
+  <mat-card class="add-item-card clickable"
+            *ngIf="!editing && !isPublic && !isShared"
+            [ngClass]="{'disabled': configuringItem != null || addingSpells}"
+            (click)="addSpells()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'Headers.AddSpells' | translate }}</span>
+  </mat-card>
+</div>
+
+<app-single-spell-configuration *ngIf="configuringItem != null"
+                                [editing]="configuringItem.parent == null && configuringItem.author && !editing"
+                                (continue)="updateSpellConfiguration($event)"
+                                (remove)="deleteSpell($event)"
+                                (close)="cancelConfiguration()"
+                                [spellConfigurationCollectionItem]="configuringItem"
+                                [levels]="spellConfigurationCollection.levels">
+</app-single-spell-configuration>
+
+<app-add-spells *ngIf="addingSpells"
+                [spellConfigurationCollection]="spellConfigurationCollection"
+                (close)="cancelAddSpells()"
+                (continue)="continueAddSpells($event)">
+</app-add-spells>

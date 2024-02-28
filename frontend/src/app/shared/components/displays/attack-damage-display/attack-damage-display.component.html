@@ -1,0 +1,32 @@
+<div class="display-section"
+     *ngIf="damageConfigurationCollection != null && (damageConfigurationCollection.attackMod !== 0 || damageConfigurationCollection.damageConfigurations.length > 0)">
+  <!--  Attack-->
+  <div *ngIf="damageConfigurationCollection.attackMod !== 0">
+    <label>{{ 'Labels.Attack' | translate }}</label>
+    <span [matTooltip]="damageConfigurationCollection.attackModTooltip">
+      + {{damageConfigurationCollection.attackMod}}
+    </span>
+  </div>
+
+  <!--Damages-->
+  <div *ngIf="damageConfigurationCollection.damageConfigurations.length > 0">
+    <label>{{ 'Labels.Damages' | translate }}</label>
+    <div *ngFor="let config of damageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+      <app-damage-configuration-display [config]="config"
+                                        [disabled]="true"
+                                        [first]="i === 0">
+      </app-damage-configuration-display>
+    </div>
+  </div>
+
+  <!--Versatile Damages-->
+  <div *ngIf="versatileDamageConfigurationCollection != null && versatileDamageConfigurationCollection.damageConfigurations.length > 0" class="versatile-damages">
+    <label>{{ 'Labels.VersatileDamages' | translate }}</label>
+    <div *ngFor="let config of versatileDamageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+      <app-damage-configuration-display [config]="config"
+                                        [disabled]="true"
+                                        [first]="i === 0">
+      </app-damage-configuration-display>
+    </div>
+  </div>
+</div>

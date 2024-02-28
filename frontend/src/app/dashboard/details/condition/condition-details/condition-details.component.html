@@ -1,0 +1,10 @@
+<div class="form-group">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span *ngIf="condition.description.length > 0" class="info-description">{{condition.description}}</span>
+  <span *ngIf="condition.description.length === 0" class="info-description">{{ 'NoDescription' | translate }}</span>
+</div>
+
+<app-connecting-conditions-configuration [editing]="false"
+                                         [loading]="false"
+                                         [connectingConditionsCollection]="connectingConditionCollection">
+</app-connecting-conditions-configuration>

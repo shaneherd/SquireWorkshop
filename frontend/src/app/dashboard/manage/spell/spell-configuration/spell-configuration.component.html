@@ -1,0 +1,39 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.Spellcasting' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon matTooltip="{{ 'Tooltips.Spellcasting' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div class="spellcasting-ability-container">
+    <label>{{ 'Navigation.Manage.Spells.SpellcastingAbility' | translate }}</label>
+    <span *ngIf="!editing">{{spellConfigurationCollection.spellcastingAbility === '0' ? noAbility : getAbility(spellConfigurationCollection.spellcastingAbility)?.name}}</span>
+    <div *ngIf="editing">
+      <mat-form-field id="parentBackground" class="">
+        <mat-select [(ngModel)]="spellConfigurationCollection.spellcastingAbility"
+                    (selectionChange)="spellcastingAbilityChange($event.value)">
+          <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+            {{ability.id === '0' ? noAbility : ability.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-icon matTooltip="{{ 'Tooltips.SpellcastingAbility' | translate }}" class="help-icon">
+        help
+      </mat-icon>
+    </div>
+  </div>
+
+  <app-spell-configuration-list [editing]="editing"
+                                (configListUpdated)="handleConfigListUpdated()"
+                                [characteristic]="characteristic"
+                                [spellConfigurationCollection]="spellConfigurationCollection">
+  </app-spell-configuration-list>
+
+</mat-expansion-panel>

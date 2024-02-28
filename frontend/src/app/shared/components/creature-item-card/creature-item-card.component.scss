@@ -1,0 +1,39 @@
+@import '../../../sass/variables';
+
+.nested-items {
+  margin-left: 20px;
+}
+
+.equipment-slot {
+  margin-left: 10px;
+}
+
+.creature-item-row {
+  display: flex;
+  flex-direction: row;
+
+  .item-name {
+    flex-grow: 1;
+  }
+
+  .tags-container,
+  .equipment-slot {
+    flex-shrink: 0;
+  }
+}
+
+.quantity {
+  background-color: $list_background;
+  color: #ffffff;
+  padding: 0 5px;
+}
+
+.expansion-icon {
+  margin-left: 20px;
+}
+
+.no-uses-remaining {
+  background-color: $skill_with_disadvantage_background;
+  color: white;
+  border-color: #000000;
+}

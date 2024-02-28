@@ -1,0 +1,12 @@
+@import '../../../../sass/variables';
+
+.quantity {
+  background-color: $list_background;
+  color: #ffffff;
+  padding: 0 5px;
+}
+
+.on-dark .quantity {
+  background-color: transparent;
+  border-color: #ffffff;
+}

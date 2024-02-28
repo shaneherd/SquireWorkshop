@@ -1,0 +1,17 @@
+<div class="form-group">
+  <span>{{choiceOptions.inheritedFrom.name}}:</span>
+  <span class="chosen-count">({{getQuantityChosen()}}/{{choiceOptions.quantity}})</span>
+  <i class="material-icons"
+     [ngClass]="getQuantityChosen() < choiceOptions.quantity ? 'text-danger' : 'text-success'">
+    {{ getQuantityChosen() < choiceOptions.quantity ? 'cancel' : 'check_circle' }}
+  </i>
+
+  <div *ngFor="let option of choiceOptions.items;" class="choice-options">
+    <div *ngIf="showOption(option)">
+      <span [ngClass]="isChosen(option) ? 'chosen' : ''">
+        {{option.name}}
+      </span>
+    </div>
+  </div>
+
+</div>

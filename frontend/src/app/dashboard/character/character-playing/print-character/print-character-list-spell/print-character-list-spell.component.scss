@@ -1,0 +1,14 @@
+.list-spell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.list-spell-prepared {
+  flex-shrink: 0;
+  margin-right: 5px;
+}
+
+.list-spell-name {
+  flex-grow: 1;
+}

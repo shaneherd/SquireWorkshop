@@ -1,0 +1,67 @@
+.delete-config {
+  float: right;
+  margin: auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.configure-config {
+  float: right;
+  margin: auto 10px auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.modifiers {
+  margin-left: 20px;
+}
+
+.add-modifiers-container {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.add-modifier {
+  margin: 0 auto;
+  display:block;
+}
+
+.num-levels-above-base {
+  input {
+    width: 70px;
+    display: inline;
+    margin: 0 5px;
+  }
+
+  .extra-per {
+    margin-right: 5px;
+  }
+
+  .levels-above-base {
+    margin-left: 5px;
+  }
+}
+
+.modifier-details {
+  margin-left: 10px;
+}

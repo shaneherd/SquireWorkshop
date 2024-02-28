@@ -1,0 +1,6 @@
+<app-dialog [title]="data.notifications[0].title"
+            primaryLabel="{{ 'Ok' | translate }}"
+            (primary)="confirm()"
+            (close)="confirm()">
+  <span [innerHTML]="data.notifications[0].message"></span>
+</app-dialog>

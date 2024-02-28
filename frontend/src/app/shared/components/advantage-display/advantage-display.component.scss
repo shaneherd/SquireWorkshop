@@ -1,0 +1,16 @@
+@import '../../../sass/variables';
+
+.advantage {
+  background-color: $skill_with_advantage_background;
+}
+
+.disadvantage {
+  background-color: $skill_with_disadvantage_background;
+}
+
+.advantage,
+.disadvantage {
+  span {
+    color: #ffffff;
+  }
+}

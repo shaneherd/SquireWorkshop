@@ -1,0 +1,73 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!areaOfEffect.author"
+               [itemName]="itemName"
+               [id]="areaOfEffect.id"
+               [inUseService]="attributeService"
+               [showShare]="areaOfEffect.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               type="{{ 'AttributeType.AREA_OF_EFFECT' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="areaOfEffectForm"
+        (submit)="save()">
+    <div class="form-group">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <span *ngIf="!editing && areaOfEffect?.id !== '0'">{{areaOfEffect.name}}</span>
+      <input formControlName="name" *ngIf="editing" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="editing || areaOfEffect.radius">
+      <mat-checkbox
+        (change)="radiusChange($event)"
+        [disabled]="!editing"
+        [checked]="areaOfEffect.radius">
+      </mat-checkbox>
+      <span>{{ 'Radius' | translate }}</span>
+    </div>
+
+    <div class="form-group" *ngIf="editing || areaOfEffect.width">
+      <mat-checkbox
+        (change)="widthChange($event)"
+        [disabled]="!editing"
+        [checked]="areaOfEffect.width">
+      </mat-checkbox>
+      <span>{{ 'Width' | translate }}</span>
+    </div>
+
+    <div class="form-group" *ngIf="editing || areaOfEffect.height">
+      <mat-checkbox
+        (change)="heightChange($event)"
+        [disabled]="!editing"
+        [checked]="areaOfEffect.height">
+      </mat-checkbox>
+      <span>{{ 'Height' | translate }}</span>
+    </div>
+
+    <div class="form-group" *ngIf="editing || areaOfEffect.length">
+      <mat-checkbox
+        (change)="lengthChange($event)"
+        [disabled]="!editing"
+        [checked]="areaOfEffect.length">
+      </mat-checkbox>
+      <span>{{ 'Length' | translate }}</span>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (areaOfEffect?.id !== '0' && areaOfEffect.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && areaOfEffect?.id !== '0'" class="info-description">{{areaOfEffect.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

@@ -1,0 +1,11 @@
+<mat-progress-bar mode="determinate"
+                  class="tiered-progress-bar"
+                  [ngClass]="{
+                    'level-0': level === 0,
+                    'level-1': level === 1,
+                    'level-2': level === 2,
+                    'level-3': level === 3
+                  }"
+                  [value]="progress"
+                  [matTooltip]="tooltip">
+</mat-progress-bar>

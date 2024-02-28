@@ -1,0 +1,33 @@
+.message-container,
+.ignore-container {
+  margin-bottom: 10px;
+}
+
+.subclass {
+  font-style: italic;
+}
+
+.warning-item {
+  .divider {
+    margin: 5px 0;
+  }
+
+  .ignore-toggle {
+    flex-shrink: 0;
+  }
+
+  .ignore-card {
+    flex-grow: 1;
+  }
+
+  .title-container {
+    .go-to-page {
+      float: right;
+    }
+  }
+
+  .page-number {
+    margin-left: 5px;
+    font-size: 14px;
+  }
+}

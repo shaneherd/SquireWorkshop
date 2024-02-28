@@ -1,0 +1,424 @@
+<!--type-->
+<div class="form-group">
+  <label>{{ 'Labels.Type' | translate }}</label>
+  <span *ngIf="!editing">{{ 'MagicalItemType.' + magicalItem.magicalItemType | translate }}</span>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="magicalItem.magicalItemType"
+                  [disabled]="magicalItem.id !== '0'"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="magicalItemTypeChange($event.value)">
+        <mat-option *ngFor="let magicalItemType of types" [value]="magicalItemType">
+          {{ 'MagicalItemType.' + magicalItemType | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<ng-container *ngIf="(isWeapon || isAmmo || isArmor) && (editing || applicableTypes.length > 0)")>
+  <label>{{ 'MagicalItemTypeLabel.' + magicalItem.magicalItemType + '.Applicable' | translate }}</label>
+  <div class="form-group">
+    <!--applicable types-->
+    <div *ngFor="let config of applicableTypes">
+      <mat-card [ngClass]="{'clickable': !disabled}"
+                (click)="typeClick(config)">
+        <span>{{config.display}}</span>
+      </mat-card>
+    </div>
+
+    <mat-card class="add-item-card clickable"
+              *ngIf="editing"
+              [ngClass]="{'disabled': disabled}"
+              (click)="addType()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+<!--      <span>{{ 'MagicalItemTypeLabel. ' + magicalItem.magicalItemType + '.Add' | translate }}</span>-->
+      <span>{{ 'Headers.AddFilter' | translate }}</span>
+    </mat-card>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isWeapon || isAmmo">
+  <!--attack mod-->
+  <div class="display-section" *ngIf="editing || magicalItem.attackMod !== 0">
+    <label>{{ 'Labels.AttackMod' | translate }}</label>
+    <span *ngIf="!editing">+ {{magicalItem.attackMod}}</span>
+    <input *ngIf="editing" type="number" class="form-control attack-mod"
+           min="0" max="99"
+           appInputNumber minValue="0" maxValue="99"
+           [ngModel]="magicalItem.attackMod"
+           (valueChange)="attackModChange($event)"/>
+  </div>
+
+  <div class="display-section" *ngIf="editing || magicalItem.damages.length > 0">
+    <app-magical-item-damage-configuration [magicalItem]="magicalItem"
+                                           [abilities]="abilities"
+                                           [editing]="editing"
+                                           [disabled]="disabled"
+                                           [showAllAsAdditional]="true"
+                                           [showAttackType]="false"
+                                           [showAttackMod]="false">
+    </app-magical-item-damage-configuration>
+  </div>
+</ng-container>
+
+<!--ac mod-->
+<div *ngIf="isArmor && (editing || magicalItem.acMod !== 0)" class="form-group">
+  <label>{{ 'Labels.AcMod' | translate }}</label>
+  <span *ngIf="!editing">+ {{magicalItem.acMod}}</span>
+  <input *ngIf="editing" type="number" class="form-control ac-mod"
+         min="0" max="99"
+         appInputNumber minValue="0" maxValue="99"
+         [ngModel]="magicalItem.acMod"
+         (valueChange)="acModChange($event)"/>
+</div>
+
+<div *ngIf="isScroll">
+  <!--  spells-->
+  <label>{{ 'MagicalItemTypeLabel.SCROLL.Applicable' | translate }}</label>
+  <div class="form-group">
+    <app-magical-item-spells [magicalItem]="magicalItem"
+                             [listSource]="listSource"
+                             [editing]="editing"
+                             [disabled]="disabled">
+    </app-magical-item-spells>
+  </div>
+</div>
+
+<!--Attack Type-->
+<div class="form-group" *ngIf="isWondrous || isPotion || isRing">
+  <app-magical-item-damage-configuration [magicalItem]="magicalItem"
+                                         [abilities]="abilities"
+                                         [editing]="editing"
+                                         [disabled]="disabled">
+  </app-magical-item-damage-configuration>
+</div>
+
+<!--rarity-->
+<div class="form-group">
+  <label>{{ 'Labels.Rarity' | translate }}</label>
+  <span *ngIf="!editing">{{ 'Rarity.' + magicalItem.rarity | translate }}</span>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="magicalItem.rarity"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="rarityChange($event.value)">
+        <mat-option *ngFor="let rarity of rarities" [value]="rarity">
+          {{ 'Rarity.' + rarity | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<ng-container *ngIf="isWondrous">
+  <!--Expendable-->
+  <app-is-expendable-configuration [item]="magicalItem"
+                                   [editing]="editing">
+  </app-is-expendable-configuration>
+
+  <!--Equippable-->
+  <app-is-equippable-configuration [item]="magicalItem"
+                                   [editing]="editing">
+  </app-is-equippable-configuration>
+
+  <!--Is Container-->
+  <app-is-container-configuration [item]="magicalItem"
+                                  [editing]="editing">
+  </app-is-container-configuration>
+</ng-container>
+
+<!--attunement-->
+<ng-container *ngIf="!isPotion && !isScroll && !isAmmo">
+  <div *ngIf="editing || magicalItem.requiresAttunement">
+    <mat-checkbox
+      (change)="attunementChange($event)"
+      [disabled]="!editing"
+      [checked]="magicalItem.requiresAttunement">
+    </mat-checkbox>
+    <span>{{ 'RequiresAttunement' | translate }}</span>
+  </div>
+
+  <div class="form-group" *ngIf="magicalItem.requiresAttunement">
+    <label>{{ 'Labels.AttuneableBy' | translate }}</label>
+    <span *ngIf="!editing && !isAttunementClass">
+        {{ 'MagicalItemAttunementType.' + magicalItem.attunementType | translate }}
+      </span>
+
+    <div class="form-group" *ngIf="editing">
+      <mat-button-toggle-group [ngModel]="magicalItem.attunementType"
+                               (change)="attunementTypeChange($event.value)">
+        <mat-button-toggle *ngFor="let attunementType of attunementTypes"
+                           [value]="attunementType">
+          {{ 'MagicalItemAttunementType.' + attunementType | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div *ngIf="isAttunementClass">
+      <div *ngFor="let attunementClass of magicalItem.attunementClasses">
+        <mat-card [ngClass]="{'clickable': !disabled}"
+                  (click)="attunementClassClick(attunementClass)">
+          <span>{{attunementClass.name}}</span>
+        </mat-card>
+      </div>
+
+      <mat-card class="add-item-card clickable"
+                *ngIf="editing"
+                [ngClass]="{'disabled': disabled}"
+                (click)="addAttunementClass()">
+        <i class="fas fa-plus add-item-card-icon"></i>
+        <span>{{ 'Navigation.Manage.Classes.Add' | translate }}</span>
+      </mat-card>
+    </div>
+
+    <div *ngIf="isAttunementAlignment">
+      <div *ngFor="let attunementAlignment of magicalItem.attunementAlignments">
+        <mat-card [ngClass]="{'clickable': !disabled}"
+                  (click)="attunementAlignmentClick(attunementAlignment)">
+          <span>{{attunementAlignment.name}}</span>
+        </mat-card>
+      </div>
+
+      <mat-card class="add-item-card clickable"
+                *ngIf="editing"
+                [ngClass]="{'disabled': disabled}"
+                (click)="addAttunementAlignment()">
+        <i class="fas fa-plus add-item-card-icon"></i>
+        <span>{{ 'Navigation.Manage.Alignments.Add' | translate }}</span>
+      </mat-card>
+    </div>
+
+    <div *ngIf="isAttunementRace">
+      <div *ngFor="let attunementRace of magicalItem.attunementRaces">
+        <mat-card [ngClass]="{'clickable': !disabled}"
+                  (click)="attunementRaceClick(attunementRace)">
+          <span>{{attunementRace.name}}</span>
+        </mat-card>
+      </div>
+
+      <mat-card class="add-item-card clickable"
+                *ngIf="editing"
+                [ngClass]="{'disabled': disabled}"
+                (click)="addAttunementRace()">
+        <i class="fas fa-plus add-item-card-icon"></i>
+        <span>{{ 'Navigation.Manage.Races.Add' | translate }}</span>
+      </mat-card>
+    </div>
+  </div>
+</ng-container>
+
+<!--Cost-->
+<app-cost-configuration [item]="magicalItem"
+                        [editing]="editing">
+</app-cost-configuration>
+
+<!--Weight-->
+<ng-container *ngIf="isWeapon || isAmmo || isArmor">
+  <ng-container *ngIf="editing">
+    <app-weight-configuration [item]="magicalItem"
+                              [editing]="editing">
+    </app-weight-configuration>
+
+    <div class="form-group" *ngIf="magicalItem.weight === 0">{{ 'MagicalItemConfiguration.InheritedWeightIfZero' | translate }}</div>
+  </ng-container>
+
+  <ng-container *ngIf="!editing">
+    <label>{{ 'Labels.Weight' | translate }}</label>
+    <span *ngIf="magicalItem.weight !== 0" translate="WeightValue"
+          [translateParams]="{value: magicalItem.weight}"></span>
+    <span *ngIf="magicalItem.weight === 0">{{ 'MagicalItemConfiguration.WeightInherited' | translate }}</span>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="!isWeapon && !isAmmo && !isArmor">
+  <app-weight-configuration [item]="magicalItem"
+                            [editing]="editing">
+  </app-weight-configuration>
+</ng-container>
+
+<!--Description-->
+<app-description-configuration [item]="magicalItem"
+                               [editing]="editing"
+                               [maxLength]="10000">
+</app-description-configuration>
+
+<!--table-->
+<div>
+  <div class="form-group" *ngIf="magicalItem.tables.length > 0">
+    <app-magic-item-table [table]="magicalItem.tables[0]">
+    </app-magic-item-table>
+  </div>
+
+  <mat-card class="add-item-card clickable form-group"
+            *ngIf="editing && magicalItem.tables.length === 0"
+            [ngClass]="{'disabled': disabled}"
+            (click)="addTable()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'Headers.AddTable' | translate }}</span>
+  </mat-card>
+
+  <mat-card class="add-item-card clickable form-group"
+            *ngIf="editing && magicalItem.tables.length === 1"
+            [ngClass]="{'disabled': disabled}"
+            (click)="editTable()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'Headers.EditTable' | translate }}</span>
+  </mat-card>
+</div>
+
+<!--has charges-->
+<ng-container *ngIf="!isPotion && !isScroll">
+  <h4 *ngIf="editing || magicalItem.hasCharges">{{ 'Headers.Charges' | translate }}</h4>
+  <div class="form-group">
+    <div *ngIf="editing || magicalItem.hasCharges">
+      <mat-checkbox
+        (change)="hasChargesChange($event)"
+        [disabled]="!editing"
+        [checked]="magicalItem.hasCharges">
+      </mat-checkbox>
+      <span class="has-charges">{{ 'HasCharges' | translate }}</span>
+
+      <span *ngIf="magicalItem.hasCharges && !editing">{{magicalItem.maxCharges}}</span>
+      <input *ngIf="editing && magicalItem.hasCharges" type="number" class="form-control max-charges"
+             min="0" max="99"
+             appInputNumber minValue="0" maxValue="99"
+             [ngModel]="magicalItem.maxCharges"
+             (valueChange)="maxChargesChange($event)"/>
+    </div>
+
+    <ng-container *ngIf="magicalItem.hasCharges">
+      <!--rechargeable-->
+      <div *ngIf="editing || magicalItem.rechargeable">
+        <mat-checkbox
+          (change)="rechargeableChange($event)"
+          [disabled]="!editing"
+          [checked]="magicalItem.rechargeable">
+        </mat-checkbox>
+        <span>{{ 'Rechargeable' | translate }}</span>
+      </div>
+
+      <ng-container *ngIf="magicalItem.rechargeable">
+        <!--recharge rate-->
+        <div>
+          <label>{{ 'Labels.RechargeRate' | translate }}</label>
+          <app-dice-collection [editing]="editing"
+                               [diceCollection]="magicalItem.rechargeRate"
+                               [showAbility]="false"
+                               [diceSizes]="diceSizes">
+          </app-dice-collection>
+        </div>
+
+        <!--Reset Charges on Long Rest-->
+        <div *ngIf="editing || magicalItem.rechargeOnLongRest">
+          <mat-checkbox
+            (change)="rechargeOnLongRestChange($event)"
+            [disabled]="!editing"
+            [checked]="magicalItem.rechargeOnLongRest">
+          </mat-checkbox>
+          <span>{{ 'RechargeOnLongRest' | translate }}</span>
+        </div>
+
+        <!--chance of destruction-->
+        <div *ngIf="editing || magicalItem.chanceOfDestruction">
+          <mat-checkbox
+            (change)="chanceOfDestructionChange($event)"
+            [disabled]="!editing"
+            [checked]="magicalItem.chanceOfDestruction">
+          </mat-checkbox>
+          <span>{{ 'ChanceOfDestruction' | translate }}</span>
+
+          <mat-icon matTooltip="{{ 'Tooltips.ChanceOfDestruction' | translate }}" class="help-icon">
+            help
+          </mat-icon>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
+<!--spells-->
+<ng-container *ngIf="!isScroll && !isAmmo && (editing || magicalItem.spells.length > 0 || magicalItem.additionalSpells)">
+  <h4>{{ 'Headers.Spells' | translate }}</h4>
+  <div class="form-group">
+    <app-magical-item-spells [magicalItem]="magicalItem"
+                             [listSource]="listSource"
+                             [editing]="editing"
+                             [disabled]="disabled">
+    </app-magical-item-spells>
+  </div>
+</ng-container>
+
+<!--cursed-->
+<ng-container *ngIf="!isPotion && !isScroll">
+  <h4 *ngIf="editing || magicalItem.cursed">{{ 'Headers.Curse' | translate }}</h4>
+  <div *ngIf="editing || magicalItem.cursed" class="form-group">
+    <mat-checkbox
+      (change)="cursedChange($event)"
+      [disabled]="!editing"
+      [checked]="magicalItem.cursed">
+    </mat-checkbox>
+    <span>{{ 'Cursed' | translate }}</span>
+    <textarea [(ngModel)]="magicalItem.curseEffect" *ngIf="editing && magicalItem.cursed" class="form-control info-description" maxlength="500"> </textarea>
+    <span class="info-description" *ngIf="!editing && magicalItem.curseEffect">{{magicalItem.curseEffect}}</span>
+  </div>
+</ng-container>
+
+<!--todo - modifiers-->
+
+<app-magical-item-applicable-item-configuration *ngIf="applicableItem != null"
+                                                [newType]="!editingApplicableItem"
+                                                [editing]="editing"
+                                                [deletable]="applicableTypes.length > 1"
+                                                (continue)="updateType($event)"
+                                                (remove)="deleteType($event)"
+                                                (close)="cancelType()"
+                                                [magicalItemType]="magicalItem.magicalItemType"
+                                                [magicalItemApplicability]="applicableItem.magicalItemApplicability">
+</app-magical-item-applicable-item-configuration>
+
+<app-add-classes *ngIf="addingAttunementClasses"
+                 [classesToIgnore]="magicalItem.attunementClasses"
+                 (continue)="continueAddAttunementClasses($event)"
+                 (close)="cancelAddAttunementClasses()">
+</app-add-classes>
+
+<app-magical-item-attunement-class-configuration *ngIf="viewingAttunementClass != null"
+                                                 [characterClass]="viewingAttunementClass"
+                                                 [editing]="editing"
+                                                 (continue)="removeClass($event)"
+                                                 (close)="cancelViewingClass()">
+</app-magical-item-attunement-class-configuration>
+
+<app-add-alignments *ngIf="addingAttunementAlignment"
+                    [alignmentsToIgnore]="magicalItem.attunementAlignments"
+                    (continue)="continueAddAttunementAlignments($event)"
+                    (close)="cancelAddAttunementAlignments()">
+</app-add-alignments>
+
+<app-magical-item-attunement-alignment-configuration *ngIf="viewingAttunementAlignment != null"
+                                                     [alignment]="viewingAttunementAlignment"
+                                                     [editing]="editing"
+                                                     (continue)="removeAlignment($event)"
+                                                     (close)="cancelViewingAlignment()">
+</app-magical-item-attunement-alignment-configuration>
+
+<app-add-races *ngIf="addingAttunementRace"
+               [racesToIgnore]="magicalItem.attunementRaces"
+               (continue)="continueAddAttunementRaces($event)"
+               (close)="cancelAddAttunementRaces()">
+</app-add-races>
+
+<app-magical-item-attunement-race-configuration *ngIf="viewingAttunementRace != null"
+                                                [race]="viewingAttunementRace"
+                                                [editing]="editing"
+                                                (continue)="removeRace($event)"
+                                                (close)="cancelViewingRace()">
+</app-magical-item-attunement-race-configuration>
+
+<app-magical-item-table-configuration *ngIf="viewingTable != null"
+                                      [magicalItemTable]="viewingTable"
+                                      (close)="cancelEditTable()"
+                                      (remove)="removeTable()"
+                                      (continue)="saveTable($event)">
+</app-magical-item-table-configuration>

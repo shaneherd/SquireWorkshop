@@ -1,0 +1,6 @@
+<app-dialog [title]="data.title"
+            secondaryLabel="{{ 'Ok' | translate }}"
+            (secondary)="close()"
+            (close)="close()">
+  <span class="allow-line-break">{{data.message}}</span>
+</app-dialog>

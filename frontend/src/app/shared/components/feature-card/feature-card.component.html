@@ -1,0 +1,30 @@
+<mat-card  [ngClass]="{'clickable': !clickDisabled}"
+          (click)="onFeatureClick()">
+  <div class="verticle-bar" [ngClass]="{
+            'clickable': !clickDisabled,
+            'feature-active': creatureFeature.active && !creatureFeature.feature.passive && highlightActive,
+            'feature-not-active': !creatureFeature.active && !creatureFeature.feature.passive && canActivate && highlightNonActive
+          }"></div>
+
+  <span>{{creatureFeature.feature.name}}</span>
+  <div class="tags-container">
+    <span *ngIf="creatureFeature.calculatedMax > 0" class="tag" [ngClass]="{'no-uses-remaining': creatureFeature.usesRemaining === 0}">
+      {{creatureFeature.usesRemaining}}/{{creatureFeature.calculatedMax}}
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'Active' | translate }}"  *ngIf="creatureFeature.active">
+      <i class="far fa-clock"></i>
+    </span>
+<!--    <span class="tag borderless" matTooltip="{{ 'Headers.Passive' | translate }}"  *ngIf="creatureFeature.feature.passive">-->
+<!--      <i class="fas fa-history"></i>-->
+<!--    </span>-->
+    <span class="tag" *ngIf="creatureFeature.feature.characteristic != null">
+      {{creatureFeature.feature.characteristic.name}}
+    </span>
+  </div>
+  <div *ngIf="displayTags && creatureFeature.feature.tags.length > 0">
+    <app-tag-bar class="tag-bar"
+                 [tags]="creatureFeature.feature.tags"
+                 [allTags]="playerCharacter.creatureFeatures.tags">
+    </app-tag-bar>
+  </div>
+</mat-card>

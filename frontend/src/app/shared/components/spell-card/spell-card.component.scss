@@ -1,0 +1,13 @@
+@import '../../../sass/variables';
+
+.verticle-bar {
+  &.spell-active {
+    background-color: $active-card-color;
+  }
+}
+
+.no-uses-remaining {
+  background-color: $skill_with_disadvantage_background;
+  color: white;
+  border-color: #000000;
+}

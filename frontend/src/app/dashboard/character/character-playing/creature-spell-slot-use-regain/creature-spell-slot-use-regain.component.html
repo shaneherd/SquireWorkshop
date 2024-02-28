@@ -1,0 +1,12 @@
+<div class="form-group" *ngIf="max > 0">
+  <label [translate]="'Labels.Level'"
+         [translateParams]="{level: slot.level}"></label>
+  <span>{{slot.remaining}}/</span>
+  <span [matTooltip]="tooltip">{{max}}</span>
+
+  <div class="slots-remaining">
+    <app-slider-input [min]="0" [max]="max" [step]="1" [(value)]="slot.remaining" [displayMax]="false">
+    </app-slider-input>
+  </div>
+</div>
+

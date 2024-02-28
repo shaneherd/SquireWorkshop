@@ -1,0 +1,90 @@
+@import '../../../sass/variables';
+
+.calculator-display {
+  display: flex;;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ffffff;
+  height: 86px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  .current-hp {
+    font-size: 40px;
+    line-height: 40px;
+    display: block;
+    width: 100%;
+
+    .slash {
+      margin: 0 5px;
+    }
+
+    .hp-label {
+      font-size: 20px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.death-saves-label {
+  font-size: 24px;
+}
+
+.calculator-row {
+  margin: 0;
+
+  app-calculator-button {
+    user-select: none;
+  }
+
+  app-calculator-button.col-sm-3 {
+    padding: 0;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+
+  app-calculator-button.col-sm-6 {
+    padding: 0;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+.creature-state.highlight {
+  color: $danger_text;
+
+  &.stable {
+    color: $skill_with_advantage_background;
+  }
+}
+
+.dash {
+  margin: 0 5px;
+}
+
+@mixin health-theme($theme) {
+  $primary: map-get($theme, primary);
+  $primary_color: mat-color($squire-red, 900);
+
+  .calculator-display {
+    &.primary {
+      background-color: $primary_color;
+    }
+
+    &.secondary {
+      background-color: $secondary_color;
+    }
+
+    &.tertiary {
+      background-color: $tertiary_color;
+    }
+
+    .positive-modifier {
+      color: $skill_with_advantage_background;
+    }
+
+    .negative-modifier {
+      color: $danger_text;
+    }
+  }
+}

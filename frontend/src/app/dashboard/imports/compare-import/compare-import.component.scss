@@ -1,0 +1,21 @@
+.details-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.details-section {
+  flex-basis: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.details-divider {
+  flex-shrink: 0;
+  margin: 5px 0;
+  border-color: #ffffff;
+}
+
+.existing-header {
+  color: #ffffff;
+}

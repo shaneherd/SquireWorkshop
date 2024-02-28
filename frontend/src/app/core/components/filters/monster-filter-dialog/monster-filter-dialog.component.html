@@ -1,0 +1,16 @@
+<app-dialog title="{{ 'Filters' | translate }}"
+            primaryLabel="{{ 'Apply' | translate }}"
+            (primary)="apply()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            tertiaryLabel="{{ 'Clear' | translate }}"
+            (tertiary)="clear()"
+            (close)="cancel()">
+  <app-filter [filterValue]="monsterType" [options]="monsterTypes"></app-filter>
+  <app-filter [filterValue]="challengeRating" [options]="challengeRatings"></app-filter>
+  <app-filter [filterValue]="alignment" [options]="alignments"></app-filter>
+  <app-yes-no-filter [filterValue]="spellcaster"></app-yes-no-filter>
+  <app-yes-no-filter [filterValue]="legendary"></app-yes-no-filter>
+  <app-yes-no-filter [filterValue]="flying"></app-yes-no-filter>
+  <app-yes-no-filter [filterValue]="swimming"></app-yes-no-filter>
+</app-dialog>

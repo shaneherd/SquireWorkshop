@@ -1,0 +1,150 @@
+<div class="creature-initiative-card"
+     (click)="onCardClick()"
+     [ngClass]="{ 'active': combatRow.selected, 'clickable': !combatRow.selected, 'first-card': isFirst }"
+     [id]="combatRow.id">
+
+  <div class="basic-details">
+    <i class="fa-solid fa-caret-right" *ngIf="isFirst"></i>
+    <span class="battle-creature-name">{{combatRow.displayName}}</span>
+
+    <div class="tags-container"
+         [ngClass]="{'active': combatRow.selected}"
+         *ngIf="!combatRow.selected || combatRow.combatCreatures.length === 1">
+      <span class="tag borderless" matTooltip="{{ 'Surprised' | translate }}"  *ngIf="combatRow.someSurprised">
+        <i class="fa-solid fa-circle-exclamation"></i>
+      </span>
+      <span class="tag borderless" matTooltip="{{ 'OngoingDamage' | translate }}"  *ngIf="combatRow.someOngoingDamage">
+        <i class="fa-solid fa-arrow-rotate-right"></i>
+      </span>
+      <span class="tag borderless" matTooltip="{{ 'Conditions' | translate }}"  *ngIf="combatRow.someConditions">
+<!--        <i class="fa-solid fa-dungeon"></i>-->
+<!--        <i class="fa-solid fa-stopwatch"></i>-->
+<!--        <i class="fa-solid fa-bell"></i>-->
+<!--        <i class="fa-solid fa-c"></i>-->
+<!--        <i class="fa-solid fa-masks-theater"></i>-->
+        <i class="fa-solid fa-flask"></i>
+      </span>
+
+      <span class="tag borderless" matTooltip="{{ 'Concentrating' | translate }}"  *ngIf="combatRow.someConcentrating">
+        <i class="far fa-lightbulb"></i>
+      </span>
+      <span class="tag borderless" matTooltip="{{ 'Dying' | translate }}"  *ngIf="combatRow.someDying">
+        <i class="fa-solid fa-droplet"></i>
+<!--        <i class="fa-solid fa-circle-h"></i>-->
+<!--        <i class="fa-solid fa-bed-pulse"></i>-->
+      </span>
+
+      <span class="tag borderless" matTooltip="{{ 'Dead' | translate }}"  *ngIf="combatRow.dead">
+        <i class="fa-solid fa-skull"></i>
+      </span>
+    </div>
+
+    <div class="buttons-container" *ngIf="combatRow.selected">
+      <button mat-icon-button
+              class="no-focus header-icon"
+              [matMenuTriggerFor]="menu">
+        <mat-icon class="more-vert">more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item
+                class="no-focus"
+                *ngFor="let action of actions"
+                [disabled]="action.disabled"
+                (click)="actionClick(action)">
+          <i [class]="action.icon + ' menu-action-icon'"></i>
+          <span>{{action.label}}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div class="hp-progress-container" *ngIf="!combatRow.selected">
+    <app-tiered-progress-bar class="hp-progress"
+                             [value]="combatRow.currentHp"
+                             [max]="combatRow.maxHp"
+                             [tooltipPercentage]="false"
+                             [ascending]="true">
+    </app-tiered-progress-bar>
+  </div>
+
+  <div class="battle-creature-details on-dark" *ngIf="combatRow.selected">
+    <div>
+      <span class="label">{{ 'Labels.AC' | translate }}</span>
+      <span>{{combatRow.ac}}</span>
+    </div>
+
+    <div class="clickable" (click)="onSpeedTypeClick($event)">
+      <span class="label">{{ 'Labels.Speed' | translate }}</span>
+      <span class="creature-speed"
+            translate="FeetValue"
+            [translateParams]="{feet: combatRow.speed}"></span>
+      <span class="creature-speed-type">({{ 'SpeedType.' + combatRow.speedType | translate }})</span>
+    </div>
+
+    <ng-container *ngIf="combatRow.combatCreatures.length === 1">
+      <div class="hp-container">
+        <div class="hp-row clickable" (click)="onHpClick($event, combatRow.combatCreatures[0])">
+          <span class="label">{{ 'Labels.HP' | translate }}</span>
+          <span class="clickable creature-hp">{{combatRow.combatCreatures[0].currentHp}} / {{combatRow.combatCreatures[0].maxHp}}</span>
+
+          <div class="hp-progress-container-nested">
+            <app-tiered-progress-bar class="hp-progress"
+                                     [value]="combatRow.combatCreatures[0].currentHp"
+                                     [max]="combatRow.combatCreatures[0].maxHp"
+                                     [tooltipPercentage]="false"
+                                     [ascending]="true">
+            </app-tiered-progress-bar>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="combatRow.combatCreatures.length > 1">
+      <ng-container *ngFor="let combatCreature of combatRow.combatCreatures">
+        <div class="hp-container" *ngIf="combatCreature.display">
+          <div class="hp-row-grouped-initiative">
+            <mat-radio-button class="no-label"
+                              (change)="combatCreatureSelectedChange($event, combatCreature)"
+                              [checked]="combatCreature.selected">
+            </mat-radio-button>
+            <div class="hp-row clickable" (click)="onHpClick($event, combatCreature)">
+              <span class="monster-number">#{{combatCreature.battleCreature.creatureNumber}}</span>
+              <span class="label">{{ 'Labels.HP' | translate }}</span>
+              <span class="clickable creature-hp">{{combatCreature.currentHp}} / {{combatCreature.maxHp}}</span>
+
+              <div class="tags-container">
+                <span class="tag borderless" matTooltip="{{ 'Surprised' | translate }}"  *ngIf="combatCreature.surprised">
+                  <i class="fa-solid fa-circle-exclamation"></i>
+                </span>
+                <span class="tag borderless" matTooltip="{{ 'OngoingDamage' | translate }}"  *ngIf="combatCreature.ongoingDamage">
+                  <i class="fa-solid fa-arrow-rotate-right"></i>
+                </span>
+                <span class="tag borderless" matTooltip="{{ 'Conditions' | translate }}"  *ngIf="combatCreature.conditions">
+                  <i class="fa-solid fa-flask"></i>
+                </span>
+                <span class="tag borderless" matTooltip="{{ 'Concentrating' | translate }}"  *ngIf="combatCreature.concentrating">
+                  <i class="far fa-lightbulb"></i>
+                </span>
+                <span class="tag borderless" matTooltip="{{ 'Dying' | translate }}"  *ngIf="combatCreature.dying">
+                  <i class="fa-solid fa-droplet"></i>
+                </span>
+                <span class="tag borderless" matTooltip="{{ 'Dead' | translate }}"  *ngIf="combatCreature.dead">
+                  <i class="fa-solid fa-skull"></i>
+                </span>
+              </div>
+
+              <div class="hp-progress-container-nested">
+                <app-tiered-progress-bar class="hp-progress"
+                                         [value]="combatCreature.currentHp"
+                                         [max]="combatCreature.maxHp"
+                                         [tooltipPercentage]="false"
+                                         [ascending]="true">
+                </app-tiered-progress-bar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+@import '../../../../sass/variables';
+
+.button-action-icon {
+  margin-right: 5px;
+}
+
+.button-action {
+  &:disabled {
+    .button-action-icon {
+      color: #aaaaaa;
+    }
+  }
+
+  &.selected {
+    background-color: $tertiary_color_light;
+  }
+}

@@ -1,0 +1,8 @@
+<input type="number"
+       (keypress)="onKeyPress($event)"
+       [disabled]="disabled"
+       class="form-control"
+       [max]="getMaxValue()" [min]="numDice"
+       appInputNumber [minValue]="numDice" [maxValue]="getMaxValue()"
+       [ngModel]="value"
+       (valueChange)="valueChanged($event)"/>

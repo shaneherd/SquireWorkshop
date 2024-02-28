@@ -1,0 +1,33 @@
+<app-details headerName="{{ 'CreatureItemAction.CHARGES.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (tertiary)="rechargeClick()"
+             (secondary)="cancelClick()"
+             [primaryCloseOnClick]="false"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryDisabled]="creatureItem.chargesRemaining === creatureItem.maxCharges"
+             tertiaryConfirmationMessage="{{ 'Charges.RechargeSingleConfirmation' | translate }}"
+             primaryLabel="{{ 'Save' | translate }}"
+             tertiaryLabel="{{ magicalItem.rechargeable ? ('Recharge' | translate) : '' }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div>
+    <label>{{creatureItem.item.name}}</label>
+    <span *ngIf="creatureItem.magicalItem != null" class="sub-item">({{creatureItem.magicalItem.name}})</span>
+    <span>{{charges}}/{{creatureItem.maxCharges}}</span>
+  </div>
+
+  <div class="charges-remaining form-group">
+    <app-slider-input [min]="0" [max]="creatureItem.maxCharges" [step]="1" [(value)]="charges" [displayMax]="false">
+    </app-slider-input>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.RechargeRate' | translate }}</label>
+    <app-dice-collection [editing]="false"
+                         [diceCollection]="magicalItem.rechargeRate"
+                         [showAbility]="false">
+    </app-dice-collection>
+  </div>
+</app-details>

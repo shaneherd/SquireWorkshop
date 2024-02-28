@@ -1,0 +1,18 @@
+<mat-card [ngClass]="{'clickable': !clickDisabled}"
+          (click)="onFeatureClick()">
+  <div class="verticle-bar" [ngClass]="{
+        'clickable': !clickDisabled,
+        'feature-active': feature.active && highlightActive,
+        'feature-not-active': !feature.active && canActivate && highlightNonActive
+      }"></div>
+
+  <span>{{feature.powerName}}</span>
+  <div class="tags-container">
+    <span *ngIf="feature.calculatedMax > 0" class="tag" [ngClass]="{'no-uses-remaining': feature.usesRemaining === 0}">
+      {{feature.usesRemaining}}/{{feature.calculatedMax}}
+    </span>
+    <span class="tag borderless" matTooltip="{{ 'Active' | translate }}"  *ngIf="feature.active">
+      <i class="far fa-clock"></i>
+    </span>
+  </div>
+</mat-card>

@@ -1,0 +1,72 @@
+<div class="view-edit-container-desktop">
+  <div class="view-edit-content">
+    <div class="header-content">
+      <app-slide-in-header [slideInHeader]="slideInHeader" [actions]="actions"></app-slide-in-header>
+      <div class="menu-divider"></div>
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+    </div>
+
+    <div class="slide-in-content-data-full-height">
+      <div class="view-edit-container col-xl-6 col-lg-12">
+        <ng-content></ng-content>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-12 action-buttons-container">
+      <div class="action-buttons" *ngIf="!editing">
+        <div class="action-button" *ngIf="isPublic || isShared">
+          <button *ngIf="versionInfo == null || versionInfo.version === 0" [disabled]="!editDisabled || nested || loading || id === '0' || shareDisabled" type="button" (click)="myStuffClick()" class="squire-button btn btn-primary share-button">
+            <i class="fas fa-plus"></i>
+            {{ 'Sharing.MyStuff.Add.Button' | translate }}
+          </button>
+          <button *ngIf="versionInfo != null && versionInfo.version > 0" [disabled]="versionInfo != null && versionInfo.version === versionInfo.authorVersion || loading || id === '0'" type="button" (click)="myStuffClick()" class="squire-button btn btn-primary share-button">
+            {{ 'Sharing.MyStuff.Update.Button' | translate }}
+          </button>
+        </div>
+        <div class="action-button" *ngIf="editable && !isPublic && !isShared">
+          <app-button color="PRIMARY"
+                      [disabled]="editDisabled"
+                      [closeOnClick]="false"
+                      [actions]="editActions">
+          </app-button>
+        </div>
+        <div class="action-button" *ngIf="editable">
+          <app-button color="TERTIARY"
+                      [disabled]="duplicateDisabled || isPublic || isShared"
+                      label="{{ 'Duplicate' | translate }}"
+                      (onPrimaryClick)="duplicateClick()">
+          </app-button>
+        </div>
+        <div class="action-button" *ngIf="editable">
+          <app-button color="SECONDARY"
+                      [disabled]="deleteDisabled || isPublic || isShared"
+                      label="{{ 'Delete' | translate }}"
+                      (onPrimaryClick)="deleteClick()">
+          </app-button>
+        </div>
+      </div>
+
+      <div class="action-buttons" *ngIf="editing">
+        <div class="action-button">
+          <app-button color="PRIMARY"
+                      label="{{ 'Save' | translate }}"
+                      (onPrimaryClick)="saveClick()">
+          </app-button>
+        </div>
+        <div class="action-button" *ngIf="deletable">
+          <app-button color="TERTIARY"
+                      [disabled]="deleteDisabled"
+                      label="{{ 'Delete' | translate }}"
+                      (onPrimaryClick)="deleteClick()">
+          </app-button>
+        </div>
+        <div class="action-button">
+          <app-button color="SECONDARY"
+                      label="{{ 'Cancel' | translate }}"
+                      (onPrimaryClick)="cancelClick()">
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

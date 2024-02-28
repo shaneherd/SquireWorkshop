@@ -1,0 +1,105 @@
+<!--Caster Type-->
+<div class="caster-type-container form-group">
+  <label>{{ 'Labels.CasterType' | translate }}</label>
+  <span *ngIf="!editing">{{characteristicConfigurationCollection.spellConfigurationCollection.casterType === '0' ? noCasterType : getCasterType(characteristicConfigurationCollection.spellConfigurationCollection.casterType)?.name}}</span>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="characteristicConfigurationCollection.spellConfigurationCollection.casterType"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="casterTypeChange($event.value)">
+        <mat-option *ngFor="let casterType of casterTypes" [value]="casterType.id">
+          {{casterType.id === '0' ? noCasterType : casterType.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-icon matTooltip="{{ 'Tooltips.CasterType' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+</div>
+
+<!--Spellcasting Ability-->
+<div class="spellcasting-ability-container form-group">
+  <label>{{ 'Navigation.Manage.Spells.SpellcastingAbility' | translate }}</label>
+  <span *ngIf="!editing">{{characteristicConfigurationCollection.spellConfigurationCollection.spellcastingAbility === '0' ? noAbility : getAbility(characteristicConfigurationCollection.spellConfigurationCollection.spellcastingAbility)?.name}}</span>
+  <div *ngIf="editing">
+    <mat-form-field>
+      <mat-select [(ngModel)]="characteristicConfigurationCollection.spellConfigurationCollection.spellcastingAbility"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="spellcastingAbilityChange($event.value)">
+        <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+          {{ability.id === '0' ? noAbility : ability.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-icon matTooltip="{{ 'Tooltips.SpellcastingAbility' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+</div>
+
+<div *ngIf="editing || characterClass.classSpellPreparation.requirePreparation" class="form-group">
+  <span class="font-weight-bold">{{ 'Headers.Preparation' | translate }}</span>
+  <div class="preparation-container">
+    <mat-checkbox
+      (change)="requiresPreparationChange($event)"
+      [disabled]="!editing"
+      [checked]="characterClass.classSpellPreparation.requirePreparation">
+    </mat-checkbox>
+    <span>{{ 'SpellsRequirePreparation' | translate }}</span>
+  </div>
+
+  <div *ngIf="characterClass.classSpellPreparation.requirePreparation" class="form-group">
+    <label>{{ 'Labels.NumberToPrepare' | translate }}</label>
+    <span *ngIf="!editing && !loading">{{getNumSpellsToPrepare()}}</span>
+
+    <div *ngIf="editing" class="num-to-prepare">
+      <label>{{ 'Labels.Ability' | translate }}</label>
+      <mat-form-field>
+        <mat-select [(ngModel)]="numToPrepareAbility.id"
+                    [ngModelOptions]="{standalone: true}"
+                    (selectionChange)="prepareAbilityChange($event.value)">
+          <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+            {{ability.id === '0' ? noAbility : ability.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <label>{{ 'Labels.Misc' | translate }}</label>
+        <input type="number" class="form-control inline" max="99" min="0"
+               appInputNumber minValue="0" maxValue="99"
+               [(ngModel)]="characterClass.classSpellPreparation.numToPrepareMiscModifier"
+               [ngModelOptions]="{standalone: true}"
+               (valueChange)="numToPrepareMiscModifierChange($event)"/>
+      </div>
+
+      <div>
+        <mat-checkbox
+          (change)="numToPrepareIncludeLevelChange($event)"
+          [disabled]="!editing"
+          [checked]="characterClass.classSpellPreparation.numToPrepareIncludeLevel">
+        </mat-checkbox>
+        <span>{{ 'AddClassLevel' | translate }}</span>
+      </div>
+      <div>
+        <mat-checkbox
+          (change)="numToPrepareIncludeHalfLevelChange($event)"
+          [disabled]="!editing"
+          [checked]="characterClass.classSpellPreparation.numToPrepareIncludeHalfLevel">
+        </mat-checkbox>
+        <span>{{ 'AddHalfClassLevel' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<span class="font-weight-bold" *ngIf="editing || characteristicConfigurationCollection.spellConfigurationCollection.spellConfigurations.length > 0">{{ 'Headers.ClassSpells' | translate }}</span>
+<app-spell-configuration-list [editing]="editing"
+                              (configListUpdated)="handleConfigListUpdated()"
+                              [characteristic]="characterClass"
+                              [isPublic]="isPublic"
+                              [isShared]="isShared"
+                              [spellConfigurationCollection]="characteristicConfigurationCollection.spellConfigurationCollection">
+</app-spell-configuration-list>

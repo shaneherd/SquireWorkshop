@@ -1,0 +1,14 @@
+<div class="item-row">
+  <span>•{{getDisplayMessage()}}</span>
+  <i *ngIf="editing"
+     class="fas fa-cog"
+     [ngClass]="{'disabled': disabled || item.inheritedFrom != null}"
+     (click)="configureItem()"
+     matTooltip="{{ 'Tooltips.Configure' | translate }}"></i>
+
+  <i *ngIf="editing"
+     class="fas fa-trash-alt"
+     [ngClass]="{'disabled': disabled || item.inheritedFrom != null}"
+     (click)="deleteItem()"
+     matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+</div>

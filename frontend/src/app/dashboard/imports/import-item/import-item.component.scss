@@ -1,0 +1,199 @@
+@import '../../../sass/variables';
+
+.item-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .item-name-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 5px 5px 5px 0;
+  }
+
+  .item-row-actions {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.expand-button {
+  margin-left: -40px;
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.item-name {
+  text-decoration: underline;
+  color: #00529B;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  margin-right: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    text-decoration: line-through;
+    color: #aaaaaa;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.status-label {
+  margin-right: 5px;
+  font-size: 10px;
+}
+
+.error-label {
+  margin-left: 5px;
+  font-size: 10px;
+}
+
+.view-action {
+  margin-left: 24px;
+}
+
+.child-menu-header {
+  background: rgba(0, 0, 0, 0.04);
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  line-height: 48px;
+  height: 48px;
+  padding: 0 16px;
+  text-align: left;
+  text-decoration: none;
+  max-width: 100%;
+  position: relative;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.menu-action-button {
+  &:disabled {
+    .menu-action-icon {
+      color: #aaaaaa;
+    }
+  }
+
+  &.selected {
+    background-color: $tertiary_color_light;
+  }
+}
+
+.child-indicator {
+  margin-left: -20px;
+  margin-right: 10px;
+}
+
+.menu-action-icon {
+  margin: 0 5px;
+  width: 14px;
+
+  &.fa-minus-circle {
+    color: $primary_color;
+  }
+
+  &.fa-plus-circle {
+    color: $info-color;
+  }
+
+  &.fa-check-circle,
+  &.fa-dot-circle {
+    color: $secondary_color;
+  }
+
+  &.fa-sync-alt {
+    color: #000000;
+  }
+}
+
+.unknown {
+  color: $tertiary_color;
+}
+
+.new {
+  color: $info-color;
+}
+
+.ready {
+  color: $secondary_color;
+}
+
+.link,
+.view,
+.duplicate {
+  color: $info-color;
+  margin-right: 10px;
+  flex-shrink: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.conflict {
+  color: $tertiary_color;
+}
+
+.error {
+  margin-left: 10px;
+  color: $primary_color;
+}
+
+.complete {
+  color: $secondary_color;
+}
+
+.delete {
+  color: $primary_color;
+}
+
+.replace {
+  color: #000000;
+}
+
+.duplicate-icon-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.unconfirmed-warning {
+  position: absolute;
+  top: -4px;
+  right: -9px;
+  border-radius: 10px;
+  margin-left: 2px;
+  background-color: $primary_color;
+  color: #ffffff;
+}
+
+.duplicate-count {
+  position: absolute;
+  top: -4px;
+  right: -5px;
+  border-radius: 10px;
+  margin-left: 2px;
+  background-color: $tertiary_color;
+  color: #000000;
+}
+
+.status-container {
+  position: relative;
+}

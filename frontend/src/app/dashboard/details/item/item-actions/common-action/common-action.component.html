@@ -1,0 +1,32 @@
+<app-details headerName="{{ 'CreatureItemAction.' + creatureItemAction + '.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group" *ngIf="creatureItem.quantity > 1">
+    <label>{{ 'Labels.Quantity' | translate }}</label>
+    <app-slider-input [max]="creatureItem.quantity"
+                      [(value)]="quantity">
+    </app-slider-input>
+  </div>
+
+  <div class="form-group" *ngIf="containers.length > 0">
+    <label>{{ 'Labels.Container' | translate }}</label>
+    <mat-form-field>
+      <mat-select [(ngModel)]="container"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="containerChange($event.value)">
+        <mat-option *ngFor="let containerChoice of containers" [value]="containerChoice">
+          {{containerChoice.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="confirmationMessage !== ''" class="form-group">
+    {{confirmationMessage}}
+  </div>
+</app-details>

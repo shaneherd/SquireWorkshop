@@ -1,0 +1,119 @@
+<app-details headerName="{{ 'Headers.StartingEquipment' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveClick()"
+             [primaryCloseOnClick]="false"
+             (secondary)="closeDetails()"
+             [loading]="loading"
+             primaryLabel="{{ pages.length === 0 ? '' : ('Save' | translate) }}"
+             secondaryLabel="{{ (pages.length === 0 ? 'Close' : 'Cancel') | translate }}"
+             secondaryConfirmationMessage="{{ (pages.length === 0 ? '' : 'StartingEquipment.ConfirmCancel') | translate }}"
+             class="details">
+  <div *ngIf="pages.length === 0 && !loading">
+    <span>{{ 'StartingEquipment.NoItems' | translate }}</span>
+  </div>
+
+  <div class="starting-equipment-container" *ngIf="pages.length > 0 && !loading">
+    <div class="class-name-container form-group" *ngIf="currentPage != null && step < pages.length">
+      <div class="name">
+        <h1>{{currentPage.characteristic.name}}</h1>
+      </div>
+    </div>
+
+    <div class="class-name-container form-group" *ngIf="step === pages.length">
+      <div class="name">
+        <h1>{{ 'Headers.Summary' | translate }}</h1>
+      </div>
+    </div>
+
+    <div *ngIf="currentPage != null && currentPage.hasChoice && step < pages.length" class="form-group">
+      <mat-button-toggle-group [ngModel]="currentPage.startingEquipmentChoice"
+                               (change)="startingEquipmentTypeChange($event.value)">
+        <mat-button-toggle *ngFor="let type of startingEquipmentChoices"
+                           [value]="type">
+          {{ 'StartingEquipmentChoice.' + type | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="content-data-full-height selection-groups" *ngIf="currentPage != null && step < pages.length">
+      <div *ngIf="currentPage.hasChoice && currentPage.startingEquipmentChoice === 'CURRENCY'">
+        <div>
+          <label>{{ 'Labels.Calculation' | translate }}</label>
+          <span>{{currentPage.goldCalculationLabel}}</span>
+        </div>
+
+        <div class="details-configuration-action-buttons-container form-group">
+          <div class="details-configuration-action-buttons">
+            <div class="action-button">
+              <button type="button" (click)="rollStartingGold()" class="squire-button btn btn-primary">
+                {{ 'Roll' | translate }}
+              </button>
+            </div>
+            <div class="action-button">
+              <button type="button" (click)="maxStartingGold()" class="squire-button btn btn-danger">
+                {{ 'Max' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label>{{ 'Labels.StartingGold' | translate }}</label>
+          <input type="number"
+                 class="form-control"
+                 [max]="currentPage.maxGold" min="0"
+                 appInputNumber minValue="0" [maxValue]="currentPage.maxGold"
+                 [ngModel]="currentPage.startingGoldValue"
+                 (valueChange)="startingGoldValueChange($event)"/>
+        </div>
+      </div>
+
+      <div *ngIf="!currentPage.hasChoice && currentPage.startingGold.miscModifier > 0" class="form-group">
+        <label>{{ 'Labels.StartingGold' | translate }}</label>
+        <span>{{currentPage.startingGold.miscModifier}}</span>
+      </div>
+
+      <ng-container *ngIf="!currentPage.hasChoice || currentPage.startingEquipmentChoice === 'EQUIPMENT'">
+        <app-starting-equipment-selection-group *ngFor="let group of currentPage.groups"
+                                                [selectionGroup]="group"
+                                                (itemClick)="onItemClick($event)"
+                                                (selectionChange)="selectionChange()">
+        </app-starting-equipment-selection-group>
+      </ng-container>
+    </div>
+
+    <div class="content-data-full-height selection-groups" *ngIf="step === pages.length">
+      <div *ngIf="totalGold > 0" class="summary-row form-group">
+        <span class="summary-item">GP</span>
+        <span class="summary-quantity">x{{totalGold}}</span>
+      </div>
+
+      <div *ngFor="let selectedItem of allSelectedItems" class="summary-row">
+        <span class="summary-item">{{selectedItem.item.name}}</span>
+        <span class="summary-quantity">x{{selectedItem.quantity}}</span>
+      </div>
+    </div>
+
+    <div>
+      <app-pager [pageCount]="pages.length + 1"
+                 [index]="step"
+                 (pageChange)="setStep($event)">
+      </app-pager>
+    </div>
+  </div>
+</app-details>
+
+<app-item-details-slide-in *ngIf="viewingItem != null && viewingItem.item.item != null"
+                           [itemId]="viewingItem.item.item.id"
+                           [creature]="playerCharacter"
+                           [collection]="collection"
+                           [allowActions]="false"
+                           (close)="closeItem()">
+</app-item-details-slide-in>
+
+<app-starting-equipment-filter-selection *ngIf="viewingItem != null && viewingItem.item.item == null"
+                                         [filterItem]="viewingItem"
+                                         (continue)="continueItem($event)"
+                                         (cancel)="closeItem()">
+</app-starting-equipment-filter-selection>
+

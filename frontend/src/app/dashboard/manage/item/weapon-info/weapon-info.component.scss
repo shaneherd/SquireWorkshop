@@ -1,0 +1,20 @@
+.range,
+.thrown-range,
+.attack-mod {
+  input {
+    width: 70px;
+    display: inline;
+  }
+}
+
+.thrown-range,
+.ammo-selection {
+  margin-left: 20px;
+}
+
+.weapon-property {
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: inside;
+  margin-left: 20px;
+}

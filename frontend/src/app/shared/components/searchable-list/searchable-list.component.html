@@ -1,0 +1,20 @@
+<div class="search-filter-container">
+  <div class="search" *ngIf="searchable">
+    <div class="search-container">
+      <input [(ngModel)]="searchValue"
+             (keypress)="keypress($event)"
+             (input)="onSearchValueChange()"
+             class="form-control"/>
+    </div>
+    <div class="filter-icon" *ngIf="filterable">
+      <i class="fas fa-filter" (click)="onFilterClick()"></i>
+    </div>
+    <!--    <div class="filter-icon">-->
+    <!--      <i class="fas fa-search" (click)="onSearchClick()"></i>-->
+    <!--    </div>-->
+  </div>
+
+  <div class="slide-in-content-data-full-height">
+    <ng-content></ng-content>
+  </div>
+</div>

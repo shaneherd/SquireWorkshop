@@ -1,0 +1,30 @@
+<app-item-type-display [item]="ammo">
+</app-item-type-display>
+
+<app-quantity-display *ngIf="creatureItem != null"
+                      [quantity]="creatureItem.quantity"
+                      [expendable]="true"
+                      [alwaysDisplay]="true">
+</app-quantity-display>
+
+<app-cost-display [item]="ammo">
+</app-cost-display>
+
+<app-weight-display [creatureItem]="creatureItem"
+                    [item]="ammo">
+</app-weight-display>
+
+<app-properties-display [creatureItem]="creatureItem"
+                        class="display-section">
+</app-properties-display>
+
+<app-attack-damage-display [creature]="creature"
+                           [collection]="collection"
+                           [item]="ammo"
+                           [creatureItem]="creatureItem"
+                           class="display-section">
+</app-attack-damage-display>
+
+<app-description-display [item]="ammo"
+                         class="display-section">
+</app-description-display>

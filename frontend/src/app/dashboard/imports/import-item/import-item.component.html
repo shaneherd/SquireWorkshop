@@ -1,0 +1,260 @@
+<div class="item-row"
+     [ngStyle]="{'padding-left': ((config.importItem.ancestorCount + 1) * 20) + 'px'}">
+  <button mat-icon-button
+          class="no-focus expand-button"
+          (click)="onExpandToggle()"
+          *ngIf="config.children.length > 0 || config.importItem.ancestorCount !== 0"
+          [ngClass]="{ 'hidden': config.children.length === 0}">
+    <i *ngIf="!config.importItem.expanded" class="far fa-plus-square"></i>
+    <i *ngIf="config.importItem.expanded" class="far fa-minus-square"></i>
+  </button>
+  <span *ngIf="config.importItem.ancestorCount > 0 && config.children.length === 0" class="child-indicator">
+    <i class="fas fa-angle-double-right"></i>
+  </span>
+  <div class="item-name-container">
+    <div class="item-name"
+         *ngIf="config.importItem.subName == null || config.importItem.subName === ''"
+         (click)="importItemClick()"
+         [ngClass]="{
+           'disabled': config.importItem.status === 'NOT_SUPPORTED'
+         }">
+      {{config.importItem.name}}
+    </div>
+
+    <div class="item-name"
+         *ngIf="config.importItem.subName != null && config.importItem.subName !== ''"
+         (click)="importItemClick()"
+         [ngClass]="{
+           'disabled': config.importItem.status === 'NOT_SUPPORTED'
+         }">
+      {{config.importItem.name}} ({{config.importItem.subName}})
+    </div>
+
+    <div class="duplicate-icon-container"
+         *ngIf="config.importItem.duplicates != null && config.importItem.duplicates.length > 0
+        && (config.importItem.status === 'READY' || config.importItem.status === 'ERROR' || config.importItem.status === 'DEPENDENCIES_NOT_COMPLETE')">
+      <i class="far fa-copy duplicate"
+         matTooltip="{{ 'Imports.Status.POSSIBLE_DUPLICATES' | translate }}"
+         (click)="viewClick()"></i>
+
+      <span class="duplicate-count badge"
+            *ngIf="config.importItem.duplicates.length > 1">
+        {{config.importItem.duplicates.length}}
+      </span>
+    </div>
+
+    <i class="fas fa-link link"
+       matTooltip="{{ 'Imports.Status.LINKED' | translate }}"
+       (click)="onLinkClick()"
+       *ngIf="config.links.length > 0 && config.importItem.linked"></i>
+    <i class="fas fa-unlink link"
+       matTooltip="{{ 'Imports.Status.UNLINKED' | translate }}"
+       (click)="onLinkClick()"
+       *ngIf="config.links.length > 0 && !config.importItem.linked"></i>
+
+    <ng-container *ngIf="config.importItem.status === 'ERROR'">
+      <i class="fas fa-exclamation-triangle error"></i>
+      <span class="error-label">{{ 'Imports.Status.ERROR' | translate }}</span>
+    </ng-container>
+
+    <ng-container *ngIf="config.importItem.status === 'DEPENDENCIES_NOT_COMPLETE'">
+      <i class="fas fa-exclamation-triangle error"></i>
+      <span class="error-label">{{ 'Imports.Status.DEPENDENCIES_NOT_COMPLETE' | translate }}</span>
+    </ng-container>
+  </div>
+
+  <div class="item-row-actions">
+    <ng-container *ngIf="!config.importItem.expanded && config.descendentCount > 0">
+      <span class="status-label"
+            translate="DescendentCount"
+            [translateParams]="{count: config.descendentCount}"></span>
+    </ng-container>
+    <ng-container *ngIf="config.importItem.status === 'COMPLETE'">
+      <span class="status-label">{{ 'Imports.Status.COMPLETE' | translate }} ({{ 'Imports.Action.Completed.' + config.importItem.selectedAction | translate }})</span>
+      <i class="fas fa-check-circle complete"></i>
+    </ng-container>
+
+    <ng-container *ngIf="config.importItem.status === 'MISSING_PROPERTIES'">
+      <span class="status-label">{{ 'Imports.Status.MISSING_PROPERTIES' | translate }}</span>
+      <i class="fas fa-exclamation-triangle error"></i>
+    </ng-container>
+
+    <ng-container *ngIf="config.importItem.status === 'NOT_SUPPORTED' || config.importItem.status == null">
+      <span class="status-label">{{ 'Imports.Status.NOT_SUPPORTED' | translate }}</span>
+      <i class="fas fa-ban error"></i>
+    </ng-container>
+
+    <ng-container *ngIf="config.importItem.status === 'READY' || config.importItem.status === 'ERROR' || config.importItem.status === 'DEPENDENCIES_NOT_COMPLETE'">
+      <div class="status-container" *ngIf="config.importItem.selectedAction === 'USE_EXISTING'">
+        <span class="status-label">{{ 'Imports.Action.USE_EXISTING' | translate }}</span>
+        <i class="far fa-dot-circle complete"></i>
+        <span class="unconfirmed-warning badge" matTooltip="{{ 'Tooltips.UnconfirmedDuplicate' | translate }}" *ngIf="!config.importItem.duplicateConfirmed">!</span>
+      </div>
+      <div class="status-container" *ngIf="config.importItem.selectedAction === 'REPLACE_EXISTING'">
+        <span class="status-label">{{ 'Imports.Action.REPLACE_EXISTING' | translate }}</span>
+        <i class="fas fa-sync-alt replace"></i>
+        <span class="unconfirmed-warning badge" matTooltip="{{ 'Tooltips.UnconfirmedDuplicate' | translate }}" *ngIf="!config.importItem.duplicateConfirmed">!</span>
+      </div>
+      <ng-container *ngIf="config.importItem.selectedAction === 'INSERT_AS_NEW'">
+        <span class="status-label">{{ 'Imports.Action.INSERT_AS_NEW' | translate }}</span>
+        <i class="fas fa-plus-circle new"></i>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.selectedAction === 'SKIP_ENTRY'">
+        <span class="status-label">{{ 'Imports.Action.SKIP_ENTRY' | translate }}</span>
+        <i class="fas fa-minus-circle error"></i>
+      </ng-container>
+    </ng-container>
+
+    <button mat-icon-button
+            class="no-focus"
+            [disabled]="config.importItem.status === 'NOT_SUPPORTED'"
+            [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu class="no-padding" #menu="matMenu" xPosition="before">
+      <button mat-menu-item
+              class="no-focus"
+              (click)="viewClick()">
+        <span class="view-action">{{ 'Imports.Action.VIEW' | translate }}...</span>
+      </button>
+      <mat-divider *ngIf="config.menuActions.length > 0"></mat-divider>
+
+      <ng-container *ngFor="let menuAction of config.menuActions">
+        <button mat-menu-item
+                *ngIf="menuAction.childMenu != null"
+                [matMenuTriggerFor]="menuAction.childMenu"
+                class="no-focus menu-action-button"
+                [ngClass]="{'selected': config.importItem.selectedAction === menuAction.event}"
+                [disabled]="menuAction.disabled"
+                (click)="menuActionClick(menuAction)">
+          <i [class]="menuAction.icon + ' menu-action-icon'"></i>
+          <span>{{ 'Imports.Action.' + menuAction.event | translate }}</span>
+        </button>
+
+        <button mat-menu-item
+                *ngIf="menuAction.childMenu == null"
+                class="no-focus menu-action-button"
+                [ngClass]="{'selected': config.importItem.selectedAction === menuAction.event}"
+                [disabled]="menuAction.disabled"
+                (click)="menuActionClick(menuAction)">
+          <i [class]="menuAction.icon + ' menu-action-icon'"></i>
+          <span>{{ 'Imports.Action.' + menuAction.event | translate }}</span>
+        </button>
+      </ng-container>
+    </mat-menu>
+
+    <mat-menu class="no-padding" #useExistingChildMenu="matMenu">
+      <span class="child-menu-header">{{ 'Imports.Action.USE_EXISTING' | translate }}</span>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              (click)="useExistingNestedMenuActionClick('ALL')">
+        {{ 'Imports.Action.Nested.All' | translate }}
+      </button>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              (click)="useExistingNestedMenuActionClick('SELF')">
+        {{ 'Imports.Action.Nested.SelfOnly' | translate }}
+      </button>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              [disabled]="config.cascadeParentAction && (config.importItem.selectedAction === 'INSERT_AS_NEW' || config.importItem.selectedAction === 'SKIP_ENTRY')"
+              (click)="useExistingNestedMenuActionClick('CHILDREN')">
+        {{ 'Imports.Action.Nested.ChildrenOnly' | translate }}
+      </button>
+    </mat-menu>
+
+    <mat-menu class="no-padding" #replaceExistingChildMenu="matMenu">
+      <span class="child-menu-header">{{ 'Imports.Action.REPLACE_EXISTING' | translate }}</span>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              (click)="replaceExistingNestedMenuActionClick('ALL')">
+        {{ 'Imports.Action.Nested.All' | translate }}
+      </button>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              (click)="replaceExistingNestedMenuActionClick('SELF')">
+        {{ 'Imports.Action.Nested.SelfOnly' | translate }}
+      </button>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              [disabled]="config.cascadeParentAction && (config.importItem.selectedAction === 'INSERT_AS_NEW'|| config.importItem.selectedAction === 'SKIP_ENTRY')"
+              (click)="replaceExistingNestedMenuActionClick('CHILDREN')">
+        {{ 'Imports.Action.Nested.ChildrenOnly' | translate }}
+      </button>
+    </mat-menu>
+
+    <mat-menu class="no-padding" #insertAtNewChildMenu="matMenu">
+      <span class="child-menu-header">{{ 'Imports.Action.INSERT_AS_NEW' | translate }}</span>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              (click)="insertAsNewNestedMenuActionClick('ALL')">
+        {{ 'Imports.Action.Nested.All' | translate }}
+      </button>
+
+      <button mat-menu-item
+              *ngIf="!isParentItem"
+              class="no-focus menu-action-button"
+              (click)="insertAsNewNestedMenuActionClick('SELF')">
+        {{ 'Imports.Action.Nested.SelfOnly' | translate }}
+      </button>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              [disabled]="isParentItem && config.importItem.selectedAction === 'SKIP_ENTRY'"
+              (click)="insertAsNewNestedMenuActionClick('CHILDREN')">
+        {{ 'Imports.Action.Nested.ChildrenOnly' | translate }}
+      </button>
+    </mat-menu>
+
+    <mat-menu class="no-padding" #skipEntryChildMenu="matMenu">
+      <span class="child-menu-header">{{ 'Imports.Action.SKIP_ENTRY' | translate }}</span>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              (click)="skipEntryNestedMenuActionClick('ALL')">
+        {{ 'Imports.Action.Nested.All' | translate }}
+      </button>
+
+      <button mat-menu-item
+              *ngIf="!isParentItem"
+              class="no-focus menu-action-button"
+              (click)="skipEntryNestedMenuActionClick('SELF')">
+        {{ 'Imports.Action.Nested.SelfOnly' | translate }}
+      </button>
+
+      <button mat-menu-item
+              class="no-focus menu-action-button"
+              (click)="skipEntryNestedMenuActionClick('CHILDREN')">
+        {{ 'Imports.Action.Nested.ChildrenOnly' | translate }}
+      </button>
+    </mat-menu>
+  </div>
+</div>
+
+<ng-container *ngIf="config.importItem.expanded">
+  <div *ngFor="let config of config.children" class="import-item-category-items">
+    <mat-divider class="divider"></mat-divider>
+    <app-import-item [config]="config"
+                     (view)="viewConfig($event)"
+                     (linkClick)="onChildLinkClick($event)"
+                     (selectedActionChange)="onSelectedActionChange($event)"
+                     (toggleExpanded)="onChildExpandToggle($event)">
+    </app-import-item>
+  </div>
+</ng-container>

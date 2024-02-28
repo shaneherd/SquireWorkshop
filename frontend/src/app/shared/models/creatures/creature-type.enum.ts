@@ -1,0 +1,7 @@
+export enum CreatureType {
+  CHARACTER = 'CHARACTER',
+  MONSTER = 'MONSTER',
+  QUICK_CHARACTER = 'QUICK_CHARACTER',
+  NPC = 'NPC',
+  COMPANION = 'COMPANION'
+}

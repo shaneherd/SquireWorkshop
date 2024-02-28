@@ -1,0 +1,11 @@
+<app-setting [checked]="characterSpeedSetting.useHalf"
+             label="{{ 'CharacterSettings.UseHalf' | translate }}"
+             tooltip="{{ 'Tooltips.CharacterSettings.UseHalf' | translate }}"
+             (change)="useHalf($event)">
+</app-setting>
+
+<app-setting *ngIf="characterSpeedSetting.useHalf"
+             [checked]="characterSpeedSetting.roundUp"
+             label="{{ 'CharacterSettings.RoundUp' | translate }}"
+             (change)="roundUp($event)">
+</app-setting>

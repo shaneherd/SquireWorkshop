@@ -1,0 +1,17 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Features.Features' | translate }}"
+                 [menuService]="featureService"
+                 [manageService]="powerService"
+                 [filterable]="true"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="Features"
+                 [filters]="filters"
+                 (filter)="filter($event)"
+                 (itemClick)="onItemClick($event)">
+</app-manage-list>
+
+<app-add-remove-feature *ngIf="menuItem != null"
+                        [feature]="menuItem"
+                        (save)="updateSelected($event)"
+                        (cancel)="closeItem()">
+</app-add-remove-feature>

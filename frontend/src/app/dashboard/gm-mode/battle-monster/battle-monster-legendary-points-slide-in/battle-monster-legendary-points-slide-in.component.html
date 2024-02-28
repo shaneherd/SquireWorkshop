@@ -1,0 +1,14 @@
+<app-details headerName="{{ 'LegendaryPoints' | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             (tertiary)="resetClick()"
+             [tertiaryCloseOnClick]="false"
+             [primaryCloseOnClick]="false"
+             (secondary)="closeClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             tertiaryLabel="{{ 'Reset' | translate }}"
+             tertiaryConfirmationMessage="{{ 'ResetLegendaryPointsConfirmation' | translate}}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <app-slider-input [min]="0" [max]="battleMonster.maxLegendaryPoints" [step]="1" [(value)]="legendaryPoints" [displayMax]="false">
+  </app-slider-input>
+</app-details>

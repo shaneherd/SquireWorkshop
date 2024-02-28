@@ -1,0 +1,22 @@
+<div class="list-menu-container">
+  <div class="list-menu-header">
+    <button mat-mini-fab
+            class="squire-button small transparent borderless no-focus list-menu-header-icon on-dark"
+            (click)="onBack()">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="list-menu-header-name"><h4>{{ 'Navigation.PublicContent' | translate }}</h4></div>
+  </div>
+
+  <div class="menu-divider"></div>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" class="fixed-loading"></mat-progress-bar>
+
+  <cdk-virtual-scroll-viewport itemSize="35" class="slide-in-content-data-full-height list-menu">
+    <div *cdkVirtualFor="let menuItem of menuItems; templateCacheSize: 50"
+         (click)="onSelect(menuItem)"
+         class="list-menu-item">
+      <app-menu-item [menuItem]="menuItem"></app-menu-item>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>
+

@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.ArmorTypes.ArmorTypes' | translate }}"
+                 [menuService]="armorTypeService"
+                 [manageService]="attributeService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="ArmorTypes"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-armor-type *ngIf="selectedItem != null"
+                           [armorType]="selectedItem"
+                           (save)="updateSelected($event)"
+                           (cancel)="closeItem()">
+</app-add-remove-armor-type>

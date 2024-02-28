@@ -1,0 +1,74 @@
+<div class="form-group">
+  <label>{{ 'Labels.Gender' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="characteristics.gender"
+                (selectionChange)="genderChange($event.value)">
+      <mat-option *ngFor="let gender of genders" [value]="gender">
+        {{ 'Gender.' + gender | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Alignment' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="selectedAlignment"
+                (selectionChange)="alignmentChange($event.value)">
+      <mat-option *ngFor="let alignment of alignments" [value]="alignment">
+        {{alignment.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Deity' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="characteristics.deity"
+                (selectionChange)="deityChange($event.value)">
+      <mat-option *ngFor="let deity of deities" [value]="deity">
+        {{deity.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Height' | translate }}</label>
+  <input [(ngModel)]="characteristics.height" maxlength="45" class="form-control"/>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Weight' | translate }}</label>
+  <input type="number"
+         class="form-control weight"
+         max="999.999" min="0"
+         appInputNumber [minValue]="0" [maxValue]="999.999" [allowDecimal]="true"
+         [(ngModel)]="characteristics.weight"/>
+  <span>{{ 'Lbs' | translate }}</span>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Age' | translate }}</label>
+  <input type="number"
+         class="form-control age"
+         max="999" min="0"
+         appInputNumber [minValue]="0" [maxValue]="999" [allowDecimal]="false"
+         [(ngModel)]="characteristics.age"/>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.EyeColor' | translate }}</label>
+  <input [(ngModel)]="characteristics.eyes" maxlength="45" class="form-control"/>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.HairColor' | translate }}</label>
+  <input [(ngModel)]="characteristics.hair" maxlength="45" class="form-control"/>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.SkinColor' | translate }}</label>
+  <input [(ngModel)]="characteristics.skin" maxlength="45" class="form-control"/>
+</div>

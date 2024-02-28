@@ -1,0 +1,11 @@
+<div class="hit-dice-button" *ngFor="let creatureHitDice of hitDice">
+  <app-calculator-button (click)="rollHitDice(creatureHitDice)"
+                         [disabled]="creatureHitDice.remaining === 0">
+    <label>d{{ 'DiceSize.' + creatureHitDice.diceSize | translate }}</label>
+    <div>
+      <span>{{creatureHitDice.remaining}}/</span>
+      <span [matTooltip]="creatureHitDice.maxTooltip">{{creatureHitDice.max}}</span>
+    </div>
+  </app-calculator-button>
+</div>
+

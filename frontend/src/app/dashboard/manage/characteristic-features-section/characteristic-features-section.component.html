@@ -1,0 +1,32 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.Features' | translate }}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="form-group">
+    <app-characteristic-feature-card *ngFor="let feature of features"
+                                     [feature]="feature"
+                                     [showCharacteristic]="includeChildren"
+                                     [clickDisabled]="disabled || editing"
+                                     (featureClick)="featureClick($event)">
+    </app-characteristic-feature-card>
+
+    <mat-card class="add-item-card clickable"
+              *ngIf="!editing && !isPublic && !isShared"
+              [ngClass]="{'disabled': disabled}"
+              (click)="addFeature()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+      <span>{{ 'AddFeature' | translate }}</span>
+    </mat-card>
+  </div>
+</mat-expansion-panel>
+
+<app-feature-configuration *ngIf="viewingFeature != null"
+                           [feature]="viewingFeature"
+                           [isPublic]="isPublic"
+                           [isShared]="isShared"
+                           (close)="closeFeature()"
+                           (continue)="saveFeature()">
+</app-feature-configuration>

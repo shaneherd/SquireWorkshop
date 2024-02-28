@@ -1,0 +1,105 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [itemName]="itemName"
+               [id]="campaign.id"
+               [actions]="actions"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="campaignForm"
+        (submit)="save()">
+    <div class="form-group" *ngIf="editing">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <input formControlName="name" class="form-control" maxlength="45"/>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (campaign?.id !== '0' && campaign.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && campaign?.id !== '0'" class="info-description">{{campaign.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+
+  <ng-container *ngIf="!editing">
+    <div class="form-group campaign-characters-header-row">
+      <h3 class="bold campaign-characters-header">{{ 'Headers.Characters' | translate }}</h3>
+      <button [disabled]="showInvite"
+              (click)="invite()"
+              class="squire-button btn btn-primary">
+        {{ 'Campaign.Invite.Invite' | translate }}</button>
+    </div>
+
+    <mat-card *ngFor="let character of campaign.characters"
+              class="clickable campaign-character"
+              [ngClass]="{'disabled': clickDisabled}"
+              (click)="characterClick(character)">
+      <span>{{character.name}}</span>
+    </mat-card>
+
+    <div class="form-group campaign-encounters-header-row">
+      <h3 class="bold campaign-characters-header">{{ 'Headers.Encounters' | translate }} - BETA</h3>
+    </div>
+
+    <mat-card *ngFor="let encounter of campaign.encounters"
+              class="clickable campaign-encounter"
+              [ngClass]="{'disabled': clickDisabled}"
+              (click)="encounterClick(encounter)">
+      <span>{{encounter.name}}</span>
+
+      <div class="tags-container">
+        <span class="tag" matTooltip="{{ 'Active' | translate }}" *ngIf="encounter.startedAt > 0 && (encounter.finishedAt == null || encounter.finishedAt === 0)">
+          <span>{{ 'Active' | translate }}</span>
+        </span>
+        <span class="tag" matTooltip="{{ 'Finished' | translate }}" *ngIf="encounter.finishedAt > 0">
+          <span>{{ 'Finished' | translate }}</span>
+        </span>
+      </div>
+    </mat-card>
+
+    <mat-card class="add-item-card clickable campaign-encounter"
+              [ngClass]="{'disabled': clickDisabled}"
+              (click)="addEncounter()">
+      <i class="fas fa-plus add-item-card-icon"></i>
+      <span>{{ 'Encounter.Add' | translate }}</span>
+    </mat-card>
+  </ng-container>
+</app-view-edit>
+
+<app-campaign-invite *ngIf="showInvite"
+                     [campaign]="campaign"
+                     (close)="closeInvite()">
+</app-campaign-invite>
+
+<app-campaign-character-slide-in *ngIf="viewingCharacter != null"
+                                 [campaignCharacter]="viewingCharacter"
+                                 (close)="closeCharacter()"
+                                 (view)="viewCharacter($event)"
+                                 (remove)="removeCharacter($event)">
+</app-campaign-character-slide-in>
+
+<app-encounter-slide-in *ngIf="viewingEncounter != null"
+                        [encounter]="viewingEncounter"
+                        [campaign]="campaign"
+                        (close)="closeEncounter()"
+                        (start)="startEncounter()"
+                        [startImmediately]="startEncounterImmediately"
+                        (duplicate)="duplicateEncounter()"
+                        (delete)="deleteEncounter()"
+                        (save)="saveEncounter($event)"
+                        (finish)="finishEncounter()">
+</app-encounter-slide-in>
+
+<app-encounter-configure-slide-in *ngIf="addingEncounter"
+                                  [campaign]="campaign"
+                                  [active]="false"
+                                  (cancel)="cancelEncounter()"
+                                  (save)="saveEncounter($event)">
+</app-encounter-configure-slide-in>
+
+<app-campaign-settings-slide-in *ngIf="viewingSettings"
+                                [campaign]="campaign"
+                                (save)="saveSettings()"
+                                (close)="closeSettings()">
+</app-campaign-settings-slide-in>

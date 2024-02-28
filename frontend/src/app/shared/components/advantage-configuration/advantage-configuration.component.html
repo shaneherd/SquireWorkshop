@@ -1,0 +1,19 @@
+<div>
+  <mat-checkbox
+    (change)="advantageChange($event)"
+    [checked]="proficiency.advantage"
+    [disabled]="proficiency.advantageDisabled"
+    [matTooltip]="proficiency.advantageTooltip">
+  </mat-checkbox>
+  <span>{{ 'Advantage' | translate }}</span>
+</div>
+
+<div>
+  <mat-checkbox
+    (change)="disadvantageChange($event)"
+    [checked]="proficiency.disadvantage"
+    [disabled]="proficiency.disadvantageDisabled"
+    [matTooltip]="proficiency.disadvantageTooltip">
+  </mat-checkbox>
+  <span>{{ 'Disadvantage' | translate }}</span>
+</div>

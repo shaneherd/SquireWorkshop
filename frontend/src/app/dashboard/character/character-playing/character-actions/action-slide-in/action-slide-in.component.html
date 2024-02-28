@@ -1,0 +1,37 @@
+<app-spell-details-slide-in *ngIf="creatureSpell != null"
+                            [actionChoices]="actionChoices"
+                            [creatureSpell]="creatureSpell"
+                            [requiresPreparation]="requiresPreparation"
+                            [attackModifier]="spellAttackModifier"
+                            [saveModifier]="spellSaveModifier"
+                            [creature]="playerCharacter"
+                            [collection]="collection"
+                            (cast)="onContinue()"
+                            (remove)="onCancel()"
+                            (close)="onCancel()"
+                            (prepare)="onContinue()"
+                            (selectionChange)="spellActionChange($event)">
+</app-spell-details-slide-in>
+
+<app-feature-details-slide-in *ngIf="creatureFeature != null"
+                              [creatureFeature]="creatureFeature"
+                              [playerCharacter]="playerCharacter"
+                              [collection]="collection"
+                              (use)="onContinue()"
+                              (remove)="onCancel()"
+                              (close)="onCancel()">
+</app-feature-details-slide-in>
+
+<app-item-details-slide-in *ngIf="creatureItem != null"
+                           [actionChoices]="actionChoices"
+                           [creatureItem]="creatureItem"
+                           [creature]="playerCharacter"
+                           [attackWithUnequipped]="playerCharacter.characterSettings.equipment.attackWithUnequipped"
+                           [collection]="collection"
+                           [watchItemsUpdate]="false"
+                           [attackOnly]="true"
+                           [showThrowSource]="true"
+                           (save)="onItemContinue()"
+                           (close)="onCancel()"
+                           (selectionChange)="itemActionChange($event)">
+</app-item-details-slide-in>

@@ -1,0 +1,19 @@
+.details-configuration-action-buttons {
+  padding: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  .action-button {
+    display: table-cell;
+    padding: 5px;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.currency-weight {
+  text-align: center;
+}

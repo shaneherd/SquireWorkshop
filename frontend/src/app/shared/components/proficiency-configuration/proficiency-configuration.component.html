@@ -1,0 +1,28 @@
+<div>
+  <mat-checkbox [(ngModel)]="proficiency.proficient"
+                    (change)="onProficiencyChange($event)"
+                    [disabled]="proficiencyDisabled">
+  </mat-checkbox>
+  <span>{{ 'Proficient' | translate }}</span>
+</div>
+
+<div *ngIf="proficiency.proficient">
+  <mat-checkbox (change)="onProficiencyChange($event)"
+                [(ngModel)]="proficiency.doubleProf">
+  </mat-checkbox>
+  <span>{{ 'DoubleProficient' | translate }}</span>
+</div>
+
+<div *ngIf="!proficiency.proficient">
+  <mat-checkbox (change)="onProficiencyChange($event)"
+                [(ngModel)]="proficiency.halfProf">
+  </mat-checkbox>
+  <span>{{ 'HalfProficient' | translate }}</span>
+</div>
+
+<div *ngIf="!proficiency.proficient && proficiency.halfProf">
+  <mat-checkbox (change)="onProficiencyChange($event)"
+                [(ngModel)]="proficiency.roundUp">
+  </mat-checkbox>
+  <span>{{ 'RoundUp' | translate }}</span>
+</div>

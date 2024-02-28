@@ -1,0 +1,31 @@
+<div class="dialog-container">
+  <div mat-dialog-title>
+    <span>{{title}}</span>
+<!--    <i (click)="closeClick()"-->
+<!--       class="fas fa-times close-icon"></i>-->
+  </div>
+
+  <mat-dialog-content>
+    <ng-content></ng-content>
+
+    <br>
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions class="action-buttons">
+    <div class="action-button" *ngIf="primaryLabel !== ''">
+      <button type="button" [disabled]="primaryDisabled" (click)="primaryClick($event)" class="squire-button btn btn-primary">
+        {{primaryLabel}}
+      </button>
+    </div>
+    <div class="action-button" *ngIf="tertiaryLabel !== ''">
+      <button type="button" [disabled]="tertiaryDisabled" (click)="tertiaryClick($event)" class="squire-button btn btn-secondary">
+        {{tertiaryLabel}}
+      </button>
+    </div>
+    <div class="action-button" *ngIf="secondaryLabel !== ''">
+      <button type="button" [disabled]="secondaryDisabled" (click)="secondaryClick($event)" class="squire-button btn btn-danger">
+        {{secondaryLabel}}
+      </button>
+    </div>
+  </mat-dialog-actions>
+</div>

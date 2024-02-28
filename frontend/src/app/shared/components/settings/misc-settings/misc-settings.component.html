@@ -1,0 +1,29 @@
+<div class="form-group">
+  <div class="form-group">
+    <label>{{ 'CharacterSettings.Misc.MaxColumns' | translate }}</label>
+    <input type="number"
+           class="form-control"
+           max="10" min="0"
+           appInputNumber minValue="0" maxValue="10"
+           [ngModel]="settings.misc.maxColumns"
+           (valueChange)="maxColumnChange($event)"/>
+  </div>
+
+  <app-setting [checked]="settings.misc.showHealthProgressBar"
+               label="{{ 'CharacterSettings.Misc.ShowHealthProgressBar' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Misc.ShowHealthProgressBar' | translate }}"
+               (change)="showHealthProgressBar($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.misc.showLevelProgressBar"
+               label="{{ 'CharacterSettings.Misc.ShowLevelProgressBar' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Misc.ShowLevelProgressBar' | translate }}"
+               (change)="showLevelProgressBar($event)">
+  </app-setting>
+
+  <app-setting [checked]="settings.misc.showCarryingProgressBar"
+               label="{{ 'CharacterSettings.Misc.ShowCarryingProgressBar' | translate }}"
+               tooltip="{{ 'Tooltips.CharacterSettings.Misc.ShowCarryingProgressBar' | translate }}"
+               (change)="showCarryingProgressBar($event)">
+  </app-setting>
+</div>

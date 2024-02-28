@@ -1,0 +1,53 @@
+<mat-card [ngClass]="{'clickable': !clickDisabled}"
+          class="allow-badges creature-item-card"
+          (click)="onItemClick(creatureItem)">
+  <div class="creature-item-row">
+    <app-creature-list-item class="item-name"
+                            [creatureItem]="creatureItem"
+                            [nested]="false">
+    </app-creature-list-item>
+
+    <div class="tags-container">
+      <app-quantity-tag [quantity]="creatureItem.quantity"></app-quantity-tag>
+      <app-attuned-tag *ngIf="creatureItem.attuned"></app-attuned-tag>
+      <app-cursed-tag *ngIf="creatureItem.cursed"></app-cursed-tag>
+      <app-silvered-tag *ngIf="creatureItem.silvered"></app-silvered-tag>
+      <app-poisoned-tag *ngIf="creatureItem.poisoned"></app-poisoned-tag>
+      <span *ngIf="creatureItem.maxCharges > 0" class="tag" [ngClass]="{'no-uses-remaining': creatureItem.chargesRemaining === 0}">
+        {{creatureItem.chargesRemaining}}/{{creatureItem.maxCharges}}
+      </span>
+      <span class="tag" *ngIf="displaySlot && creatureItem.equipmentSlot != null && creatureItem.equipmentSlot.id !== '0'">
+        {{creatureItem.equipmentSlot.name}}
+      </span>
+      <span *ngIf="showNestedItems && creatureItem.items.length > 0 && !creatureItem.expanded"
+            class="expansion-icon"
+            (click)="toggleExpanded($event)">
+        <i class="fas fa-chevron-down"></i>
+      </span>
+      <span *ngIf="showNestedItems && creatureItem.items.length > 0 && creatureItem.expanded"
+            class="expansion-icon"
+            (click)="toggleExpanded($event)">
+        <i class="fas fa-chevron-up"></i>
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="showNestedItems && creatureItem.items.length > 0 && creatureItem.expanded" class="nested-items">
+    <div *ngFor="let item of creatureItem.items">
+      <app-creature-list-item [creatureItem]="item"
+                              [clickDisabled]="clickDisabled || !allowNestedClick"
+                              (itemClick)="onItemClick(item)">
+      </app-creature-list-item>
+    </div>
+  </div>
+
+<!--  <div *ngIf="showNestedItems && creatureItem.spells.length > 0" class="nested-items">-->
+<!--    <ng-container *ngFor="let spell of creatureItem.spells">-->
+<!--      <div *ngIf="showAdditionalSpells || !spell.additional">-->
+<!--        <app-creature-list-spell [spell]="spell.spell"-->
+<!--                                 (spellClick)="onSpellClick(spell)">-->
+<!--        </app-creature-list-spell>-->
+<!--      </div>-->
+<!--    </ng-container>-->
+<!--  </div>-->
+</mat-card>

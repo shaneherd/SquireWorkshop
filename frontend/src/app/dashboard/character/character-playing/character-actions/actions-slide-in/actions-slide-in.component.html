@@ -1,0 +1,74 @@
+<app-details headerName="{{ 'ActionType.' + actionType | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div *ngIf="!loading && weaponActions.length === 0 && spellActions.length === 0 && featureActions.length === 0"
+       class="no-actions-container">
+    <span>{{ 'ActionsPage.NoActions' | translate }}</span>
+  </div>
+
+  <div *ngIf="weaponActions.length > 0" class="form-group">
+    <div>
+      <label>{{ 'CreatureActionType.WEAPON' | translate }}</label>
+    </div>
+
+    <div *ngFor="let creatureActionSelection of weaponActions" class="action-row">
+      <div class="action-card">
+        <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                  (click)="cardClick(creatureActionSelection)">
+          <span>{{creatureActionSelection.creatureAction.item.name}}</span>
+          <span *ngIf="creatureActionSelection.creatureAction.subItem != null" class="sub-item">
+            ({{creatureActionSelection.creatureAction.subItem.name}})
+          </span>
+        </mat-card>
+      </div>
+      <i class="far fa-star" *ngIf="!creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+      <i class="fas fa-star" *ngIf="creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+    </div>
+  </div>
+
+  <div *ngIf="spellActions.length > 0" class="form-group">
+    <div>
+      <label>{{ 'CreatureActionType.SPELL' | translate }}</label>
+    </div>
+
+    <div *ngFor="let creatureActionSelection of spellActions" class="action-row">
+      <div class="action-card">
+        <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                  (click)="cardClick(creatureActionSelection)">
+          <span>{{creatureActionSelection.creatureAction.item.name}}</span>
+        </mat-card>
+      </div>
+      <i class="far fa-star" *ngIf="!creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+      <i class="fas fa-star" *ngIf="creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+    </div>
+  </div>
+
+  <div *ngIf="featureActions.length > 0" class="form-group">
+    <div>
+      <label>{{ 'CreatureActionType.FEATURE' | translate }}</label>
+    </div>
+
+    <div *ngFor="let creatureActionSelection of featureActions" class="action-row">
+      <div class="action-card">
+        <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                  (click)="cardClick(creatureActionSelection)">
+          <span>{{creatureActionSelection.creatureAction.item.name}}</span>
+        </mat-card>
+      </div>
+      <i class="far fa-star" *ngIf="!creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+      <i class="fas fa-star" *ngIf="creatureActionSelection.selected" (click)="toggleFavorite(creatureActionSelection)"></i>
+    </div>
+  </div>
+</app-details>
+
+<app-action-slide-in *ngIf="viewingAction != null"
+                     [playerCharacter]="playerCharacter"
+                     [collection]="collection"
+                     [creatureAction]="viewingAction.creatureAction"
+                     (continue)="continueAction()"
+                     (cancel)="cancelAction()">
+</app-action-slide-in>

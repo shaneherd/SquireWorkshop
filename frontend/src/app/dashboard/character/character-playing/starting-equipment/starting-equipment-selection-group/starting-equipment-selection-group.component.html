@@ -1,0 +1,48 @@
+<div class="form-group starting-equipment-selection-group">
+  <div class="header">
+    <label class="group-label"
+           [translate]="'StartingEquipment.GroupLabel'"
+           [translateParams]="{group: selectionGroup.group.groupNumber}"></label>
+    <span *ngIf="!selectionGroup.expanded"
+          class="expansion-icon"
+          (click)="toggleExpanded()">
+      <i class="fas fa-chevron-down"></i>
+    </span>
+    <span *ngIf="selectionGroup.expanded"
+          class="expansion-icon"
+          (click)="toggleExpanded()">
+      <i class="fas fa-chevron-up"></i>
+    </span>
+  </div>
+
+  <div *ngIf="selectionGroup.expanded">
+    <div *ngFor="let option of selectionGroup.options" class="option-container">
+      <div>
+        <mat-checkbox
+          class="on-dark"
+          (change)="optionChange($event, option)"
+          [checked]="option.selected">
+        </mat-checkbox>
+        <span [translate]="'StartingEquipment.OptionLabel'"
+               [translateParams]="{option: option.option.label}"></span>
+      </div>
+
+      <div *ngFor="let item of option.items" class="items-container">
+        <mat-card class="item-card clickable" (click)="onItemClick(item)">
+          <div>
+            <span>{{item.displayName}}</span>
+            <div class="tags-container">
+              <app-quantity-tag [alwaysShowQuantity]="true" [quantity]="item.quantity">
+              </app-quantity-tag>
+            </div>
+          </div>
+          <div *ngIf="item.secondaryDisplayName !== ''" class="secondary-display-name">
+            <span>{{item.secondaryDisplayName}}</span>
+          </div>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+
+</div>

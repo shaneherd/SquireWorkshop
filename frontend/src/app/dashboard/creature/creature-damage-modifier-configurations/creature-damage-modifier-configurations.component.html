@@ -1,0 +1,29 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ 'Headers.DamageModifiers' | translate }}
+    </mat-panel-title>
+
+    <mat-panel-description>
+      <mat-icon matTooltip="{{ 'Tooltips.DamageModifiers' | translate }}">
+        help
+      </mat-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div *ngFor="let item of damageModifierCollection.damageModifiers" class="damage-modifier">
+    <label>{{item.damageType.name}}:</label>
+    <div>
+      <mat-button-toggle-group [ngModel]="getModifierType(item)"
+                               [disabled]="isDisabled(item)"
+                               (change)="changeDamageModifierType(item, $event.value)">
+        <mat-button-toggle *ngFor="let modifier of damageModifierTypes"
+                           [matTooltip]="getTooltip(item, modifier)"
+                           [value]="modifier">
+          {{ 'DamageModifier.' + modifier | translate }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+</mat-expansion-panel>

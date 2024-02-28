@@ -1,0 +1,20 @@
+<app-details [headerName]="creatureSpell.spell.name"
+             (close)="closeClick()"
+             (secondary)="closeClick()"
+             secondaryLabel="{{ 'Close' | translate }}">
+  <app-spell-details *ngIf="viewingSpell != null"
+                     [creatureSpell]="creatureSpell"
+                     [spellListObject]="creatureSpell.spell"
+                     [spell]="viewingSpell"
+                     [attackModifier]="attackModifier"
+                     [saveModifier]="saveModifier"
+                     [companion]="companion"
+                     [collection]="collection"
+                     [slotsRemaining]="0"
+                     [showSlots]="true"
+                     [showSlotsRemaining]="false"
+                     (slotChange)="slotChange($event)"
+                     (damageChange)="damageChange($event)"
+                     (modifierChange)="modifierChange($event)">
+  </app-spell-details>
+</app-details>

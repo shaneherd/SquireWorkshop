@@ -1,0 +1,20 @@
+<span class="tag"
+      *ngIf="(proficiency.proficient || inherited) && !proficiency.doubleProf"
+      matTooltip="{{ 'Proficient' | translate }}" >
+  {{ 'Prof' | translate }}
+</span>
+<span class="tag"
+      *ngIf="(proficiency.proficient || inherited) && proficiency.doubleProf"
+      matTooltip="{{ 'DoubleProficient' | translate }}" >
+  {{ 'Double' | translate }}
+</span>
+<span class="tag"
+      *ngIf="!proficiency.proficient && !inherited && proficiency.halfProf && !proficiency.roundUp"
+      matTooltip="{{ 'HalfProficient' | translate }}" >
+  {{ 'Half' | translate }}
+</span>
+<span class="tag"
+      *ngIf="!proficiency.proficient && !inherited && proficiency.halfProf && proficiency.roundUp"
+      matTooltip="{{ 'HalfProficientRoundUp' | translate }}" >
+  {{ 'Half' | translate }}
+</span>

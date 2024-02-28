@@ -1,0 +1,6 @@
+<h5 class="group-label">{{group.label}}</h5>
+<app-button-action *ngFor="let action of group.actions"
+                   [action]="action"
+                   [disabled]="group.disabled"
+                   (onClick)="buttonClick($event)">
+</app-button-action>

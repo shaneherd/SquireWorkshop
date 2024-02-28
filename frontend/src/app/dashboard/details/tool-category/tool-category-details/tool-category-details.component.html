@@ -1,0 +1,7 @@
+<span *ngIf="toolCategory.description.length > 0" class="info-description">
+  {{toolCategory.description}}
+</span>
+
+<span *ngIf="toolCategory.description.length === 0">
+  {{ 'NoDescription' | translate }}
+</span>

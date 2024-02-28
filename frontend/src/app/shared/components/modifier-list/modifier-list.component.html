@@ -1,0 +1,13 @@
+<div *ngIf="!editing && !hasModifiers()" class="no-items-label">
+  {{ 'NoModifiers' | translate }}
+</div>
+<div *ngFor="let modifier of modifiers;" class="modifier-list">
+  <div *ngIf="editing || (modifier.value + modifier.parentValue) !== 0">
+    <label class="modifier-label">{{modifier.item.name}}:</label>
+    <span *ngIf="!editing">{{modifier.value + modifier.parentValue}}</span>
+    <input *ngIf="editing" type="number" class="form-control inline" max="9" min="-9"
+           appInputNumber minValue="-9" maxValue="9"
+           [(ngModel)]="modifier.value"/>
+    <span *ngIf="editing && modifier.parentValue > 0">+ {{modifier.parentValue}}</span>
+  </div>
+</div>

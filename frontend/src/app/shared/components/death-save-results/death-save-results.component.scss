@@ -1,0 +1,19 @@
+@import '../../../sass/variables';
+
+.calculator-row {
+  margin: 0;
+
+  app-calculator-button.col-sm-3 {
+    padding: 0;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+.calculator-row.success app-calculator-button.selected {
+  background-color: $skill_with_advantage_background;
+}
+
+.calculator-row app-calculator-button.selected {
+  background-color: $skill_with_disadvantage_background;
+}

@@ -1,0 +1,10 @@
+<div>
+  <mat-checkbox class="on-dark"
+                [checked]="checked"
+                (change)="onChange($event)">
+  </mat-checkbox>
+  <span>{{label}}</span>
+  <mat-icon *ngIf="tooltip !== ''" [matTooltip]="tooltip" class="help-icon">
+    help
+  </mat-icon>
+</div>

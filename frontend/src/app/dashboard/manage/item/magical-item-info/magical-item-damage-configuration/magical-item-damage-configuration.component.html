@@ -1,0 +1,124 @@
+<div class="form-group" *ngIf="editing || !isNone">
+  <ng-container *ngIf="showAttackType">
+    <div class="form-group">
+      <label>{{ 'Labels.EffectType' | translate }}</label>
+      <span *ngIf="!editing">
+        {{ 'AttackType.' + magicalItem.attackType | translate }}
+      </span>
+
+      <div>
+        <mat-button-toggle-group *ngIf="editing"
+                                 [ngModel]="magicalItem.attackType"
+                                 (change)="attackTypeChange($event.value)">
+          <mat-button-toggle *ngFor="let attackType of attackTypes"
+                             [value]="attackType">
+            {{ 'AttackType.' + attackType | translate }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </ng-container>
+
+  <!--Attack Mod-->
+  <div class="form-group attack-mod" *ngIf="showAttackMod">
+    <span *ngIf="isAttack">1d20</span>
+    <span *ngIf="isSave">{{ 'Labels.DC' | translate }}</span>
+    <span *ngIf="!editing && !isHeal && !isNone && isSave">
+      {{magicalItem.attackMod}}
+    </span>
+    <span *ngIf="!editing && !isHeal && !isNone && magicalItem.attackMod > 0 && isAttack">
+      + {{magicalItem.attackMod}}
+    </span>
+    <span *ngIf="editing && (isAttack || isSave)">+</span>
+    <input *ngIf="editing && !isHeal && !isNone && !isDamage" type="number" class="form-control"
+           min="0" max="99"
+           appInputNumber minValue="0" maxValue="99"
+           [ngModel]="magicalItem.attackMod"
+           (valueChange)="attackModChange($event)"/>
+
+    <div class="form-group" *ngIf="isAttack && (editing || magicalItem.halfOnSave)">
+      <mat-checkbox
+        (change)="halfOnSaveChange($event)"
+        [disabled]="!editing"
+        [checked]="magicalItem.halfOnSave">
+      </mat-checkbox>
+      <span>{{ 'Headers.HalfOnMiss' | translate }}</span>
+    </div>
+
+    <!--Temporary HP-->
+    <div class="form-group" *ngIf="isHeal && (editing || magicalItem.temporaryHP)">
+      <mat-checkbox
+        (change)="temporaryHPChange($event)"
+        [disabled]="!editing"
+        [checked]="magicalItem.temporaryHP">
+      </mat-checkbox>
+      <span>{{ 'Headers.TemporaryHP' | translate }}</span>
+    </div>
+  </div>
+
+  <!--Save Type-->
+  <div *ngIf="isSave" class="form-group attack-mod">
+    <label>{{ 'Labels.Type' | translate }}</label>
+    <span *ngIf="!editing">{{magicalItem.saveType.id === '0' ? none : magicalItem.saveType.name}}</span>
+    <mat-form-field *ngIf="editing">
+      <mat-select [(ngModel)]="magicalItem.saveType.id"
+                  (selectionChange)="abilityChange($event.value)">
+        <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+          {{ability.id === '0' ? none : ability.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="form-group" *ngIf="editing || magicalItem.halfOnSave">
+      <mat-checkbox
+        (change)="halfOnSaveChange($event)"
+        [disabled]="!editing"
+        [checked]="magicalItem.halfOnSave">
+      </mat-checkbox>
+      <span>{{ 'Headers.HalfOnSave' | translate }}</span>
+    </div>
+  </div>
+
+  <!--Damages-->
+  <div *ngIf="!isNone">
+    <label *ngIf="!isHeal">{{ 'Labels.Damages' | translate }}</label>
+    <label *ngIf="isHeal">{{ 'Labels.Healing' | translate }}</label>
+    <div *ngIf="magicalItem.damages.length === 0 && !isHeal" class="no-items-label">
+      {{ 'NoDamages' | translate }}
+    </div>
+    <div *ngIf="magicalItem.damages.length === 0 && isHeal" class="no-items-label">
+      {{ 'NoHealing' | translate }}
+    </div>
+    <div *ngFor="let config of magicalItem.damages; let i = index;" class="damages">
+      <app-damage-configuration-display [config]="config"
+                                        [editing]="editing"
+                                        [disabled]="configuringDamage != null"
+                                        [first]="i === 0 && !showAllAsAdditional"
+                                        (delete)="deleteDamage($event)"
+                                        (configure)="configureDamage($event)">
+      </app-damage-configuration-display>
+    </div>
+
+    <div class="add-damages-container">
+      <button *ngIf="editing && !isHeal" type="button" (click)="addDamage()"
+              class="squire-button btn btn-danger add-damage"
+              [ngClass]="{'disabled': configuringDamage != null}">
+        {{ 'Navigation.Manage.Damages.Add' | translate }}
+      </button>
+
+      <button *ngIf="editing && isHeal" type="button" (click)="addDamage()"
+              class="squire-button btn btn-danger add-damage"
+              [ngClass]="{'disabled': configuringDamage != null}">
+        {{ 'Navigation.Manage.Healing.Add' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-damage-configuration *ngIf="configuringDamage != null && editing"
+                          [damageConfiguration]="configuringDamage"
+                          [isSpell]="false"
+                          [allowNone]="true"
+                          (close)="damageConfigurationClose()"
+                          (continue)="damageConfigurationContinue($event)">
+</app-damage-configuration>

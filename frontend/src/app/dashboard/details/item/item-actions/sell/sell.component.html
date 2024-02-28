@@ -1,0 +1,26 @@
+<app-details headerName="{{ 'CreatureItemAction.SELL.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div *ngIf="creatureItem.quantity > 1">
+    <label>{{ 'Labels.Quantity' | translate }}</label>
+    <app-slider-input [min]="0"
+                      [max]="creatureItem.quantity"
+                      [step]="1"
+                      [value]="itemQuantity.quantity"
+                      (valueChange)="quantityChange($event)">
+    </app-slider-input>
+  </div>
+
+  <app-cost-details [creature]="creature"
+                    [items]="items"
+                    [id]="id"
+                    [modifier]="1"
+                    (continue)="continueSell()">
+  </app-cost-details>
+</app-details>

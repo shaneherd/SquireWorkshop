@@ -1,0 +1,14 @@
+<div class="form-group" *ngIf="race.description.length > 0">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span class="info-description">{{race.description}}</span>
+</div>
+
+<div class="form-group" *ngIf="race.speeds.length > 0">
+  <label>{{ 'Headers.Speeds' | translate }}</label>
+  <ng-container *ngFor="let speed of race.speeds">
+    <div class="detail-value" *ngIf="speed.value !== 0">{{ ('SpeedType.' + speed.speedType | translate) + ': ' + speed.value }}</div>
+  </ng-container>
+</div>
+
+<app-characteristic-details [characteristic]="race">
+</app-characteristic-details>

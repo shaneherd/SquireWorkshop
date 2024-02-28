@@ -1,0 +1,64 @@
+.spell-config-details {
+  margin-left: 20px;
+  display: block;
+
+  .spell-config-level-gained {
+    display: inline-flex;
+
+    label {
+      margin: auto 10px auto 0;
+    }
+  }
+
+  .help-icon {
+    margin-left: 10px;
+  }
+}
+
+.spell-config-list {
+  margin-bottom: 10px;
+}
+
+.delete-config {
+  float: right;
+  margin: auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.configure-config {
+  float: right;
+  margin: auto 10px auto 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: #cccccc;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.add-spells {
+  margin: 0 auto;
+  display:block;
+}
+
+.add-spells-container {
+  width: 100%;
+  margin-bottom: 10px;
+}

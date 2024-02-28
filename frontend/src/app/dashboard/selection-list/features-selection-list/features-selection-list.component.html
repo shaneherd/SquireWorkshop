@@ -1,0 +1,27 @@
+<app-selection-list-slide-in [headerName]="headerName"
+                             [loading]="loading"
+                             [searchable]="true"
+                             [filterable]="true"
+                             [allowSelectAll]="true"
+                             (close)="closeClick()"
+                             (add)="addSelected()"
+                             (selectAll)="selectAll()"
+                             [selectedCount]="selectedCount"
+                             [availableCount]="filteredFeatures.length"
+                             (filter)="filter()"
+                             (search)="search($event)">
+  <app-feature-selection-items [features]="filteredFeatures"
+                               [playerCharacter]="playerCharacter"
+                               [loading]="loading"
+                               (checkChange)="checkChange($event)"
+                               (featureClick)="featureClick($event)">
+  </app-feature-selection-items>
+
+  <app-add-remove-feature *ngIf="viewingFeature != null"
+                          [feature]="viewingFeature"
+                          [playerCharacter]="playerCharacter"
+                          [collection]="collection"
+                          (save)="toggleSelected($event)"
+                          (cancel)="closeDetails()" >
+  </app-add-remove-feature>
+</app-selection-list-slide-in>

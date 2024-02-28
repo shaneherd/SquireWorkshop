@@ -1,0 +1,36 @@
+.item-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+
+  .item-card {
+    flex-grow: 1;
+  }
+
+  .sub-item {
+    margin-left: 5px;
+  }
+
+  .delete-icon,
+  .item-quantity {
+    margin-left: 10px;
+    flex-shrink: 0;
+  }
+
+  .delete-icon {
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+input {
+  width: 88px;
+  display: inline;
+}
+
+.empty-cart {
+  font-style: italic;
+  text-align: center;
+}

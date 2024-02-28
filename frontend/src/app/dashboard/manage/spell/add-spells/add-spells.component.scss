@@ -1,0 +1,57 @@
+.add-spells-list {
+  height: 100%;
+  color: white;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+
+  .spell-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2px 0 2px 5px;
+  }
+}
+
+.details-configuration {
+  height: 100%;
+}
+
+.search {
+  border-bottom: 1px solid #444444;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .search-container {
+    flex-grow: 1;
+  }
+
+  .filter-icon {
+    flex-shrink: 0;
+
+    i:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+
+.bold {
+  font-weight: bold;
+}
+
+.list-menu-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .card {
+    width: calc(100% - 35px);
+  }
+
+  .ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+}

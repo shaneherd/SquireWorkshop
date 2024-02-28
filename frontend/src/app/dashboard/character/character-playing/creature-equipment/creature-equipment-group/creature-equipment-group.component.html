@@ -1,0 +1,15 @@
+<div *ngIf="showEmpty || items.length > 0" class="item-grouping">
+  <h4 class="bold">{{ 'ItemGrouping.' + itemGrouping + '.Label' | translate }}</h4>
+  <div *ngFor="let item of items">
+    <app-creature-item-card [creatureItem]="item"
+                            [creature]="creature"
+                            [clickDisabled]="clickDisabled"
+                            [showNestedItems]="true"
+                            (itemClick)="onItemClick($event)"
+                            (spellClick)="onSpellClick($event)">
+    </app-creature-item-card>
+  </div>
+  <div *ngIf="items.length === 0" class="item-grouping-empty">
+    {{ 'ItemGrouping.' + itemGrouping + '.Empty' | translate }}
+  </div>
+</div>

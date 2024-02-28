@@ -1,0 +1,89 @@
+<app-character-slide-in [loading]="loading"
+                        [itemName]="playerCharacter.name">
+  <div *ngIf="!loading" class="character-playing-content">
+    <ng-container *ngIf="!printing">
+      <ng-container *ngIf="isDesktop">
+        <app-character-playing-column *ngFor="let item of [].constructor(this.calculatedColumns); let i = index"
+                                      class="character-playing-column"
+                                      [columnIndex]="i"
+                                      [playerCharacter]="playerCharacter"
+                                      [collection]="collection">
+        </app-character-playing-column>
+      </ng-container>
+
+      <ng-container *ngIf="!isDesktop">
+        <div class="mobile-column">
+          <div class="mobile-playing-column">
+            <app-character-playing-column (panleft)="onSwipeLeft($event)"
+                                          (panright)="onSwipeRight($event)"
+                                          (pageChange)="onPageChange($event)"
+                                          class="character-playing-column"
+                                          [columnIndex]="mobileIndex"
+                                          [playerCharacter]="playerCharacter"
+                                          [collection]="collection">
+            </app-character-playing-column>
+          </div>
+
+          <div class="page-progress">
+            <mat-slider [min]="0"
+                        [max]="pages.length - 1"
+                        [step]="1"
+                        [value]="mobileIndex"
+                        (input)="indexChange($event)"
+                        class="on-dark">
+            </mat-slider>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <app-print-character *ngIf="printing"
+                         class="full-width"
+                         [playerCharacter]="playerCharacter"
+                         [collection]="collection"
+                         (cancel)="cancelPrint()">
+    </app-print-character>
+
+    <app-character-page-order *ngIf="editPageOrder"
+                              [playerCharacter]="playerCharacter"
+                              (close)="editPageOrderClose()"
+                              (continue)="editPageOrderContinue()">
+    </app-character-page-order>
+
+    <app-roll-log *ngIf="displayRollLog"
+                  [playerCharacter]="playerCharacter"
+                  (close)="rollLogClose()"
+                  (continue)="rollLogContinue()">
+    </app-roll-log>
+
+    <app-character-settings *ngIf="editCharacterSettings"
+                            [playerCharacter]="playerCharacter"
+                            (close)="editCharacterSettingsClose()"
+                            (continue)="editCharacterSettingsContinue()">
+    </app-character-settings>
+
+    <app-validate-character *ngIf="validateCharacter"
+                            [playerCharacter]="playerCharacter"
+                            [collection]="collection"
+                            (close)="validateCharacterClose()"
+                            (continue)="validateCharacterContinue()">
+    </app-validate-character>
+
+    <app-starting-equipment *ngIf="chooseStartingEquipment"
+                            [playerCharacter]="playerCharacter"
+                            [collection]="collection"
+                            (close)="startingEquipmentClose()"
+                            (continue)="startingEquipmentContinue()">
+    </app-starting-equipment>
+
+    <app-join-campaign-slide-in *ngIf="showJoinCampaign"
+                                [playerCharacter]="playerCharacter"
+                                (join)="continueJoinCampaign()"
+                                (close)="closeJoinCampaign()">
+    </app-join-campaign-slide-in>
+
+    <app-quick-references-slide-in *ngIf="quickReferences"
+                                   (close)="closeQuickReferences()">
+    </app-quick-references-slide-in>
+  </div>
+</app-character-slide-in>

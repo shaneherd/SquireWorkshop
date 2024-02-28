@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.WeaponProperties.WeaponProperties' | translate }}"
+                 [menuService]="weaponPropertyService"
+                 [manageService]="attributeService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="WeaponProperties"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-weapon-property *ngIf="selectedItem != null"
+                                [weaponProperty]="selectedItem"
+                                (save)="updateSelected($event)"
+                                (cancel)="closeItem()">
+</app-add-remove-weapon-property>

@@ -1,0 +1,45 @@
+<div class="form-group chosen-class">
+  <label>{{ 'Labels.Class' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="chosenClass.characterClass?.id"
+                [disabled]="changingClass"
+                (selectionChange)="classChange($event.value)">
+      <mat-option *ngFor="let classOption of classes"
+                  [disabled]="classOption.disabled"
+                  [value]="classOption.option.id">
+        {{classOption.option.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <i *ngIf="!chosenClass.primary"
+     class="delete-class fas fa-trash-alt"
+     (click)="deleteClass()"
+     matTooltip="{{ 'Tooltips.Delete' | translate }}"></i>
+</div>
+
+<div class="form-group">
+  <label>{{ 'Labels.Subclass' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="chosenClass.subclass?.id"
+                [disabled]="changingClass"
+                (selectionChange)="subclassChange($event.value)">
+      <mat-option *ngFor="let subclass of subclasses" [value]="subclass.id">
+        {{subclass.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="form-group level">
+  <label>{{ 'Labels.LevelLabel' | translate }}</label>
+  <mat-form-field>
+    <mat-select [ngModel]="chosenClass.characterLevel?.id"
+                [disabled]="changingClass"
+                (selectionChange)="levelChange($event.value)">
+      <mat-option *ngFor="let level of levels" [value]="level.id">
+        {{level.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

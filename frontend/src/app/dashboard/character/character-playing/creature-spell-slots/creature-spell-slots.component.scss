@@ -1,0 +1,23 @@
+.spell-slots {
+  display: grid;
+  width: 100%;
+}
+
+.spell-slots-header {
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.spell-slot-items-container {
+  width: 100%;
+  display: table;
+}
+
+.spell-slot {
+  display: table-cell;
+
+  div {
+    text-align: center;
+  }
+}

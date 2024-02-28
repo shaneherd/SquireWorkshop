@@ -1,0 +1,19 @@
+<div class="form-group">
+  <div class="form-group">
+    <label>{{ 'SpeedType.CRAWL' | translate }}</label>
+    <app-speed-setting [characterSpeedSetting]="settings.speed.crawling">
+    </app-speed-setting>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'SpeedType.CLIMB' | translate }}</label>
+    <app-speed-setting [characterSpeedSetting]="settings.speed.climbing">
+    </app-speed-setting>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'SpeedType.SWIM' | translate }}</label>
+    <app-speed-setting [characterSpeedSetting]="settings.speed.swimming">
+    </app-speed-setting>
+  </div>
+</div>

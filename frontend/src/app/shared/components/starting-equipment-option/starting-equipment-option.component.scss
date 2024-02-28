@@ -1,0 +1,35 @@
+.item-container {
+  margin-left: 20px;
+}
+
+.no-items {
+  margin-left: 20px;
+  font-style: italic;
+}
+
+.option-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  label {
+    flex-grow: 1;
+  }
+
+  i {
+    flex-shrink: 0;
+    margin-left: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.disabled {
+      color: #cccccc;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

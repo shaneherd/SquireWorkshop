@@ -1,0 +1,20 @@
+.casting-time {
+  input {
+    width: 70px;
+    display: inline;
+  }
+}
+
+.components,
+.duration-container,
+.components-container {
+  margin-left: 20px;
+}
+
+.range {
+  input {
+    width: 70px;
+    display: inline;
+    margin: 0 5px;
+  }
+}

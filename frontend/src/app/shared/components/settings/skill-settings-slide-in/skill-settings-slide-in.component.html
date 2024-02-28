@@ -1,0 +1,12 @@
+<app-details headerName="{{ 'Navigation.Characters.Settings' | translate }}"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <app-skill-settings [playerCharacter]="playerCharacter"
+                      [settings]="settings">
+  </app-skill-settings>
+</app-details>
+

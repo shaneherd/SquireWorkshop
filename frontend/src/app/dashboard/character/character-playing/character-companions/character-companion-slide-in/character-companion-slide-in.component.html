@@ -1,0 +1,202 @@
+<app-details [headerName]="headerName"
+             [configurable]="true"
+             (configure)="configure()"
+             [loading]="loading"
+             (close)="onClose()"
+             (primary)="saveDetails()"
+             (secondary)="onClose()"
+             [primaryCloseOnClick]="false"
+             [secondaryCloseOnClick]="false"
+             [closeOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="flex-container">
+    <div class="flex-grow-container">
+      <!-- Health -->
+      <ng-container *ngIf="step === 0 && !loading">
+        <app-health-calculator [creature]="companion"
+                               [collection]="collection"
+                               [calculatorState]="calculatorState"
+                               [showHitDice]="false"
+                               [maxHP]="companionListObject.maxHp">
+        </app-health-calculator>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container *ngIf="step === 1">
+        <app-companion-action-card *ngFor="let action of actions"
+                                   [companionAction]="action"
+                                   (cardClick)="actionClick($event)">
+        </app-companion-action-card>
+      </ng-container>
+
+      <!-- Features -->
+      <ng-container *ngIf="step === 2">
+        <app-companion-feature-card *ngFor="let feature of features"
+                                    [companionFeature]="feature"
+                                    (cardClick)="featureClick($event)">
+        </app-companion-feature-card>
+      </ng-container>
+
+      <!-- Spells -->
+      <ng-container *ngIf="step === 3 && monster != null">
+        <app-companion-spell-card *ngFor="let spellConfiguration of spells"
+                                  [spell]="spellConfiguration"
+                                  (cardClick)="spellClick($event)">
+        </app-companion-spell-card>
+      </ng-container>
+
+      <!-- Scores -->
+      <ng-container *ngIf="step === 4">
+        <div class="form-group">
+          <div *ngFor="let abilityScore of abilityScores" class="ability-score-row">
+            <label class="ability-name">{{abilityScore.ability}}</label>
+            <button class="squire-button btn btn-primary ability-score-button" (click)="abilityCheck(abilityScore)">Check {{abilityScore.modifierDisplay}}</button>
+            <button class="squire-button btn btn-secondary ability-score-button" (click)="abilitySave(abilityScore)">Save {{abilityScore.saveDisplay}}</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Skills -->
+      <ng-container *ngIf="step === 5">
+        <app-companion-skill-card *ngFor="let skillConfig of collection.proficiencyCollection.skillProficiencies"
+                                  [companion]="companion"
+                                  [collection]="collection"
+                                  [characterCollection]="characterCollection"
+                                  [skill]="skillConfig">
+        </app-companion-skill-card>
+      </ng-container>
+
+      <!-- Proficiencies / Other -->
+      <ng-container *ngIf="step === 6 && monster != null">
+        <div class="form-group">
+          <div>
+            <label>{{ 'Labels.Monster' | translate }}</label>
+            <span>{{monster.name}}</span>
+          </div>
+
+          <div>
+            <label>{{ 'Labels.AC' | translate }}</label>
+            <span>{{ac}}</span>
+          </div>
+
+          <div>
+            <label>{{ 'Labels.Size' | translate }}</label>
+            <span>{{ 'Size.' + monster.size | translate }}</span>
+          </div>
+
+          <div>
+            <label>{{ 'Labels.Type' | translate }}</label>
+            <span>{{ 'MonsterType.' + monster.monsterType | translate }}</span>
+            <span *ngIf="monster.typeVariation !== ''" class="monster-type-variation">- {{monster.typeVariation}}</span>
+          </div>
+
+          <div>
+            <label>{{ 'Labels.Alignment' | translate }}</label>
+            <span>{{monster.alignment?.name}}</span>
+          </div>
+
+          <div>
+            <label>{{ 'Labels.ChallengeRating' | translate }}</label>
+            <span>{{ 'ChallengeRating.' + monster.challengeRating | translate }}</span>
+          </div>
+
+          <div>
+            <label>{{ 'Labels.Exp' | translate }}</label>
+            <span>{{monster.experience | number}}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'Headers.Speeds' | translate }}</label>
+          <ng-container *ngFor="let monsterSpeed of speeds">
+            <div class="nested" *ngIf="monsterSpeed.value > 0">
+              <label>{{ 'SpeedType.' + monsterSpeed.speedType | translate }}:</label>
+              <span>{{monsterSpeed.value}}</span>
+              <span *ngIf="monsterSpeed.hover" class="hover">(hover)</span>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="form-group" *ngIf="monster.senses.length > 0">
+          <label>{{ 'Headers.Senses' | translate }}</label>
+          <div *ngFor="let monsterSense of monster.senses" class="nested">
+            <label>{{ 'Sense.' + monsterSense.sense | translate }}:</label>
+            <span>{{monsterSense.range}}</span>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="monster.damageModifiers.length > 0">
+          <label>{{ 'Headers.DamageModifiers' | translate }}</label>
+          <div *ngFor="let damageModifier of monster.damageModifiers" class="nested">
+            <label>{{damageModifier.damageType.name}}:</label>
+            <span>{{ 'DamageModifier.' + damageModifier.damageModifierType | translate }}</span>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="monster.conditionImmunities.length > 0">
+          <label>{{ 'Headers.ConditionImmunities' | translate }}</label>
+          <div *ngFor="let condition of monster.conditionImmunities" class="nested">
+            <span>{{condition.name}}</span>
+          </div>
+        </div>
+
+        <app-companion-prof-section label="{{ 'Headers.Languages' | translate }}"
+                                    [proficiencyType]="languageType"
+                                    [monster]="monster">
+        </app-companion-prof-section>
+
+<!--        <div class="form-group">-->
+<!--          <label>{{ 'Headers.ArmorProfs' | translate }}</label>-->
+<!--&lt;!&ndash;          todo&ndash;&gt;-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--          <label>{{ 'Headers.WeaponProfs' | translate }}</label>-->
+<!--          &lt;!&ndash;          todo&ndash;&gt;-->
+<!--        </div>-->
+      </ng-container>
+    </div>
+
+    <div class="flex-shrink-container">
+      <app-pager [pageCount]="7"
+                 [index]="step"
+                 (pageChange)="setStep($event)">
+      </app-pager>
+    </div>
+  </div>
+</app-details>
+
+<app-character-companion-configure-slide-in *ngIf="configuring"
+                                            [companion]="companion"
+                                            [playerCharacter]="playerCharacter"
+                                            [characterCollection]="characterCollection"
+                                            (save)="saveConfiguration($event)"
+                                            (delete)="deleteCompanion($event)"
+                                            (cancel)="cancel()">
+</app-character-companion-configure-slide-in>
+
+<app-companion-action-slide-in *ngIf="viewingAction != null"
+                               [companionAction]="viewingAction"
+                               [companion]="companion"
+                               [collection]="collection"
+                               (use)="useAction($event)"
+                               (close)="closeAction()">
+</app-companion-action-slide-in>
+
+<app-companion-feature-slide-in *ngIf="viewingFeature != null"
+                                [companionFeature]="viewingFeature"
+                                [companion]="companion"
+                                [collection]="collection"
+                                (use)="useFeature($event)"
+                                (close)="closeFeature()">
+</app-companion-feature-slide-in>
+
+<app-companion-spell-slide-in *ngIf="viewingSpell != null"
+                              [creatureSpell]="viewingSpell"
+                              [companion]="companion"
+                              [collection]="collection"
+                              (use)="useSpell($event)"
+                              (close)="closeSpell()">
+</app-companion-spell-slide-in>

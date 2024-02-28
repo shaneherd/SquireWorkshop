@@ -1,0 +1,17 @@
+.dice-display {
+  display: inline-block;
+}
+
+.spaced {
+  margin-left: 5px;
+}
+
+mat-form-field.dice-collection {
+  &.dice-size {
+    width: 70px;
+  }
+
+  &.ability-modifier {
+    width: 125px;
+  }
+}

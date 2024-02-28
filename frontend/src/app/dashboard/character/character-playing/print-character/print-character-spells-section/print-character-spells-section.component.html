@@ -1,0 +1,17 @@
+<div class="spell-level-container">
+  <h4 class="spell-level">{{label}}</h4>
+  <div class="spell-slots" *ngIf="slots.length > 0">
+    <app-print-character-checkbox *ngFor="let slot of slots; let i = index;"
+                                  class="spell-slot"
+                                  [checked]="slot">
+    </app-print-character-checkbox>
+  </div>
+</div>
+
+<div class="spells-container">
+  <app-print-character-list-spell *ngFor="let spell of spells"
+                                  [spellName]="spell.name"
+                                  [prepared]="spell.prepared"
+                                  [showPrepared]="showPrepared">
+  </app-print-character-list-spell>
+</div>

@@ -1,0 +1,78 @@
+<app-details headerName="{{ 'CreatureItemAction.TOOL_CHECK.Label' | translate }}"
+             [loading]="loading"
+             (close)="cancelClick()"
+             (primary)="continueClick()"
+             (secondary)="cancelClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Continue' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div class="form-group">
+    <label>{{ 'Labels.Ability' | translate }}</label>
+    <mat-form-field class="form-group">
+      <mat-select [(ngModel)]="ability"
+                  [ngModelOptions]="{standalone: true}"
+                  (selectionChange)="abilityChange($event.value)">
+        <mat-option *ngFor="let ability of abilities" [value]="ability">
+          {{ability.id === '0' ? noAbility : ability.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div>
+      <span>{{abilityModifier}}</span>
+    </div>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.Prof' | translate }}</label>
+    <span>{{profModifier}}</span>
+  </div>
+
+  <div class="form-group">
+    <app-proficiency-configuration class="on-dark"
+                                   [proficiency]="proficiency"
+                                   (proficiencyChange)="proficiencyChange()">
+    </app-proficiency-configuration>
+  </div>
+
+  <div class="form-group" *ngIf="resurrectionPenalty > 0">
+    <label>{{ 'Labels.ResurrectionPenalty' | translate }}</label>
+    <span>-{{resurrectionPenalty}}</span>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'Labels.Total' | translate }}</label>
+    <span>{{total}}</span>
+  </div>
+
+  <div class="form-group">
+    <app-advantage-configuration class="on-dark"
+                                 [proficiency]="proficiency">
+    </app-advantage-configuration>
+  </div>
+
+
+
+
+
+
+<!--  <div>-->
+<!--    <label>{{creatureItem.item.name}}</label>-->
+<!--    <span *ngIf="creatureItem.magicalItem != null" class="sub-item">({{creatureItem.magicalItem.name}})</span>-->
+<!--    <span>{{charges}}/{{creatureItem.maxCharges}}</span>-->
+<!--  </div>-->
+
+<!--  <div class="charges-remaining form-group">-->
+<!--    <app-slider-input [min]="0" [max]="creatureItem.maxCharges" [step]="1" [(value)]="charges" [displayMax]="false">-->
+<!--    </app-slider-input>-->
+<!--  </div>-->
+
+<!--  <div class="form-group">-->
+<!--    <label>{{ 'Labels.RechargeRate' | translate }}</label>-->
+<!--    <app-dice-collection [editing]="false"-->
+<!--                         [diceCollection]="magicalItem.rechargeRate"-->
+<!--                         [showAbility]="false">-->
+<!--    </app-dice-collection>-->
+<!--  </div>-->
+</app-details>

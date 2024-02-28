@@ -1,0 +1,402 @@
+@import '../../../sass/variables';
+
+.page-content {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.pager {
+  flex-shrink: 0;
+}
+
+.drag-box {
+  padding: 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  color: white;
+  font-size: 14px;
+
+  .grip-icon {
+    flex-shrink: 0;
+  }
+
+  .grip-icon {
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .initiative-name-container {
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+
+    .initiative-name-first-row {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      font-weight: bold;
+    }
+
+    .initiative-name {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      font-weight: bold;
+    }
+
+    .initiative-value {
+      font-style: italic;
+    }
+
+    .initiative-name,
+    .initiative-value {
+      margin-left: 12px;
+    }
+
+    &.current-turn {
+      .fa-caret-right {
+        margin-right: 5px;
+      }
+
+      .initiative-name {
+        margin-left: 0;
+      }
+    }
+
+    &.not-started {
+      .initiative-name,
+      .initiative-value {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  .grip-icon {
+    cursor: grabbing;
+  }
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.drag-box:last-child {
+  border: none;
+}
+
+.drag-list.cdk-drop-list-dragging .drag-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.surprise-monster-group-row,
+.encounter-monster-group-row {
+  .quantity-button-container {
+    flex-shrink: 0;
+    margin: -15px -15px -15px 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .quantity-button {
+      padding: 15px 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .add-container {
+      padding-left: 10px;
+      padding-right: 5px;
+      //background-color: red;
+    }
+
+    .minus-container {
+      padding-right: 10px;
+      padding-left: 5px;
+      //background-color: green;
+    }
+  }
+
+  .monster-card {
+    .monster-name-row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .monster-details-container {
+      flex-grow: 1;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+    }
+
+    .monster-cr {
+      font-size: 12px;
+      font-style: italic;
+      margin-left: 10px;
+    }
+
+    .monster-setup-row {
+      margin-left: 20px;
+    }
+
+    .monster-number {
+      margin-right: 10px;
+    }
+
+    .monster-hp {
+      margin-right: 5px;
+    }
+
+    &.zero {
+      //background-color: #dedede;
+      background-color: $primary_color_light;
+
+      &:hover {
+        background-color: $secondary_button_hover;
+      }
+    }
+
+    &.active-group {
+      background-color: $tertiary_color_light;
+
+      &:hover {
+        background-color: $secondary_button_hover;
+      }
+    }
+  }
+}
+
+.encounter-initiative {
+  input {
+    width: 70px;
+    display: inline;
+  }
+
+  .initiative-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    margin: 3px 0;
+    height: 38px;
+
+    .initiative-creature-name {
+      flex-grow: 1;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+    }
+
+    .creature-initiative {
+      flex-shrink: 0;
+      margin-left: 5px;
+    }
+
+    .creature-initiative-disabled {
+      flex-shrink: 0;
+      width: 70px;
+      text-align: center;
+    }
+  }
+
+  .init-mod {
+    margin-right: 10px;
+  }
+}
+
+.roll-initiative-container {
+  margin-top: 5px;
+}
+
+.monster-name-container {
+  flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .monster-name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
+
+  .monster-quantity {
+    margin-left: 5px;
+  }
+}
+
+.no-surprise-creatures-container,
+.no-initiative-creatures-container {
+  text-align: center;
+
+  .no-surprise-creatures,
+  .no-initiative-creatures {
+    font-style: italic;
+  }
+}
+
+.custom-sort-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.character-row-container {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 42px;
+
+  mat-checkbox {
+    flex-shrink: 0;
+  }
+
+  .character-name-container {
+    flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+
+    .character-level {
+      margin-left: 5px;
+    }
+  }
+}
+
+.init-roll-header {
+  display: flex;
+  flex-direction: row;
+
+  label {
+    flex-grow: 1;
+  }
+
+  .total-label {
+    flex-shrink: 0;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+  }
+}
+
+.creature-surprise-header-row {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ffffff;
+
+  &.monsters {
+    margin-bottom: 5px;
+  }
+
+  .name-header {
+    flex-grow: 1;
+    margin-right: 0;
+  }
+
+  .surprised-header,
+  .stealth-header {
+    flex-shrink: 0;
+    width: 75px;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+.character-surprise-row,
+.surprise-monster-group-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .surprise-character-row-container,
+  .monster-card {
+    flex-grow: 1;
+  }
+
+  .stealth-row-value {
+    width: 75px;
+    display: inline;
+    flex-shrink: 0;
+  }
+
+  .surprised-checkbox {
+    flex-shrink: 0;
+    width: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .passive-perception {
+    font-size: 12px;
+    font-style: italic;
+    margin-left: 10px;
+  }
+
+  .stealth-roll-display {
+    margin-left: 10px;
+  }
+}
+
+.character-surprise-row {
+  border-bottom: 1px solid #ffffff;
+  margin-bottom: 10px;
+  padding: 5px 0;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.roll-monster-stealth {
+  margin-top: 2px;
+}
+
+.monster-count-container {
+  text-align: center;
+
+  .monster-count {
+    &.over-max {
+      color: $primary_color;
+      font-weight: bold;
+    }
+  }
+}

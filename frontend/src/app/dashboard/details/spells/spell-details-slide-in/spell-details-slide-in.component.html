@@ -1,0 +1,39 @@
+<app-details [headerName]="creatureSpell.spell.name"
+             [configurable]="false"
+             (close)="closeDetails()"
+             (primary)="castClick()"
+             [primaryActions]="primaryActions"
+             [primaryConfirmationMessage]="confirmCast"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}"
+             (tertiary)="tertiaryClick()"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryLabel]="tertiaryLabel">
+  <div class="form-group" *ngIf="actionChoices.length > 1">
+    <mat-form-field class="action-choice">
+      <mat-select [ngModel]="selectedAction"
+                  (selectionChange)="actionChange($event.value)">
+        <mat-option *ngFor="let action of actionChoices" [value]="action">
+          {{action.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <app-spell-details *ngIf="viewingSpell != null"
+                     [creatureSpell]="creatureSpell"
+                     [spellListObject]="creatureSpell.spell"
+                     [spell]="viewingSpell"
+                     [attackModifier]="attackModifier"
+                     [saveModifier]="saveModifier"
+                     [detailed]="true"
+                     [creature]="creature"
+                     [collection]="collection"
+                     [slotsRemaining]="slotsRemaining"
+                     [showSlots]="castable && creatureSpell.spell.level > 0 && prepared"
+                     [showSlotsRemaining]="showSlotsRemaining"
+                     (slotChange)="slotChange($event)"
+                     (damageChange)="damageChange($event)"
+                     (modifierChange)="modifierChange($event)">
+  </app-spell-details>
+</app-details>

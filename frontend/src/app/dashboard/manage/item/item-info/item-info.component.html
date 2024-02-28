@@ -1,0 +1,103 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!item.author"
+               [itemName]="itemName"
+               [id]="item.id"
+               [inUseService]="itemService"
+               [showShare]="item.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               [exportable]="exportable"
+               (export)="exportClick()"
+               (myStuff)="myStuffClick()"
+               type="{{ 'ItemType.' + selectedCategory | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="itemForm"
+        (submit)="save()">
+    <div class="form-group" *ngIf="editing">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <input formControlName="name" maxlength="50" *ngIf="editing" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Labels.Category' | translate }}</label>
+      <span *ngIf="!editing">{{ 'ItemType.' + selectedCategory | translate }}</span>
+      <div *ngIf="editing">
+        <mat-form-field>
+          <mat-select [(ngModel)]="selectedCategory"
+                      [disabled]="item.id !== '0'"
+                      [ngModelOptions]="{standalone: true}"
+                      (selectionChange)="categoryChange($event.value)">
+            <mat-option *ngFor="let itemType of itemTypes" [value]="itemType">
+              {{ 'ItemType.' + itemType | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <app-weapon-info *ngIf="!loading && isWeapon"
+                     [weapon]="weapon"
+                     [propertyCollection]="weaponPropertyCollection"
+                     [damageCollection]="weaponDamageCollection"
+                     [editing]="editing">
+    </app-weapon-info>
+
+    <app-armor-info *ngIf="!loading && isArmor"
+                    [armor]="armor"
+                    [editing]="editing">
+    </app-armor-info>
+
+    <app-gear-info *ngIf="!loading && isGear"
+                   [gear]="gear"
+                   [editing]="editing">
+    </app-gear-info>
+
+    <app-tool-info *ngIf="!loading && isTool"
+                   [tool]="tool"
+                   [editing]="editing">
+    </app-tool-info>
+
+    <app-ammo-info *ngIf="!loading && isAmmo"
+                   [ammo]="ammo"
+                   [damageCollection]="ammoDamageCollection"
+                   [editing]="editing">
+    </app-ammo-info>
+
+    <app-mount-info *ngIf="!loading && isMount"
+                    [mount]="mount"
+                    [editing]="editing">
+    </app-mount-info>
+
+    <app-treasure-info *ngIf="!loading && isTreasure"
+                       [treasure]="treasure"
+                       [editing]="editing">
+    </app-treasure-info>
+
+    <app-pack-info *ngIf="!loading && isPack"
+                   [pack]="pack"
+                   [editing]="editing">
+    </app-pack-info>
+
+    <app-magical-item-info *ngIf="!loading && isMagicalItem"
+                           [magicalItem]="magicalItem"
+                           [editing]="editing"
+                           [listSource]="listSource">
+    </app-magical-item-info>
+
+    <app-vehicle-info *ngIf="!loading && isVehicle"
+                      [vehicle]="vehicle"
+                      [editing]="editing">
+    </app-vehicle-info>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

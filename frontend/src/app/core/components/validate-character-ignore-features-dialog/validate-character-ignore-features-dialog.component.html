@@ -1,0 +1,69 @@
+<app-dialog title="{{ 'CharacterValidation.Warning.Title' | translate }}"
+            primaryLabel="{{ 'Continue' | translate }}"
+            (primary)="continue()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            (close)="cancel()">
+  <div class="message-container">
+    <span>{{ 'CharacterValidation.Warning.Message' | translate }}</span>
+  </div>
+
+  <div class="ignore-container" *ngIf="hasMissingFeatures">
+    <mat-checkbox [checked]="ignoreUnselectedFeatures"
+                  (change)="ignoreUnselectedFeaturesChange($event)">
+    </mat-checkbox>
+    <span>{{ 'CharacterValidation.IgnoreUnselectedFeatures.Label' | translate }}</span>
+    <mat-icon matTooltip="{{ 'CharacterValidation.IgnoreUnselectedFeatures.Tooltip' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+
+  <div class="ignore-container" *ngIf="hasMissingSpells">
+    <mat-checkbox [checked]="ignoreUnselectedSpells"
+                  (change)="ignoreUnselectedSpellsChange($event)">
+    </mat-checkbox>
+    <span>{{ 'CharacterValidation.IgnoreUnselectedSpells.Label' | translate }}</span>
+    <mat-icon matTooltip="{{ 'CharacterValidation.IgnoreUnselectedSpells.Tooltip' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+
+  <div class="ignore-container" *ngIf="hasMissingASI">
+    <mat-checkbox [checked]="ignoreUnselectedAsi"
+                  (change)="ignoreUnselectedAsiChange($event)">
+    </mat-checkbox>
+    <span>{{ 'CharacterValidation.IgnoreUnselectedASI.Label' | translate }}</span>
+    <mat-icon matTooltip="{{ 'CharacterValidation.IgnoreUnselectedASI.Tooltip' | translate }}" class="help-icon">
+      help
+    </mat-icon>
+  </div>
+
+  <div *ngFor="let warning of warnings; let i = index" class="warning-item">
+    <mat-divider class="divider" *ngIf="i > 0"></mat-divider>
+
+    <div class="ignore-card"
+              [ngClass]="warning.ignore ? 'selected' : ''">
+      <div class="title-container">
+        <span class="bold">{{warning.warning.item.characteristic.name}}</span>
+        <span *ngIf="data.hasMultiplePages" class="page-number" [translate]="'CharacterValidation.Warning.Page'"
+        [translateParams]="{page: warning.warning.pageIndex + 1}"></span>
+        <button mat-icon-button
+                matTooltip="{{ 'Tooltips.GoToPage' | translate }}"
+                class="go-to-page medium no-focus navigation-button squire-button square transparent clickable"
+                (click)="goToPage(warning.warning.pageIndex)">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+      <div class="subclass-container">
+        <span [translate]="'Lvl'"
+              [translateParams]="{level: warning.warning.item.level.name}"></span>
+        <span class="slash" *ngIf="warning.warning.item.subCharacteristic != null">-</span>
+        <span class="subclass" *ngIf="warning.warning.item.subCharacteristic != null">{{warning.warning.item.subCharacteristic.name}}</span>
+      </div>
+      <div>
+        <span class="allow-line-break">{{warning.message}}</span>
+      </div>
+    </div>
+
+  </div>
+</app-dialog>

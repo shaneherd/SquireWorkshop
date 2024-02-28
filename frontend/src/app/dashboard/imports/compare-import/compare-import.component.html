@@ -1,0 +1,138 @@
+<app-details [headerName]="config.importItem.name"
+             [loading]="loading"
+             (close)="closeDetails()"
+             (primary)="primaryClick($event)"
+             [primaryActions]="buttonActions"
+             [primaryCloseOnClick]="false"
+             (secondary)="closeDetails()"
+             secondaryLabel="{{ 'Close' | translate }}">
+  <div class="details-container on-dark details">
+    <div class="details-section">
+<!--      Attributes-->
+      <ng-container *ngIf="config.importItem.type === 'ArmorType' && armorType != null">
+        <app-armor-type-details [armorType]="armorType"></app-armor-type-details>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.type === 'CasterType' && casterType != null">
+        <app-caster-type-details [casterType]="casterType"></app-caster-type-details>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.type === 'Condition' && condition != null">
+        <app-condition-details [condition]="condition"></app-condition-details>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.type === 'Language' && language != null">
+        <app-language-details [language]="language"></app-language-details>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.type === 'Skill' && skill != null">
+        <app-skill-details [skill]="skill"></app-skill-details>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.type === 'WeaponProperty' && weaponProperty != null">
+        <app-weapon-property-details [weaponProperty]="weaponProperty"></app-weapon-property-details>
+      </ng-container>
+
+<!--      Characteristics-->
+      <ng-container *ngIf="config.importItem.type === 'Background' && background != null">
+        <app-background-details [background]="background"></app-background-details>
+      </ng-container>
+      <ng-container *ngIf="(config.importItem.type === 'CharacterClass' || config.importItem.type === 'Subclass') && characterClass != null">
+        <app-character-class-details [characterClass]="characterClass"></app-character-class-details>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.type === 'Race' && race != null">
+        <app-race-details [race]="race"></app-race-details>
+      </ng-container>
+
+<!--      Powers-->
+      <ng-container *ngIf="config.importItem.type === 'Feature' && feature != null">
+        <app-feature-details [feature]="feature"></app-feature-details>
+      </ng-container>
+      <ng-container *ngIf="config.importItem.type === 'Spell' && spell != null">
+        <app-spell-details [spell]="spell"></app-spell-details>
+      </ng-container>
+
+<!--      Items-->
+      <ng-container *ngIf="isItem && creatureItem != null">
+        <app-item-details [creatureItem]="creatureItem" [disabled]="true" [castable]="false"></app-item-details>
+      </ng-container>
+
+<!--      Creatures-->
+      <ng-container *ngIf="config.importItem.type === 'Character' && playerCharacter != null">
+        <app-player-character-details [playerCharacter]="playerCharacter"></app-player-character-details>
+      </ng-container>
+
+<!--      Monsters-->
+      <ng-container *ngIf="config.importItem.type === 'Monster' && monster != null">
+        <app-monster-details [monster]="monster" [features]="monsterFeatures" [actions]="monsterActions"></app-monster-details>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf="showExisting">
+      <mat-divider class="details-divider"></mat-divider>
+
+      <div class="details-section">
+        <h4 class="existing-header">{{ 'Headers.PossibleDuplicate' | translate }}</h4>
+        <mat-form-field class="duplicate-dropdown form-group" *ngIf="config.importItem.duplicates.length > 1">
+          <mat-select [ngModel]="selectedDuplicate"
+                      (selectionChange)="selectionChange($event.value)">
+            <mat-option *ngFor="let duplicate of config.importItem.duplicates" [value]="duplicate">
+              {{duplicate.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <ng-container *ngIf="!loading">
+          <!--        Attributes-->
+          <ng-container *ngIf="config.importItem.type === 'ArmorType' && existingArmorType != null">
+            <app-armor-type-details [armorType]="existingArmorType"></app-armor-type-details>
+          </ng-container>
+          <ng-container *ngIf="config.importItem.type === 'CasterType' && existingCasterType != null">
+            <app-caster-type-details [casterType]="existingCasterType"></app-caster-type-details>
+          </ng-container>
+          <ng-container *ngIf="config.importItem.type === 'Condition' && existingCondition != null">
+            <app-condition-details [condition]="existingCondition"></app-condition-details>
+          </ng-container>
+          <ng-container *ngIf="config.importItem.type === 'Language' && existingLanguage != null">
+            <app-language-details [language]="existingLanguage"></app-language-details>
+          </ng-container>
+          <ng-container *ngIf="config.importItem.type === 'Skill' && existingSkill != null">
+            <app-skill-details [skill]="existingSkill"></app-skill-details>
+          </ng-container>
+          <ng-container *ngIf="config.importItem.type === 'WeaponProperty' && existingWeaponProperty != null">
+            <app-weapon-property-details [weaponProperty]="existingWeaponProperty"></app-weapon-property-details>
+          </ng-container>
+
+          <!--        Characteristics-->
+          <ng-container *ngIf="config.importItem.type === 'Background' && existingBackground != null">
+            <app-background-details [background]="existingBackground"></app-background-details>
+          </ng-container>
+          <ng-container *ngIf="(config.importItem.type === 'CharacterClass' || config.importItem.type === 'Subclass') && existingCharacterClass != null">
+            <app-character-class-details [characterClass]="existingCharacterClass"></app-character-class-details>
+          </ng-container>
+          <ng-container *ngIf="config.importItem.type === 'Race' && existingRace != null">
+            <app-race-details [race]="existingRace"></app-race-details>
+          </ng-container>
+
+          <!--        Powers-->
+          <ng-container *ngIf="config.importItem.type === 'Feature' && existingFeature != null">
+            <app-feature-details [feature]="existingFeature"></app-feature-details>
+          </ng-container>
+          <ng-container *ngIf="config.importItem.type === 'Spell' && existingSpell != null">
+            <app-spell-details [spell]="existingSpell"></app-spell-details>
+          </ng-container>
+
+          <!--        Items-->
+          <ng-container *ngIf="isItem && existingCreatureItem != null">
+            <app-item-details [creatureItem]="existingCreatureItem" [disabled]="true"></app-item-details>
+          </ng-container>
+
+          <!--        Creatures-->
+<!--          <ng-container *ngIf="config.importItem.type === 'Character' && existingPlayerCharacter != null">-->
+<!--            <app-player-character-details [playerCharacter]="existingPlayerCharacter"></app-player-character-details>-->
+<!--          </ng-container>-->
+
+<!--          Monsters-->
+          <ng-container *ngIf="config.importItem.type === 'Monster' && existingMonster != null">
+            <app-monster-details [monster]="existingMonster" [features]="existingMonsterFeatures" [actions]="existingMonsterActions"></app-monster-details>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</app-details>

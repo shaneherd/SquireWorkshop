@@ -1,0 +1,26 @@
+.column-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header-content {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+
+  .page-selection {
+    flex-grow: 1;
+  }
+
+  .extra-options {
+    flex-shrink: 0;
+    padding: 0 5px;
+  }
+}
+
+.menu-action-icon {
+  margin-right: 5px;
+}

@@ -1,0 +1,64 @@
+@import '../../sass/variables';
+
+.choose-file-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px
+}
+
+.filename {
+  margin-top: 10px;
+}
+
+.action-buttons {
+  padding: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+  .action-button {
+    display: table-cell;
+    padding: 5px;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.header-content {
+  flex-shrink: 0;
+}
+
+.action-buttons-container {
+  flex-shrink: 0;
+  margin: auto;
+  width: 100%;
+  padding: 0;
+  flex-basis: auto !important;
+  flex: 0 0 50%;
+}
+
+.import-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.import-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content-container {
+  padding: 5px;
+  margin: auto;
+
+  label {
+    margin: 0 10px 0 0;
+  }
+}

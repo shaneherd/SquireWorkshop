@@ -1,0 +1,17 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<div class="col-md-6 col-md-offset-3 unlock-account">
+  <h2>{{ 'Auth.UnlockAccount.UnlockAccount' | translate }}</h2>
+  <form [formGroup]="formUnlockAccount" (submit)="unlockAccount()">
+    <form [formGroup]="formUnlockAccount">
+      <re-captcha formControlName="recaptcha"></re-captcha>
+    </form>
+    <br>
+
+    <div class="form-group">
+      <button [disabled]="formUnlockAccount.invalid || loading" class="squire-button btn btn-primary">{{ 'Auth.UnlockAccount.UnlockAccount' | translate }}</button>
+      <a [routerLink]="['/auth/login']" class="btn btn-link">{{ 'Cancel' | translate }}</a>
+    </div>
+  </form>
+</div>
+

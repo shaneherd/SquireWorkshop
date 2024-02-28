@@ -1,0 +1,14 @@
+<mat-card class="clickable"
+          [ngClass]="{'disabled': clickDisabled}"
+          (click)="onFeatureClick()">
+  <span>{{feature.name}}</span>
+  <div class="tags-container">
+    <span class="tag" *ngIf="feature.characterLevel != null">
+      {{feature.characterLevel.name}}
+    </span>
+
+    <span class="tag" *ngIf="showCharacteristic && feature.characteristic != null">
+      {{feature.characteristic.name}}
+    </span>
+  </div>
+</mat-card>

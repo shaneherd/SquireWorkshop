@@ -1,0 +1,16 @@
+<div class="form-group">
+  <h4 *ngIf="showHeader" class="bold">{{ 'Headers.CompanionType.' + companionType | translate }}</h4>
+
+  <div *ngFor="let companion of companions" class="companion-row">
+    <div class="action-card">
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="onCompanionClick(companion)">
+        <span>{{companion.name}}</span>
+
+        <div class="tags-container">
+          <span class="tag">{{(companion.creatureHealth.currentHp + companion.creatureHealth.tempHp) + "/" + companion.maxHp}}</span>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

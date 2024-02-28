@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="language.name"
+                         [loading]="loading"
+                         [selected]="language.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-language-details *ngIf="viewingLanguage != null"
+                        [language]="viewingLanguage">
+  </app-language-details>
+</app-add-remove-slide-in>

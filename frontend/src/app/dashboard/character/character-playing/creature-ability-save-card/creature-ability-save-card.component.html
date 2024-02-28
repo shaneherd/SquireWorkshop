@@ -1,0 +1,16 @@
+<mat-card [ngClass]="{'clickable': !disabled}" (click)="onSaveClick()">
+  <div class="verticle-bar" [ngClass]="{
+    'auto-fail': autoFail
+  }" matTooltip="{{ 'AutoFail' | translate }}"></div>
+  <span>{{ability.ability.name}}:</span>
+  <span [matTooltip]="tooltip">{{totalSave}}</span>
+
+  <div class="tags-container">
+    <app-advantage-display [proficiency]="proficiency">
+    </app-advantage-display>
+
+    <app-proficiency-display [proficiency]="ability.saveProficiency.proficiency"
+                             [inherited]="ability.saveProficiency.inheritedFrom.length > 0">
+    </app-proficiency-display>
+  </div>
+</mat-card>

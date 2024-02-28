@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>{{ 'Labels.Ability' | translate }}</label>
+  <span>{{skill.ability == null || skill.ability.id === '0' ? ( 'None' | translate ) : skill.ability.name}}</span>
+</div>
+
+<div class="form-group" *ngIf="skill.description.length > 0">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span class="info-description">{{skill.description}}</span>
+</div>

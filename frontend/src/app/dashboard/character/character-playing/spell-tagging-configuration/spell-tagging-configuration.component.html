@@ -1,0 +1,27 @@
+<mat-expansion-panel class="on-dark">
+  <mat-expansion-panel-header class="center tag-header">
+    <app-tag [tag]="tagCollection.tag" (tagClick)="onTagClick()">
+    </app-tag>
+    <input type="text"
+           [(ngModel)]="tagCollection.tag.title"
+           (click)="inputClick($event)"
+           (keydown.space)="$event.stopPropagation();"
+           class="form-control"/>
+  </mat-expansion-panel-header>
+
+  <div *ngFor="let configuration of tagCollection.configurations;" class="spell" >
+    <mat-checkbox class="on-dark"
+                  [checked]="configuration.checked"
+                  (change)="checkChange($event, configuration)">
+    </mat-checkbox>
+
+    <app-spell-card class="spell-card"
+                    [creature]="creature"
+                    [creatureSpell]="configuration.creatureSpell"
+                    [displayClass]="false"
+                    [displayPrepared]="false"
+                    [clickDisabled]="false"
+                    (spellClick)="onSpellClick(configuration)">
+    </app-spell-card>
+  </div>
+</mat-expansion-panel>

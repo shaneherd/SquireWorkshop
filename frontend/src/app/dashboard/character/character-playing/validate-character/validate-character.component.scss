@@ -1,0 +1,53 @@
+.validate-character-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+h1 {
+  color: #ffffff;
+}
+
+.progress-container,
+.class-name-container {
+  flex-shrink: 0;
+}
+
+.slash {
+  padding: 0 5px;
+}
+
+.subclass-container {
+  margin-top: -10px;
+  font-size: 18px;
+}
+
+.subclass {
+  font-style: italic;
+}
+
+.asi-container,
+.feat-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .label {
+    flex-grow: 1;
+  }
+
+  .configure-button {
+    flex-shrink: 0;
+  }
+}
+
+.asi-values-container,
+.feat-selected-container {
+  margin-left: 20px;
+}
+
+.ignore-features-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}

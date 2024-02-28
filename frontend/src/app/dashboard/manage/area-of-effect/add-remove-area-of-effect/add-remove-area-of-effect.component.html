@@ -1,0 +1,9 @@
+<app-add-remove-slide-in [headerName]="areaOfEffect.name"
+                         [loading]="loading"
+                         [selected]="areaOfEffect.selected"
+                         (save)="continue()"
+                         (cancel)="close()">
+  <app-area-of-effect-details *ngIf="viewingAreaOfEffect != null"
+                              [areaOfEffect]="viewingAreaOfEffect">
+  </app-area-of-effect-details>
+</app-add-remove-slide-in>

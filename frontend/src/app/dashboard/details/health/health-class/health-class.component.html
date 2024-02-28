@@ -1,0 +1,17 @@
+<h5>{{healthConfiguration.chosenClass.characterClass?.name}}:</h5>
+<div class="health-gain-result">
+  <div *ngFor="let result of healthConfiguration.healthGainResults; let i = index">
+    <app-health-class-level [chosenClass]="healthConfiguration.chosenClass"
+                            [healthGainResult]="result"
+                            [healthCalculationType]="healthCalculationType"
+                            [hpModifier]="hpModifier"
+                            [conModifier]="conModifier"
+                            [first]="i === 0">
+    </app-health-class-level>
+  </div>
+
+  <app-health-class-hit-dice [healthConfiguration]="healthConfiguration"
+                             [numLevels]="numLevels">
+  </app-health-class-hit-dice>
+</div>
+

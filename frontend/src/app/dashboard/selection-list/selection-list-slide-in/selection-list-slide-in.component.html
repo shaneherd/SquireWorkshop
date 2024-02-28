@@ -1,0 +1,33 @@
+<app-details [headerName]="headerName"
+             (close)="closeClick()"
+             (primary)="addSelected()"
+             (secondary)="closeClick()"
+             (tertiary)="selectAllClick()"
+             primaryLabel="{{ 'Add' | translate }}"
+             [tertiaryCloseOnClick]="false"
+             [tertiaryDisabled]="selectedCount === 0 && availableCount === 0"
+             tertiaryLabel="{{ (allowSelectAll ? (selectedCount === 0 ? 'SelectAll' : 'DeselectAll') : '') | translate  }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <!--  todo-->
+<!--  <app-searchable-list [searchable]="true"-->
+<!--                       [filterable]="true"-->
+<!--                       [searchValue]="searchValue"-->
+<!--                       (searchChange)="search()"-->
+<!--                       (filterClick)="filter()">-->
+<!--  </app-searchable-list>-->
+  <div class="search" *ngIf="searchable">
+    <div class="search-container">
+      <input [(ngModel)]="searchValue"
+             (input)="searchChange()"
+             class="form-control"/>
+    </div>
+    <div class="filter-icon" *ngIf="filterable">
+      <i class="fas fa-filter" (click)="filterClick()"></i>
+    </div>
+  </div>
+
+  <div class="details-configuration">
+    <ng-content></ng-content>
+  </div>
+</app-details>

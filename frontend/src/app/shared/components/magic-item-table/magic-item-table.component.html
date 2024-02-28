@@ -1,0 +1,26 @@
+<div *ngIf="showName && table.name !== ''" class="magical-item-table-name">
+  {{table.name}}
+</div>
+
+<table [class]="class + ' magic-item-table'" [ngClass]="{ 'full-width': fullWidth }">
+  <thead>
+    <tr class="magical-item-table-row">
+      <th *ngFor="let column of table.columns; let i = index"
+          [ngClass]="{ 'clickable': clickable }"
+          class="magical-item-table-cell"
+          (click)="onHeaderClick(i)">
+        {{column}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of table.rows" class="magical-item-table-row">
+      <td *ngFor="let value of row.values; let j = index"
+          [ngClass]="{ 'clickable': clickable }"
+          class="magical-item-table-cell"
+          (click)="onCellClick(row, j)">
+        {{value}}
+      </td>
+    </tr>
+  </tbody>
+</table>

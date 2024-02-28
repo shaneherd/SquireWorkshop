@@ -1,0 +1,52 @@
+@import '../../../../../sass/variables';
+
+.quick-reference-table-name {
+  font-weight: bold;
+  color: $tertiary_color;
+}
+
+.quick-reference-description {
+  white-space: pre-wrap;
+}
+
+.quick-reference-table {
+  border: 1px solid #ffffff;
+  table-layout: fixed;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  .quick-reference-table-row {
+    height: 48px;
+  }
+
+  th.quick-reference-table-cell,
+  td.quick-reference-table-cell {
+    padding: 0 10px;
+    text-align: center;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    border-bottom-color: #ffffff;
+    border-right-color: #ffffff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  th.quick-reference-table-cell {
+    font-weight: bold;
+  }
+
+  .quick-reference-table-cell.clickable:hover {
+    background-color: $secondary_button_hover;
+  }
+}
+
+.quick-reference-table.on-dark {
+  border-color: #ffffff;
+
+  .quick-reference-table-cell {
+    border-bottom-color: #ffffff;
+    border-right-color: #ffffff;
+  }
+}

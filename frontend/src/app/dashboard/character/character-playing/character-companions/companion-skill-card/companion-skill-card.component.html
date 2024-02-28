@@ -1,0 +1,19 @@
+<mat-card [ngClass]="{'clickable': !disabled}"
+          (click)="skillClick()">
+  <div>
+    <span class="name">{{skill.item.name}}:</span>
+    <span class="modifier">{{totalModifier}}</span>
+
+    <div class="tags-container">
+      <app-advantage-display [proficiency]="skill.proficiency"></app-advantage-display>
+      <app-proficiency-display *ngIf="!fromCharacter" [proficiency]="skill.proficiency" [inherited]="skill.inheritedFrom.length > 0"></app-proficiency-display>
+      <span *ngIf="fromCharacter" class="tag" [matTooltip]="">Character</span>
+      <span class="tag" [matTooltip]="skill.skill.ability.name">{{skill.skill.ability.abbr}}</span>
+    </div>
+  </div>
+
+<!--  <div class="passive" *ngIf="playerCharacter.characterSettings.skills.displayPassive">-->
+<!--    <label>{{ 'Labels.Passive' | translate }}</label>-->
+<!--    <span [matTooltip]="passiveTooltip">{{passive}}</span>-->
+<!--  </div>-->
+</mat-card>

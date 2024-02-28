@@ -1,0 +1,91 @@
+<!--Attack-->
+<div *ngIf="attack && (roll.advantage || roll.disadvantage) && !(roll.advantage && roll.disadvantage)">
+  <label>{{ 'Labels.Attack' | translate }}</label>
+  <div class="attack-section">
+    <label class="roll-label" [ngClass]="showDetails ? 'bold' : ''">{{ 'Labels.Roll1' | translate }}</label>
+    <span>{{roll.results[0].totalResult}}</span>
+    <app-critical-display [critical]="roll.results[0].results[0].critical"></app-critical-display>
+    <div *ngIf="showDetails" class="details">
+      <app-roll-result-details [diceResult]="roll.results[0].results[0]"></app-roll-result-details>
+    </div>
+  </div>
+  <div class="attack-section">
+    <label class="roll-label" [ngClass]="showDetails ? 'bold' : ''">{{ 'Labels.Roll2' | translate }}</label>
+    <span>{{roll.results[1].totalResult}}</span>
+    <app-critical-display [critical]="roll.results[1].results[0].critical"></app-critical-display>
+    <div *ngIf="showDetails" class="details">
+      <app-roll-result-details [diceResult]="roll.results[1].results[0]"></app-roll-result-details>
+    </div>
+  </div>
+  <div class="attack-section">
+    <label class="result">{{ 'Labels.Result' | translate }}</label>
+    <span [matTooltip]="getResultTooltip()">{{roll.totalResult}}</span>
+    <app-advantage-display [advantage]="roll.advantage" [disadvantage]="roll.disadvantage"></app-advantage-display>
+    <app-critical-display [critical]="roll.critical"></app-critical-display>
+  </div>
+</div>
+
+<div *ngIf="(attack || save) && ((roll.advantage && roll.disadvantage) || (!roll.advantage && !roll.disadvantage))">
+  <div *ngIf="attack">
+    <label class="roll-label" [ngClass]="showDetails ? 'bold' : ''">{{ 'Labels.Attack' | translate }}</label>
+    <span>{{roll.results[0].totalResult}}</span>
+    <app-critical-display [critical]="roll.critical"></app-critical-display>
+    <div *ngIf="showDetails" class="details">
+      <app-roll-result-details [diceResult]="roll.results[0].results[0]"></app-roll-result-details>
+    </div>
+  </div>
+
+  <div *ngIf="save">
+    <label class="roll-label">{{ 'Labels.DC' | translate }}</label>
+    <span>{{roll.results[0].totalResult}}</span>
+  </div>
+</div>
+
+<!--Damage-->
+<div *ngIf="roll.childrenRolls.length > 0">
+  <div class="form-group">
+    <label>{{damageLabel}}</label>
+    <div *ngFor="let damageRoll of roll.childrenRolls;" class="damage-section">
+      <app-damage-roll-result [rollResult]="damageRoll.results[0]"
+                              [healing]="heal"
+                              [showDetails]="showDetails">
+      </app-damage-roll-result>
+    </div>
+  </div>
+
+  <div *ngIf="roll.halfOnMiss" class="form-group">
+    <label *ngIf="roll.rollType.toString() === 'ATTACK'"> {{ 'HalfOnMiss' | translate }}</label>
+    <label *ngIf="roll.rollType.toString() === 'SAVE'"> {{ 'HalfOnSave' | translate }}</label>
+
+    <div *ngFor="let damageRoll of roll.childrenRolls;" class="damage-section">
+      <app-damage-roll-result [rollResult]="damageRoll.results[0]"
+                              [healing]="heal"
+                              [showDetails]="false"
+                              [half]="true">
+      </app-damage-roll-result>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="roll.childrenRolls.length === 0 && damageOnly">
+  <div class="form-group">
+    <label>{{damageLabel}}</label>
+    <div class="damage-section">
+      <app-damage-roll-result [rollResult]="roll.results[0]"
+                              [healing]="heal"
+                              [showDetails]="showDetails">
+      </app-damage-roll-result>
+    </div>
+  </div>
+
+  <div *ngIf="roll.halfOnMiss" class="form-group">
+    <label *ngIf="roll.rollType.toString() === 'ATTACK'"> {{ 'HalfOnMiss' | translate }}</label>
+    <label *ngIf="roll.rollType.toString() === 'SAVE'"> {{ 'HalfOnSave' | translate }}</label>
+
+    <app-damage-roll-result [rollResult]="roll.results[0]"
+                            [healing]="heal"
+                            [showDetails]="false"
+                            [half]="true">
+    </app-damage-roll-result>
+  </div>
+</div>

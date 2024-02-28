@@ -1,0 +1,205 @@
+<div class="encounter-column-container" *ngIf="!loading">
+  <div class="header-content">
+    <mat-form-field class="page-selection">
+      <mat-select [ngModel]="selectedPage"
+                  (selectionChange)="pageChange($event.value)">
+        <mat-option *ngFor="let page of pages" [value]="page">
+          {{ 'CharacterPageType.' + page | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="extra-options">
+      <button mat-icon-button
+              class="no-focus"
+              [disabled]="menuActions.length === 0"
+              [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item
+                class="no-focus"
+                *ngFor="let menuAction of menuActions"
+                (click)="menuActionClick(menuAction)">
+          <i [class]="menuAction.icon + ' menu-action-icon'"></i>
+          <span>{{menuAction.label}}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div class="content-data-full-height" *ngIf="combatCreature != null">
+    <ng-container *ngIf="battleMonster != null">
+      <app-battle-monster-basic *ngIf="isBasic"
+                                class="full-width"
+                                [combatCreature]="combatCreature"
+                                [battleMonster]="battleMonster"
+                                [collection]="combatCreature.collection"
+                                [campaignSettings]="campaignSettings"
+                                (flee)="onFleeClick()"
+                                (delay)="onDelayClick()">
+      </app-battle-monster-basic>
+
+      <app-creature-abilities *ngIf="isAbilities"
+                              class="full-width"
+                              [creature]="creature"
+                              [collection]="combatCreature.collection">
+      </app-creature-abilities>
+
+      <app-creature-damage-modifiers *ngIf="isDamageModifiers"
+                                     class="full-width"
+                                     [creature]="creature"
+                                     [collection]="combatCreature.collection">
+      </app-creature-damage-modifiers>
+
+      <app-creature-skills *ngIf="isSkills"
+                           [columnIndex]="columnIndex"
+                           class="full-width"
+                           [creature]="creature"
+                           [collection]="combatCreature.collection">
+      </app-creature-skills>
+
+      <app-creature-equipment *ngIf="isEquipment"
+                              [columnIndex]="columnIndex"
+                              class="full-width"
+                              [creature]="creature"
+                              [collection]="combatCreature.collection">
+      </app-creature-equipment>
+
+      <app-creature-proficiencies *ngIf="isProficiencies"
+                                  class="full-width"
+                                  [creature]="creature"
+                                  [collection]="combatCreature.collection">
+      </app-creature-proficiencies>
+
+      <app-battle-monster-features *ngIf="isFeatures"
+                              class="full-width"
+                              [battleMonster]="battleMonster"
+                              [collection]="combatCreature.collection"
+                              [columnIndex]="columnIndex">
+      </app-battle-monster-features>
+
+      <app-battle-monster-characteristics *ngIf="isCharacteristics"
+                                          class="full-width"
+                                          [battleMonster]="battleMonster"
+                                          [collection]="combatCreature.collection">
+      </app-battle-monster-characteristics>
+
+      <app-battle-monster-actions *ngIf="isActions"
+                                  [columnIndex]="columnIndex"
+                                  class="full-width"
+                                  [battleMonster]="battleMonster"
+                                  [collection]="combatCreature.collection">
+      </app-battle-monster-actions>
+
+      <app-creature-conditions *ngIf="isConditions"
+                               [columnIndex]="columnIndex"
+                               class="full-width"
+                               [creature]="creature"
+                               [collection]="combatCreature.collection">
+      </app-creature-conditions>
+
+      <app-creature-spells *ngIf="isSpells"
+                           [columnIndex]="columnIndex"
+                           class="full-width"
+                           [creature]="creature"
+                           [collection]="combatCreature.collection">
+      </app-creature-spells>
+    </ng-container>
+
+    <ng-container *ngIf="playerCharacter != null">
+      <app-character-basic *ngIf="isBasic"
+                           class="full-width"
+                           [combatCreature]="combatCreature"
+                           [playerCharacter]="playerCharacter"
+                           [collection]="combatCreature.collection"
+                           [fromEncounter]="true"
+                           (flee)="onFleeClick()"
+                           (delay)="onDelayClick()">
+      </app-character-basic>
+
+      <app-creature-abilities *ngIf="isAbilities"
+                              class="full-width"
+                              [creature]="creature"
+                              [collection]="combatCreature.collection">
+      </app-creature-abilities>
+
+      <app-character-actions *ngIf="isActions"
+                             [columnIndex]="columnIndex"
+                             class="full-width"
+                             [playerCharacter]="playerCharacter"
+                             [collection]="combatCreature.collection">
+      </app-character-actions>
+
+      <app-character-characteristics *ngIf="isCharacteristics"
+                                     class="full-width"
+                                     [playerCharacter]="playerCharacter"
+                                     [collection]="combatCreature.collection">
+      </app-character-characteristics>
+
+      <app-character-companions *ngIf="isCompanions"
+                                [columnIndex]="columnIndex"
+                                class="full-width"
+                                [playerCharacter]="playerCharacter"
+                                [collection]="combatCreature.collection">
+      </app-character-companions>
+
+      <app-creature-conditions *ngIf="isConditions"
+                               [columnIndex]="columnIndex"
+                               class="full-width"
+                               [creature]="playerCharacter"
+                               [collection]="combatCreature.collection">
+      </app-creature-conditions>
+
+      <app-creature-damage-modifiers *ngIf="isDamageModifiers"
+                                     class="full-width"
+                                     [creature]="playerCharacter"
+                                     [collection]="combatCreature.collection">
+      </app-creature-damage-modifiers>
+
+      <app-creature-equipment *ngIf="isEquipment"
+                              [columnIndex]="columnIndex"
+                              class="full-width"
+                              [fromEncounter]="true"
+                              [creature]="playerCharacter"
+                              [collection]="combatCreature.collection">
+      </app-creature-equipment>
+
+      <app-character-features *ngIf="isFeatures"
+                              class="full-width"
+                              [fromEncounter]="true"
+                              [playerCharacter]="playerCharacter"
+                              [collection]="combatCreature.collection"
+                              [columnIndex]="columnIndex">
+      </app-character-features>
+
+      <app-character-notes *ngIf="isNotes"
+                           [columnIndex]="columnIndex"
+                           class="full-width"
+                           [playerCharacter]="playerCharacter"
+                           [collection]="combatCreature.collection">
+      </app-character-notes>
+
+      <app-creature-proficiencies *ngIf="isProficiencies"
+                                  class="full-width"
+                                  [creature]="playerCharacter"
+                                  [collection]="combatCreature.collection">
+      </app-creature-proficiencies>
+
+      <app-creature-skills *ngIf="isSkills"
+                           [columnIndex]="columnIndex"
+                           class="full-width"
+                           [creature]="playerCharacter"
+                           [collection]="combatCreature.collection">
+      </app-creature-skills>
+
+      <app-creature-spells *ngIf="isSpells"
+                           [columnIndex]="columnIndex"
+                           class="full-width"
+                           [fromEncounter]="true"
+                           [creature]="playerCharacter"
+                           [collection]="combatCreature.collection">
+      </app-creature-spells>
+    </ng-container>
+  </div>
+</div>

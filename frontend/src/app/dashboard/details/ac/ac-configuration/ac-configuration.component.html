@@ -1,0 +1,50 @@
+<app-details headerName="{{ 'Headers.ArmorClass' | translate }}"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <div *ngIf="useBase" class="form-group">
+    <label>{{ 'Labels.Base' | translate }}</label>
+    <span>{{base}}</span>
+  </div>
+
+  <div *ngIf="useBase" class="form-group">
+    <label>{{ 'Labels.AbilityBonuses' | translate }}</label>
+    <div *ngFor="let config of abilityList" class="ability-config">
+      <mat-checkbox
+        class="on-dark"
+        (change)="configSelectionChange($event, config)"
+        [checked]="config.selected">
+      </mat-checkbox>
+      <span class="ability-name">{{config.ability.ability.abbr}}:</span>
+      <span>{{config.modifierDisplay}}</span>
+    </div>
+  </div>
+
+  <div *ngFor="let item of itemsDisplay;">
+    <app-label-value [labelValue]="item"></app-label-value>
+  </div>
+
+  <div *ngFor="let modifier of modifiersDisplay;">
+    <app-label-value [labelValue]="modifier"></app-label-value>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.Misc' | translate }}</label>
+    <input type="number"
+           class="form-control"
+           min="-99" max="99"
+           appInputNumber minValue="-99" maxValue="99"
+           [ngModel]="misc"
+           (valueChange)="miscChange($event)"/>
+  </div>
+
+  <br />
+
+  <div class="form-group">
+    <label class="font-weight-bold">{{ 'Labels.Total' | translate }}</label>
+    <span>{{total}}</span>
+  </div>
+</app-details>

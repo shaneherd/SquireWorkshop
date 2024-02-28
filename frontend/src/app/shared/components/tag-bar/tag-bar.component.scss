@@ -1,0 +1,24 @@
+$tag-bar-border-color: #888888;
+
+.bar-tags-container {
+  display: flex;
+  flex-direction: row;
+  //position: absolute;
+  //left: 0;
+  //right: 0;
+  //bottom: 0;
+}
+
+.bar-tag {
+  //flex-grow: 1;
+  height: 5px;
+  width: 10%;
+
+  &.active {
+    border-top: 1px solid $tag-bar-border-color;
+    border-left: 1px solid $tag-bar-border-color;
+    border-right: 1px solid $tag-bar-border-color;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}

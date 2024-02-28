@@ -1,0 +1,274 @@
+<!--Attack Type-->
+<div class="form-group">
+  <label>{{ 'Labels.AttackType' | translate }}</label>
+  <span *ngIf="!editing">
+    {{ 'AttackType.' + damageConfigurationCollection.attackType | translate }}
+  </span>
+
+  <div>
+    <mat-button-toggle-group *ngIf="editing"
+                             [ngModel]="damageConfigurationCollection.attackType"
+                             (change)="attackTypeChange($event.value)">
+      <mat-button-toggle *ngFor="let attackType of attackTypes"
+                         [value]="attackType">
+        {{ 'AttackType.' + attackType | translate }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+
+<!--Attack Mod-->
+<div class="form-group attack-mod">
+  <span *ngIf="isAttack() && !isSpell">1d20</span>
+  <span *ngIf="isAttack() && isSpell">1d20 + {{ 'Headers.SpellAttack' | translate }}</span>
+  <span *ngIf="isSave() && !isSpell">{{ 'Labels.DC' | translate }}</span>
+  <span *ngIf="isSave() && isSpell">{{ 'Labels.DC' | translate }} {{ 'Headers.SpellSave' | translate }}</span>
+  <span *ngIf="!editing && !isHealing() && !isNone() && !isSpell && isSave()">
+    {{damageConfigurationCollection.attackMod}}
+  </span>
+  <ng-container *ngIf="!editing && !isHealing() && !isSave()">
+    <span *ngIf="isAttack() && !isSpell && damageConfigurationCollection.attackAbilityMod !== '0'">
+      + {{getSelectedAttackAbilityModifier()}}
+    </span>
+    <span *ngIf="damageConfigurationCollection.attackMod > 0 && (isSpell || isAttack())">
+      + {{damageConfigurationCollection.attackMod}}
+    </span>
+  </ng-container>
+  <span *ngIf="editing && (isAttack() || (isSave() && isSpell))">+</span>
+
+  <ng-container *ngIf="editing && !isHealing() && !isNone() && !isDamage()">
+    <ng-container *ngIf="isAttack() && !isSpell">
+      <mat-form-field class="feature-save-ability">
+        <mat-select [(ngModel)]="damageConfigurationCollection.attackAbilityMod">
+          <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+            {{ability.id === '0' ? none : ability.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span>+</span>
+    </ng-container>
+
+    <input type="number" class="form-control"
+           min="0" max="99"
+           appInputNumber minValue="0" maxValue="99"
+           [ngModel]="damageConfigurationCollection.attackMod"
+           (valueChange)="attackModChange($event)"/>
+  </ng-container>
+  <div *ngIf="isSave() && !isSpell && (editing || damageConfigurationCollection.saveProficiencyModifier)" class="feature-save-dc">
+    <span>+</span>
+    <mat-checkbox
+      *ngIf="editing"
+      (change)="saveProficiencyModifierChange($event)"
+      [checked]="damageConfigurationCollection.saveProficiencyModifier">
+    </mat-checkbox>
+    <span>{{ 'ProficiencyModifier' | translate }}</span>
+  </div>
+
+  <span *ngIf="editing && isSave() && !isSpell">+</span>
+  <mat-form-field *ngIf="editing && isSave() && !isSpell" class="feature-save-ability">
+    <mat-select [(ngModel)]="damageConfigurationCollection.saveAbilityModifier">
+      <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+        {{ability.id === '0' ? none : ability.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <span *ngIf="!editing && isSave() && !isSpell && damageConfigurationCollection.saveAbilityModifier !== '0'">+ {{getSelectedSaveAbilityModifier()}}</span>
+
+  <div class="form-group" *ngIf="isAttack() && (editing || damageConfigurationCollection.halfOnSave)">
+    <mat-checkbox
+      (change)="halfOnSaveChange($event)"
+      [disabled]="!editing"
+      [checked]="damageConfigurationCollection.halfOnSave">
+    </mat-checkbox>
+    <span>{{ 'Headers.HalfOnMiss' | translate }}</span>
+  </div>
+
+  <!--Temporary HP-->
+  <div class="form-group" *ngIf="isHealing() && (editing || damageConfigurationCollection.temporaryHP)">
+    <mat-checkbox
+      (change)="temporaryHPChange($event)"
+      [disabled]="!editing"
+      [checked]="damageConfigurationCollection.temporaryHP">
+    </mat-checkbox>
+    <span>{{ 'Headers.TemporaryHP' | translate }}</span>
+  </div>
+</div>
+
+<!--Save Type-->
+<div *ngIf="isSave()" class="form-group attack-mod">
+  <label>{{ 'Labels.Type' | translate }}</label>
+  <span *ngIf="!editing">{{damageConfigurationCollection.saveType.id === '0' ? none : damageConfigurationCollection.saveType.name}}</span>
+  <mat-form-field *ngIf="editing">
+    <mat-select [(ngModel)]="damageConfigurationCollection.saveType.id"
+                (selectionChange)="abilityChange($event.value)">
+      <mat-option *ngFor="let ability of abilities" [value]="ability.id">
+        {{ability.id === '0' ? none : ability.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="form-group" *ngIf="editing || damageConfigurationCollection.halfOnSave">
+    <mat-checkbox
+      (change)="halfOnSaveChange($event)"
+      [disabled]="!editing"
+      [checked]="damageConfigurationCollection.halfOnSave">
+    </mat-checkbox>
+    <span>{{ 'Headers.HalfOnSave' | translate }}</span>
+  </div>
+</div>
+
+<!--Damages-->
+<div *ngIf="!isNone()">
+  <label *ngIf="!isHealing()">{{ 'Labels.Damages' | translate }}</label>
+  <label *ngIf="isHealing()">{{ 'Labels.Healing' | translate }}</label>
+  <div *ngIf="damageConfigurationCollection.damageConfigurations.length === 0 && !isHealing()" class="no-items-label">
+    {{ 'NoDamages' | translate }}
+  </div>
+  <div *ngIf="damageConfigurationCollection.damageConfigurations.length === 0 && isHealing()" class="no-items-label">
+    {{ 'NoHealing' | translate }}
+  </div>
+  <div *ngFor="let config of damageConfigurationCollection.damageConfigurations; let i = index;" class="damages">
+    <app-damage-configuration-display [config]="config"
+                                      [editing]="editing"
+                                      [disabled]="disabled || configuringDamage != null"
+                                      [first]="i === 0"
+                                      (delete)="deleteDamage($event)"
+                                      (configure)="configureDamage($event)">
+    </app-damage-configuration-display>
+  </div>
+
+  <div class="add-damages-container">
+    <button *ngIf="editing && !isHealing()" type="button" (click)="addDamage()"
+            class="squire-button btn btn-danger add-damage"
+            [ngClass]="{'disabled': disabled || configuringDamage != null}">
+      {{ 'Navigation.Manage.Damages.Add' | translate }}
+    </button>
+
+    <button *ngIf="editing && isHealing()" type="button" (click)="addDamage()"
+            class="squire-button btn btn-danger add-damage"
+            [ngClass]="{'disabled': disabled || configuringDamage != null}">
+      {{ 'Navigation.Manage.Healing.Add' | translate }}
+    </button>
+  </div>
+</div>
+
+<!--Extra Damages-->
+<div *ngIf="showExtra && !isNone() && (editing || damageConfigurationCollection.extraDamage)">
+  <label *ngIf="!isHealing()">{{ 'Labels.ExtraDamages' | translate }}</label>
+  <label *ngIf="isHealing()">{{ 'Labels.ExtraHealing' | translate }}</label>
+
+  <div class="form-group">
+    <mat-checkbox
+      (change)="extraDamageChange($event)"
+      [disabled]="!editing"
+      [checked]="damageConfigurationCollection.extraDamage">
+    </mat-checkbox>
+    <span *ngIf="!isHealing()">{{ 'Headers.HasExtraDamage' | translate }}</span>
+    <span *ngIf="isHealing()">{{ 'Headers.HasExtraHealing' | translate }}</span>
+  </div>
+
+  <div class="num-levels-above-base form-group" *ngIf="damageConfigurationCollection.extraDamage">
+    <span *ngIf="!isHealing()" class="damage-per">{{ 'Headers.ExtraDamagePer' | translate }}</span>
+    <span *ngIf="isHealing()" class="healing-per">{{ 'Headers.ExtraHealingPer' | translate }}</span>
+    <span *ngIf="!editing">{{damageConfigurationCollection.numLevelsAboveBase}}</span>
+    <input *ngIf="editing" type="number" class="form-control"
+           min="1" max="99"
+           appInputNumber minValue="1" maxValue="99"
+           [ngModel]="damageConfigurationCollection.numLevelsAboveBase"
+           (valueChange)="numLevelsAboveBaseChange($event)"/>
+    <span translate="Headers.LevelsAboveBase"
+          [translateParams]="{level: baseLevel}" class="levels-above-base"></span>
+  </div>
+
+  <div *ngIf="damageConfigurationCollection.extraDamage">
+    <div *ngIf="damageConfigurationCollection.extraDamageConfigurations.length === 0 && !isHealing()" class="no-items-label">
+      {{ 'NoDamages' | translate }}
+    </div>
+    <div *ngIf="damageConfigurationCollection.extraDamageConfigurations.length === 0 && isHealing()" class="no-items-label">
+      {{ 'NoHealing' | translate }}
+    </div>
+    <div *ngFor="let config of damageConfigurationCollection.extraDamageConfigurations" class="damages">
+      <app-damage-configuration-display [config]="config"
+                                        [editing]="editing"
+                                        [disabled]="disabled || configuringDamage != null"
+                                        [first]="false"
+                                        (delete)="deleteExtraDamage($event)"
+                                        (configure)="configureDamage($event)">
+      </app-damage-configuration-display>
+    </div>
+
+    <div class="add-damages-container">
+      <button *ngIf="editing && !isHealing()" type="button" (click)="addExtraDamage()"
+              class="squire-button btn btn-danger add-damage"
+              [ngClass]="{'disabled': disabled || configuringDamage != null}">
+        {{ 'Navigation.Manage.Damages.Add' | translate }}
+      </button>
+
+      <button *ngIf="editing && isHealing()" type="button" (click)="addExtraDamage()"
+              class="squire-button btn btn-danger add-damage"
+              [ngClass]="{'disabled': disabled || configuringDamage != null}">
+        {{ 'Navigation.Manage.Healing.Add' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--Character Advancement-->
+<div *ngIf="showAdvancement && !isNone() && (editing || damageConfigurationCollection.advancement)">
+  <label>{{ 'Labels.CharacterAdvancement' | translate }}</label>
+  <div class="form-group">
+    <mat-checkbox
+      (change)="advancementDamageChange($event)"
+      [disabled]="!editing"
+      [checked]="damageConfigurationCollection.advancement">
+    </mat-checkbox>
+    <span *ngIf="!isHealing()">{{ 'Headers.HasAdvancementDamage' | translate }}</span>
+    <span *ngIf="isHealing()">{{ 'Headers.HasAdvancementHealing' | translate }}</span>
+  </div>
+  <div *ngIf="damageConfigurationCollection.advancement">
+    <div *ngIf="damageConfigurationCollection.advancementDamageConfigurations.length === 0 && !isHealing()" class="no-items-label">
+      {{ 'NoDamages' | translate }}
+    </div>
+    <div *ngIf="damageConfigurationCollection.advancementDamageConfigurations.length === 0 && isHealing()" class="no-items-label">
+      {{ 'NoHealing' | translate }}
+    </div>
+    <div *ngFor="let level of characterLevels" class="damages">
+      <div *ngIf="hasLevel(level)">
+        <label [translate]="'Labels.Level'"
+               [translateParams]="{level: level.name}"></label>
+        <div *ngFor="let config of damageConfigurationCollection.advancementDamageConfigurations" class="damages">
+          <div *ngIf="config.level.id === level.id">
+            <app-damage-configuration-display [config]="config"
+                                              [editing]="editing"
+                                              [disabled]="disabled || configuringDamage != null"
+                                              [first]="false"
+                                              (delete)="deleteAdvancementDamage($event)"
+                                              (configure)="configureDamage($event)">
+            </app-damage-configuration-display>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="add-damages-container">
+      <button *ngIf="editing && !isHealing()" type="button" (click)="addAdvancementDamage()"
+              class="squire-button btn btn-danger add-damage"
+              [ngClass]="{'disabled': disabled || configuringDamage != null}">
+        {{ 'Navigation.Manage.Damages.Add' | translate }}
+      </button>
+
+      <button *ngIf="editing && isHealing()" type="button" (click)="addAdvancementDamage()"
+              class="squire-button btn btn-danger add-damage"
+              [ngClass]="{'disabled': disabled || configuringDamage != null}">
+        {{ 'Navigation.Manage.Healing.Add' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-damage-configuration *ngIf="configuringDamage != null && editing"
+                          [damageConfiguration]="configuringDamage"
+                          [isSpell]="isSpell"
+                          (close)="damageConfigurationClose()"
+                          (continue)="damageConfigurationContinue($event)">
+</app-damage-configuration>

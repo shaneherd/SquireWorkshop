@@ -1,0 +1,14 @@
+<app-manage-list headerName="{{ 'Navigation.Manage.Languages.Languages' | translate }}"
+                 [menuService]="languageService"
+                 [manageService]="attributeService"
+                 [exportService]="exportService"
+                 [exportable]="true"
+                 exportType="Languages"
+                 (itemClick)="onItemClick($event.menuItem)">
+</app-manage-list>
+
+<app-add-remove-language *ngIf="selectedItem != null"
+                         [language]="selectedItem"
+                         (save)="updateSelected($event)"
+                         (cancel)="closeItem()">
+</app-add-remove-language>

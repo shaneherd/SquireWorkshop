@@ -1,0 +1,14 @@
+<div class="form-group">
+  <mat-form-field>
+    <mat-select [(ngModel)]="sortValue.sortKey">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{ 'SortKey.' + option | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<mat-radio-group [(ngModel)]="sortValue.ascending" class="sorting-direction">
+  <mat-radio-button [value]="true">{{ 'Ascending' | translate }}</mat-radio-button>
+  <mat-radio-button [value]="false">{{ 'Descending' | translate }}</mat-radio-button>
+</mat-radio-group>

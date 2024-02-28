@@ -1,0 +1,42 @@
+<div class="form-group info-description" *ngIf="background.description.length > 0">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span class="info-description">{{background.description}}</span>
+</div>
+
+<div class="form-group" *ngIf="traitCollection.variations.length > 0">
+  <label>{{ 'Headers.Variations' | translate }}</label>
+  <ul>
+    <li class="trait-list" *ngFor="let trait of traitCollection.variations">{{trait.description}}</li>
+  </ul>
+</div>
+
+<div class="form-group" *ngIf="traitCollection.personalities.length > 0">
+  <label>{{ 'Headers.Personalities' | translate }}</label>
+  <ul>
+    <li class="trait-list" *ngFor="let trait of traitCollection.personalities">{{trait.description}}</li>
+  </ul>
+</div>
+
+<div class="form-group" *ngIf="traitCollection.ideals.length > 0">
+  <label>{{ 'Headers.Ideals' | translate }}</label>
+  <ul>
+    <li class="trait-list" *ngFor="let trait of traitCollection.ideals">{{trait.description}}</li>
+  </ul>
+</div>
+
+<div class="form-group" *ngIf="traitCollection.bonds.length > 0">
+  <label>{{ 'Headers.Bonds' | translate }}</label>
+  <ul>
+    <li class="trait-list" *ngFor="let trait of traitCollection.bonds">{{trait.description}}</li>
+  </ul>
+</div>
+
+<div class="form-group" *ngIf="traitCollection.flaws.length > 0">
+  <label>{{ 'Headers.Flaws' | translate }}</label>
+  <ul>
+    <li class="trait-list" *ngFor="let trait of traitCollection.flaws">{{trait.description}}</li>
+  </ul>
+</div>
+
+<app-characteristic-details [characteristic]="background">
+</app-characteristic-details>

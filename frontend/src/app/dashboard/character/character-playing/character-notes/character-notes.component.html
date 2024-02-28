@@ -1,0 +1,55 @@
+<div *ngFor="let category of notes | keyvalue" class="form-group" cdkScrollable>
+  <div cdkDropList class="drag-list" (cdkDropListDropped)="drop($event, category)">
+    <div *ngIf="category.key.length > 0"
+         class="note-category-container"
+         (click)="toggleExpanded(category.value)">
+      <label class="bold note-category">{{category.key}}</label>
+      <span *ngIf="!category.value.category.expanded"
+            class="expansion-icon">
+        <i class="fas fa-chevron-down"></i>
+      </span>
+      <span *ngIf="category.value.category.expanded"
+            class="expansion-icon">
+        <i class="fas fa-chevron-up"></i>
+      </span>
+    </div>
+
+    <ng-container *ngIf="category.value.category.expanded">
+      <mat-card class="clickable note-card drag-box" cdkDrag [cdkDragStartDelay]="100" (click)="noteClick(note)" *ngFor="let note of category.value.notes">
+        <span class="note-value">{{note.note}}</span>
+
+        <span class="grip-icon" cdkDragHandle>
+        <i class="fas fa-grip-lines"></i>
+      </span>
+      </mat-card>
+    </ng-container>
+  </div>
+</div>
+
+<div class="add-container">
+  <mat-card class="add-item-card clickable"
+            [ngClass]="{'disabled': configuringNote != null}"
+            (click)="addNote()">
+    <i class="fas fa-plus add-item-card-icon"></i>
+    <span>{{ 'AddNote' | translate }}</span>
+  </mat-card>
+</div>
+
+<app-note-configuration-details *ngIf="configuringNote != null"
+                                [note]="configuringNote"
+                                [playerCharacter]="playerCharacter"
+                                [deletable]="configuringNote.id !== '0'"
+                                (save)="saveNote()"
+                                (delete)="deleteNote()"
+                                (close)="closeDetails()">
+</app-note-configuration-details>
+
+<app-filtering-sorting [clickDisabled]="false"
+                       [columnIndex]="columnIndex"
+                       [filterType]="filterType"
+                       [filters]="filters"
+                       (filter)="applyFilters($event)"
+                       [sortType]="sortType"
+                       [sorts]="sorts"
+                       (sort)="applySort($event)">
+</app-filtering-sorting>

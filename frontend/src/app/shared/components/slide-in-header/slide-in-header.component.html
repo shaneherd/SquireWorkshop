@@ -1,0 +1,43 @@
+<div class="slide-in-header center-content"
+     [ngStyle]="{'background-color': slideInHeader == null || slideInHeader.customHeaderColor === '' ? '#303030' : slideInHeader.customHeaderColor}">
+  <button mat-icon-button
+          class="no-focus header-icon"
+          (click)="leftButtonClick()"
+          [disabled]="slideInHeader != null && slideInHeader.showShare && slideInHeader.shareDisabled"
+          [ngClass]="{
+            'hidden': slideInHeader == null || (!slideInHeader.configurable && !slideInHeader.showBack && !slideInHeader.showShare)
+          }">
+    <i [ngClass]="{
+        'fa-cog': slideInHeader != null && slideInHeader.configurable,
+        'fa-chevron-left': slideInHeader != null && slideInHeader.showBack,
+        'fa-share-alt': slideInHeader != null && slideInHeader.showShare
+        }"
+       class="fas"></i>
+  </button>
+  <h4 *ngIf="slideInHeader != null && slideInHeader.name !== ''" class="header-name">{{slideInHeader.name}}</h4>
+  <h4 *ngIf="listObject != null && listObject.name !== ''" class="header-name">{{listObject.name}}</h4>
+  <h4 *ngIf="headerName != null && headerName !== ''" class="header-name">{{headerName}}</h4>
+
+  <button mat-icon-button
+          class="no-focus header-icon"
+          *ngIf="actions.length === 0"
+          [ngClass]="{'hidden': slideInHeader == null || !slideInHeader.closeable || slideInHeader.disabled}"
+          (click)="close()">
+    <i *ngIf="slideInHeader != null && slideInHeader.closeable" class="fas fa-times header-icon"></i>
+  </button>
+  <button mat-icon-button
+          class="no-focus header-icon"
+          *ngIf="actions.length > 0"
+          [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item
+            class="no-focus"
+            *ngFor="let action of actions"
+            (click)="actionClick(action)">
+      <i [class]="action.icon + ' menu-action-icon'"></i>
+      <span>{{action.label}}</span>
+    </button>
+  </mat-menu>
+</div>

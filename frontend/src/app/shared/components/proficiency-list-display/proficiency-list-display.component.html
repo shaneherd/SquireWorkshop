@@ -1,0 +1,23 @@
+<div class="form-group" *ngIf="hasProficiencies || displayNone">
+  <label>{{label}}</label>
+
+  <div *ngIf="!hasProficiencies && displayNone" class="no-items-label">
+    {{ 'NoProficiencies' | translate }}
+  </div>
+
+  <ng-container *ngIf="hasProficiencies">
+    <div *ngFor="let prof of proficiencies;" class="proficiency-list">
+      <div *ngIf="prof.proficient">
+        <span>{{prof.item.name}}</span>
+      </div>
+
+      <div *ngFor="let child of prof.childrenProficiencies">
+        <div class="child-prof-container" *ngIf="child.proficient || prof.proficient">
+          <span>{{child.item.name}}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+

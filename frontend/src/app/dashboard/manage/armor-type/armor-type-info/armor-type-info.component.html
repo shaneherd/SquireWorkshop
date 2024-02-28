@@ -1,0 +1,80 @@
+<app-view-edit [cancelable]="cancelable"
+               [(editing)]="editing"
+               [loading]="loading"
+               [editDisabled]="!armorType.author"
+               [itemName]="itemName"
+               [id]="armorType.id"
+               [inUseService]="attributeService"
+               [showShare]="armorType.author"
+               [versionInfo]="versionInfo"
+               (share)="shareClick()"
+               (myStuff)="myStuffClick()"
+               [exportable]="true"
+               (export)="exportClick()"
+               type="{{ 'AttributeType.ARMOR_TYPE' | translate }}"
+               (save)="save()"
+               (delete)="delete()"
+               (cancel)="cancel()"
+               (duplicate)="duplicate($event)">
+  <form [formGroup]="armorTypeForm"
+        (submit)="save()">
+    <div class="form-group" *ngIf="editing">
+      <label>{{ 'Labels.Name' | translate }}</label>
+      <input formControlName="name" maxlength="45" *ngIf="editing" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+      <label [ngClass]="editing ? 'editing-label' : ''">{{ 'Labels.Don' | translate }}</label>
+      <span *ngIf="!editing && armorType?.id !== '0'" [translate]="'TimeUnit.' + armorType.donTimeUnit"
+            [translateParams]="{count: armorType.don}"></span>
+      <div class="time-unit-container" *ngIf="editing">
+        <input type="number" formControlName="don" class="form-control"
+               min="1" max="99"
+               appInputNumber minValue="1" maxValue="99"/>
+        <mat-form-field id="donTimeUnit" class="time-unit">
+          <mat-select [formControl]="armorTypeForm.controls['donTimeUnit']">
+            <mat-option value="STANDARD">{{ 'TimeUnit.StandardOption' | translate }}</mat-option>
+            <mat-option value="MOVE">{{ 'TimeUnit.MoveOption' | translate }}</mat-option>
+            <mat-option value="FREE">{{ 'TimeUnit.FreeOption' | translate }}</mat-option>
+            <mat-option value="HOUR">{{ 'TimeUnit.HourOption' | translate }}</mat-option>
+            <mat-option value="MINUTE">{{ 'TimeUnit.MinuteOption' | translate }}</mat-option>
+            <mat-option value="SECOND">{{ 'TimeUnit.SecondOption' | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label [ngClass]="editing ? 'editing-label' : ''">{{ 'Labels.Doff' | translate }}</label>
+      <span *ngIf="!editing && armorType?.id !== '0'" [translate]="'TimeUnit.' + armorType.doffTimeUnit"
+            [translateParams]="{count: armorType.doff}"></span>
+      <div class="time-unit-container" *ngIf="editing">
+        <input type="number" formControlName="doff" class="form-control"
+               min="1" max="99"
+               appInputNumber minValue="1" maxValue="99"/>
+        <mat-form-field id="doffTimeUnit" class="time-unit">
+          <mat-select [formControl]="armorTypeForm.controls['doffTimeUnit']">
+            <mat-option value="STANDARD">{{ 'TimeUnit.StandardOption' | translate }}</mat-option>
+            <mat-option value="MOVE">{{ 'TimeUnit.MoveOption' | translate }}</mat-option>
+            <mat-option value="FREE">{{ 'TimeUnit.FreeOption' | translate }}</mat-option>
+            <mat-option value="HOUR">{{ 'TimeUnit.HourOption' | translate }}</mat-option>
+            <mat-option value="MINUTE">{{ 'TimeUnit.MinuteOption' | translate }}</mat-option>
+            <mat-option value="SECOND">{{ 'TimeUnit.SecondOption' | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="editing || (armorType?.id !== '0' && armorType.description.length > 0)">
+      <label>{{ 'Labels.Description' | translate }}</label>
+      <span *ngIf="!editing && armorType?.id !== '0'" class="info-description">{{armorType.description}}</span>
+      <textarea formControlName="description" *ngIf="editing" class="form-control info-description" maxlength="1000"> </textarea>
+    </div>
+  </form>
+</app-view-edit>
+
+<app-share-configuration *ngIf="viewShare"
+                         [publishDetails]="publishDetails"
+                         (close)="closeShare()"
+                         (save)="saveShare($event)">
+</app-share-configuration>

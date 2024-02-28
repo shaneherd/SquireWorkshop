@@ -1,0 +1,11 @@
+version: '3.4'
+services:
+  traefik:
+    ports:
+      - '80:80'
+  frontend:
+    labels:
+      - 'traefik.http.routers.frontend.rule=PathPrefix(`/`)'
+  backend:
+    labels:
+      - 'traefik.http.routers.backend.rule=PathPrefix(`/api`)'

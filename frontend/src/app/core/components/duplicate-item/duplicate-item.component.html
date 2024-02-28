@@ -1,0 +1,14 @@
+<app-dialog title="{{ 'Duplicate' | translate }}"
+            primaryLabel="{{ 'Confirm' | translate }}"
+            (primary)="confirm()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            (close)="cancel()">
+  <div class="form-group"><b>{{data.message}}</b></div>
+  <form [formGroup]="duplicateItemForm" (submit)="confirm()">
+    <div class="form-group">
+      <label for="name">{{ 'Name' | translate }}</label>
+      <input id="name" formControlName="name" type="text" class="form-control">
+    </div>
+  </form>
+</app-dialog>

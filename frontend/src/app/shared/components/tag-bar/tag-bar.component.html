@@ -1,0 +1,7 @@
+<div class="bar-tags-container">
+  <div *ngFor="let tag of collection" class="bar-tag"
+       [matTooltip]="tag.active ? tag.tag.title : ''"
+       [ngClass]="{'active': tag.active}"
+       [ngStyle]="{'background-color': '#' + tag.color}">
+  </div>
+</div>

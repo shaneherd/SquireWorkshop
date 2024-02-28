@@ -1,0 +1,66 @@
+<!--Basic Info-->
+<div class="form-group">
+  <div>
+    <label class="bold">{{ 'Labels.Type' | translate }}</label>
+    <span>{{ 'MonsterType.' + battleMonster.monster.monsterType | translate }}</span>
+  </div>
+
+  <div *ngIf="battleMonster.monster.typeVariation.length > 0">
+    <label class="bold">{{ 'Labels.Variation' | translate }}</label>
+    <span>{{battleMonster.monster.typeVariation}}</span>
+  </div>
+
+  <div>
+    <label class="bold">{{ 'Labels.Size' | translate }}</label>
+    <span>{{ 'Size.' + battleMonster.monster.size | translate }}</span>
+  </div>
+
+  <div *ngIf="battleMonster.monster.alignment != null">
+    <label class="bold">{{ 'Labels.Alignment' | translate }}</label>
+    <span>{{battleMonster.monster.alignment.name}}</span>
+  </div>
+
+  <div>
+    <label class="bold">{{ 'Labels.ChallengeRating' | translate }}</label>
+    <span>{{ 'ChallengeRating.' + battleMonster.monster.challengeRating | translate }}</span>
+  </div>
+
+  <div>
+    <label class="bold">{{ 'Labels.Exp' | translate }}</label>
+    <span>{{battleMonster.monster.experience | number}}</span>
+  </div>
+
+  <div *ngIf="battleMonster.monster.legendaryPoints > 0">
+    <label class="bold">{{ 'Labels.LegendaryPoints' | translate }}</label>
+    <span>{{battleMonster.monster.legendaryPoints}}</span>
+  </div>
+</div>
+
+<!--Senses-->
+<div class="form-group" *ngIf="battleMonster.monster.senses.length > 0">
+  <label class="bold">{{ 'Headers.Senses' | translate }}</label>
+  <ng-container *ngFor="let senseValue of battleMonster.monster.senses">
+    <div *ngIf="senseValue.range > 0" class="nested">
+      <span>{{ 'Sense.' + senseValue.sense | translate }}:</span>
+      <span class="spaced"
+            translate="FeetValue"
+            [translateParams]="{feet: senseValue.range}"></span>
+    </div>
+  </ng-container>
+</div>
+
+<!--Condition Immunities-->
+<div class="form-group" *ngIf="battleMonster.monster.conditionImmunities.length > 0">
+  <label class="bold">{{ 'Headers.ConditionImmunities' | translate }}</label>
+  <ng-container *ngFor="let condition of battleMonster.monster.conditionImmunities">
+    <div class="nested">
+      <span>{{condition.name}}</span>
+    </div>
+  </ng-container>
+</div>
+
+<!--Description-->
+<div class="form-group" *ngIf="battleMonster.monster.description.length > 0">
+  <label class="bold">{{ 'Labels.Description' | translate }}</label>
+  <span class="info-description">{{battleMonster.monster.description}}</span>
+</div>

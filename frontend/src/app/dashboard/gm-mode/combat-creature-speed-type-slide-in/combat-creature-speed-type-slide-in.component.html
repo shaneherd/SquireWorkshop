@@ -1,0 +1,19 @@
+<app-details [headerName]="headerName"
+             [loading]="loading"
+             [slideLeft]="false"
+             (close)="cancelClick()"
+             (primary)="saveClick()"
+             [primaryCloseOnClick]="false"
+             primaryLabel="{{ 'Save' | translate }}"
+             (secondary)="cancelClick()"
+             [secondaryCloseOnClick]="true"
+             secondaryLabel="{{ 'Cancel' | translate }}"
+             class="details">
+  <mat-radio-group [(ngModel)]="speedToDisplay">
+    <div *ngFor="let speed of speeds;" class="form-group speed">
+      <mat-radio-button class="on-dark" [value]="speed.speedType"></mat-radio-button>
+      <span>{{ 'SpeedType.' + speed.speedType | translate }}:</span>
+      <span>{{speed.speed}}</span>
+    </div>
+  </mat-radio-group>
+</app-details>

@@ -1,0 +1,25 @@
+<app-item-type-display [item]="mount">
+</app-item-type-display>
+
+<app-quantity-display *ngIf="creatureItem != null"
+                      [quantity]="creatureItem.quantity">
+</app-quantity-display>
+
+<app-cost-display [item]="mount">
+</app-cost-display>
+
+<app-speed-display [speed]="mount.speed">
+</app-speed-display>
+
+<app-carrying-capacity-display [carryingCapacity]="mount.carryingCapacity">
+</app-carrying-capacity-display>
+
+<app-description-display [item]="mount"
+                         class="display-section">
+</app-description-display>
+
+<app-container-display [item]="mount"
+                       [creatureItem]="creatureItem"
+                       (itemClick)="onItemClick($event)"
+                       class="display-section">
+</app-container-display>

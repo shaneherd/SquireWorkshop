@@ -1,0 +1,321 @@
+<!--Basic Info-->
+<div class="form-group">
+  <div>
+    <label>{{ 'Labels.Type' | translate }}</label>
+    <span>{{ 'MonsterType.' + monster.monsterType | translate }}</span>
+  </div>
+
+  <div *ngIf="monster.typeVariation.length > 0">
+    <label>{{ 'Labels.Variation' | translate }}</label>
+    <span>{{monster.typeVariation}}</span>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.AC' | translate }}</label>
+    <span>{{monster.ac}}</span>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.HP' | translate }}</label>
+    <app-monster-hp-calculation class="hit-dice"
+                                [editing]="false"
+                                [loading]="false"
+                                [diceCollection]="monster.hitDice">
+    </app-monster-hp-calculation>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.Size' | translate }}</label>
+    <span>{{ 'Size.' + monster.size | translate }}</span>
+  </div>
+
+  <div *ngIf="monster.alignment != null">
+    <label>{{ 'Labels.Alignment' | translate }}</label>
+    <span>{{monster.alignment.name}}</span>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.ChallengeRating' | translate }}</label>
+    <span>{{ 'ChallengeRating.' + monster.challengeRating | translate }}</span>
+  </div>
+
+  <div>
+    <label>{{ 'Labels.Exp' | translate }}</label>
+    <span>{{monster.experience | number}}</span>
+  </div>
+
+  <div *ngIf="monster.legendaryPoints > 0">
+    <label>{{ 'Labels.LegendaryPoints' | translate }}</label>
+    <span>{{monster.legendaryPoints}}</span>
+  </div>
+</div>
+
+<!--Ability Scores-->
+<div class="form-group">
+  <label>{{ 'Headers.AbilityScores' | translate }}</label>
+  <div *ngFor="let abilityScore of monster.abilityScores" class="nested">
+    <span>{{abilityScore.ability.name}}:</span>
+    <span class="spaced">{{abilityScore.value}}</span>
+  </div>
+</div>
+
+<!--Saving Throw Profs-->
+<ng-container *ngIf="!loading">
+  <app-proficiency-list-display
+    [displayNone]="false"
+    label="{{ 'Headers.SavingThrows' | translate }}"
+    [proficiencies]="monsterConfigurationCollection.proficiencyCollection.savingThrowProficiencies">
+  </app-proficiency-list-display>
+</ng-container>
+
+<!--Armor Profs-->
+<ng-container *ngIf="!loading">
+  <app-proficiency-list-display
+    [displayNone]="false"
+    label="{{ 'Headers.ArmorProfs' | translate }}"
+    [proficiencies]="monsterConfigurationCollection.proficiencyCollection.armorProficiencies">
+  </app-proficiency-list-display>
+</ng-container>
+
+<!--Weapon Profs-->
+<ng-container *ngIf="!loading">
+  <app-proficiency-list-display
+    [displayNone]="false"
+    label="{{ 'Headers.WeaponProfs' | translate }}"
+    [proficiencies]="monsterConfigurationCollection.proficiencyCollection.weaponProficiencies">
+  </app-proficiency-list-display>
+</ng-container>
+
+<!--Skill Profs-->
+<ng-container *ngIf="!loading">
+  <app-proficiency-list-display
+    [displayNone]="false"
+    label="{{ 'Headers.SkillProfs' | translate }}"
+    [proficiencies]="monsterConfigurationCollection.proficiencyCollection.skillProficiencies">
+  </app-proficiency-list-display>
+</ng-container>
+
+<!--Language Profs-->
+<ng-container *ngIf="!loading">
+  <app-proficiency-list-display
+    [displayNone]="false"
+    label="{{ 'Headers.LanguageProfs' | translate }}"
+    [proficiencies]="monsterConfigurationCollection.proficiencyCollection.languageProficiencies">
+  </app-proficiency-list-display>
+</ng-container>
+
+<!--Tool Profs-->
+<ng-container *ngIf="!loading">
+  <app-proficiency-list-display
+    [displayNone]="false"
+    label="{{ 'Headers.ToolProfs' | translate }}"
+    [proficiencies]="monsterConfigurationCollection.proficiencyCollection.toolProficiencies">
+  </app-proficiency-list-display>
+</ng-container>
+
+<!--Speeds-->
+<div class="form-group">
+  <label>{{ 'Headers.Speeds' | translate }}</label>
+  <ng-container *ngFor="let speed of monster.speeds">
+    <div *ngIf="speed.value > 0" class="nested">
+      <span>{{ 'SpeedType.' + speed.speedType | translate }}:</span>
+      <span class="spaced">{{speed.value}}</span>
+
+      <div *ngIf="speed.speedType === flySpeedType && monster.hover" class="hover">
+        <span class="spaced">({{ 'Hover' | translate }})</span>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!--Senses-->
+<div class="form-group" *ngIf="monster.senses.length > 0">
+  <label>{{ 'Headers.Senses' | translate }}</label>
+  <ng-container *ngFor="let senseValue of monster.senses">
+    <div *ngIf="senseValue.range > 0" class="nested">
+      <span>{{ 'Sense.' + senseValue.sense | translate }}:</span>
+      <span class="spaced"
+            translate="FeetValue"
+            [translateParams]="{feet: senseValue.range}"></span>
+    </div>
+  </ng-container>
+</div>
+
+<!--Damage Modifiers-->
+<div class="form-group" *ngIf="monster.damageModifiers.length > 0">
+  <label>{{ 'Headers.DamageModifiers' | translate }}</label>
+  <ng-container *ngFor="let damageModifier of monster.damageModifiers">
+    <div class="nested">
+      <span>{{damageModifier.damageType.name}}:</span>
+      <span class="spaced">{{ 'DamageModifier.' + damageModifier.damageModifierType | translate }}</span>
+    </div>
+  </ng-container>
+</div>
+
+<!--Condition Immunities-->
+<div class="form-group" *ngIf="monster.conditionImmunities.length > 0">
+  <label>{{ 'Headers.ConditionImmunities' | translate }}</label>
+  <ng-container *ngFor="let condition of monster.conditionImmunities">
+    <div class="nested">
+      <span>{{condition.name}}</span>
+    </div>
+  </ng-container>
+</div>
+
+<!--Spellcasting-->
+<div *ngIf="monster.spellcaster" class="form-group">
+  <label>{{ 'Headers.Spellcasting' | translate }}</label>
+
+  <div class="nested form-group">
+    <!--Caster Type-->
+    <div class="caster-type-container">
+      <label>{{ 'Labels.CasterType' | translate }}</label>
+      <span>{{casterType == null ? ('Other' | translate) : casterType.name}}</span>
+    </div>
+
+    <!--Spellcaster Level-->
+    <div class="caster-type-container">
+      <label>{{ 'Labels.SpellcasterLevel' | translate }}</label>
+      <span>{{monster.spellcasterLevel.name}}</span>
+    </div>
+
+    <!--Spellcasting Ability-->
+    <div class="spellcasting-ability-container">
+      <label>{{ 'Navigation.Manage.Spells.SpellcastingAbility' | translate }}</label>
+      <span>{{spellcastingAbility == null ? ('None' | translate) : spellcastingAbility.name}}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.SpellAttack' | translate }}</label>
+      <span>{{spellAttackTotal}}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.SpellSave' | translate }}</label>
+      <span>{{spellSaveTotal}}</span>
+    </div>
+  </div>
+
+  <!-- Spell Slots -->
+  <div class="nested form-group" *ngIf="hasSlots">
+    <label>{{ 'Headers.SpellSlots' | translate }}</label>
+    <div class="nested" *ngIf="monster.spellSlots.slot1 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 1}"></label>
+      <span>{{monster.spellSlots.slot1}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot2 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 2}"></label>
+      <span>{{monster.spellSlots.slot2}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot3 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 3}"></label>
+      <span>{{monster.spellSlots.slot3}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot4 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 4}"></label>
+      <span>{{monster.spellSlots.slot4}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot5 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 5}"></label>
+      <span>{{monster.spellSlots.slot5}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot6 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 6}"></label>
+      <span>{{monster.spellSlots.slot6}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot7 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 7}"></label>
+      <span>{{monster.spellSlots.slot7}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot8 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 8}"></label>
+      <span>{{monster.spellSlots.slot8}}</span>
+    </div>
+    <div class="nested" *ngIf="monster.spellSlots.slot9 > 0">
+      <label [translate]="'Labels.SlotValue'" [translateParams]="{value: 9}"></label>
+      <span>{{monster.spellSlots.slot9}}</span>
+    </div>
+  </div>
+
+  <!--Spells-->
+  <div class="nested form-group" *ngIf="monster.spells.length > 0">
+    <label>{{ 'Headers.Spells' | translate }}</label>
+
+    <div *ngFor="let spellConfig of monster.spells" class="nested">
+      <span>{{spellConfig.spell.name}}</span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="monster.innateSpellcaster" class="form-group">
+  <label>{{ 'Headers.InnateSpellcasting' | translate }}</label>
+
+  <div class="nested form-group">
+    <!--Spellcaster Level-->
+    <div class="caster-type-container">
+      <label>{{ 'Labels.InnateSpellcasterLevel' | translate }}</label>
+      <span>{{monster.innateSpellcasterLevel.name}}</span>
+    </div>
+
+    <!--Spellcasting Ability-->
+    <div class="spellcasting-ability-container">
+      <label>{{ 'Navigation.Manage.Spells.InnateSpellcastingAbility' | translate }}</label>
+      <span>{{innateSpellcastingAbility == null ? ('None' | translate) : innateSpellcastingAbility.name}}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.InnateSpellAttack' | translate }}</label>
+      <span>{{innateSpellAttackTotal}}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.InnateSpellSave' | translate }}</label>
+      <span>{{innateSpellSaveTotal}}</span>
+    </div>
+  </div>
+
+  <!--Innate Spells-->
+  <div class="nested form-group" *ngIf="monster.innateSpells.length > 0">
+    <label>{{ 'Headers.InnateSpells' | translate }}</label>
+
+    <div *ngFor="let spellConfig of monster.innateSpells" class="nested">
+      <span>{{spellConfig.spell.name}}</span>
+    </div>
+  </div>
+</div>
+
+<!--Items-->
+<div class="form-group" *ngIf="monster.items.length > 0">
+  <label>{{ 'Headers.Items' | translate }}</label>
+
+  <div *ngFor="let itemQuantity of monster.items" class="nested">
+    <span>{{itemQuantity.item.name}}</span>
+    <app-quantity-tag class="quantity-tag" [quantity]="itemQuantity.quantity" [alwaysShowQuantity]="true"></app-quantity-tag>
+  </div>
+</div>
+
+<!--Actions-->
+<div class="form-group" *ngIf="actions.length > 0">
+  <label>{{ 'Headers.Actions' | translate }}</label>
+  <ng-container *ngFor="let action of actions">
+    <div class="nested">
+      <span>{{action.name}}</span>
+    </div>
+  </ng-container>
+</div>
+
+<!--Features-->
+<div class="form-group" *ngIf="features.length > 0">
+  <label>{{ 'Headers.Features' | translate }}</label>
+  <ng-container *ngFor="let feature of features">
+    <div class="nested">
+      <span>{{feature.name}}</span>
+    </div>
+  </ng-container>
+</div>
+
+<!--Description-->
+<div class="form-group" *ngIf="monster.description.length > 0">
+  <label>{{ 'Labels.Description' | translate }}</label>
+  <span class="info-description">{{monster.description}}</span>
+</div>

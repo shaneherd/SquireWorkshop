@@ -1,0 +1,16 @@
+<mat-drawer-container class="dashboard-container"
+                      [hasBackdrop]="true">
+  <mat-drawer #drawer mode="over" class="side-nav" [ngClass]="{
+          'mobile': !isDesktop
+       }" position="start">
+    <router-outlet name="side-nav"></router-outlet>
+  </mat-drawer>
+  <mat-drawer #drawer2 mode="over" class="side-nav" position="end">
+    <app-user-menu class="user-menu"></app-user-menu>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="middle-nav">
+      <router-outlet name="middle-nav"></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

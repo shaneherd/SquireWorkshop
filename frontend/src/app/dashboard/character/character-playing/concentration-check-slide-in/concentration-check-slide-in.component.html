@@ -1,0 +1,54 @@
+<app-details headerName="{{ 'Headers.Concentration' | translate }}"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="rollConcentration()"
+             [primaryDisabled]="concentratingSpell == null"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Roll' | translate }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+
+  <div class="form-group">
+    <div class="form-group">
+      <label>{{ 'Labels.Spell' | translate }}</label>
+      <span *ngIf="concentratingSpell != null">{{concentratingSpell.spell.name}}</span>
+      <span *ngIf="concentratingSpell == null">{{ 'None' | translate }}</span>
+    </div>
+
+    <div>
+      <label>{{ 'Labels.ConstitutionSave' | translate }}</label>
+      <span>{{conSave}}</span>
+    </div>
+
+    <div *ngFor="let modifier of modifierDisplays;">
+      <app-label-value [labelValue]="modifier"></app-label-value>
+    </div>
+
+    <div *ngIf="concentrationMisc !== '+0'">
+      <label>{{ 'Labels.Modifier' | translate }}</label>
+      <span>{{concentrationMisc}}</span>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Labels.Total' | translate }}</label>
+      <span>{{total}}</span>
+    </div>
+
+    <div class="on-dark">
+      <app-advantage-configuration [proficiency]="proficiency">
+      </app-advantage-configuration>
+    </div>
+  </div>
+
+  <div class="form-group allow-line-break">
+    {{ 'Messages.Concentration' | translate }}
+  </div>
+</app-details>
+
+<app-concentration-check-configuration-slide-in *ngIf="configuring"
+                                                [creature]="creature"
+                                                [collection]="collection"
+                                                (save)="saveConfigurations()"
+                                                (close)="closeConfigurations()">
+</app-concentration-check-configuration-slide-in>

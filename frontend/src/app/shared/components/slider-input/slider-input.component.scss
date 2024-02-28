@@ -1,0 +1,19 @@
+input {
+  width: 85px;
+  display: inline;
+}
+
+.slider-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .grow {
+    flex-grow: 1;
+  }
+
+  .shrink {
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+}

@@ -1,0 +1,268 @@
+<div class="form-group row basic-container">
+  <div class="cards-container">
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    hp-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="hpClick()"
+                class="progress-card">
+        <div class="health-card-details">
+          <div class="health-info-container">
+            <label>{{ 'Labels.HP' | translate }}</label>
+            <span [matTooltip]="currentHPTooltip">{{currentHP}}/</span>
+            <span [matTooltip]="maxHPTooltip">{{maxHP}}</span>
+          </div>
+
+          <div *ngIf="isDying" class="death-saves-container">
+            <div class="death-saves-row">
+              <div class="death-save-icon"><i class="far fa-check-square" [ngClass]="{'fas': playerCharacter.creatureHealth.numDeathSaveThrowSuccesses >= 1}"></i></div>
+              <div class="death-save-icon"><i class="far fa-check-square" [ngClass]="{'fas': playerCharacter.creatureHealth.numDeathSaveThrowSuccesses >= 2}"></i></div>
+              <div class="death-save-icon"><i class="far fa-check-square" [ngClass]="{'fas': playerCharacter.creatureHealth.numDeathSaveThrowSuccesses >= 3}"></i></div>
+            </div>
+            <div class="death-saves-row">
+              <div class="death-save-icon"><i class="far fa-window-close" [ngClass]="{'fas': playerCharacter.creatureHealth.numDeathSaveThrowFailures >= 1}"></i></div>
+              <div class="death-save-icon"><i class="far fa-window-close" [ngClass]="{'fas': playerCharacter.creatureHealth.numDeathSaveThrowFailures >= 2}"></i></div>
+              <div class="death-save-icon"><i class="far fa-window-close" [ngClass]="{'fas': playerCharacter.creatureHealth.numDeathSaveThrowFailures >= 3}"></i></div>
+            </div>
+          </div>
+
+          <div class="tags-container">
+          <span class="tag"
+                *ngIf="bloody">
+            <span>{{ 'Bloody' | translate }}</span>
+          </span>
+          <span class="tag"
+                  *ngIf="isDead">
+            <span>{{ 'Dead' | translate }}</span>
+          </span>
+          </div>
+        </div>
+
+        <app-tiered-progress-bar *ngIf="playerCharacter.characterSettings.misc.showHealthProgressBar"
+                                 class="hp-progress"
+                                 [value]="currentHP"
+                                 [max]="maxHP"
+                                 [ascending]="true">
+        </app-tiered-progress-bar>
+      </mat-card>
+    </div>
+
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    level-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="levelClick()"
+                class="progress-card">
+        <label>{{ 'Labels.CharacterLevel' | translate }}</label>
+        <span [matTooltip]="levelTooltip">{{level}}</span>
+        <mat-progress-bar mode="determinate"
+                          class="exp-progress"
+                          [value]="expProgress"
+                          *ngIf="playerCharacter.characterSettings.misc.showLevelProgressBar">
+        </mat-progress-bar>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="cards-container">
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    ac-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="acClick()">
+        <label>{{ 'Labels.AC' | translate }}</label>
+        <span [matTooltip]="acTooltip">{{ac}}</span>
+      </mat-card>
+    </div>
+
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    initiative-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="initiativeClick()">
+        <label>{{ 'Labels.Initiative' | translate }}</label>
+        <span [matTooltip]="initiativeTooltip">{{initiative}}</span>
+
+        <div class="tags-container" *ngIf="initiativeProficiency != null">
+          <app-advantage-display [proficiency]="initiativeProficiency.proficiency">
+          </app-advantage-display>
+
+          <app-proficiency-display [proficiency]="initiativeProficiency.proficiency"
+                                   [inherited]="initiativeProficiency.inheritedFrom.length > 0">
+          </app-proficiency-display>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="cards-container">
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    speed-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="speedClick()">
+        <label>{{ 'Labels.Speed' | translate }}</label>
+        <span [matTooltip]="speedTooltip">{{speed}}</span>
+        <span> ({{ 'SpeedType.' + speedType | translate }})</span>
+      </mat-card>
+    </div>
+
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    carrying-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="carryingClick()" class="progress-card">
+        <label>{{ 'Labels.Carrying' | translate }}</label>
+        <span [matTooltip]="carryingTooltip">{{carrying}}</span>
+        <div class="tags-container">
+          <span class="tag"
+              matTooltip="{{ 'Tooltips.Encumbered' | translate }}"
+              *ngIf="isEncumbered && !isHeavilyEncumbered">
+            <span>{{ 'Headers.EncumberedAbbr' | translate }}</span>
+          </span>
+          <span class="tag"
+                  matTooltip="{{ 'Tooltips.HeavilyEncumbered' | translate }}"
+                  *ngIf="isHeavilyEncumbered">
+            <span>{{ 'Headers.HeavilyEncumberedAbbr' | translate }}</span>
+          </span>
+          <span class="tag"
+                *ngIf="atMax">
+            <span>{{ 'Max' | translate }}</span>
+          </span>
+        </div>
+        <app-tiered-progress-bar *ngIf="playerCharacter.characterSettings.misc.showCarryingProgressBar"
+                                 class="carrying-progress"
+                                 [value]="weight"
+                                 [max]="carryingLimit"
+                                 [tier2]="encumberedLimit"
+                                 [tier3]="heavilyEncumberedLimit"
+                                 [ascending]="false">
+        </app-tiered-progress-bar>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="cards-container">
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    prof-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="profClick()">
+        <label>{{ 'Labels.ProfBonus' | translate }}</label>
+        <span [matTooltip]="proficiencyBonusTooltip">{{proficiencyBonus}}</span>
+      </mat-card>
+    </div>
+
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    inspiration-->
+      <mat-card [ngClass]="{'clickable': !clickDisabled}"
+                (click)="inspirationClick()">
+        <label>{{ 'Labels.Inspiration' | translate }}</label>
+        <i *ngIf="!playerCharacter.inspiration" class="far fa-square"></i>
+        <i *ngIf="playerCharacter.inspiration" class="far fa-check-square"></i>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="cards-container" *ngIf="!fromEncounter">
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    short rest-->
+      <mat-card [ngClass]="{
+                'clickable': !clickDisabled && !isDying && !isDead,
+                'card-disabled': isDying || isDead
+              }"
+                (click)="shortRestClick()">
+        <span>{{ 'Headers.ShortRest' | translate }}</span>
+      </mat-card>
+    </div>
+
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    long rest-->
+      <mat-card [ngClass]="{
+                'clickable': !clickDisabled && !isDying && !isDead,
+                'card-disabled': isDying || isDead
+              }"
+                (click)="longRestClick()">
+        <span>{{ 'Headers.LongRest' | translate }}</span>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="cards-container" *ngIf="fromEncounter">
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    delay turn-->
+      <mat-card [ngClass]="{ 'clickable': !clickDisabled }"
+                (click)="delayTurnClick()">
+        <span>{{ 'Headers.DelayTurn' | translate }}</span>
+      </mat-card>
+    </div>
+
+    <div [ngClass]="{'half-column': !singleColumn, 'full-column': singleColumn}" class="basic-card">
+      <!--    flee-->
+      <mat-card [ngClass]="{ 'clickable': !clickDisabled }"
+                (click)="fleeClick()">
+        <span>{{ 'Headers.Flee' | translate }}</span>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<app-ac-details *ngIf="viewingAC"
+                [creature]="playerCharacter"
+                [collection]="collection"
+                (close)="closeClick()">
+</app-ac-details>
+
+<app-carrying-details *ngIf="viewingCarrying"
+                      [playerCharacter]="playerCharacter"
+                      [collection]="collection"
+                      (close)="closeClick()">
+</app-carrying-details>
+
+<app-health-details *ngIf="viewingHP && !isDead"
+                    [creature]="playerCharacter"
+                    [collection]="collection"
+                    (save)="healthSaveClick()"
+                    (close)="closeClick()">
+</app-health-details>
+
+<app-resurrection-details *ngIf="viewingHP && isDead"
+                          [playerCharacter]="playerCharacter"
+                          [collection]="collection"
+                          (resurrect)="healthSaveClick()"
+                          (close)="closeClick()">
+</app-resurrection-details>
+
+<app-initiative-details *ngIf="viewingInitiative"
+                        [playerCharacter]="playerCharacter"
+                        [collection]="collection"
+                        (close)="closeClick()">
+</app-initiative-details>
+
+<app-level-details *ngIf="viewingLevel"
+                   [playerCharacter]="playerCharacter"
+                   [collection]="collection"
+                   [disabled]="isPublic || isShared"
+                   (save)="saveClick()"
+                   (close)="closeClick()">
+</app-level-details>
+
+<app-short-rest-details *ngIf="viewingShortRest"
+                        [playerCharacter]="playerCharacter"
+                        [collection]="collection"
+                        (save)="closeClick()"
+                        (close)="closeClick()">
+</app-short-rest-details>
+
+<app-long-rest-details *ngIf="viewingLongRest"
+                       [playerCharacter]="playerCharacter"
+                       [collection]="collection"
+                       (save)="closeClick()"
+                       (close)="closeClick()">
+</app-long-rest-details>
+
+<app-proficiency-bonus-details *ngIf="viewingProf"
+                               [creature]="playerCharacter"
+                               [collection]="collection"
+                               (close)="closeClick()">
+</app-proficiency-bonus-details>
+
+<app-speed-details *ngIf="viewingSpeed"
+                   [creature]="playerCharacter"
+                   [collection]="collection"
+                   (save)="closeClick()"
+                   (close)="closeClick()">
+</app-speed-details>

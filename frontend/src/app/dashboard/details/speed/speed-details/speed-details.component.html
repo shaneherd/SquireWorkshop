@@ -1,0 +1,27 @@
+<app-details headerName="{{ 'Headers.Speed' | translate }}"
+             [configurable]="true"
+             (configure)="configure()"
+             (close)="closeDetails()"
+             (primary)="saveDetails()"
+             (secondary)="closeDetails()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Close' | translate }}"
+             class="details">
+  <mat-radio-group [(ngModel)]="speedToDisplay">
+    <div *ngFor="let speed of speeds;" class="form-group speed">
+      <mat-radio-button class="on-dark" [value]="speed.speedType"></mat-radio-button>
+      <app-single-speed-details [creature]="creature"
+                                [collection]="collection"
+                                [speed]="speed"
+                                [configuring]="false">
+      </app-single-speed-details>
+    </div>
+  </mat-radio-group>
+</app-details>
+
+<app-speed-configuration *ngIf="configuring"
+                         [creature]="creature"
+                         [collection]="collection"
+                         (save)="saveConfigurations()"
+                         (close)="closeConfigurations()">
+</app-speed-configuration>

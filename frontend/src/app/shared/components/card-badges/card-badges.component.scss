@@ -1,0 +1,30 @@
+@import '../../../sass/variables';
+
+.badge-container {
+  position: absolute;
+  top: -5px;
+  right: 5px;
+}
+
+@mixin badge-theme($theme) {
+  $quantity: mat-color($squire-red, 900);
+  $nested: $info-color;
+  $charges: $secondary_color;
+  $spellCount: $warn-background;
+
+  .quantity .badge {
+    background-color: $quantity;
+  }
+
+  .nested-count .badge {
+    background-color: $nested;
+  }
+
+  .charges .badge {
+    background-color: $charges;
+  }
+
+  .spell-count .badge {
+    background-color: $spellCount;
+  }
+}

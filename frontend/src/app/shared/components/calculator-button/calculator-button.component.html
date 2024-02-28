@@ -1,0 +1,9 @@
+<div class="calculator-button"
+     [ngClass]="{
+      'clickable': clickable,
+      'disabled': disabled
+     }"
+     (mousedown)="mousedown()"
+     (mouseup)="mouseup()">
+  <ng-content></ng-content>
+</div>

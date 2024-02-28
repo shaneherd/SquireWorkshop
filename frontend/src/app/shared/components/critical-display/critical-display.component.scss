@@ -1,0 +1,9 @@
+@import '../../../sass/variables';
+
+.critical {
+  background-color: $skill_with_advantage_background;
+
+  span {
+    color: #ffffff;
+  }
+}

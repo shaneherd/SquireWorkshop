@@ -1,0 +1,10 @@
+<app-dialog title="{{ 'Sorting' | translate }}"
+            primaryLabel="{{ 'Apply' | translate }}"
+            (primary)="apply()"
+            secondaryLabel="{{ 'Cancel' | translate }}"
+            (secondary)="cancel()"
+            tertiaryLabel="{{ 'Clear' | translate }}"
+            (tertiary)="clear()"
+            (close)="cancel()">
+  <app-sort [sortValue]="sortValue" [options]="options"></app-sort>
+</app-dialog>

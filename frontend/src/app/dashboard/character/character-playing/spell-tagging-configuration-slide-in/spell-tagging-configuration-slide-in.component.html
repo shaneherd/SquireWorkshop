@@ -1,0 +1,32 @@
+<app-details headerName="{{ 'Headers.Tagging' | translate }}"
+             (close)="closeClick()"
+             (primary)="saveClick()"
+             (secondary)="closeClick()"
+             primaryLabel="{{ 'Save' | translate }}"
+             secondaryLabel="{{ 'Cancel' | translate }}">
+  <mat-accordion>
+    <div *ngFor="let tagCollection of tags;">
+      <app-spell-tagging-configuration [creature]="creature"
+                                       [tagCollection]="tagCollection"
+                                       (tagClick)="tagClick($event)"
+                                       (spellClick)="spellClick($event)">
+      </app-spell-tagging-configuration>
+    </div>
+  </mat-accordion>
+
+  <app-spell-details-slide-in *ngIf="viewingSpell != null"
+                              [creatureSpell]="viewingSpell"
+                              [attackModifier]="attackModifier"
+                              [saveModifier]="saveModifier"
+                              [creature]="creature"
+                              [collection]="collection"
+                              [castable]="false"
+                              (close)="closeSpellDetails()">
+  </app-spell-details-slide-in>
+
+  <app-tag-color-configuration-slide-in *ngIf="viewingTag != null"
+                                        [tag]="viewingTag"
+                                        (apply)="applyTag()"
+                                        (close)="closeTag()">
+  </app-tag-color-configuration-slide-in>
+</app-details>

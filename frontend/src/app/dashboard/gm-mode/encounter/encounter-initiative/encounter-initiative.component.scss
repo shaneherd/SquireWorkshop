@@ -1,0 +1,46 @@
+@import '../../../../sass/variables';
+
+.round-turn {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000000;
+  font-weight: bold;
+  background-color: $info-color;
+  color: #ffffff;
+
+  .collapse-icon {
+    width: 30px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .round-value {
+    text-align: center;
+    flex-grow: 1;
+
+    &.with-icon {
+      margin-right: 30px;
+    }
+  }
+}
+
+.encounter-initiative-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.combat-rows {
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.combat-footer {
+  flex-shrink: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}

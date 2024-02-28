@@ -1,0 +1,47 @@
+@import '../../../sass/variables';
+
+.import-icon {
+  margin-right: 10px;
+}
+
+.import-action-container {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fa-minus-circle {
+  color: $primary_color;
+}
+
+.fa-plus-circle {
+  color: $info-color;
+}
+
+.fa-check-circle,
+.fa-dot-circle {
+  color: $secondary_color;
+}
+
+.fa-sync-alt {
+  color: #000000;
+}
+
+.unconfirmed-duplicates {
+  margin-top: 20px;
+}
+
+.unconfirmed-warning {
+  position: absolute;
+  top: -4px;
+  right: 1px;
+  border-radius: 10px;
+  margin-left: 2px;
+  background-color: $primary_color;
+  color: #ffffff;
+}
+
+.status-container {
+   position: relative;
+ }
