@@ -16,8 +16,7 @@ services:
     networks:
       - internal
   frontend:
-    # TODO replace with correct image once it is available
-    image: ghcr.io/maybeanerd/squire-workshop-frontend:1.0.0
+    image: ghcr.io/shaneherd/SquireWorkshop-frontend:1.0.0
     depends_on:
       - backend
     container_name: 'Squire-Frontend'
@@ -30,8 +29,7 @@ services:
     networks:
       - internal
   backend:
-    # TODO replace with correct image once it is available
-    image: ghcr.io/maybeanerd/squire-workshop-backend:1.0.0
+    image: ghcr.io/shaneherd/SquireWorkshop-backend:1.0.0
     extends:
       file: docker-compose.config.yml
       service: backend
@@ -55,8 +53,7 @@ services:
     networks:
       - internal
   database:
-    # TODO replace with correct image once it is available
-    image: ghcr.io/maybeanerd/squire-workshop-database:1.0.0
+    image: ghcr.io/shaneherd/SquireWorkshop-database:1.0.0
     extends:
       file: docker-compose.config.yml
       service: database
