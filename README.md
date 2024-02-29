@@ -176,6 +176,17 @@ volumes:
 ### Prerequisites
 Install Docker on your machine. An easy way to do this is by using [Docker Desktop](https://docs.docker.com/get-docker/), but you could also use [other tools or methods](https://docs.docker.com/engine/install/).
 
+#### Log in to the GitHub Container Registry (required for deployment)
+To be able to pull images from GitHubs container registry (where the official squire images reside), you need to log in using your GitHub account.
+
+You can find a detailed guide on how to do this [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic).
+
+The TL;DR is:
+Create a personal access token with the `read:packages` scope on https://github.com/settings/tokens and use it to log into the GitHub Container Registry with the following command:
+```
+echo YOUR_TOKEN | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+```
+
 ### Deployment
 
 Choose one of the following, depending on your use case.
