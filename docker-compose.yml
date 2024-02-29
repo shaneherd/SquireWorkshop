@@ -16,7 +16,7 @@ services:
     networks:
       - internal
   frontend:
-    image: ghcr.io/shaneherd/SquireWorkshop-frontend:1.0.0
+    image: ghcr.io/shaneherd/squireworkshop-frontend:1.0.0
     depends_on:
       - backend
     container_name: 'Squire-Frontend'
@@ -29,7 +29,7 @@ services:
     networks:
       - internal
   backend:
-    image: ghcr.io/shaneherd/SquireWorkshop-backend:1.0.0
+    image: ghcr.io/shaneherd/squireworkshop-backend:1.0.0
     extends:
       file: docker-compose.config.yml
       service: backend
@@ -53,7 +53,7 @@ services:
     networks:
       - internal
   database:
-    image: ghcr.io/shaneherd/SquireWorkshop-database:1.0.0
+    image: ghcr.io/shaneherd/squireworkshop-database:1.0.0
     extends:
       file: docker-compose.config.yml
       service: database
